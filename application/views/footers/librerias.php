@@ -7,10 +7,7 @@
 				</div>
 				<div class="col-md-6">
 					<strong><h4><b>Desarrollado por: PINGUINO SYSTEMS S.A DE C.V</b><br> para mas informacion visite <a href="http://www.pinguinosystems.com/PS/">www.pinguinosystems.com</a></h4></strong>
-				</div>
-				<div class="col-sm-4" style="text-align: right;">
-					<img id="logo" class="img-flui max-width: 100%" src="<?=base_url()?>images/fondo trans.png" alt="logo" width="70px"/>
-				</div>
+				</div>				
 			</div>
 			
 		</footer>
