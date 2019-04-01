@@ -1,10 +1,7 @@
-
-CREATE DATABASE SLYL;
-use SLYL;
-
+create database pinguino_citas;
+use pinguino_citas;
 
 DROP TABLE IF EXISTS `cat_niveles`;
-
 CREATE TABLE `cat_niveles`(
 	`id_nivel` int (11) not null auto_increment,
     `departamento` varchar(30),
@@ -29,13 +26,18 @@ CREATE TABLE `usuarios` (
 ) ENGINE=MyISAM AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COLLATE=utf8_unicode_ci;
 
 
+DROP TABLE IF EXISTS `clientes`;
+CREATE TABLE `clientes` (
+`id_cliente` int(11) NOT NULL AUTO_INCREMENT,
+`nombre_cliente` varchar(100) COLLATE utf8_unicode_ci DEFAULT NULL,
+`telefono_cliente` varchar(15) COLLATE utf8_unicode_ci DEFAULT NULL,
+`correo_cliente` varchar(60) COLLATE utf8_unicode_ci DEFAULT NULL,
+`fecha_nacimiento` varchar(10) COLLATE utf8_unicode_ci DEFAULT NULL,
+PRIMARY KEY (`id_cliente`)
+);
 
 INSERT INTO `cat_niveles` (departamento, nivel_usuario) VALUES ('ROOT', '0');
 INSERT INTO `cat_niveles` (departamento, nivel_usuario) VALUES ('ADMINISTRADOR', '1');
-INSERT INTO `cat_niveles` (departamento, nivel_usuario) VALUES ('CONTABILIDAD', '2');
-INSERT INTO `cat_niveles` (departamento, nivel_usuario) VALUES ('DISEÑO', '3');
-INSERT INTO `cat_niveles` (departamento, nivel_usuario) VALUES ('VENTAS', '4');
-INSERT INTO `cat_niveles` (departamento, nivel_usuario) VALUES ('PRODUCCIÓN', '5');
 
 -- ----------------------------
 -- Records of usuarios
