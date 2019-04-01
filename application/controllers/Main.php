@@ -12,7 +12,7 @@ class Main extends CI_Controller {
 
 	public function index()
 	{			
-		if($this->session->userdata('logueado') != 0)
+		if($this->session->userdata('logueado') == TRUE)
 		{
 			$data = array(
 				//PARAMETRO FALSE CUANDO NO ES CLIENTE TRUE CUANDO SI LO ES
@@ -32,9 +32,12 @@ class Main extends CI_Controller {
 
 	public function login()
 	{		
-		$usuario = trim($this->input->post('txt_usuario'));
-		$password = trim($this->input->post('txt_password'));
-		$query = $this->Main_model->auntenticar($usuario,$password);
+		$data = array(
+			'usuario' => $this->input->post('txt_usuario',true),
+			'password' => $this->input->post('txt_password',true),
+		);
+
+		$query = $this->Main_model->auntenticar($data);
 		if($query == false)
 		{	
 			$script = array('mensajes_swal' => 'swal("ERROR","Usuario o password Incorrectos", "error");');
@@ -60,7 +63,7 @@ class Main extends CI_Controller {
 				'apellido_m' => $apellido_m,
 				'password' => $password,
 				'nivel' => $nivel,
-				'logueado'=> 1,
+				'logueado'=> TRUE,
 			);
 
 			$this->session->set_userdata($newdata);

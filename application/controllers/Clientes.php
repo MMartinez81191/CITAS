@@ -11,22 +11,38 @@ class Clientes extends CI_Controller {
 
 	public function index()
 	{
-		$data = array(
-			'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
-		);
+		
+		if($this->session->userdata('logueado') == TRUE)
+		{
+			$data = array(
+				'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
+			);
 
-		$this->load->view('headers/librerias');
-		$this->load->view('headers/menu');
-		$this->load->view('clientes/lista_clientes',$data);
-		$this->load->view('footers/librerias');
+			$this->load->view('headers/librerias');
+			$this->load->view('headers/menu');
+			$this->load->view('clientes/lista_clientes',$data);
+			$this->load->view('footers/librerias');
+		}else
+		{
+			$script = '';
+			$this->load->view('inicio/login',$script);
+		}
 	}
 
 	public function add_client()
 	{
-		$this->load->view('headers/librerias');
-		$this->load->view('headers/menu');
-		$this->load->view('clientes/add_clientes');
-		$this->load->view('footers/librerias');
+		if($this->session->userdata('logueado') == TRUE)
+		{
+			$this->load->view('headers/librerias');
+			$this->load->view('headers/menu');
+			$this->load->view('clientes/add_clientes');
+			$this->load->view('footers/librerias');
+		}else
+		{
+			$script = '';
+			$this->load->view('inicio/login',$script);
+		}
+		
 	}
 
 	public function crear_cliente()

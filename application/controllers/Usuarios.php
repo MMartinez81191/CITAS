@@ -11,28 +11,45 @@ class Usuarios extends CI_Controller {
 
 	public function index()
 	{
-		$data = array(
-			//PARAMETRO FALSE CUANDO NO ES CLIENTE TRUE CUANDO SI LO ES
-			'DATA_USUARIOS' => $this->Usuarios_model->get_usuarios(),
-			'DATA_NIVELES' => $this->Usuarios_model->get_niveles(),
-		);
+		if($this->session->userdata('logueado') == TRUE)
+		{
+			$data = array(
+				//PARAMETRO FALSE CUANDO NO ES CLIENTE TRUE CUANDO SI LO ES
+				'DATA_USUARIOS' => $this->Usuarios_model->get_usuarios(),
+				'DATA_NIVELES' => $this->Usuarios_model->get_niveles(),
+			);
 
-		$this->load->view('headers/librerias');
-		$this->load->view('headers/menu');
-		$this->load->view('usuarios/lista_usuarios',$data);
-		$this->load->view('footers/librerias');
+			$this->load->view('headers/librerias');
+			$this->load->view('headers/menu');
+			$this->load->view('usuarios/lista_usuarios',$data);
+			$this->load->view('footers/librerias');
+		}else
+		{
+			$script = '';
+			$this->load->view('inicio/login',$script);
+		}
+		
 	}
 
 	public function add_user()
 	{
-		$data = array(
-			'DATA_NIVELES' => $this->Usuarios_model->get_niveles(),
-		);
+		if($this->session->userdata('logueado') == TRUE)
+		{
+			$data = array(
+				'DATA_NIVELES' => $this->Usuarios_model->get_niveles(),
+			);
 
-		$this->load->view('headers/librerias');
-		$this->load->view('headers/menu');
-		$this->load->view('usuarios/add_usuarios',$data);
-		$this->load->view('footers/librerias');
+			$this->load->view('headers/librerias');
+			$this->load->view('headers/menu');
+			$this->load->view('usuarios/add_usuarios',$data);
+			$this->load->view('footers/librerias');
+		}else
+		{
+			$script = '';
+			$this->load->view('inicio/login',$script);
+		}
+
+		
 	}
 
 	public function crear_usuarios()
