@@ -25,24 +25,31 @@
 								<tr>
 									<th><center>#</center></th>
 									<th><center>Cliente</center></th>
-									<th><center>Departamento</center></th>
+									<th><center>Telefono</center></th>
+									<th><center>Correo</center></th>
 									<th class="no-sort"><center>Opciones</center></th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php if($DATA_USUARIOS != FALSE) {
-									foreach ($DATA_USUARIOS as $row) {
+								<?php if($DATA_CLIENTES != FALSE) {
+									foreach ($DATA_CLIENTES->result() as $row) {
 								?>
-									<tr id="tr_<?= $row->id_usuario; ?>" name="tr_<?= $row->id_usuario; ?>" >
-										<td><center><?= $row->id_usuario;?></center></td>
-										<td><center><?= $row->nombre.' '.$row->apellido_p.' '.$row->apellido_m; ?></center></td>
-										<td>
-											<center>
-												<button data-id="<?= $row->id_usuario; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_usuarios_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Usuario" ></span></button>
+									<tr id="tr_<?= $row->id_cliente;?>" name="tr_<?= $row->id_cliente; ?>" >
+										<td><center><?= $row->id_cliente;?></center></td>
+										<td><center>
+											<?= $row->nombre_cliente;?>
+										</center></td>
+										<td><center>
+											<?= $row->telefono_cliente;?>
+										</center></td>
+										<td><center>
+											<?= $row->correo_cliente;?>
+										</center></td>
+										<td><center>
+											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Cliente" ></span></button>
 
-												<button data-id="<?= $row->id_usuario; ?>" class="btn btn-danger eliminar_user" title="Eliminar Usuario" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
-											</center>
-										</td>
+											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-danger eliminar_cliente" title="Eliminar Cliente" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+										</center></td>
 									</tr>
 								<?php
 									}
@@ -58,7 +65,7 @@
 
 
 <!-- MODAL PARA EDITAR LOS USUARIOS -->
-<div class="modal fade" id="modal_usuarios_editar" tabindex="-1" role="dialog" aria-hidden="true" >
+<div class="modal fade" id="modal_cliente_editar" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" >
             <div class="modal-header">
@@ -76,14 +83,9 @@
 				 		</div>
 
 				 		<div class="form-group col-lg-4">
-				 			<label >Apellido Paterno:</label>
+				 			<label >Telefono</label>
 							<input type="text" class="form-control" required id="txt_apellido_p_editar" name="txt_apellido_p_editar" placeholder="APELLIDO PATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
-				 		</div>
-
-				 		<div class="form-group col-lg-4">
-				 			<label >Apellido Materno:</label>
-							<input type="text" class="form-control" required id="txt_apellido_m_editar" name="txt_apellido_m_editar" placeholder="APELLIDO MATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
-				 		</div>				 		
+				 		</div>			 		
 					</div>
 
 			 		<div class="row" style="margin-top: 30px;">
@@ -91,41 +93,15 @@
 				 			<label >Correo:</label>
 							<input type="email" class="form-control" id=txt_user_editar name="txt_user_editar" placeholder="CORREO ELECTRONICO" maxlength="150" required>
 				 		</div>
-				 		<div class="col-lg-4">
-                            <label >Niveles:</label>
-                            <select class="form-control" style="width: 100%;" id="select_nivel_editar" name="select_nivel_editar" required>
-	                               <?php
-	                                if($DATA_NIVELES != FALSE)
-		                            {		                                
-		                                foreach ($DATA_NIVELES->result() as $row)
-		                                {
-		                                    echo '<option value="'.$row->id_nivel.'"';
-		                                    if($row->id_nivel == $id_nivel)
-		                                    {
-		                                        echo ' selected';
-		                                    }
-		                                    echo '>';
-		                                        echo $row->departamento;
-		                                    echo '</option>';                                
-		                                }
-		                            
-		                            }                                      
-	                            ?>
-                            </select>
-                        </div>
-				 		<!--<div class="form-group col-lg-7">
-                            <label class="col-lg-12" >Empresas:</label>
-                            <select class="form-control select2 " multiple="multiple"  style="width: 100%;" id="select_empresas_editar" name="select_empresas_editar[]" required>
-                                <?php foreach ($DATA_EMPRESAS as $single_key) { ?>
-                                    <option value="<?= $single_key->id_empresa; ?>"><?= $single_key->razonSocial; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>-->
+				 		<div class="form-group col-lg-4">
+				 			<label >Fecha de nacimiento:</label>
+							<input type="text" class="form-control" required id="txt_apellido_m_editar" name="txt_apellido_m_editar" placeholder="APELLIDO MATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+				 		</div>	
 	 				</div>
 	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	                    <button type="submit" class="btn btn-primary" style="background-color: #62374e">Guardar</button>
+	                    <button type="submit" class="btn btn-primary">Guardar</button>
 	                </div>
 				</form> 
             </div>

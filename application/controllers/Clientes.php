@@ -12,7 +12,7 @@ class Clientes extends CI_Controller {
 	public function index()
 	{
 		$data = array(
-			'DATA_USUARIOS' => $this->Clientes_model->get_clientes(),
+			'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
 		);
 
 		$this->load->view('headers/librerias');
@@ -34,7 +34,7 @@ class Clientes extends CI_Controller {
 		if($this->input->is_ajax_request()){
 			$data = array(				
 				'nombre_cliente' => trim($this->input->post('nombre')),
-				'correo_cliente' => trim($this->input->post('cliente_email')),
+				'correo_cliente' => trim($this->input->post('correo_cliente')),
 				'telefono_cliente' => trim($this->input->post('telefono_cliente')),
 				'fecha_nacimiento' => trim($this->input->post('fecha_nacimiento')),
 			);
@@ -51,7 +51,7 @@ class Clientes extends CI_Controller {
 
 			$id_cliente = $this->input->post('id_cliente');
 
-			$this->Clientes_model->delete_cliente($id_cliente);
+			$this->Clientes_model->delete_clientes($id_cliente);
 
 		}else{
             show_404();
