@@ -119,28 +119,24 @@
 		            	<div class="row">
 					 		<div class="form-group col-lg-12">	
 					 			<label >Fecha y Hora de la Cita:</label>
-								<input type="text" class="form-control" required id="txt_nombre_editar" name="txt_nombre_editar" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+								<div class='col-sm-12'>
+								            <div class="form-group">
+								                <div class='input-group date' id='datetimepicker1'>
+								                    <input type='text' class="form-control" />
+								                    <span class="input-group-addon">
+								                        <span class="glyphicon glyphicon-calendar"></span>
+								                    </span>
+								                </div>
+								            </div>
+								        </div>
+								        <script type="text/javascript">
+								            $(function () {
+								                $('#datetimepicker1').datetimepicker();
+								            });
+								        </script>
 					 		</div>				 		
 						</div>
-						<div class="container">
-						    <div class="row">
-						        <div class='col-sm-6'>
-						            <div class="form-group">
-						                <div class='input-group date' id='datetimepicker1'>
-						                    <input type='text' class="form-control" />
-						                    <span class="input-group-addon">
-						                        <span class="glyphicon glyphicon-calendar"></span>
-						                    </span>
-						                </div>
-						            </div>
-						        </div>
-						        <script type="text/javascript">
-						            $(function () {
-						                $('#datetimepicker1').datetimepicker();
-						            });
-						        </script>
-						    </div>
-						</div>
+						
 					 	<div class="row modal-footer" style="margin-top: 10px;">
 		                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 		                    <button type="submit" class="btn btn-primary">Guardar</button>

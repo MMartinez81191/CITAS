@@ -44,3 +44,15 @@ INSERT INTO `cat_niveles` (departamento, nivel_usuario) VALUES ('ADMINISTRADOR',
 -- ----------------------------
 INSERT INTO `usuarios` VALUES ('1', 'root@pinguinosystems.com', 'MARTIN FRANCISCO', 'MARTINEZ', 'FEDERICO', '1', '123456', '1');
 
+
+DROP TABLE IF exists `citas`;
+
+CREATE TABLE `citas`(
+  `id_cita` INT(11) NOT NULL auto_increment,
+    `id_cliente` INT(11),
+    `fecha` date,
+    `hora` time,
+    `activo` int(11),
+    primary key(`id_cita`)
+
+);

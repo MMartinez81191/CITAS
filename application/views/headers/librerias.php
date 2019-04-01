@@ -43,8 +43,11 @@
         <script src="<?= base_url(); ?>template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
+        <!--Calendar-->
         <script type="text/javascript" src="<?= base_url(); ?>js/moment/moment.js"></script>
-        <script type="text/javascript" src="<?= base_url(); ?>js/moment/bootstrap-datetimepicker.min.js"></script>
+        <script type="text/javascript" src="<?= base_url(); ?>js/calendar/build/js/bootstrap-datetimepicker.min.js"></script>
+
+
 
         
     </head>
