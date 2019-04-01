@@ -16,7 +16,7 @@ class Main extends CI_Controller {
 		{
 			$data = array(
 				//PARAMETRO FALSE CUANDO NO ES CLIENTE TRUE CUANDO SI LO ES
-				'DATA_CLIENTES' => $this->Clientes_model->get_usuarios(),
+				'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
 			);
 
 			$this->load->view('headers/librerias');

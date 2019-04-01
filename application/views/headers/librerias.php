@@ -42,6 +42,11 @@
         <!-- Bootstrap 3.3.7 -->
         <script src="<?= base_url(); ?>template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
+
+        <script type="text/javascript" src="<?= base_url(); ?>js/moment/moment.js"></script>
+        <script type="text/javascript" src="<?= base_url(); ?>js/moment/bootstrap-datetimepicker.min.js"></script>
+
+        
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
