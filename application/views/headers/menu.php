@@ -36,7 +36,7 @@
                                 <button data-toggle="modal" data-target="#modal_modificar_pass" class="btn btn-default btn-flat">Contraseña</button>
                             </div>
                             <div class="pull-right">
-                                <a href="<?=site_url()?>index.php/main/login" class="btn btn-default btn-flat">Cerrar Sesion</a>
+                                <a href="<?=site_url()?>main/login" class="btn btn-default btn-flat">Cerrar Sesion</a>
                             </div>
                         </li>
                     </ul>

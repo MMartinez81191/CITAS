@@ -27,7 +27,7 @@
 	          	<div class="box">
 		            <div class="box-header">
 		            	<div class="col-lg-offset-10">
-		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/usuarios/add_user"><i class="fa fa-plus"></i> Nuevo Usuario</a>
+		              		<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal_citas_agregar"><i class="fa fa-plus"></i> Nueva Cita</button>
 		              	</div>
 			        </div>
 			    </div>
@@ -87,4 +87,70 @@
 			</div>
 		</div>
 	</section>
+	<div class="modal fade" id="modal_citas_agregar" tabindex="-1" role="dialog" aria-hidden="true" >
+	    <div class="modal-dialog modal-lg" role="document">
+	        <div class="modal-content" >
+	            <div class="modal-header">
+	            	<center><h3 class="modal-title">Agregar Cita</h3></center>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <hr>    
+	            </div>
+	            <div class="modal-body">
+		            <form  name="agregar_cita" id="agregar_cita">
+		            	<div class="row">
+	            			<div class="form-group col-lg-12">
+	                            <label class="">Nombre Cliente:</label>
+	                            <select class="form-control select2" style="width: 100%;" id="select_cliente" name="select_cliente" required>
+		                            <?php
+		                                if($DATA_CLIENTES != FALSE)
+			                            {		                                
+			                                foreach ($DATA_CLIENTES->result() as $row)
+			                                {
+			                                    echo '<option value="'.$row->id_cliente.'">';
+			                                        echo $row->nombre_cliente;
+			                                    echo '</option>';                                
+			                                }
+			                            
+			                            }                                      
+		                            ?>
+	                            </select>
+	                        </div>
+		            	</div>
+		            	<div class="row">
+					 		<div class="form-group col-lg-12">	
+					 			<label >Fecha y Hora de la Cita:</label>
+								<input type="text" class="form-control" required id="txt_nombre_editar" name="txt_nombre_editar" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+					 		</div>				 		
+						</div>
+						<div class="container">
+						    <div class="row">
+						        <div class='col-sm-6'>
+						            <div class="form-group">
+						                <div class='input-group date' id='datetimepicker1'>
+						                    <input type='text' class="form-control" />
+						                    <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+						            </div>
+						        </div>
+						        <script type="text/javascript">
+						            $(function () {
+						                $('#datetimepicker1').datetimepicker();
+						            });
+						        </script>
+						    </div>
+						</div>
+					 	<div class="row modal-footer" style="margin-top: 10px;">
+		                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		                    <button type="submit" class="btn btn-primary">Guardar</button>
+		                </div>
+					</form> 
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>
+
+
+
