@@ -27,7 +27,7 @@
 	          	<div class="box">
 		            <div class="box-header">
 		            	<div class="col-lg-offset-10">
-		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/usuarios/add_user"><i class="fa fa-plus"></i> Nuevo Usuario</a>
+		              		<button type="button" class="btn btn-block btn-primary" data-toggle="modal" data-target="#modal_citas_agregar"><i class="fa fa-plus"></i> Nueva Cita</button>
 		              	</div>
 			        </div>
 			    </div>
@@ -87,4 +87,99 @@
 			</div>
 		</div>
 	</section>
+	<div class="modal fade" id="modal_citas_agregar" tabindex="-1" role="dialog" aria-hidden="true" >
+	    <div class="modal-dialog modal-lg" role="document">
+	        <div class="modal-content" >
+	            <div class="modal-header">
+	            	<center><h3 class="modal-title">Agregar Cita</h3></center>
+	                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+	                <hr>    
+	            </div>
+	            <div class="modal-body">
+		            <form  name="agregar_cita" id="agregar_cita">
+		            	<div class="row">
+		            		<div class="col-lg-12">
+	                            <label class="">Nombre Cliente:</label>
+	                            <select class="form-control select2" style="width: 100%;" id="select_cliente" name="select_cliente" required>
+		                               <?php
+		                                if($DATA_USUARIOS != FALSE)
+			                            {		                                
+			                                foreach ($DATA_USUARIOS->result() as $row)
+			                                {
+			                                    echo '<option value="'.$row->id_cliente.'">';
+			                                        echo $row->nombre_cliente;
+			                                    echo '</option>';                                
+			                                }
+			                            
+			                            }                                      
+		                            ?>
+	                            </select>
+	                        </div>
+		            	</div>
+		            	<div class="row">
+					 		<div class="form-group col-lg-4">	
+					 			<label >:</label>
+								<input type="text" class="form-control" required id="txt_nombre_editar" name="txt_nombre_editar" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+					 		</div>
+
+					 		<div class="form-group col-lg-4">
+					 			<label >Apellido Paterno:</label>
+								<input type="text" class="form-control" required id="txt_apellido_p_editar" name="txt_apellido_p_editar" placeholder="APELLIDO PATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+					 		</div>
+
+					 		<div class="form-group col-lg-4">
+					 			<label >Apellido Materno:</label>
+								<input type="text" class="form-control" required id="txt_apellido_m_editar" name="txt_apellido_m_editar" placeholder="APELLIDO MATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+					 		</div>				 		
+						</div>
+
+				 		<div class="row" style="margin-top: 30px;">
+				 			<div class="form-group col-lg-4">
+					 			<label >Correo:</label>
+								<input type="email" class="form-control" id=txt_user_editar name="txt_user_editar" placeholder="CORREO ELECTRONICO" maxlength="150" required>
+					 		</div>
+					 		<div class="col-lg-4">
+	                            <label >Niveles:</label>
+	                            <select class="form-control" style="width: 100%;" id="select_nivel_editar" name="select_nivel_editar" required>
+		                               <?php
+		                                if($DATA_NIVELES != FALSE)
+			                            {		                                
+			                                foreach ($DATA_NIVELES->result() as $row)
+			                                {
+			                                    echo '<option value="'.$row->id_nivel.'"';
+			                                    if($row->id_nivel == $id_nivel)
+			                                    {
+			                                        echo ' selected';
+			                                    }
+			                                    echo '>';
+			                                        echo $row->departamento;
+			                                    echo '</option>';                                
+			                                }
+			                            
+			                            }                                      
+		                            ?>
+	                            </select>
+	                        </div>
+					 		<!--<div class="form-group col-lg-7">
+	                            <label class="col-lg-12" >Empresas:</label>
+	                            <select class="form-control select2 " multiple="multiple"  style="width: 100%;" id="select_empresas_editar" name="select_empresas_editar[]" required>
+	                                <?php foreach ($DATA_EMPRESAS as $single_key) { ?>
+	                                    <option value="<?= $single_key->id_empresa; ?>"><?= $single_key->razonSocial; ?></option>
+	                                <?php } ?>
+	                            </select>
+	                        </div>-->
+		 				</div>
+		 				<hr>
+					 	<div class="row modal-footer" style="margin-top: 10px;">
+		                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+		                    <button type="submit" class="btn btn-primary">Guardar</button>
+		                </div>
+					</form> 
+	            </div>
+	        </div>
+	    </div>
+	</div>
 </div>
+
+
+
