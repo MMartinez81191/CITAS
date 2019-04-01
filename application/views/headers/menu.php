@@ -103,7 +103,7 @@
                 </ul>
             </li>
             <li class="treeview" >
-                <li><a href="<?=base_url()?>menu_empresas"><i class="fa fa-users"></i><span>Clientes</span></a></li>
+                <li><a href="<?=base_url()?>clientes"><i class="fa fa-users"></i><span>Clientes</span></a></li>
             </li>
             <?php
             }
