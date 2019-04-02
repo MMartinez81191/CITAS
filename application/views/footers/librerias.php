@@ -1,13 +1,12 @@
-	
-
 		<footer class="main-footer">
 			<div class="row">
 				<div class="col-md-1" style="text-align: right;">
 					<img style="width: 60px;height: 60px;" src="<?=base_url()?>images/ps.png">
 				</div>
-				<div class="col-md-6">
+				<div class="col-md-11">
+					
 					<strong><h4><b>Desarrollado por: PINGUINO SYSTEMS S.A DE C.V</b><br> para mas informacion visite <a href="http://www.pinguinosystems.com/PS/">www.pinguinosystems.com</a></h4></strong>
-				</div>				
+				</div>
 			</div>
 			
 		</footer>
@@ -32,10 +31,59 @@
 	<!-- iCheck 1.0.1 -->
 	<script src="<?= base_url(); ?>template/plugins/iCheck/icheck.min.js"></script>
 	<script src="<?= base_url(); ?>template/plugins/bootstrap-slider/bootstrap-slider.js"></script>
+	
+	<script src="<?=base_url(); ?>template/bower_components/moment/min/moment.min.js"></script>
+	<script src="<?=base_url(); ?>template/bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+
+	<script src="<?=base_url(); ?>template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
+
+
+	<script type="text/javascript">
+		/*$(function () {	
+			//Timepicker
+		    $('.timepicker').timepicker({
+		      showInputs: false
+		    })
+		})*/
+	</script>
+
+	<script type="text/javascript">
+	//Date picker
+	    $('#datepicker').datepicker({
+	      autoclose: true
+	    })
+	    	//Date range picker
+	    $('#reservation').daterangepicker()
+	    //Date range picker with time picker
+	    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
+	    //Date range as a button
+	    $('#daterange-btn').daterangepicker(
+	      {
+	        ranges   : {
+	          'Today'       : [moment(), moment()],
+	          'Yesterday'   : [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+	          'Last 7 Days' : [moment().subtract(6, 'days'), moment()],
+	          'Last 30 Days': [moment().subtract(29, 'days'), moment()],
+	          'This Month'  : [moment().startOf('month'), moment().endOf('month')],
+	          'Last Month'  : [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]
+	        },
+	        startDate: moment().subtract(29, 'days'),
+	        endDate  : moment()
+	      },
+	      function (start, end) {
+	        $('#daterange-btn span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
+	      }
+	    )
+
+    </script>
+
+	
+
 	<script type="text/javascript">
 
         $(function () {
 
+        	
         	
 
         	$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
@@ -106,6 +154,8 @@
 
             )
             return false;
+
+        	
     	});
         // FUNCION PARA CARGAR AJAX DESDE CUALQUIER ARCHIVO JS o <script> DEL SISTEMA
         var cargar_ajax = {
@@ -144,49 +194,9 @@
 			    echo '<script src="'.base_url().'js/clientes/clientes.js"></script>';
 		    break;
 
-		    case 'empresas':
-			    echo '<script src="'.base_url().'js/empresas/empresas.js"></script>';
-		    break;
-
-		    case 'responsables':
-			    echo '<script src="'.base_url().'js/responsables/responsables.js"></script>';
-		    break;
-
-		    case 'foda':
-			    switch ($_curAction) {
-			    	case 'index':
-		            	echo '<script src="'.base_url().'js/foda/foda.js"></script>';
-		            break;
-		            case 'add_foda':
-		            	echo '<script src="'.base_url().'js/foda/foda.js"></script>';
-		            break;
-
-		            case 'editar_foda':
-		                echo '<script src="'.base_url().'js/foda/editar_foda.js"></script>';
-		            break;
-		        }
-			break;
-
-
-			case 'stakeholders':
-			    echo '<script src="'.base_url().'js/stakeholders/stakeholders.js"></script>';
-
-		    break;
-
-		    case 'politicas_objetivos':
-			    echo '<script src="'.base_url().'js/politicas_objetivos/politicas_objetivos.js"></script>';
-
-			case 'procesos':
-			    echo '<script src="'.base_url().'js/procesos/procesos.js"></script>';
-		    break;
-
-		    case 'riesgos':
-			    echo '<script src="'.base_url().'js/riesgos/riesgos.js"></script>';
-
-		    break;
-
 		    
-		    }
+		    
+	    }
 		?>
 
 

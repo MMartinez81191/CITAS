@@ -5,8 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>Citas</title>
 
-        <!--Icono logo empresa-->
-        <!--<link rel="shortcut icon" href="<?=base_url()?>/images/gspm.ico" >-->
+        <link rel="shortcut icon" href="<?=base_url()?>/images/gspm.ico" >
         <!-- Tell the browser to be responsive to screen width -->
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <!-- Bootstrap 3.3.7 -->
@@ -36,6 +35,15 @@
         <!-- Select2 -->
         <link rel="stylesheet" href="<?= base_url(); ?>template/bower_components/select2/dist/css/select2.min.css">
 
+        <!-- daterange picker -->
+        <link rel="stylesheet" href="<?= base_url(); ?>template/bower_components/bootstrap-daterangepicker/daterangepicker.css">
+          <!-- bootstrap datepicker -->
+        <link rel="stylesheet" href="<?= base_url(); ?>template/bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css">
+
+        <!-- Bootstrap time Picker -->
+        <link rel="stylesheet" href="<?= base_url(); ?>template/plugins/timepicker/bootstrap-timepicker.min.css">
+
+
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <!-- jQuery 3 -->
         <script src="<?= base_url(); ?>template/bower_components/jquery/dist/jquery.min.js"></script>        
@@ -43,15 +51,6 @@
         <script src="<?= base_url(); ?>template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
 
 
-        <!--Calendar-->
-        <script type="text/javascript" src="<?= base_url(); ?>js/moment/moment.js"></script>
-        <script type="text/javascript" src="<?= base_url(); ?>js/calendar/build/js/bootstrap-datetimepicker.min.js"></script>
-
-
-
-        
     </head>
     <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
-
-    

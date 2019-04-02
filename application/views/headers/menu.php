@@ -8,7 +8,7 @@
 
 <header class="main-header">
     <a  href="<?=base_url()?>index.php/main" class="logo"> 
-        <span class="logo-mini"><b>LyL</b></span>
+        <span class="logo-mini"><b>Citas</b></span>
         <span class="logo-lg"><b>BIENVENIDO</b></span>
     </a>
 	<div id ="logo">
@@ -103,8 +103,12 @@
                 </ul>
             </li>
             <li class="treeview" >
+                <li><a href="<?=base_url()?>citas"><i class="fa fa-calendar-check-o"></i><span>Citas</span></a></li>
+            </li>
+            <li class="treeview" >
                 <li><a href="<?=base_url()?>clientes"><i class="fa fa-users"></i><span>Clientes</span></a></li>
             </li>
+
             <?php
             }
             ?>

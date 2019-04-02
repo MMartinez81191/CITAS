@@ -7,21 +7,15 @@ class Main extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Main_model');
-		$this->load->model('Clientes_model');
 	} 
 
 	public function index()
 	{			
 		if($this->session->userdata('logueado') == TRUE)
 		{
-			$data = array(
-				//PARAMETRO FALSE CUANDO NO ES CLIENTE TRUE CUANDO SI LO ES
-				'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
-			);
-
 			$this->load->view('headers/librerias');
 			$this->load->view('headers/menu');
-			$this->load->view('inicio/inicio',$data);
+			$this->load->view('inicio/inicio');
 			$this->load->view('footers/librerias');
 		}else
 		{
@@ -43,7 +37,9 @@ class Main extends CI_Controller {
 			$script = array('mensajes_swal' => 'swal("ERROR","Usuario o password Incorrectos", "error");');
 			$this->load->view('inicio/login',$script);
 
-		}else{
+		}
+		else
+		{
 			
 			foreach ($query->result() as $row) 
 			{
@@ -77,18 +73,4 @@ class Main extends CI_Controller {
 		redirect(base_url());
 	}
 
-	//=======================================================================================
-	//CITAS
-	//=======================================================================================
-	public function add_citas()
-	{
-		/*$data = array(
-			'DATA_NIVELES' => $this->Usuarios_model->get_niveles(),
-		);*/
-
-		$this->load->view('headers/librerias');
-		$this->load->view('headers/menu');
-		$this->load->view('inicio/add_cias');
-		$this->load->view('footers/librerias');
-	}
 }
