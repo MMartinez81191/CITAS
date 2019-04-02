@@ -120,20 +120,20 @@
 					 		<div class="form-group col-lg-12">	
 					 			<label >Fecha y Hora de la Cita:</label>
 								<div class='col-sm-12'>
-								            <div class="form-group">
-								                <div class='input-group date' id='datetimepicker1'>
-								                    <input type='text' class="form-control" />
-								                    <span class="input-group-addon">
-								                        <span class="glyphicon glyphicon-calendar"></span>
-								                    </span>
-								                </div>
-								            </div>
-								        </div>
-								        <script type="text/javascript">
-								            $(function () {
-								                $('#datetimepicker1').datetimepicker();
-								            });
-								        </script>
+						            <div class="form-group">
+						                <div class='input-group date' id='datetimepicker1'>
+						                    <input type='text' class="form-control"  />
+						                    <span class="input-group-addon">
+						                        <span class="glyphicon glyphicon-calendar"></span>
+						                    </span>
+						                </div>
+						            </div>
+						        </div>
+						        <script type="text/javascript">
+						            $(function () {
+						                $('#datetimepicker1').datetimepicker();
+						            });
+						        </script>
 					 		</div>				 		
 						</div>
 						
