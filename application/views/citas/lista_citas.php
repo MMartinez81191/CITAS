@@ -31,7 +31,7 @@
 		          				<div class="col-lg-3">
 	          						<div class="form-group">
 					                	<label>Nombre Cliente:</label>
-					                	<select id="select_cliente" name="select_cliente" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true">
+					                	<select id="select_cliente" name="select_cliente" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
 							                  <?php
 				                                if($DATA_CLIENTES != FALSE)
 					                            {		                                
@@ -55,7 +55,7 @@
 							                <div class="input-group-addon">
 							                	<i class="fa fa-calendar"></i>
 							                </div>
-							                <input type="text" class="form-control pull-right" id="datepicker">
+							                <input type="text" class="form-control pull-right" id="fecha_txt" name="fecha_txt" required="true">
 						                </div>
 						                <!-- /.input group -->
 						            </div>
@@ -101,45 +101,26 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th><center>#</center></th>
-									<th><center>Usuario</center></th>
-									<th><center>Nombre</center></th>
-									<th><center>Departamento</center></th>
+									<th><center>Folio</center></th>
+									<th><center>Nombre Paciente</center></th>
+									<th><center>Fecha Cita</center></th>
 									<th class="no-sort"><center>Opciones</center></th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php if($DATA_USUARIOS != FALSE) {
-									foreach ($DATA_USUARIOS as $row) {
+								<?php if($DATA_CITAS != FALSE) {
+									foreach ($DATA_CITAS->result() as $row) {
 								?>
-									<tr id="tr_<?= $row->id_usuario; ?>" name="tr_<?= $row->id_usuario; ?>" >
-										<td><center><?= $row->id_usuario;?></center></td>
-										<td><center><?= $row->usuario_email;?></center></td>
-										<td><center><?= $row->nombre.' '.$row->apellido_p.' '.$row->apellido_m; ?></center></td>
+									<tr id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+										<td><center><?= $row->id_cita;?></center></td>
+										<td><center><?= $row->nombre_cliente;?></center></td>
+										<td><center><?= $row->fecha ?></center></td>
 										<td>
 											<center>
-											<?php
-											if($row->departamento != 'ROOT')
-												echo $row->departamento;
-											else
-												echo 'SISTEMAS';
-											?>
-											</center>
-										</td>
+												<a type="button" href="" class="btn btn-success"><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir" ></i><span></span></a>
 
-										<td>
-										<?php
-										if($row->id_nivel != 1)
-										{
-										?>
-											<center>
-												<button data-id="<?= $row->id_usuario; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_usuarios_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Usuario" ></span></button>
-
-												<button data-id="<?= $row->id_usuario; ?>" class="btn btn-danger eliminar_user" title="Eliminar Usuario" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+												<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
 											</center>
-										<?php
-										}
-										?>
 										</td>
 									</tr>
 								<?php

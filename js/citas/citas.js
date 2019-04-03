@@ -5,22 +5,20 @@ var citas = {
             form.preventDefault();
             //var base_url = '<?php echo base_url() ?>';
             var data = {
-                correo_cliente : $('#txt_user').val(), 
-                nombre : $('#txt_nombre').val(), 
-                telefono_cliente : $('#txt_telefono').val(), 
-                fecha_nacimiento : $('#txt_fecha_nacimiento').val(), 
+                id_cliente : $('#select_cliente').val(), 
+                fecha_txt : $('#fecha_txt').val(),
             }
-            console.log(base_url);
+            console.log(data);
 
-            cargar_ajax.run_server_ajax('clientes/crear_cliente', data);
-            swal({
+            cargar_ajax.run_server_ajax('citas/crear_cita', data);
+           /* swal({
                 title: 'CORRECTO',
-                text: 'SE AGREGO CORRECTAMENTE EL CLIENTE',
+                text: 'Cita Agregada Correctamente',
                 type: 'success',
                 closeOnConfirm: false
             },function(){
-                window.location.assign(base_url + 'clientes');
-            });
+                //window.location.reload();
+            });*/
         });
     },
 
@@ -75,13 +73,13 @@ var citas = {
         });
     },
 
-    eliminar_usuario: function(){
-        $(document).on('click', 'button.eliminar_cliente', function () {
+    eliminar_cita: function(){
+        $(document).on('click', 'button.eliminar_cita', function () {
             id_cliente = $(this).data('id');
             var data = {id_cliente: id_cliente};
-
-            swal({
-                title: "¿Esta seguro de eliminar este cliente?",
+            console.log(data);
+            /*swal({
+                title: "¿Esta seguro de eliminar esta cita?",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#DD6B55",
@@ -90,19 +88,19 @@ var citas = {
                 allowEscapeKey: false,
                 allowEnterKey: false
             }, function () {
-                cargar_ajax.run_server_ajax('clientes/eliminar_cliente', data);
+                cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
                 swal('Eliminado!', 'Se elimino correctamente el usuario', 'success');
                 var toDelete = '#tr_' + id_cliente;
                 console.log(toDelete);
                 $(toDelete).remove();
                 
-            });
+            });*/
         });
   },
 }
 jQuery(document).ready(function() { 
-    citas.add_usuario(this);
-    clientes.datos_editar_usuarios(this);
-    clientes.editar_editar_usuarios(this);
-    clientes.eliminar_usuario(this);
+  citas.add_cita(this);
+   // clientes.datos_editar_usuarios(this);
+   // clientes.editar_editar_usuarios(this);
+   clientes.eliminar_cita(this);
 });

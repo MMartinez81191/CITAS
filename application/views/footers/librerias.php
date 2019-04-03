@@ -48,11 +48,13 @@
 	</script>
 
 	<script type="text/javascript">
-	//Date picker
-	    $('#datepicker').datepicker({
-	      autoclose: true
+		//Date picker
+	    $('#fecha_txt').datepicker({
+	    	autoclose: true,
+	    	format: 'yyyy-mm-dd'
 	    })
-	    	//Date range picker
+	    
+	    //Date range picker
 	    $('#reservation').daterangepicker()
 	    //Date range picker with time picker
 	    $('#reservationtime').daterangepicker({ timePicker: true, timePickerIncrement: 30, format: 'MM/DD/YYYY h:mm A' })
@@ -194,7 +196,9 @@
 			    echo '<script src="'.base_url().'js/clientes/clientes.js"></script>';
 		    break;
 
-		    
+		    case 'citas':
+			    echo '<script src="'.base_url().'js/citas/citas.js"></script>';
+		    break;
 		    
 	    }
 		?>

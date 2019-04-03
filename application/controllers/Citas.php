@@ -6,6 +6,7 @@ class Citas extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
+		$this->load->model('Citas_model');
 		$this->load->model('Clientes_model');
 	} 
 
@@ -15,6 +16,7 @@ class Citas extends CI_Controller {
 		if($this->session->userdata('logueado') == TRUE)
 		{
 			$data = array(
+				'DATA_CITAS' => $this->Citas_model->get_citas(),
 				'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
 			);
 
@@ -29,32 +31,18 @@ class Citas extends CI_Controller {
 		}
 	}
 
-	public function add_client()
-	{
-		if($this->session->userdata('logueado') == TRUE)
-		{
-			$this->load->view('headers/librerias');
-			$this->load->view('headers/menu');
-			$this->load->view('clientes/add_clientes');
-			$this->load->view('footers/librerias');
-		}else
-		{
-			$script = '';
-			$this->load->view('inicio/login',$script);
-		}
-		
-	}
 
-	public function crear_cliente()
+	public function crear_cita()
 	{
 		if($this->input->is_ajax_request()){
+
 			$data = array(				
-				'nombre_cliente' => trim($this->input->post('nombre')),
-				'correo_cliente' => trim($this->input->post('correo_cliente')),
-				'telefono_cliente' => trim($this->input->post('telefono_cliente')),
-				'fecha_nacimiento' => trim($this->input->post('fecha_nacimiento')),
+				'id_cliente' => trim($this->input->post('id_cliente')),
+				'fecha' => trim($this->input->post('fecha_txt')),
+				
+				'activo' => 1,
 			);
-			$this->Clientes_model->insert_clientes($data);
+			$this->Citas_model->insert_citas($data);
 			echo json_encode($data);
 		}else{
             show_404();
