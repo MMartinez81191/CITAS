@@ -16,6 +16,7 @@ class Citas_model extends CI_Model {
         $this->db->select('clientes.nombre_cliente');
         $this->db->from('citas');
         $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');
+        $this->db->where('citas.activo',1);
 
 
 
@@ -37,10 +38,10 @@ class Citas_model extends CI_Model {
         echo $this->db->last_query();
     }
 
-    public function delete_clientes($id_cliente)
+    public function delete_citas($id_cita,$data)
     {
-        $this->db->where('id_cliente', $id_cliente);
-        $this->db->delete('clientes');
+        $this->db->where('id_cita', $id_cita);
+        $this->db->update('citas',$data);
     }
 
 

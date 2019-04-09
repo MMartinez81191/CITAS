@@ -49,15 +49,19 @@ class Citas extends CI_Controller {
         }
 	}
 
-	public function eliminar_cliente()
+	public function eliminar_cita()
 	{
 		if($this->input->is_ajax_request()){
 
-			$id_cliente = $this->input->post('id_cliente');
-
-			$this->Clientes_model->delete_clientes($id_cliente);
-
-		}else{
+			$id_cita = $this->input->post('id_cita');
+			$data = array(
+				'activo' => 0, 
+			);
+			$this->Citas_model->delete_citas($id_cita,$data);
+			
+		}
+		else
+		{
             show_404();
         }
 	}

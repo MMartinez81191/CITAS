@@ -26,7 +26,7 @@
 	        <div class="col-xs-12">
 	          	<div class="box">
 	          		<div class="box-header">
-	          			<form id="agregar_citas" name="agregar_citas">
+	          			<form id="agregar_citas" name="agregar_citas" autocomplete="off">
 		          			<div class="row">
 		          				<div class="col-lg-3">
 	          						<div class="form-group">
@@ -55,7 +55,7 @@
 							                <div class="input-group-addon">
 							                	<i class="fa fa-calendar"></i>
 							                </div>
-							                <input type="text" class="form-control pull-right" id="fecha_txt" name="fecha_txt" required="true">
+							                <input type="text" class="form-control pull-right" id="fecha_txt" name="fecha_txt" required="true" autocomplete="off">
 						                </div>
 						                <!-- /.input group -->
 						            </div>

@@ -11,18 +11,18 @@ var citas = {
             console.log(data);
 
             cargar_ajax.run_server_ajax('citas/crear_cita', data);
-           /* swal({
+            swal({
                 title: 'CORRECTO',
                 text: 'Cita Agregada Correctamente',
                 type: 'success',
                 closeOnConfirm: false
             },function(){
-                //window.location.reload();
-            });*/
+                window.location.reload();
+            });
         });
     },
 
-	datos_editar_usuarios: function(){
+	/*datos_editar_usuarios: function(){
         $(document).on('click','button.editar_user', function () {
             var data = {id_usuario: $(this).data('id')};            
             var response = cargar_ajax.run_server_ajax('clientes/datos_editar_usuario', data);
@@ -71,14 +71,15 @@ var citas = {
                      location.reload(); 
                  });
         });
-    },
+    },*/
 
     eliminar_cita: function(){
         $(document).on('click', 'button.eliminar_cita', function () {
-            id_cliente = $(this).data('id');
-            var data = {id_cliente: id_cliente};
+            id_cita = $(this).data('id');
+            var data = {id_cita: id_cita};
+            cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
             console.log(data);
-            /*swal({
+            swal({
                 title: "¿Esta seguro de eliminar esta cita?",
                 type: "warning",
                 showCancelButton: true,
@@ -89,12 +90,12 @@ var citas = {
                 allowEnterKey: false
             }, function () {
                 cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
-                swal('Eliminado!', 'Se elimino correctamente el usuario', 'success');
-                var toDelete = '#tr_' + id_cliente;
+                swal('Eliminado!', 'Se elimino correctamente la cita', 'success');
+                var toDelete = '#tr_' + id_cita;
                 console.log(toDelete);
                 $(toDelete).remove();
                 
-            });*/
+            });
         });
   },
 }
@@ -102,5 +103,5 @@ jQuery(document).ready(function() {
   citas.add_cita(this);
    // clientes.datos_editar_usuarios(this);
    // clientes.editar_editar_usuarios(this);
-   clientes.eliminar_cita(this);
+   citas.eliminar_cita(this);
 });
