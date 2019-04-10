@@ -11,7 +11,11 @@ class Clientes_model extends CI_Model {
 
     public function get_clientes()
     {
-        $query = $this->db->get('clientes');
+        
+        $this->db->from('clientes');
+        $this->db->where('activo',1);
+        
+        $query = $this->db->get();
 
         if($query->num_rows() > 0)
         {
@@ -28,10 +32,10 @@ class Clientes_model extends CI_Model {
         $this->db->insert('clientes',$data);
     }
 
-    public function delete_clientes($id_cliente)
+    public function delete_clientes($id_cliente,$data)
     {
         $this->db->where('id_cliente', $id_cliente);
-        $this->db->delete('clientes');
+        $this->db->update('clientes',$data);
     }
 
 

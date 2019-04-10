@@ -49,7 +49,7 @@
 
 	<script type="text/javascript">
 		//Date picker
-	    $('#fecha_txt').datepicker({
+	    $('#txt_fecha').datepicker({
 	    	autoclose: true,
 	    	format: 'yyyy-mm-dd'
 	    })

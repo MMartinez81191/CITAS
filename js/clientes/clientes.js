@@ -8,7 +8,7 @@ var clientes = {
                 correo_cliente : $('#txt_user').val(), 
                 nombre : $('#txt_nombre').val(), 
                 telefono_cliente : $('#txt_telefono').val(), 
-                fecha_nacimiento : $('#txt_fecha_nacimiento').val(), 
+                fecha_nacimiento : $('#txt_fecha').val(), 
             }
             console.log(base_url);
 
@@ -91,7 +91,7 @@ var clientes = {
                 allowEnterKey: false
             }, function () {
                 cargar_ajax.run_server_ajax('clientes/eliminar_cliente', data);
-                swal('Eliminado!', 'Se elimino correctamente el usuario', 'success');
+                swal('Eliminado!', 'Se elimino correctamente el cliente', 'success');
                 var toDelete = '#tr_' + id_cliente;
                 console.log(toDelete);
                 $(toDelete).remove();

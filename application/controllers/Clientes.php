@@ -66,8 +66,10 @@ class Clientes extends CI_Controller {
 		if($this->input->is_ajax_request()){
 
 			$id_cliente = $this->input->post('id_cliente');
-
-			$this->Clientes_model->delete_clientes($id_cliente);
+			$data = array(
+				'activo' => 0,
+			);
+			$this->Clientes_model->delete_clientes($id_cliente,$data);
 
 		}else{
             show_404();

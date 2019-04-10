@@ -24,7 +24,8 @@
 							<thead>
 								<tr>
 									<th><center>#</center></th>
-									<th><center>Cliente</center></th>
+									<th><center>Nombre del Cliente</center></th>
+									<th><center>Fecha de Nacimiento</center></th>
 									<th><center>Telefono</center></th>
 									<th><center>Correo</center></th>
 									<th class="no-sort"><center>Opciones</center></th>
@@ -38,6 +39,9 @@
 										<td><center><?= $row->id_cliente;?></center></td>
 										<td><center>
 											<?= $row->nombre_cliente;?>
+										</center></td>
+										<td><center>
+											<?= $row->fecha_nacimiento;?>
 										</center></td>
 										<td><center>
 											<?= $row->telefono_cliente;?>

@@ -32,23 +32,28 @@
 					<div class="box-body">
 						<form class="form-horizontal" onsubmit="return mess()" name="agregar_cliente" id="agregar_cliente">
 				 			<div class="form-group">				 				
-						 		<div class="col-lg-2">	
+						 		<div class="col-lg-4">	
 						 			<label>Nombre:</label>
 									<input type="text" class="form-control" required id="txt_nombre" name="txt_nombre" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
 						 		</div>
 
-						 		<div class="col-lg-2">
+						 		<div class="col-lg-4">
 						 			<label>Telefono:</label>
 									<input type="text" class="form-control" required id="txt_telefono" name="txt_telefono" placeholder="TELEFONO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
 						 		</div>
 						 	</div>
 						 	<div class="form group" style="margin-left: -15px">
-						 		<div class="col-lg-2">
-						 			<label>Fecha de nacimiento:</label>
-									<input type="text" class="form-control" id="txt_fecha_nacimiento" name="txt_fecha_nacimiento" placeholder="" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
-						 		</div>
-
-						 		<div class="col-lg-2" style="margin-left: 3px">
+						 		<div class="col-lg-4">
+						             	<label>Fecha de Nacimento:</label>
+						                <div class="input-group date">
+							                <div class="input-group-addon">
+							                	<i class="fa fa-calendar"></i>
+							                </div>
+							                <input type="text" class="form-control pull-right" id="txt_fecha" name="txt_fecha" required="true" autocomplete="off" placeholder="yyyy-mm-dd">
+						                </div>
+						                <!-- /.input group -->
+						            </div>
+						 		<div class="col-lg-4" style="margin-left: 3px">
 						 			<label>Correo:</label>
 									<input type="email" class="form-control" id=txt_user name="txt_user" placeholder="CORREO ELECTRONICO" maxlength="150" required>
 						 		</div>					 			
@@ -57,7 +62,7 @@
 
 						 	<div class="row col-lg-3" style="margin-top: 15px;">
 						 		<button type="submit" class="btn btn-primary">Guardar Cliente</button>
-						 		<a type="button" href="<?=base_url()?>index.php/usuarios" class="btn btn-default">Cancelar</a>
+						 		<a type="button" href="<?=base_url()?>index.php/clientes" class="btn btn-default">Cancelar</a>
 						 	</div>
 					 	</form>
 					</div>
