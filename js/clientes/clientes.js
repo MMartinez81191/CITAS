@@ -24,18 +24,19 @@ var clientes = {
         });
     },
 
-	datos_editar_usuarios: function(){
+	datos_editar_clientes: function(){
         $(document).on('click','button.editar_user', function () {
-            var data = {id_usuario: $(this).data('id')};            
-            var response = cargar_ajax.run_server_ajax('clientes/datos_editar_usuario', data);
-            $('#id_usuario_editar').val(response.DATA_USUARIO.id_usuario);
+            var data = {id_cliente: $(this).data('id')};    
+            console.log(data);        
+            var response = cargar_ajax.run_server_ajax('clientes/datos_editar_cliente', data);
 
-            $('#txt_nombre_editar').val(response.DATA_USUARIO.nombre);
-            $('#txt_apellido_p_editar').val(response.DATA_USUARIO.apellido_p);
-            $('#txt_apellido_m_editar').val(response.DATA_USUARIO.apellido_m);
-            $('#txt_user_editar').val(response.DATA_USUARIO.usuario_email);
+            /*$('#id_cliente').val(response.DATA_USUARIO.id_usuario);
+
+            $('#txt_nombre').val(response.DATA_USUARIO.nombre);
+            $('#txt_telefono').val(response.DATA_USUARIO.apellido_p);
+            $('#txt_correo').val(response.DATA_USUARIO.apellido_m);
+            $('#txt_fecha').val(response.DATA_USUARIO.usuario_email);*/
             
-            $('#select_nivel_editar').val(response.DATA_USUARIO.id_nivel);
 
         });
     },
@@ -102,7 +103,7 @@ var clientes = {
 }
 jQuery(document).ready(function() { 
     clientes.add_usuario(this);
-    clientes.datos_editar_usuarios(this);
+    clientes.datos_editar_clientes(this);
     clientes.editar_editar_usuarios(this);
     clientes.eliminar_usuario(this);
 });

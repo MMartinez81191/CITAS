@@ -45,6 +45,23 @@ class Clientes extends CI_Controller {
 		
 	}
 
+	public function datos_editar_clientes()
+	{
+		if($this->input->is_ajax_request())
+		{
+
+			$id_cliente = $this->input->post('id_cliente');
+			$data = array(
+				'DATA_CLIENTE' => $this->Clientes_model->get_clientes_by_id($id_cliente),
+			);
+			echo json_encode($data);
+		}
+		else
+		{
+            show_404();
+        }
+	}
+
 	public function crear_cliente()
 	{
 		if($this->input->is_ajax_request()){
@@ -71,7 +88,9 @@ class Clientes extends CI_Controller {
 			);
 			$this->Clientes_model->delete_clientes($id_cliente,$data);
 
-		}else{
+		}
+		else
+		{
             show_404();
         }
 	}
