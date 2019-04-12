@@ -39,7 +39,7 @@
 
 						 		<div class="col-lg-4">
 						 			<label>Telefono:</label>
-									<input type="text" class="form-control" required id="txt_telefono" name="txt_telefono" placeholder="TELEFONO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+									<input type="text" class="form-control" required id="txt_telefono" name="txt_telefono" placeholder="TELEFONO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
 						 		</div>
 						 	</div>
 						 	<div class="form group" style="margin-left: -15px">

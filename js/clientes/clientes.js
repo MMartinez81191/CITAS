@@ -26,16 +26,15 @@ var clientes = {
 
 	datos_editar_clientes: function(){
         $(document).on('click','button.editar_user', function () {
+            
             var data = {id_cliente: $(this).data('id')};    
-            console.log(data);        
             var response = cargar_ajax.run_server_ajax('clientes/datos_editar_cliente', data);
 
-            /*$('#id_cliente').val(response.DATA_USUARIO.id_usuario);
-
-            $('#txt_nombre').val(response.DATA_USUARIO.nombre);
-            $('#txt_telefono').val(response.DATA_USUARIO.apellido_p);
-            $('#txt_correo').val(response.DATA_USUARIO.apellido_m);
-            $('#txt_fecha').val(response.DATA_USUARIO.usuario_email);*/
+            $('#id_cliente_editar').val(response.DATA_CLIENTE.id_cliente);
+            $('#txt_nombre_editar').val(response.DATA_CLIENTE.nombre_cliente);
+            $('#txt_telefono_editar').val(response.DATA_CLIENTE.telefono_cliente);
+            $('#txt_correo_editar').val(response.DATA_CLIENTE.correo_cliente);
+            $('#txt_fecha').val(response.DATA_CLIENTE.fecha_nacimiento);
             
 
         });
@@ -44,18 +43,19 @@ var clientes = {
     editar_editar_usuarios: function(){
         $("#editar_usuarios").on("submit", function (e) {
             e.preventDefault();
-                var data = {
-                	id_usuario: $('#id_usuario_editar').val(), 
-                	nombre: $('#txt_nombre_editar').val(),
-                	apellido_p: $('#txt_apellido_p_editar').val(), 
-                	apellido_m: $('#txt_apellido_m_editar').val(),
-                	usuario: $('#txt_user_editar').val(), 
-                	id_nivel: $('#select_nivel_editar').val(),
+                var data = 
+                {
+                	id_cliente: $('#id_cliente_editar').val(), 
+                	nombre_cliente : $('#txt_nombre_editar').val(),
+                	telefono_cliente : $('#txt_telefono_editar').val(), 
+                	correo_cliente : $('#txt_correo_editar').val(),
+                	fecha_nacimiento : $('#txt_fecha').val(), 
+                	
                 }
                 
                 
 
-                 var response = cargar_ajax.run_server_ajax('clientes/editar_usuario', data);
+                 var response = cargar_ajax.run_server_ajax('clientes/editar_cliente', data);
                  if (response == 'false') {
                      title = "Error!";
                      icon = "error";

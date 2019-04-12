@@ -32,18 +32,23 @@ class Clientes_model extends CI_Model {
         
         $this->db->from('clientes');
         $this->db->where('id_cliente',$id_cliente);
-        $this->db->where('activo',1);
+        
         
         $query = $this->db->get();
-
         if($query->num_rows() > 0)
         {
-            return $query;
+            return $query->row();
         }
         else
         {
             return FALSE;
         }
+    }
+
+    public function update_cliente($data,$id_cliente)
+    {
+        $this->db->where('id_cliente', $id_cliente);
+        $this->db->update('clientes',$data);
     }
 
     public function insert_clientes($data)

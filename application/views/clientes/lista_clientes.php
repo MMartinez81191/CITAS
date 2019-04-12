@@ -78,28 +78,28 @@
                 <hr>    
             </div>
             <div class="modal-body">
-	            <form  name="editar_usuarios" id="editar_usuarios">
-	            	<input type="hidden" id="id_usuario_editar" name="id_usuario_editar" >
+	            <form  name="editar_clientes" id="editar_clientes">
+	            	<input type="hidden" id="id_cliente_editar" name="id_cliente_editar" >
 	            	<div class="row">
 				 		<div class="form-group col-lg-4">	
 				 			<label >Nombre:</label>
-							<input type="text" class="form-control" required id="txt_nombre_editar" name="txt_nombre_editar" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+							<input type="text" class="form-control" required id="txt_nombre_editar" name="txt_nombre_editar" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();" required="true">
 				 		</div>
 
 				 		<div class="form-group col-lg-4">
-				 			<label >Telefono</label>
-							<input type="text" class="form-control" required id="txt_apellido_p_editar" name="txt_apellido_p_editar" placeholder="APELLIDO PATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+				 			<label >Telefono:</label>
+							<input type="text" class="form-control" id="txt_telefono_editar" name="txt_telefono_editar" placeholder="TELEFONO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required="true">
 				 		</div>			 		
 					</div>
 
 			 		<div class="row" style="margin-top: 30px;">
 			 			<div class="form-group col-lg-4">
 				 			<label >Correo:</label>
-							<input type="email" class="form-control" id=txt_user_editar name="txt_user_editar" placeholder="CORREO ELECTRONICO" maxlength="150" required>
+							<input type="email" class="form-control" id=txt_correo_editar name="txt_correo_editar" placeholder="CORREO ELECTRONICO" maxlength="100" required="true" >
 				 		</div>
 				 		<div class="form-group col-lg-4">
 				 			<label >Fecha de nacimiento:</label>
-							<input type="text" class="form-control" required id="txt_apellido_m_editar" name="txt_apellido_m_editar" placeholder="APELLIDO MATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+							<input type="text" class="form-control" required id="txt_fecha" name="txt_fecha" placeholder="yyyy-mm-dd" maxlength="150" autocomplete="off" required="true">
 				 		</div>	
 	 				</div>
 	 				<hr>
