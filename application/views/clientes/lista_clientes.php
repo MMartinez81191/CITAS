@@ -23,7 +23,7 @@
 						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th><center>#</center></th>
+									<th><center>ID</center></th>
 									<th><center>Nombre del Cliente</center></th>
 									<th><center>Fecha de Nacimiento</center></th>
 									<th><center>Telefono</center></th>

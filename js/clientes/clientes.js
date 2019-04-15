@@ -40,8 +40,8 @@ var clientes = {
         });
     },
 
-    editar_editar_usuarios: function(){
-        $("#editar_usuarios").on("submit", function (e) {
+    editar_editar_clientes: function(){
+        $("#editar_clientes").on("submit", function (e) {
             e.preventDefault();
                 var data = 
                 {
@@ -56,6 +56,7 @@ var clientes = {
                 
 
                  var response = cargar_ajax.run_server_ajax('clientes/editar_cliente', data);
+                 
                  if (response == 'false') {
                      title = "Error!";
                      icon = "error";
@@ -76,7 +77,7 @@ var clientes = {
         });
     },
 
-    eliminar_usuario: function(){
+    eliminar_cliente: function(){
         $(document).on('click', 'button.eliminar_cliente', function () {
             id_cliente = $(this).data('id');
             var data = {id_cliente: id_cliente};
@@ -104,6 +105,6 @@ var clientes = {
 jQuery(document).ready(function() { 
     clientes.add_usuario(this);
     clientes.datos_editar_clientes(this);
-    clientes.editar_editar_usuarios(this);
-    clientes.eliminar_usuario(this);
+    clientes.editar_editar_clientes(this);
+    clientes.eliminar_cliente(this);
 });

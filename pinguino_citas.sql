@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 03-04-2019 a las 03:05:32
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 5.6.40
+-- Tiempo de generación: 15-04-2019 a las 06:53:54
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,7 +40,11 @@ CREATE TABLE `cat_niveles` (
 
 INSERT INTO `cat_niveles` (`id_nivel`, `departamento`, `nivel_usuario`) VALUES
 (1, 'ROOT', 0),
-(2, 'ADMINISTRADOR', 1);
+(2, 'ADMINISTRADOR', 1),
+(3, 'CONTABILIDAD', 2),
+(4, 'DISEÑO', 3),
+(5, 'VENTAS', 4),
+(6, 'PRODUCCIÓN', 5);
 
 -- --------------------------------------------------------
 
@@ -53,15 +57,32 @@ CREATE TABLE `citas` (
   `id_cliente` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `activo` int(11) DEFAULT NULL
+  `costo_consulta` varchar(45) DEFAULT NULL,
+  `numero_turno_diario` varchar(45) DEFAULT NULL,
+  `folio_sat` int(11) DEFAULT NULL,
+  `contabilizado` int(11) DEFAULT '0',
+  `activo` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `citas`
 --
 
-INSERT INTO `citas` (`id_cita`, `id_cliente`, `fecha`, `hora`, `activo`) VALUES
-(12, 1, '2019-10-08', NULL, 1);
+INSERT INTO `citas` (`id_cita`, `id_cliente`, `fecha`, `hora`, `costo_consulta`, `numero_turno_diario`, `folio_sat`, `contabilizado`, `activo`) VALUES
+(12, 1, '2019-10-08', NULL, NULL, NULL, NULL, 0, 1),
+(13, 2, '2019-04-09', NULL, NULL, NULL, NULL, 0, 1),
+(14, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
+(15, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
+(16, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
+(17, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
+(18, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
+(19, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
+(20, 7, '0000-00-00', '00:00:00', NULL, NULL, NULL, 0, 1),
+(21, 7, '0000-00-00', '00:00:00', NULL, NULL, NULL, 0, 1),
+(22, 7, '2019-04-29', '10:15:00', NULL, NULL, NULL, 0, 1),
+(23, 7, '2019-04-29', '11:15:00', NULL, NULL, NULL, 0, 1),
+(24, 7, '2019-04-29', '10:15:00', NULL, NULL, NULL, 0, 1),
+(25, 7, '2019-04-10', '22:15:00', NULL, NULL, NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -74,16 +95,17 @@ CREATE TABLE `clientes` (
   `nombre_cliente` varchar(100) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `telefono_cliente` varchar(15) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
   `correo_cliente` varchar(60) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
-  `fecha_nacimiento` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL
+  `fecha_nacimiento` varchar(10) CHARACTER SET utf8 COLLATE utf8_unicode_ci DEFAULT NULL,
+  `activo` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `clientes`
 --
 
-INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `correo_cliente`, `fecha_nacimiento`) VALUES
-(1, 'Jose Lopez', '6644162499', 'x@x', '22-12-2019'),
-(2, 'MARTIN', '6624162499', 'c@gmail.com', 'DSDFD');
+INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `correo_cliente`, `fecha_nacimiento`, `activo`) VALUES
+(7, 'MARTIN', '999999999999', '111111111@gmail.com', '2019-04-03', 1),
+(8, 'CLEINTE 2', '44444444444', 'sdf@gmail.com', '2019-04-30', 1);
 
 -- --------------------------------------------------------
 
@@ -107,7 +129,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `usuario_email`, `nombre`, `apellido_p`, `apellido_m`, `id_nivel`, `contrasena`, `activo`) VALUES
-(1, 'root@pinguinosystems.com', 'MARTIN FRANCISCO', 'MARTINEZ', 'FEDERICO', 1, '123456', '1');
+(1, 'root@pinguinosystems.com', 'MARTIN FRANCISCO', 'MARTINEZ', 'FEDERICO', 1, '123456', '1'),
+(4, 'martin.francisco.martinez.f@gmail.com', 'MARTIN FRANCISCO', 'FEDERICO', 'MARTINEZ', 2, '123456', '1');
 
 --
 -- Índices para tablas volcadas
@@ -146,25 +169,25 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cat_niveles`
 --
 ALTER TABLE `cat_niveles`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

@@ -37,15 +37,77 @@
 
 	<script src="<?=base_url(); ?>template/bower_components/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js"></script>
 
+	<script src="<?= base_url(); ?>template/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 
+	<script src="<?=base_url(); ?>template/bower_components/moment/moment.js"></script>
+	<script src="<?=base_url(); ?>template/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
+	
 	<script type="text/javascript">
-		/*$(function () {	
-			//Timepicker
-		    $('.timepicker').timepicker({
-		      showInputs: false
-		    })
-		})*/
+		/* initialize the calendar
+     -----------------------------------------------------------------*/
+    //Date for the calendar events (dummy data)
+    var date = new Date()
+    var d    = date.getDate(),
+        m    = date.getMonth(),
+        y    = date.getFullYear()
+    $('#calendar').fullCalendar({
+      header    : {
+        left  : 'prev,next today',
+        center: 'title',
+        right : ''
+      },
+      buttonText: {
+        today: 'Today',
+        
+      },
+      //Random default events
+      selectable : true,
+      locale: 'es',
+      editable  : true,
+      droppable : true, // this allows things to be dropped onto the calendar !!!
+      drop      : function (date, allDay) { // this function is called when something is dropped
+
+        // retrieve the dropped element's stored Event Object
+        var originalEventObject = $(this).data('eventObject')
+
+        // we need to copy it, so that multiple events don't have a reference to the same object
+        var copiedEventObject = $.extend({}, originalEventObject)
+
+        // assign it the date that was reported
+        copiedEventObject.start           = date
+        copiedEventObject.allDay          = allDay
+        copiedEventObject.backgroundColor = $(this).css('background-color')
+        copiedEventObject.borderColor     = $(this).css('border-color')
+
+        // render the event on the calendar
+        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+
+        // is the "remove after drop" checkbox checked?
+        if ($('#drop-remove').is(':checked')) {
+          // if so, remove the element from the "Draggable Events" list
+          $(this).remove()
+        }
+
+
+
+      }
+    })
+
+    let calendar = new Calendar(calendarEl, {
+
+  dateClick: function(info) {
+    alert('Clicked on: ' + info.dateStr);
+    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
+    alert('Current view: ' + info.view.type);
+    // change the day's background color just for fun
+    info.dayEl.style.backgroundColor = 'red';
+  }
+});
 	</script>
+
+
+
 
 	<script type="text/javascript">
 		//Date picker
@@ -53,6 +115,21 @@
 	    	autoclose: true,
 	    	format: 'yyyy-mm-dd'
 	    })
+	</script>
+
+	<script type="text/javascript">
+		$(function () {	
+			//Timepicker
+		    $('.timepicker').timepicker({
+		      showInputs: false
+		    })
+		})
+	</script>
+
+
+
+	<script type="text/javascript">
+		
 	    
 	    //Date range picker
 	    $('#reservation').daterangepicker()
@@ -84,9 +161,6 @@
 	<script type="text/javascript">
 
         $(function () {
-
-        	
-        	
 
         	$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
 		      	checkboxClass: 'icheckbox_flat-green',

@@ -44,11 +44,17 @@
         <link rel="stylesheet" href="<?= base_url(); ?>template/plugins/timepicker/bootstrap-timepicker.min.css">
 
 
+        <!-- fullCalendar -->
+        <link rel="stylesheet" href="<?= base_url(); ?>template/bower_components/fullcalendar/dist/fullcalendar.min.css">
+        <link rel="stylesheet" href="<?= base_url(); ?>template/bower_components/fullcalendar/dist/fullcalendar.print.min.css" media="print">
+
         <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
         <!-- jQuery 3 -->
         <script src="<?= base_url(); ?>template/bower_components/jquery/dist/jquery.min.js"></script>        
         <!-- Bootstrap 3.3.7 -->
         <script src="<?= base_url(); ?>template/bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
+
+
 
 
     </head>

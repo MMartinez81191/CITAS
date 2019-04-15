@@ -69,14 +69,14 @@ class Clientes extends CI_Controller {
 			$id_cliente = $this->input->post('id_cliente');
 			
 			$data = array(				
-				'nombre_cliente' => trim($this->input->post('nombre')),
+				'nombre_cliente' => trim($this->input->post('nombre_cliente')),
 				'correo_cliente' => trim($this->input->post('correo_cliente')),
 				'telefono_cliente' => trim($this->input->post('telefono_cliente')),
 				'fecha_nacimiento' => trim($this->input->post('fecha_nacimiento')),
 			);
 
-			$this->Clientes_model->update_clientes($data,$id_cliente);
-		
+			$this->Clientes_model->update_cliente($data,$id_cliente);
+			var_dump($data);
 		}else{
             show_404();
         }

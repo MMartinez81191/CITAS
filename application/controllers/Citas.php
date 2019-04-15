@@ -35,11 +35,11 @@ class Citas extends CI_Controller {
 	public function crear_cita()
 	{
 		if($this->input->is_ajax_request()){
-
+			$hora = trim($this->input->post('txt_hora'));
 			$data = array(				
 				'id_cliente' => trim($this->input->post('id_cliente')),
-				'fecha' => trim($this->input->post('fecha_txt')),
-				
+				'fecha' => trim($this->input->post('txt_fecha')),
+				'hora' => date("H:i", strtotime($hora)),
 				'activo' => 1,
 			);
 			$this->Citas_model->insert_citas($data);
