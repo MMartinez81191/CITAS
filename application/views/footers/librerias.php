@@ -42,29 +42,31 @@
 	<script src="<?=base_url(); ?>template/bower_components/moment/moment.js"></script>
 	<script src="<?=base_url(); ?>template/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 	
+	
+
 	<script type="text/javascript">
-		/* initialize the calendar
-     -----------------------------------------------------------------*/
-    //Date for the calendar events (dummy data)
+
     var date = new Date()
     var d    = date.getDate(),
         m    = date.getMonth(),
         y    = date.getFullYear()
     $('#calendar').fullCalendar({
-      header    : {
-        left  : 'prev,next today',
-        center: 'title',
-        right : ''
-      },
-      buttonText: {
-        today: 'Today',
+		monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Augosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+		dayNamesShort  : ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+		header    : {
+			left  : 'prev,next',
+			center: 'title',
+			right : 'today'
+		},
+      	buttonText: {
+        today: 'Hoy',
         
       },
-      //Random default events
+      
+      
       selectable : true,
-      locale: 'es',
       editable  : true,
-      droppable : true, // this allows things to be dropped onto the calendar !!!
+      droppable : false, // this allows things to be dropped onto the calendar !!!
       drop      : function (date, allDay) { // this function is called when something is dropped
 
         // retrieve the dropped element's stored Event Object
@@ -91,20 +93,22 @@
 
 
 
-      }
+      	},
+      	select: function( startDate, endDate, allDay, jsEvent, view )
+      	{
+      		var fecha = $.fullCalendar.formatDate( startDate, 'YYYY/MM/DD' );
+      		var enddate = $.fullCalendar.formatDate( endDate, 'YYYY/MM/DD' );
+
+      		alert(fecha);
+      		alert(enddate
+      			);
+    	},
     })
 
-    let calendar = new Calendar(calendarEl, {
 
-  dateClick: function(info) {
-    alert('Clicked on: ' + info.dateStr);
-    alert('Coordinates: ' + info.jsEvent.pageX + ',' + info.jsEvent.pageY);
-    alert('Current view: ' + info.view.type);
-    // change the day's background color just for fun
-    info.dayEl.style.backgroundColor = 'red';
-  }
-});
 	</script>
+
+
 
 
 
@@ -112,6 +116,14 @@
 	<script type="text/javascript">
 		//Date picker
 	    $('#txt_fecha').datepicker({
+	    	autoclose: true,
+	    	format: 'yyyy-mm-dd'
+	    })
+	</script>
+
+	<script type="text/javascript">
+		//Date picker
+	    $('#txt_fecha_cliente').datepicker({
 	    	autoclose: true,
 	    	format: 'yyyy-mm-dd'
 	    })

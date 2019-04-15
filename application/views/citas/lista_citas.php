@@ -132,10 +132,11 @@
 		          				</div>
 	          				</div>
 	          				<div class="row">
+
 		          				<div class="col-lg-12" >
 		          					<div class="bootstrap-timepicker">
 						                <div class="form-group">
-							                <label>Time picker:</label>
+							                <label>Hora de Cita:</label>
 							                <div class="input-group">
 												<div class="input-group-addon">
 													<i class="fa fa-clock-o"></i>
@@ -152,10 +153,66 @@
 		          		</form>
 	          		</div>
 			    </div>
+			    <div class="box">
+					<div class="box-header">
+						<center>
+							<h4>Agregar Clientes</h4>
+						</center>
+						<hr/>
+					</div>
+	          		<div class="box-body">
+	          			<form id="agregar_clientes" name="agregar_clientes" autocomplete="off">
+		          			<div class="row">
+		          				<div class="col-lg-12">
+	          						<div class="form-group">
+					                	<label>Nombre Cliente:</label>
+					                	<input type="txt_nombre" name="txt_nombre" class="form-control" placeholder="Nombre del Cliente" onKeyUp="this.value=this.value.toUpperCase();">
+					              	</div>
+		          				</div>
+	          				</div>
+	          				<div class="row">
+		          				<div class="col-lg-12">
+	          						<div class="form-group">
+					                	<label>Telefono del Cliente:</label>
+					                	<input type="txt_telefono" name="txt_telefono" class="form-control" placeholder="Telefono del Cliente" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="12">
+					              	</div>
+		          				</div>
+	          				</div>
+	          				<div class="row">
+		          				<div class="col-lg-12">
+		          					<!-- Date -->
+						            <div class="form-group">
+						             	<label>Fecha de Nacimiento:</label>
+						                <div class="input-group date">
+							                <div class="input-group-addon">
+							                	<i class="fa fa-calendar"></i>
+							                </div>
+							                <input type="text" class="form-control pull-right" id="txt_fecha_cliente" name="txt_fecha_cliente" required="true" placeholder="yyyy-mm-dd" autocomplete="off">
+						                </div>
+						            </div>
+		          				</div>
+	          				</div>
+	          				<div class="row">
+		          				<div class="col-lg-12">
+		          					<div class="form-group">
+					                	<label>Correo Electronico:</label>
+					                	<input type="email" id="txt_correo" name="txt_correo" class="form-control" placeholder="example@example.com">
+					              	</div>
+		          				</div>
+	          				</div>
+	          				<div class="row">
+		          				<div class="col-lg-3" style="margin-top:2%;">
+		          					<button type="submit" class="btn btn-primary">Guardar Cliente</button>
+		          				</div>
+		          			</div>
+		          		</form>
+	          		</div>
+			    </div>
 			</div>
 		</div>
 	</section>
 </div>
+
 
 
 
