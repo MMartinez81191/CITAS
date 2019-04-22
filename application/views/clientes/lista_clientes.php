@@ -68,7 +68,7 @@
 </div>
 
 
-<!-- MODAL PARA EDITAR LOS USUARIOS -->
+<!-- MODAL PARA EDITAR LOS CLIENTES -->
 <div class="modal fade" id="modal_cliente_editar" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" >
@@ -112,4 +112,4 @@
         </div>
     </div>
 </div>
-<!-- FIN DEL MODAL PARA EDITAR LOS USUARIOS -->
+<!-- FIN DEL MODAL PARA EDITAR LOS CLIENTES -->

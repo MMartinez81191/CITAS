@@ -1,17 +1,5 @@
 <script>var base_url = '<?php echo base_url() ?>';</script>
-<script type="text/javascript">
-	function mess() {
-		var pass = document.getElementById("password").value;
-		var conpas = document.getElementById("confir_password").value;
 
-		if (pass != conpas) {
-			swal("Error!", "Contraseñas no coinciden!", "warning");
-			return false;
-		}else{
-			return true;
-		}
-	}
-</script>
 <div class="content-wrapper">
 	<section class="content-header">
       <h1>
@@ -30,7 +18,7 @@
 						<div class="panel-heading"><center><h4>AGREGAR CLIENTES</h4></center></div>
 					</div>
 					<div class="box-body">
-						<form class="form-horizontal" onsubmit="return mess()" name="agregar_cliente" id="agregar_cliente">
+						<form class="form-horizontal" name="agregar_cliente" id="agregar_cliente">
 				 			<div class="form-group">				 				
 						 		<div class="col-lg-4">	
 						 			<label>Nombre:</label>

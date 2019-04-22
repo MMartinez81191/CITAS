@@ -96,12 +96,9 @@
       	},
       	select: function( startDate, endDate, allDay, jsEvent, view )
       	{
-      		var fecha = $.fullCalendar.formatDate( startDate, 'YYYY/MM/DD' );
-      		var enddate = $.fullCalendar.formatDate( endDate, 'YYYY/MM/DD' );
-
-      		alert(fecha);
-      		alert(enddate
-      			);
+      		var fechaInicio = $.fullCalendar.formatDate( startDate, 'YYYY-MM-DD' );
+      		var fechaFinal = $.fullCalendar.formatDate( endDate, 'YYYY-MM-DD' );
+      		$("#tabla_citas").load("<?=base_url()?>citas/obtenerCitas/"+fechaInicio+"/"+fechaFinal+""); 
     	},
     })
 

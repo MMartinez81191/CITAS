@@ -1,16 +1,15 @@
 var clientes = {
 
-    add_usuario: function(){
+    add_cliente: function(){
         $('#agregar_cliente').on('submit', function(form){
             form.preventDefault();
-            //var base_url = '<?php echo base_url() ?>';
+            
             var data = {
                 correo_cliente : $('#txt_user').val(), 
                 nombre : $('#txt_nombre').val(), 
                 telefono_cliente : $('#txt_telefono').val(), 
                 fecha_nacimiento : $('#txt_fecha').val(), 
             }
-            console.log(base_url);
 
             cargar_ajax.run_server_ajax('clientes/crear_cliente', data);
             swal({
@@ -19,7 +18,7 @@ var clientes = {
                 type: 'success',
                 closeOnConfirm: false
             },function(){
-                window.location.assign(base_url + 'clientes');
+                window.location.reload();
             });
         });
     },
@@ -103,7 +102,7 @@ var clientes = {
   },
 }
 jQuery(document).ready(function() { 
-    clientes.add_usuario(this);
+    clientes.add_cliente(this);
     clientes.datos_editar_clientes(this);
     clientes.editar_editar_clientes(this);
     clientes.eliminar_cliente(this);

@@ -15,8 +15,11 @@ class Citas extends CI_Controller {
 		
 		if($this->session->userdata('logueado') == TRUE)
 		{
+			$fechaInicio = date('Y-m-d');
+			$fechaFinal = date('Y-m-d', strtotime(' + 1 days'));
+
 			$data = array(
-				'DATA_CITAS' => $this->Citas_model->get_citas(),
+				'DATA_CITAS' => $this->Citas_model->get_citas($fechaInicio,$fechaFinal),
 				'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
 			);
 
@@ -32,16 +35,65 @@ class Citas extends CI_Controller {
 	}
 
 
+	public function obtenerCitas()
+	{
+		$fechaInicio = $this->uri->segment(3);
+		$fechaFinal = $this->uri->segment(4);
+
+		$DATA_CITAS = $this->Citas_model->get_citas($fechaInicio,$fechaFinal);
+		?>
+		<table id="example1" class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th><center>Turno</center></th>
+					<th><center>Nombre Paciente</center></th>
+					<th><center>Fecha Cita</center></th>
+					<th><center>Hora Cita</center></th>
+					<th class="no-sort"><center>Opciones</center></th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php if($DATA_CITAS != FALSE) {
+					foreach ($DATA_CITAS->result() as $row) {
+				?>
+					<tr id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+						<td><center><?= $row->numero_turno;?></center></td>
+						<td><center><?= $row->nombre_cliente;?></center></td>
+						<td><center><?= $row->fecha ?></center></td>
+						<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
+						<td>
+							<center>
+								<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Cliente" ></span></button>
+
+														
+
+														<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+							</center>
+						</td>
+					</tr>
+				<?php
+					}
+				} ?>
+			</tbody> 
+		</table>
+		<?php
+	}
+
+
 	public function crear_cita()
 	{
 		if($this->input->is_ajax_request()){
+			$fecha = trim($this->input->post('txt_fecha'));
 			$hora = trim($this->input->post('txt_hora'));
+			$numero_turno = $this->Citas_model->get_turno($fecha);
 			$data = array(				
 				'id_cliente' => trim($this->input->post('id_cliente')),
-				'fecha' => trim($this->input->post('txt_fecha')),
+				'numero_turno' => $numero_turno,
+				'fecha' => $fecha,
 				'hora' => date("H:i", strtotime($hora)),
 				'activo' => 1,
 			);
+			echo $numero_turno;
 			$this->Citas_model->insert_citas($data);
 			echo json_encode($data);
 		}else{
@@ -64,5 +116,95 @@ class Citas extends CI_Controller {
 		{
             show_404();
         }
+	}
+
+	public function datos_pagar_cita()
+	{
+		if($this->input->is_ajax_request())
+		{
+			
+			$id_cita = $this->input->post('id_cita');
+			$data = array(
+				'DATA_CITA' => $this->Citas_model->get_citas_by_id($id_cita),
+			);
+			echo json_encode($data);
+		}
+		else
+		{
+            show_404();
+        }
+	}
+
+	public function pagar_cita()
+	{
+		if($this->input->is_ajax_request()){
+			$id_cita = $this->input->post('id_cita');
+			
+			$data = array(				
+				'costo_consulta' => trim($this->input->post('costo_consulta')),
+				
+			);
+
+			$this->Citas_model->pagar_cita($data,$id_cita);
+			var_dump($data);
+		}else
+		{
+            show_404();
+        }
+	}
+
+	public function imprimir_ticket()
+	{
+
+		//Datos necesarios para crear PDF
+		$id_cita = $this->uri->segment(3);
+
+
+        $fecha_actual=date("d/m/Y");
+        $hora = date("h:m:s a");
+        $this->load->library('fpdf_manager');
+        $pdf = new fpdf_manager('P','mm',array(34,200));
+        
+        $Nombre_archivo = 'Ticket.pdf';
+        $pdf->SetMargins(1,1,1,1);
+        $pdf->SetTitle("Ticket Pago");
+        $pdf->AddPage();
+        /*Encabezado*/
+        $pdf->Image(base_url().'images/logo.png',12,3,10);
+        $pdf->SetFont('Times','B',5);
+        $pdf->setY(14);
+        $pdf->Cell(0,3,'Control de Peso',0,1,'C');
+        $pdf->Cell(0,3,'Lic. Nut. Luz Maria Everardo Ramirez',0,1,'C');
+
+        $pdf->SetFont('Times','',4);
+        $pdf->Cell(0,3,'---------------------------------------------',0,1,'C');
+        $pdf->Cell(0,3,'Folio:',0,1,'L');
+        $pdf->Cell(0,3,'Turno:',0,1,'L');
+        $pdf->Cell(0,3,'Fecha:',0,1,'L');
+        $pdf->Cell(0,3,'Nombre:',0,1,'L');
+        $pdf->Cell(0,3,'Importe:',0,1,'L');
+
+        $pdf->Cell(0,3,'---------------------------------------------',0,1,'C');
+        $pdf->SetFont('Times','B',3);
+        $pdf->Cell(0,1,'Maribel Calles Castro',0,1,'C');
+        $pdf->Cell(0,1,'RFC : CACM620318MQ7 ',0,1,'C');
+        $pdf->SetFont('Times','',3);
+        $pdf->Cell(0,1,'Enrrique Garcia Sanchez No. 115 Esquina',0,1,'C');
+        $pdf->Cell(0,1,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
+        $pdf->Cell(0,1,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
+
+
+        
+
+
+
+        
+        
+
+        $pdf->Ln();
+        $pdf->SetY(-30);
+        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
+
+		$pdf->Output($Nombre_archivo, 'I');
 	}
 }
