@@ -63,11 +63,21 @@ class Citas extends CI_Controller {
 						<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
 						<td>
 							<center>
-								<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Cliente" ></span></button>
+								<?php
+								if($row->costo_consulta == '0'){
+								?>
+									<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
 
-														
-
-														<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+									<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+								<?php
+								}
+								else
+								{
+								?>
+									<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
+								<?php
+								}
+								?>
 							</center>
 						</td>
 					</tr>
@@ -158,7 +168,7 @@ class Citas extends CI_Controller {
 
 		//Datos necesarios para crear PDF
 		$id_cita = $this->uri->segment(3);
-
+		$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
 
         $fecha_actual=date("d/m/Y");
         $hora = date("h:m:s a");
@@ -178,11 +188,31 @@ class Citas extends CI_Controller {
 
         $pdf->SetFont('Times','',4);
         $pdf->Cell(0,3,'---------------------------------------------',0,1,'C');
-        $pdf->Cell(0,3,'Folio:',0,1,'L');
-        $pdf->Cell(0,3,'Turno:',0,1,'L');
-        $pdf->Cell(0,3,'Fecha:',0,1,'L');
-        $pdf->Cell(0,3,'Nombre:',0,1,'L');
-        $pdf->Cell(0,3,'Importe:',0,1,'L');
+        
+        $pdf->SetFont('Times','B',4);
+        $pdf->Cell(6,3,'Folio:',0,0,'L');
+        $pdf->SetFont('Times','',4);
+        $pdf->Cell(0,3,$DATA_CITA->id_cita.'A',0,1,'L');
+
+        $pdf->SetFont('Times','B',4);
+        $pdf->Cell(6,3,'Turno:',0,0,'L');
+        $pdf->SetFont('Times','',4);
+        $pdf->Cell(0,3,'#'.$DATA_CITA->numero_turno,0,1,'L');
+
+        $pdf->SetFont('Times','B',4);
+        $pdf->Cell(6,3,'Fecha:',0,0,'L');
+        $pdf->SetFont('Times','',4);
+        $pdf->Cell(0,3,$DATA_CITA->fecha,0,1,'L');
+
+        $pdf->SetFont('Times','B',4);
+        $pdf->Cell(6,3,'Nombre:',0,0,'L');
+        $pdf->SetFont('Times','',4);
+        $pdf->Cell(0,3,$DATA_CITA->nombre_cliente,0,1,'L');
+
+        $pdf->SetFont('Times','B',4);
+        $pdf->Cell(6,3,'Importe:',0,0,'L');
+        $pdf->SetFont('Times','',4);
+        $pdf->Cell(0,3,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),0,1,'L');
 
         $pdf->Cell(0,3,'---------------------------------------------',0,1,'C');
         $pdf->SetFont('Times','B',3);

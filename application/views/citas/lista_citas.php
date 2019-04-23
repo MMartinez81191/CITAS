@@ -117,9 +117,6 @@
 												<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
 												<td>
 													<center>
-														
-														
-
 														<?php
 														if($row->costo_consulta == '0'){
 														?>
@@ -135,8 +132,6 @@
 														<?php
 														}
 														?>
-
-														
 													</center>
 												</td>
 											</tr>
