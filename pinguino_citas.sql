@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 15-04-2019 a las 06:53:54
+-- Tiempo de generación: 23-04-2019 a las 16:02:10
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.12
 
@@ -55,10 +55,10 @@ INSERT INTO `cat_niveles` (`id_nivel`, `departamento`, `nivel_usuario`) VALUES
 CREATE TABLE `citas` (
   `id_cita` int(11) NOT NULL,
   `id_cliente` int(11) DEFAULT NULL,
+  `numero_turno` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `costo_consulta` varchar(45) DEFAULT NULL,
-  `numero_turno_diario` varchar(45) DEFAULT NULL,
+  `costo_consulta` varchar(45) DEFAULT '0',
   `folio_sat` int(11) DEFAULT NULL,
   `contabilizado` int(11) DEFAULT '0',
   `activo` int(11) DEFAULT '1'
@@ -68,21 +68,10 @@ CREATE TABLE `citas` (
 -- Volcado de datos para la tabla `citas`
 --
 
-INSERT INTO `citas` (`id_cita`, `id_cliente`, `fecha`, `hora`, `costo_consulta`, `numero_turno_diario`, `folio_sat`, `contabilizado`, `activo`) VALUES
-(12, 1, '2019-10-08', NULL, NULL, NULL, NULL, 0, 1),
-(13, 2, '2019-04-09', NULL, NULL, NULL, NULL, 0, 1),
-(14, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
-(15, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
-(16, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
-(17, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
-(18, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
-(19, 7, '0000-00-00', NULL, NULL, NULL, NULL, 0, 0),
-(20, 7, '0000-00-00', '00:00:00', NULL, NULL, NULL, 0, 1),
-(21, 7, '0000-00-00', '00:00:00', NULL, NULL, NULL, 0, 1),
-(22, 7, '2019-04-29', '10:15:00', NULL, NULL, NULL, 0, 1),
-(23, 7, '2019-04-29', '11:15:00', NULL, NULL, NULL, 0, 1),
-(24, 7, '2019-04-29', '10:15:00', NULL, NULL, NULL, 0, 1),
-(25, 7, '2019-04-10', '22:15:00', NULL, NULL, NULL, 0, 1);
+INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `costo_consulta`, `folio_sat`, `contabilizado`, `activo`) VALUES
+(35, 7, 1, '2019-04-21', '15:30:00', '200', NULL, 0, 1),
+(36, 7, 2, '2019-04-21', '21:15:00', '1000.00', NULL, 0, 1),
+(37, 7, 3, '2019-04-21', '21:15:00', '0', NULL, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -105,7 +94,15 @@ CREATE TABLE `clientes` (
 
 INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `correo_cliente`, `fecha_nacimiento`, `activo`) VALUES
 (7, 'MARTIN', '999999999999', '111111111@gmail.com', '2019-04-03', 1),
-(8, 'CLEINTE 2', '44444444444', 'sdf@gmail.com', '2019-04-30', 1);
+(8, 'CLEINTE 2', '44444444444', 'sdf@gmail.com', '2019-04-30', 1),
+(9, 'MARCOS MARTIN', '637121416544', 'sdf@gmail.com', '2019-04-27', 1),
+(10, 'MARTIN PRUEB', '123456', 'martn@gmail.com', '2019-04-08', 1),
+(11, 'ASD', '3455', 'martin@gmail.com', '2019-04-30', 1),
+(12, 'CLEINTE PREUBA', '6624162499', 'martin@gmail.com', '2019-05-15', 1),
+(13, 'SDF', '66624162466', 'sdf@gmail.com', '2019-04-25', 1),
+(14, 'SDF', 'ASD', 'sdf@gmail.com', '2019-05-01', 1),
+(15, 'SDF', '637121416544', 'sdf@gmail.com', '2019-04-30', 1),
+(16, 'SDF', 'SDF', 'sdf@gmail.com', '2019-05-01', 1);
 
 -- --------------------------------------------------------
 
@@ -175,13 +172,13 @@ ALTER TABLE `cat_niveles`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=26;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
