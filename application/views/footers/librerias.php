@@ -42,75 +42,76 @@
 	<script src="<?=base_url(); ?>template/bower_components/moment/moment.js"></script>
 	<script src="<?=base_url(); ?>template/bower_components/fullcalendar/dist/fullcalendar.min.js"></script>
 	
+	<!-- InputMask -->
+	<script src="<?= base_url(); ?>template/plugins/input-mask/jquery.inputmask.js"></script>
+	<script src="<?= base_url(); ?>template/plugins/input-mask/jquery.inputmask.date.extensions.js"></script>
+	<script src="<?= base_url(); ?>template/plugins/input-mask/jquery.inputmask.extensions.js"></script>
 	
-
+	<!--Calendar-->
 	<script type="text/javascript">
 
-    var date = new Date()
-    var d    = date.getDate(),
-        m    = date.getMonth(),
-        y    = date.getFullYear()
-    $('#calendar').fullCalendar({
-		monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Augosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
-		dayNamesShort  : ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
-		header    : {
-			left  : 'prev,next',
-			center: 'title',
-			right : 'today'
-		},
-      	buttonText: {
-        today: 'Hoy',
-        
-      },
+	    var date = new Date()
+	    var d    = date.getDate(),
+	        m    = date.getMonth(),
+	        y    = date.getFullYear()
+	    $('#calendar').fullCalendar({
+			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Augosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			dayNamesShort  : ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
+			header    : {
+				left  : 'prev,next',
+				center: 'title',
+				right : 'today'
+			},
+	      	buttonText: {
+	        today: 'Hoy',
+	        
+	      },
       
       
-      selectable : true,
-      editable  : true,
-      droppable : false, // this allows things to be dropped onto the calendar !!!
-      drop      : function (date, allDay) { // this function is called when something is dropped
+	      selectable : true,
+	      editable  : true,
+	      droppable : false, // this allows things to be dropped onto the calendar !!!
+	      drop      : function (date, allDay) { // this function is called when something is dropped
 
-        // retrieve the dropped element's stored Event Object
-        var originalEventObject = $(this).data('eventObject')
+	        // retrieve the dropped element's stored Event Object
+	        var originalEventObject = $(this).data('eventObject')
 
-        // we need to copy it, so that multiple events don't have a reference to the same object
-        var copiedEventObject = $.extend({}, originalEventObject)
+	        // we need to copy it, so that multiple events don't have a reference to the same object
+	        var copiedEventObject = $.extend({}, originalEventObject)
 
-        // assign it the date that was reported
-        copiedEventObject.start           = date
-        copiedEventObject.allDay          = allDay
-        copiedEventObject.backgroundColor = $(this).css('background-color')
-        copiedEventObject.borderColor     = $(this).css('border-color')
+	        // assign it the date that was reported
+	        copiedEventObject.start           = date
+	        copiedEventObject.allDay          = allDay
+	        copiedEventObject.backgroundColor = $(this).css('background-color')
+	        copiedEventObject.borderColor     = $(this).css('border-color')
 
-        // render the event on the calendar
-        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
-        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
+	        // render the event on the calendar
+	        // the last `true` argument determines if the event "sticks" (http://arshaw.com/fullcalendar/docs/event_rendering/renderEvent/)
+	        $('#calendar').fullCalendar('renderEvent', copiedEventObject, true)
 
-        // is the "remove after drop" checkbox checked?
-        if ($('#drop-remove').is(':checked')) {
-          // if so, remove the element from the "Draggable Events" list
-          $(this).remove()
-        }
+	        // is the "remove after drop" checkbox checked?
+	        if ($('#drop-remove').is(':checked')) {
+	          // if so, remove the element from the "Draggable Events" list
+	          $(this).remove()
+	        }
 
 
 
-      	},
-      	select: function( startDate, endDate, allDay, jsEvent, view )
-      	{
-      		var fechaInicio = $.fullCalendar.formatDate( startDate, 'YYYY-MM-DD' );
-      		var fechaFinal = $.fullCalendar.formatDate( endDate, 'YYYY-MM-DD' );
-      		$("#tabla_citas").load("<?=base_url()?>citas/obtenerCitas/"+fechaInicio+"/"+fechaFinal+""); 
-    	},
-    })
+	      	},
+	      	select: function( startDate, endDate, allDay, jsEvent, view )
+	      	{
+	      		var fechaInicio = $.fullCalendar.formatDate( startDate, 'YYYY-MM-DD' );
+	      		var fechaFinal = $.fullCalendar.formatDate( endDate, 'YYYY-MM-DD' );
+	      		$("#tabla_citas").load("<?=base_url()?>citas/obtenerCitas/"+fechaInicio+"/"+fechaFinal+""); 
+	    	},
+	    })
 
 
 	</script>
 
-
-
-
-
-
 	<script type="text/javascript">
+		 //Datemask dd/mm/yyyy
+    	$('#txt_fecha').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
 		//Date picker
 	    $('#txt_fecha').datepicker({
 	    	autoclose: true,
