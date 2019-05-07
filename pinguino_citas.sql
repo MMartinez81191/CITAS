@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 23-04-2019 a las 16:02:10
+-- Tiempo de generación: 07-05-2019 a las 05:15:16
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.12
 
@@ -60,6 +60,7 @@ CREATE TABLE `citas` (
   `hora` time DEFAULT NULL,
   `costo_consulta` varchar(45) DEFAULT '0',
   `folio_sat` int(11) DEFAULT NULL,
+  `cobrado` int(11) DEFAULT '0',
   `contabilizado` int(11) DEFAULT '0',
   `activo` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
@@ -68,10 +69,10 @@ CREATE TABLE `citas` (
 -- Volcado de datos para la tabla `citas`
 --
 
-INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `costo_consulta`, `folio_sat`, `contabilizado`, `activo`) VALUES
-(35, 7, 1, '2019-04-21', '15:30:00', '200', NULL, 0, 1),
-(36, 7, 2, '2019-04-21', '21:15:00', '1000.00', NULL, 0, 1),
-(37, 7, 3, '2019-04-21', '21:15:00', '0', NULL, 0, 1);
+INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `costo_consulta`, `folio_sat`, `cobrado`, `contabilizado`, `activo`) VALUES
+(41, 7, 1, '2019-05-04', '13:00:00', '200', NULL, 1, 0, 1),
+(42, 7, 1, '2019-05-05', '13:00:00', '0', NULL, 0, 0, 1),
+(43, 7, 2, '2019-05-04', '13:15:00', '0', NULL, 0, 0, 1);
 
 -- --------------------------------------------------------
 
@@ -172,7 +173,7 @@ ALTER TABLE `cat_niveles`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=38;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=44;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`

@@ -152,6 +152,7 @@ class Citas extends CI_Controller {
 			
 			$data = array(				
 				'costo_consulta' => trim($this->input->post('costo_consulta')),
+				'cobrado' => 1,
 				
 			);
 

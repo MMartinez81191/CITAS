@@ -111,7 +111,7 @@
 
 	<script type="text/javascript">
 		 //Datemask dd/mm/yyyy
-    	$('#txt_fecha').inputmask('yyyy/mm/dd', { 'placeholder': 'yyyy/mm/dd' })
+    	$('#txt_fecha').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
 		//Date picker
 	    $('#txt_fecha').datepicker({
 	    	autoclose: true,
@@ -282,6 +282,10 @@
 
 		    case 'citas':
 			    echo '<script src="'.base_url().'js/citas/citas.js"></script>';
+		    break;
+
+		    case 'corte':
+			    echo '<script src="'.base_url().'js/corte/corte.js"></script>';
 		    break;
 		    
 	    }

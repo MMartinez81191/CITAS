@@ -17,9 +17,10 @@
 				    		<div class="col-xs-12">
 								<div class="nav-tabs-custom">
 									<ul class="nav nav-tabs">
-										<li class="active"><a href="#tab_1" data-toggle="tab">Filtro Por Dia</a></li>
-										<li><a href="#tab_2" data-toggle="tab">Filtro Por Mes</a></li>
-										<li><a href="#tab_3" data-toggle="tab">Filtro Por Año</a></li>
+										<li class="active" id="pestania_1" name="pestania_1"><a href="#tab_1" data-toggle="tab">Filtro Por Dia</a></li>
+										<li id="pestania_2" name="pestania_2"><a href="#tab_2" data-toggle="tab">Filtro Por Mes</a></li>
+										<li id="pestania_3" name="pestania_3"><a href="#tab_3" data-toggle="tab">Filtro Por Año</a></li>
+										<li id="pestania_4" name="pestania_4"><a href="#tab_4" data-toggle="tab">Citas Pendientes de Registrar</a></li>
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane active" id="tab_1">
@@ -31,58 +32,118 @@
 															<div class="input-group-addon">
 															<i class="fa fa-calendar"></i>
 															</div>
-															<input type="text" class="form-control pull-right" id="txt_fecha" data-inputmask="'alias': 'yyyy/mm/dd'" data-mask>
+															<input type="text" class="form-control pull-right" id="txt_fecha" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask placeholder="yyyy-mm-dd">
 														</div>
 													</div>
-												</div>
-												<div class="col-xs-8">
-													<button class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+													<div class="form-group">
+														<button id="busqueda_dia" name="busqueda_dia" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+														<button style="display: none;" id="imprimir_dia" name="imprimir_dia" class="btn btn-default" ><i class="fa fa-print"></i> Imprimir</button>
+													</div>
 												</div>
 											</div>
 										</div>
 										<div class="tab-pane" id="tab_2">
 											<div class="row">
-												<div class="col-lg-12">
+												<div class="col-xs-4">
 													<div class="form-group">
 														<label>Seleccione el Mes:</label>
-														<select class="select2">
-															<option>Enero</option>
-															<option>Febrero</option>
-															<option>Marzo</option>
-															<option>Abril</option>
-															<option>Mayo</option>
-															<option>Junio</option>
-															<option>Julio</option>
-															<option>Agosto</option>
-															<option>Septiembre</option>
-															<option>Octubre</option>
-															<option>Noviembre</option>
-															<option>Diciembre</option>
+														<select id="select_mes_mes" name="select_mes_mes" class="select2" style="width: 100%;">
+															<option value="1">Enero</option>
+															<option value="2">Febrero</option>
+															<option value="3">Marzo</option>
+															<option value="4">Abril</option>
+															<option value="5">Mayo</option>
+															<option value="6">Junio</option>
+															<option value="7">Julio</option>
+															<option value="8">Agosto</option>
+															<option value="9">Septiembre</option>
+															<option value="10">Octubre</option>
+															<option value="11">Noviembre</option>
+															<option value="12">Diciembre</option>
 														</select>
 													</div>
 													<div class="form-group">
 														<label>Seleccione el Año</label>
-														<select class="select2">
-															<option>Seleccione la opcion</option>
+														<select class="select2" id="select_mes_anio" name="select_mes_anio" style="width: 100%;">
+															<?php
+															if($DATA_ANIOS != FALSE)
+															{
+																foreach ($DATA_ANIOS->result() as $row) 
+																{
+																	echo '<option value="'.$row->anio.'">'.$row->anio.'</option>';
+																}
+															}
+															?>
 														</select>
 													</div>
 													<div class="form-group">
-														<button class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+														<button id="busqueda_mes" name="busqueda_mes" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+														<button id="imprimir_mes" name="imprimir_mes" class="btn btn-default" ><i class="fa fa-print"></i> Imprimir</button>
 													</div>
 												</div>
 											</div>
 										</div>
 										<div class="tab-pane" id="tab_3">
 											<div class="row">
-												<div class="col-xs-8">
-													<div class="form-group">
-														<label>Seleccione el Año:</label>
-														<select class="select2"></select>
-													</div>
-												</div>
 												<div class="col-xs-4">
 													<div class="form-group">
-														<button class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+														<label>Seleccione el Año:</label>
+														<select id="select_anio_anio" name="select_anio_anio" class="select2" style="width: 100%;">
+															<?php
+															if($DATA_ANIOS != FALSE)
+															{
+																foreach ($DATA_ANIOS->result() as $row) 
+																{
+																	echo '<option value="'.$row->anio.'">'.$row->anio.'</option>';
+																}
+															}
+															?>
+														</select>
+													</div>
+													<div class="form-group">
+														<button id="busqueda_anio" name="busqueda_anio" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+														<button id="imprimir_anio" name="imprimir_anio" class="btn btn-default" ><i class="fa fa-print"></i> Imprimir</button>
+													</div>
+												</div>
+											</div>
+										</div>
+										<div class="tab-pane" id="tab_4">
+											<div class="row">
+												<div class="col-xs-4">
+													<div class="form-group">
+														<label>Seleccione el Mes:</label>
+														<select id="select_pendientes_mes" name="select_pendientes_mes" class="select2" style="width: 100%;">
+															<option value="1">Enero</option>
+															<option value="2">Febrero</option>
+															<option value="3">Marzo</option>
+															<option value="4">Abril</option>
+															<option value="5">Mayo</option>
+															<option value="6">Junio</option>
+															<option value="7">Julio</option>
+															<option value="8">Agosto</option>
+															<option value="9">Septiembre</option>
+															<option value="10">Octubre</option>
+															<option value="11">Noviembre</option>
+															<option value="12">Diciembre</option>
+														</select>
+													</div>
+													<div class="form-group">
+														<label>Seleccione el Año</label>
+														<select class="select2" id="select_pendientes_anio" name="select_pendientes_anio" style="width: 100%;">
+															<?php
+															if($DATA_ANIOS != FALSE)
+															{
+																foreach ($DATA_ANIOS->result() as $row) 
+																{
+																	echo '<option value="'.$row->anio.'">'.$row->anio.'</option>';
+																}
+															}
+															?>
+														</select>
+													</div>
+													<div class="form-group">
+														<button id="busqueda_pendientes" name="busqueda_pendientes" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
+														<button id="imprimir_pendientes" name="imprimir_pendientes" class="btn btn-default" ><i class="fa fa-print"></i> Imprimir</button>
 													</div>
 												</div>
 											</div>
@@ -96,65 +157,15 @@
 			</div>
 			<div class="col-xs-12">
 				<div class="box">
-					<div class="box-body table-responsive">
-						<table id="example1" class="table table-bordered table-striped">
-							<thead>
-								<tr>
-									<th><center>Folio</center></th>
-									<th><center>Nombre Paciente</center></th>
-									<th><center>Fecha Cita</center></th>
-									<th><center>Hora Cita</center></th>
-									<th><center>Costo Consulta</center></th>
-									<th class="no-sort"><center>Opciones</center></th>
-								</tr>
-							</thead>
-							<tbody>
-								<?php 
-								$total_corte = 0;
-								if($DATA_CITAS != FALSE) {
-									foreach ($DATA_CITAS->result() as $row) 
-									{
-										$total_corte = $total_corte + $row->costo_consulta;
-								?>
-									<tr id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
-										<td><center><?= $row->id_cita;?></center></td>
-										<td><center><?= $row->nombre_cliente;?></center></td>
-										<td><center><?= $row->fecha ?></center></td>
-										<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
-										<td><center><?='$'.number_format($total_corte,2,'.', ',')?></center></td>
-										<td>
-											<center>
-												<?php
-												if($row->costo_consulta == '0'){
-												?>
-													<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
+					<div id="tabla_citas" name="tabla_citas" class="box-body table-responsive">
 
-													<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
-												<?php
-												}
-												else
-												{
-												?>
-													<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
-												<?php
-												}
-												?>
-											</center>
-										</td>
-									</tr>
-								<?php
-									}
-								} ?>
-								
-							</tbody> 
-							<tr>
-								<th colspan="4" style="text-align: right;">Total</th>
-								<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
-							</tr>
-						</table>
 					</div>
 				</div>
 			</div>
 		</div>
 	</section>
 </div>
+
+<script type="text/javascript">
+	var base_url = '<?=base_url()?>';
+</script>
