@@ -3,11 +3,11 @@
 <div class="content-wrapper">
 	<section class="content-header">
       <h1>
-        CREACIÓN DE CLIENTES DEL SISTEMA
+        ALTA DE PACIENTES DEL SISTEMA
       </h1>
       <ol class="breadcrumb">
         <li><a href="<?=base_url()?>index.php/main"><i class="fa fa-dashboard"></i> Inicio</a></li>
-        <li><a href="<?=base_url()?>clientes">Clientes</a></li>
+        <li><a href="<?=base_url()?>clientes">Pacientes</a></li>
       </ol>
     </section>
 	<section class="content">
@@ -22,12 +22,12 @@
 				 			<div class="form-group">				 				
 						 		<div class="col-lg-4">	
 						 			<label>Nombre:</label>
-									<input type="text" class="form-control" required id="txt_nombre" name="txt_nombre" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+									<input type="text" class="form-control" required id="txt_nombre" name="txt_nombre" placeholder="Escriba el nombre del cliente" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
 						 		</div>
 
 						 		<div class="col-lg-4">
 						 			<label>Telefono:</label>
-									<input type="text" class="form-control" required id="txt_telefono" name="txt_telefono" placeholder="TELEFONO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
+									<input type="text" class="form-control" required id="txt_telefono" name="txt_telefono" placeholder="Escriba su numero telefonico" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
 						 		</div>
 						 	</div>
 						 	<div class="form group" style="margin-left: -15px">
@@ -42,14 +42,14 @@
 						                <!-- /.input group -->
 						            </div>
 						 		<div class="col-lg-4" style="margin-left: 3px">
-						 			<label>Correo:</label>
-									<input type="email" class="form-control" id=txt_user name="txt_user" placeholder="CORREO ELECTRONICO" maxlength="150" required>
+						 			<label>Correo: (Opcional)</label>
+									<input type="email" class="form-control" id=txt_user name="txt_user" placeholder="example@example.com" maxlength="150">
 						 		</div>					 			
 						 	</div>
 						 	<br/><br/><br/><br/>
 
 						 	<div class="row col-lg-3" style="margin-top: 15px;">
-						 		<button type="submit" class="btn btn-primary">Guardar Cliente</button>
+						 		<button type="submit" class="btn btn-primary">Guardar Paciente</button>
 						 		<a type="button" href="<?=base_url()?>index.php/clientes" class="btn btn-default">Cancelar</a>
 						 	</div>
 					 	</form>

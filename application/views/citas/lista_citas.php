@@ -33,9 +33,9 @@
 			      		<div class="box-body">
 			      			<form id="agregar_citas" name="agregar_citas" autocomplete="off">
 			          			<div class="row">
-			          				<div class="col-lg-3">
+			          				<div class="col-lg-4">
 			      						<div class="form-group">
-						                	<label>Nombre Cliente:</label>
+						                	<label>Nombre Paciente:</label>
 						                	<select id="select_cliente" name="select_cliente" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
 								                  <?php
 					                                if($DATA_CLIENTES != FALSE)
@@ -77,7 +77,7 @@
 							                </div>
 				          				</div>
 				          			</div>
-				          			<div class="col-lg-3" style="margin-top:2%;">
+				          			<div class="col-lg-2" style="margin-top:2%;">
 			          					<button type="submit" class="btn btn-primary">Guardar Cita</button>
 			          				</div>
 			      				</div>
@@ -152,7 +152,7 @@
 			    <div class="box">
 					<div class="box-header">
 						<center>
-							<h4>Agregar Clientes</h4>
+							<h4>Agregar Pacientes</h4>
 						</center>
 						<hr/>
 					</div>
@@ -162,7 +162,7 @@
 		          				<div class="col-lg-12">
 	          						<div class="form-group">
 					                	<label>Nombre Cliente:</label>
-					                	<input type="text" id="txt_nombre" name="txt_nombre" class="form-control" placeholder="Nombre del Cliente" onKeyUp="this.value=this.value.toUpperCase();">
+					                	<input type="text" id="txt_nombre" name="txt_nombre" class="form-control" placeholder="Nombre del paciente" onKeyUp="this.value=this.value.toUpperCase();">
 					              	</div>
 		          				</div>
 	          				</div>
@@ -170,7 +170,7 @@
 		          				<div class="col-lg-12">
 	          						<div class="form-group">
 					                	<label>Telefono del Cliente:</label>
-					                	<input type="text" id="txt_telefono" name="txt_telefono" class="form-control" placeholder="Telefono del Cliente" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="12">
+					                	<input type="text" id="txt_telefono" name="txt_telefono" class="form-control" placeholder="Telefono del paciente" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="12">
 					              	</div>
 		          				</div>
 	          				</div>
@@ -191,14 +191,14 @@
 	          				<div class="row">
 		          				<div class="col-lg-12">
 		          					<div class="form-group">
-					                	<label>Correo Electronico:</label>
+					                	<label>Correo Electronico: (Opcional)</label>
 					                	<input type="email" id="txt_correo" name="txt_correo" class="form-control" placeholder="example@example.com">
 					              	</div>
 		          				</div>
 	          				</div>
 	          				<div class="row">
 		          				<div class="col-lg-3" style="margin-top:2%;">
-		          					<button type="submit" class="btn btn-primary">Guardar Cliente</button>
+		          					<button type="submit" class="btn btn-primary">Guardar Paciente</button>
 		          				</div>
 		          			</div>
 		          		</form>

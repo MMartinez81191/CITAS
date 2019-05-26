@@ -1,11 +1,11 @@
 <div class="content-wrapper">
 	<section class="content-header">
       <h1 class="Display1">
-        CLIENTES REGISTRADOS
+        PACIENTES REGISTRADOS
       </h1>
       <ol class="breadcrumb">
         <li><u><a href="<?=base_url()?>index.php/main"><i class="fa fa-dashboard"></i> Inicio</a></u></li>
-        <li><u><a href="<?=base_url()?>clientes">Clientes</a></u></li>
+        <li><u><a href="<?=base_url()?>clientes">Pacientess</a></u></li>
       </ol>
     </section>
 	<section class="content">
@@ -14,7 +14,7 @@
 	          	<div class="box">
 		            <div class="box-header">
 		            	<div class="col-lg-offset-10">
-		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/clientes/add_client"><i class="fa fa-plus"></i> Nuevo Cliente</a>
+		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/clientes/add_client"><i class="fa fa-plus"></i> Nuevo Paciente</a>
 		              	</div>
 			        </div>
 			    </div>
@@ -24,8 +24,8 @@
 							<thead>
 								<tr>
 									<th><center>ID</center></th>
-									<th><center>Nombre del Cliente</center></th>
-									<th><center>Fecha de Nacimiento</center></th>
+									<th><center>Nombre del Paciente</center></th>
+									<th><center>Edad</center></th>
 									<th><center>Telefono</center></th>
 									<th><center>Correo</center></th>
 									<th class="no-sort"><center>Opciones</center></th>
@@ -41,7 +41,14 @@
 											<?= $row->nombre_cliente;?>
 										</center></td>
 										<td><center>
-											<?= $row->fecha_nacimiento;?>
+											<?php
+												$fecha_nacimiento = date("d-m-Y", strtotime($row->fecha_nacimiento));
+												$dias = explode("-",$fecha_nacimiento, 3);
+											    $dias = mktime(0,0,0,$dias[1],$dias[0],$dias[2]);
+											    $edad = (int)((time()-$dias)/31556926 );
+											    echo  $edad;
+												
+											?>
 										</center></td>
 										<td><center>
 											<?= $row->telefono_cliente;?>
@@ -50,9 +57,9 @@
 											<?= $row->correo_cliente;?>
 										</center></td>
 										<td><center>
-											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Cliente" ></span></button>
+											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Paciente" ></span></button>
 
-											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-danger eliminar_cliente" title="Eliminar Cliente" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-danger eliminar_cliente" title="Eliminar Paciente" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
 										</center></td>
 									</tr>
 								<?php
@@ -73,7 +80,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content" >
             <div class="modal-header">
-            	<center><h3 class="modal-title">Modificar Usuarios</h3></center>
+            	<center><h3 class="modal-title">Modificar Informacion de Pacientes</h3></center>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
                 <hr>    
             </div>
@@ -83,12 +90,12 @@
 	            	<div class="row">
 				 		<div class="form-group col-lg-4">	
 				 			<label >Nombre:</label>
-							<input type="text" class="form-control" required id="txt_nombre_editar" name="txt_nombre_editar" placeholder="NOMBRE" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();" required="true">
+							<input type="text" class="form-control" required id="txt_nombre_editar" name="txt_nombre_editar" placeholder="Nombre del Paciente" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();" required="true">
 				 		</div>
 
 				 		<div class="form-group col-lg-4">
 				 			<label >Telefono:</label>
-							<input type="text" class="form-control" id="txt_telefono_editar" name="txt_telefono_editar" placeholder="TELEFONO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required="true">
+							<input type="text" class="form-control" id="txt_telefono_editar" name="txt_telefono_editar" placeholder="Escriba el " maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required="true">
 				 		</div>			 		
 					</div>
 

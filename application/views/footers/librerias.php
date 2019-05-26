@@ -287,6 +287,10 @@
 		    case 'corte':
 			    echo '<script src="'.base_url().'js/corte/corte.js"></script>';
 		    break;
+
+		    case 'costos':
+			    echo '<script src="'.base_url().'js/costos/costos.js"></script>';
+		    break;
 		    
 	    }
 		?>

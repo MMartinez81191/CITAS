@@ -100,13 +100,14 @@
                 <a href="#"><i class="fa fa-gears"></i><span>Administrar</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                 <ul class="treeview-menu">
                     <li><a href="<?=base_url()?>index.php/usuarios"><i class="fa fa-user-plus"></i> Cuentas de Usuarios</a></li>
+                    <li><a href="<?=base_url()?>index.php/costos"><i class="fa fa-money"></i> Costos de Consultas</a></li>
                 </ul>
             </li>
             <li class="treeview" >
                 <li><a href="<?=base_url()?>citas"><i class="fa fa-calendar-check-o"></i><span>Citas</span></a></li>
             </li>
             <li class="treeview" >
-                <li><a href="<?=base_url()?>clientes"><i class="fa fa-users"></i><span>Clientes</span></a></li>
+                <li><a href="<?=base_url()?>clientes"><i class="fa fa-users"></i><span>Pacientes</span></a></li>
             </li>
             <li class="treeview" >
                 <li><a href="<?=base_url()?>corte"><i class="fa fa-money"></i><span>Corte de Caja</span></a></li>
