@@ -123,7 +123,8 @@
 		//Date picker
 	    $('#txt_fecha_cliente').datepicker({
 	    	autoclose: true,
-	    	format: 'yyyy-mm-dd'
+	    	format: 'yyyy-mm-dd',
+	    	language: 'es',
 	    })
 	</script>
 
@@ -131,7 +132,9 @@
 		$(function () {	
 			//Timepicker
 		    $('.timepicker').timepicker({
-		      showInputs: false
+		      defaultTime: 'current',
+		      showInputs: false,
+		      minuteStep: 1,
 		    })
 		})
 	</script>

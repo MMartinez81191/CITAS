@@ -27,6 +27,7 @@
 						<div class="box-header">
 							<center>
 								<h4>Agregar Citas</h4>
+								
 							</center>
 							<hr/>
 						</div>
@@ -97,22 +98,54 @@
 								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
+											<th><center>Hora Cita</center></th>
 											<th><center>Turno</center></th>
 											<th><center>Nombre Paciente</center></th>
 											<th><center>Fecha Cita</center></th>
-											<th><center>Hora Cita</center></th>
+											
 											<th class="no-sort"><center>Opciones</center></th>
 										</tr>
 									</thead>
 									<tbody>
-										<?php if($DATA_CITAS != FALSE) {
+										<?php
+
+											//$Hora = '0900';
+					        				$Hora = Time(); // Hora actual   
+					        				//echo $Hora;
+											//echo date('H:i a',$Hora).""; 
+											$aumento = 5;
+					        				for($i=0; $i<144; $i++)
+					        				{
+					        					$hora_inicial = '08:00:00';
+					        					
+					        					
+					        					?>
+					        						<tr>
+					        							<td><center><?=date('H:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+														<td><center></center></td>
+														<td><center></center></td>
+														<td><center></center></td>
+														
+														<td>
+					        						</tr>
+					        					<?php
+					        					
+
+					        					$aumento = $aumento + 5;
+					        				}
+											
+					        			?>
+										<?php 
+										/*if($DATA_CITAS != FALSE) {
+											
 											foreach ($DATA_CITAS->result() as $row) {
 										?>
 											<tr id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+												<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
 												<td><center><?= $row->numero_turno;?></center></td>
 												<td><center><?= $row->nombre_cliente;?></center></td>
 												<td><center><?= $row->fecha ?></center></td>
-												<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
+												
 												<td>
 													<center>
 														<?php
@@ -134,8 +167,8 @@
 												</td>
 											</tr>
 										<?php
-											}
-										} ?>
+											}*
+										}*/ ?>
 									</tbody> 
 								</table>
 							</div>
