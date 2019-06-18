@@ -8,6 +8,7 @@ class Citas extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Citas_model');
 		$this->load->model('Clientes_model');
+		$this->load->model('Costos_model');
 	} 
 
 	public function index()
@@ -21,6 +22,7 @@ class Citas extends CI_Controller {
 			$data = array(
 				'DATA_CITAS' => $this->Citas_model->get_citas($fechaInicio,$fechaFinal),
 				'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
+				'DATA_COSTOS' => $this->Costos_model->get_costos(),
 			);
 
 			$this->load->view('headers/librerias');

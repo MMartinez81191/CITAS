@@ -269,7 +269,30 @@
 			 		<div class="row">
 			 			<div class="form-group col-lg-12">
 				 			<label >Costo de la consulta:</label>
-							<input type="text" class="form-control" id=txt_costo_cita name="txt_costo_cita" placeholder="Costo de Consulta" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="10" required="true" >
+				 			<select class="select2" id=txt_costo_cita name="txt_costo_cita" style="width: 100%">
+				 				<?php
+				 				if($DATA_COSTOS != FALSE)
+				 				{
+				 					foreach ($DATA_COSTOS->result() as $row) {
+					 					echo '<option value="'.$row->costo.'">';
+					 						echo '$'.number_format($row->costo,2,'.', ',');
+					 					echo '</option>';
+					 				}
+				 				}
+				 				?>
+				 			</select>
+				 		</div>	
+	 				</div>
+	 				<div class="row">
+			 			<div class="form-group col-lg-12">
+				 			<label >Forma de Pago:</label>
+				 			<div class="form-check form-check-inline">
+				 				<input class="form-check-input" type="radio" name="rd_forma_pago" value="1" checked="true">
+				 				<label class="form-check-label" for="">Efectivo</label>
+								<input class="form-check-input" type="radio" name="rd_forma_pago" value="2">
+								<label class="form-check-label" for="">Cheque</label>
+				 			</div>
+							
 				 		</div>	
 	 				</div>
 	 				<hr>
