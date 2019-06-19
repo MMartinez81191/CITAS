@@ -9,17 +9,30 @@ var citas = {
                 txt_fecha : $('#txt_fecha').val(),
                 txt_hora : $('#txt_hora').val(),
             }
-            console.log(data);
-
-            cargar_ajax.run_server_ajax('citas/crear_cita', data);
-            swal({
-                title: 'CORRECTO',
-                text: 'Cita Agregada Correctamente',
-                type: 'success',
+            var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
+            console.log(response);
+            if(response == false)
+            {
+                swal({
+                    title: 'CORRECTO',
+                    text: 'LA CITA SE AGREGO CORRECTAMENTE',
+                    type: 'success',
                 closeOnConfirm: false
-            },function(){
-                window.location.reload();
-            });
+                },function(){
+                    window.location.reload();
+                });
+            }
+            else
+            {
+                swal({
+                    title: 'ATENCION!!',
+                    text: 'LA HORA Y FECHA DE LA CITA YA ESTA OCUPADA',
+                    type: 'warning',
+                    closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
+            }
         });
     },
 
@@ -91,10 +104,10 @@ var citas = {
             var data = 
             {
                 id_cita: $('#id_cita_pagar').val(), 
-                costo_consulta : $('#txt_costo_cita').val(),
-                 
+                costo_consulta : $('#sel_costo_cita').val(),
+                forma_pago : $("input[name='rd_forma_pago']:checked").val(),
             }
-
+            console.log(data);
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
              
              if (response == 'false') {

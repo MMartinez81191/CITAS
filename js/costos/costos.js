@@ -9,7 +9,6 @@ var costos = {
             }
 
             var response = cargar_ajax.run_server_ajax('costos/crear_costos', data);
-            console.log(response);
             if(response == false)
             {
             	swal({

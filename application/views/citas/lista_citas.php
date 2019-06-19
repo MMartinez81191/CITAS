@@ -73,7 +73,7 @@
 													<div class="input-group-addon">
 														<i class="fa fa-clock-o"></i>
 													</div>
-													<input id="txt_hora" name="txt_hora" type="text" class="form-control timepicker" autocomplete="off">
+													<input id="txt_hora" name="txt_hora" type="text" class="form-control timepicker" autocomplete="off" readonly="true" required="true">
 												</div>
 							                </div>
 				          				</div>
@@ -269,7 +269,7 @@
 			 		<div class="row">
 			 			<div class="form-group col-lg-12">
 				 			<label >Costo de la consulta:</label>
-				 			<select class="select2" id=txt_costo_cita name="txt_costo_cita" style="width: 100%">
+				 			<select class="select2" id=sel_costo_cita name="sel_costo_cita" style="width: 100%">
 				 				<?php
 				 				if($DATA_COSTOS != FALSE)
 				 				{
@@ -288,7 +288,8 @@
 				 			<label >Forma de Pago:</label>
 				 			<div class="form-check form-check-inline">
 				 				<input class="form-check-input" type="radio" name="rd_forma_pago" value="1" checked="true">
-				 				<label class="form-check-label" for="">Efectivo</label>
+				 				<label class="form-check-label" for="" style="margin-right: 20px;">Efectivo</label>
+
 								<input class="form-check-input" type="radio" name="rd_forma_pago" value="2">
 								<label class="form-check-label" for="">Cheque</label>
 				 			</div>

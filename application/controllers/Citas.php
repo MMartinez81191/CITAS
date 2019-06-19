@@ -94,20 +94,34 @@ class Citas extends CI_Controller {
 
 	public function crear_cita()
 	{
-		if($this->input->is_ajax_request()){
+		if($this->input->is_ajax_request())
+		{
+			
+
 			$fecha = trim($this->input->post('txt_fecha'));
 			$hora = trim($this->input->post('txt_hora'));
-			$numero_turno = $this->Citas_model->get_turno($fecha);
-			$data = array(				
-				'id_cliente' => trim($this->input->post('id_cliente')),
-				'numero_turno' => $numero_turno,
-				'fecha' => $fecha,
-				'hora' => date("H:i", strtotime($hora)),
-				'activo' => 1,
-			);
-			echo $numero_turno;
-			$this->Citas_model->insert_citas($data);
-			echo json_encode($data);
+			$confirmar_repetido = $this->Citas_model->comprobar_repetidos($fecha,date("H:i", strtotime($hora)));
+
+			if($confirmar_repetido == FALSE)
+			{
+				$numero_turno = $this->Citas_model->get_turno($fecha);
+				$data = array(				
+					'id_cliente' => trim($this->input->post('id_cliente')),
+					'numero_turno' => $numero_turno,
+					'fecha' => $fecha,
+					'hora' => date("H:i", strtotime($hora)),
+					'activo' => 1,
+				);
+				
+				$this->Citas_model->insert_citas($data);
+				$response = FALSE;
+				
+			}
+			else if($confirmar_repetido == TRUE)
+			{
+				$response = TRUE;
+			}
+			echo json_encode($response);
 		}else{
             show_404();
         }
@@ -154,6 +168,7 @@ class Citas extends CI_Controller {
 			
 			$data = array(				
 				'costo_consulta' => trim($this->input->post('costo_consulta')),
+				'forma_pago' => trim($this->input->post('forma_pago')),
 				'cobrado' => 1,
 				
 			);

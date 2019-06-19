@@ -33,6 +33,7 @@ class Costos extends CI_Controller {
 	{
 		if($this->input->is_ajax_request())
 		{
+			$response = TRUE;
 			$costo = trim($this->input->post('costo'));
 			$confirmar_repetido = $this->Costos_model->comprobar_repetidos($costo);
 			if($confirmar_repetido == FALSE)

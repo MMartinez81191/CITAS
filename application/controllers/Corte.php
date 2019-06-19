@@ -67,6 +67,7 @@ class Corte extends CI_Controller {
 					<th><center>Fecha Cita</center></th>
 					<th><center>Hora Cita</center></th>
 					<th><center>Costo Consulta</center></th>
+					<th><center>Forma de Pago</center></th>
 					<th class="no-sort"><center>Opciones</center></th>
 				</tr>
 			</thead>
@@ -84,6 +85,24 @@ class Corte extends CI_Controller {
 						<td><center><?= $row->fecha ?></center></td>
 						<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
 						<td><center><?='$'.number_format($total_corte,2,'.', ',')?></center></td>
+						<td>
+							<center>
+							<?php
+							switch ($row->forma_pago) {
+								case 1:
+									echo "Efectivo";
+									break;
+								case 2:
+									echo "Cheque";
+									break;
+								default:
+									echo "Forma de Pago Desconocida";
+									break;
+							}
+							
+							?>		
+							</center>
+						</td>
 						<td>
 							<center>
 								<?php

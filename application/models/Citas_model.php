@@ -91,5 +91,22 @@ class Citas_model extends CI_Model {
         $this->db->update('citas',$data);
     }
 
+    public function comprobar_repetidos($fecha,$hora)
+    {
+        $this->db->from('citas');
+        $this->db->where('fecha',$fecha);
+        $this->db->where('hora',$hora);
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return TRUE;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
 
 }

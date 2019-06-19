@@ -118,7 +118,6 @@
 	    	format: 'yyyy-mm-dd'
 	    })
 	</script>
-
 	<script type="text/javascript">
 		//Date picker
 	    $('#txt_fecha_cliente').datepicker({
@@ -134,7 +133,7 @@
 		    $('.timepicker').timepicker({
 		      defaultTime: 'current',
 		      showInputs: false,
-		      minuteStep: 1,
+		      minuteStep: 5,
 		    })
 		})
 	</script>
