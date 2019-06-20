@@ -107,7 +107,6 @@ var citas = {
                 costo_consulta : $('#sel_costo_cita').val(),
                 forma_pago : $("input[name='rd_forma_pago']:checked").val(),
             }
-            console.log(data);
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
              
              if (response == 'false') {
