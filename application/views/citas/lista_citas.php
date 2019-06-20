@@ -95,7 +95,7 @@
 			        	</div>
 						<div class="box-body table-responsive">
 							<div id="tabla_citas" name="tabla_citas">
-								<table id="example1" class="table table-bordered table-striped">
+								<table id="example2" class="table table-bordered table-striped">
 									<thead>
 										<tr>
 											<th><center>Hora Cita</center></th>
@@ -109,26 +109,65 @@
 									<tbody>
 										<?php
 
-											//$Hora = '0900';
-					        				$Hora = Time(); // Hora actual   
-					        				//echo $Hora;
-											//echo date('H:i a',$Hora).""; 
 											$aumento = 5;
 					        				for($i=0; $i<144; $i++)
 					        				{
 					        					$hora_inicial = '08:00:00';
+					        					if($DATA_CITAS != FALSE)
+					        					{
+					        						foreach ($DATA_CITAS->result() as $row) 
+					        						{
+					        							$hora1 = date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));
+					        							$hora2 = date('h:i a', strtotime($row->hora));
+					        							//$hora2 = date('h:i a', $row->hora);
+					        							
+					        							if($hora1 == $hora2)
+					        							{
+			        									?>
+					        								<tr id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+																<td><center><?= $row->numero_turno;?></center></td>
+																<td><center><?= $row->nombre_cliente;?></center></td>
+																<td><center><?= $row->fecha ?></center></td>
+																<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
+																<td>
+																	<center>
+																		<?php
+																		if($row->costo_consulta == '0'){
+																		?>
+																			<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
+
+																			<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+																		<?php
+																		}
+																		else
+																		{
+																		?>
+																			<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
+																		<?php
+																		}
+																		?>
+																	</center>
+																</td>
+															</tr>
+														<?php
+					        								break;
+					        							}
+					   
+					        						}	
+					        					}
 					        					
 					        					
 					        					?>
-					        						<tr>
-					        							<td><center><?=date('H:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
-														<td><center></center></td>
-														<td><center></center></td>
-														<td><center></center></td>
-														
-														<td>
-					        						</tr>
-					        					<?php
+															<tr>
+							        							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+																<td><center></center></td>
+																<td><center></center></td>
+																<td><center></center></td>
+																
+																<td>
+							        						</tr>
+					        							<?php	
+					        					
 					        					
 
 					        					$aumento = $aumento + 5;
