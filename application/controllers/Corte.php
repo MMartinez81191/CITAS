@@ -85,7 +85,7 @@ class Corte extends CI_Controller {
 							<td><center><?= $row->nombre_cliente;?></center></td>
 							<td><center><?= $row->fecha ?></center></td>
 							<td><center><?= date('h:i:s a', strtotime($row->hora))?></center></td>
-							<td><center><?='$'.number_format($total_corte,2,'.', ',')?></center></td>
+							<td><center><?='$'.number_format($row->costo_consulta,2,'.', ',')?></center></td>
 							<td>
 								<center>
 								<?php

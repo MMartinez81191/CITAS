@@ -252,48 +252,51 @@ class Citas extends CI_Controller {
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
 	        $this->load->library('fpdf_manager');
-	        $pdf = new fpdf_manager('P','mm',array(34,200));
+	        $pdf = new fpdf_manager('P','mm',array(34,50));
 	        
 	        $Nombre_archivo = 'Ticket.pdf';
 	        $pdf->SetMargins(1,1,1,1);
 	        $pdf->SetTitle("Ticket Pago");
 	        $pdf->AddPage();
 	        /*Encabezado*/
-	        $pdf->Image(base_url().'images/logo.png',12,3,10);
+	        $pdf->setY(2);
+	        $pdf->Image(base_url().'images/logo.jpg',25,0,10);
 	        $pdf->SetFont('Times','B',5);
-	        $pdf->setY(14);
+	        //$pdf->setY(1);
+
 	        $pdf->Cell(0,3,'Control de Peso',0,1,'C');
-	        $pdf->Cell(0,3,'Lic. Nut. Luz Maria Everardo Ramirez',0,1,'C');
+	        $pdf->Cell(0,2,'Lic. Nut. Luz Maria',0,1,'L');
+        	$pdf->Cell(0,2,'Everardo Ramirez',0,1,'L');
 
 	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,'---------------------------------------------',0,1,'C');
-	        
-	        $pdf->SetFont('Times','B',4);
+	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+	        							 
+	        /*$pdf->SetFont('Times','B',4);
 	        $pdf->Cell(6,3,'Folio:',0,0,'L');
 	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,$DATA_CITA->id_cita.'A',0,1,'L');
+	        $pdf->Cell(0,3,$DATA_CITA->id_cita.'A',0,1,'L');*/
 
 	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,3,'Turno:',0,0,'L');
+	        $pdf->Cell(6,2,'Turno:',0,0,'L');
 	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,'#'.$DATA_CITA->numero_turno,0,1,'L');
+	        $pdf->Cell(0,2,'#'.$DATA_CITA->numero_turno,0,1,'L');
 
 	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,3,'Fecha:',0,0,'L');
+	        $pdf->Cell(6,2,'Fecha:',0,0,'L');
 	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,$DATA_CITA->fecha,0,1,'L');
+	        $pdf->Cell(0,2,$DATA_CITA->fecha,0,1,'L');
 
 	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,3,'Nombre:',0,0,'L');
+	        $pdf->Cell(6,2,'Nombre:',0,0,'L');
 	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,$DATA_CITA->nombre_cliente,0,1,'L');
+	        $pdf->Cell(0,2,$DATA_CITA->nombre_cliente,0,1,'L');
 
 	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,3,'Importe:',0,0,'L');
+	        $pdf->Cell(6,2,'Importe:',0,0,'L');
 	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),0,1,'L');
+	        $pdf->Cell(0,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),0,1,'L');
 
-	        $pdf->Cell(0,3,'---------------------------------------------',0,1,'C');
+	        $pdf->Cell(0,2,'__________________________________________________________',0,1,'C');
 	        $pdf->SetFont('Times','B',3);
 	        $pdf->Cell(0,1,'Maribel Calles Castro',0,1,'C');
 	        $pdf->Cell(0,1,'RFC : CACM620318MQ7 ',0,1,'C');
@@ -302,9 +305,38 @@ class Citas extends CI_Controller {
 	        $pdf->Cell(0,1,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
 	        $pdf->Cell(0,1,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
 
+	        $pdf->SetFont('Times','',3);
+	        $pdf->Cell(0,1,'V1.PX-'.$DATA_CITA->id_cita,0,1,'R');
+
 	        $pdf->Ln();
-	        $pdf->SetY(-30);
-	        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
+	        
+	        $pdf->AddPage();
+	        $pdf->setY(2);
+	        $pdf->Image(base_url().'images/logo.jpg',25,0,10);
+	        $pdf->SetFont('Times','B',5);
+	        //$pdf->setY(1);
+
+	        $pdf->Cell(0,3,'Control de Peso',0,1,'C');
+	        $pdf->Cell(0,2,'Lic. Nut. Luz Maria',0,1,'L');
+        	$pdf->Cell(0,2,'Everardo Ramirez',0,1,'L');
+
+	        $pdf->SetFont('Times','',4);
+	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+	        $pdf->SetFont('Times','B',4);
+	        $pdf->Cell(6,2,'Turno:',0,0,'L');
+	        $pdf->SetFont('Times','',4);
+	        $pdf->Cell(0,2,'#'.$DATA_CITA->numero_turno,0,1,'L');
+
+	        $pdf->SetFont('Times','B',4);
+	        $pdf->Cell(6,2,'Importe:',0,0,'L');
+	        $pdf->SetFont('Times','',4);
+	        $pdf->Cell(0,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),0,1,'L');
+	        $pdf->SetFont('Times','B',4);
+	        $pdf->Cell(0,3,'FAVOR DE ENTREGAR ESTE',0,1,'C');
+	        $pdf->Cell(0,3,'COMPROBANTE A SU MEDICO',0,1,'C');
+	        $pdf->SetFont('Times','',3);
+	        $pdf->Cell(0,1,'V1.PX-'.$DATA_CITA->id_cita,0,1,'R');
+	        
 
 			$pdf->Output($Nombre_archivo, 'I');
 		}else{

@@ -4,22 +4,16 @@
 	
 ?>
 <div class="content-wrapper">
+	<section class="content-header">
+		<h1 class="Display1">
+			CITAS
+		</h1>
+		<ol class="breadcrumb">
+			<li><u><a href="<?=base_url()?>index.php/main"><i class="fa fa-dashboard"></i> Inicio</a></u></li>
+			<li><u><a href="#"><i class="fa fa-calendar"></i> Usuarios</a></u></li>
+		</ol>
+    </section>
 	<section class="content">
-		<div class="row">
-   			<div class="col-lg-12">
-				<div class="col-lg-12 bg-info">
-					<div class="box box-solid">
-						<div class="box-header with-border">
-							<center> 
-								<h3 class="box-title display-3">Bienvenido a Control de Citas</h3> <h3 class="Display-3"><?= $nombre; ?></h3>	
-							</center>
-						</div>									
-						<div class="box-body" id="caja">
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 		<div class="row">
 	        <div class="col-xs-8">
 	        	<div class="row">
