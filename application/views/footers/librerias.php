@@ -119,6 +119,15 @@
 	    })
 	</script>
 	<script type="text/javascript">
+		 //Datemask dd/mm/yyyy
+    	$('#txt_fecha2').inputmask('yyyy-mm-dd', { 'placeholder': 'yyyy-mm-dd' })
+		//Date picker
+	    $('#txt_fecha2').datepicker({
+	    	autoclose: true,
+	    	format: 'yyyy-mm-dd'
+	    })
+	</script>
+	<script type="text/javascript">
 		//Date picker
 	    $('#txt_fecha_cliente').datepicker({
 	    	autoclose: true,
@@ -328,6 +337,9 @@
 			    echo '<script src="'.base_url().'js/costos/costos.js"></script>';
 		    break;
 		    
+		    case 'corte_parcial':
+			    echo '<script src="'.base_url().'js/corte_parcial/corte_parcial.js"></script>';
+		    break;
 	    }
 		?>
 

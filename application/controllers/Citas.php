@@ -68,6 +68,8 @@ class Citas extends CI_Controller {
 	    				for($i=0; $i<144; $i++)
 	    				{
 	    					$hora_inicial = '08:00:00';
+	    					$hora1 = date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));
+							$hora2 = date('h:i a', strtotime('00:00:00'));
 	    					if($DATA_CITAS != FALSE)
 	    					{
 	    						foreach ($DATA_CITAS->result() as $row) 
@@ -78,7 +80,7 @@ class Citas extends CI_Controller {
 	    							
 	    							if($hora1 == $hora2)
 	    							{
-	    								$aumento = $aumento + 5;
+	    								
 									?>
 	    								<tr id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
 											<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
@@ -106,13 +108,15 @@ class Citas extends CI_Controller {
 											</td>
 										</tr>
 									<?php
+										$aumento = $aumento + 5;
 	    								break;
 	    							}
 
 	    						}	
 	    					}
 	    					
-	    					
+	    					if($hora1 != $hora2)
+							{
 	    					?>
 								<tr>
 	    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
@@ -121,8 +125,10 @@ class Citas extends CI_Controller {
 									<td><center>-</center></td>
 									<td><center>-</center></td>
 	    						</tr>
-							<?php	
-	    					$aumento = $aumento + 5;
+							<?php
+								
+		    					$aumento = $aumento + 5;
+		    				}
 	    				}
 	    			?>
 				</tbody> 

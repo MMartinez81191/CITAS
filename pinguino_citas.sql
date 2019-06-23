@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 21-06-2019 a las 02:12:14
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 5.6.40
+-- Tiempo de generación: 24-06-2019 a las 01:27:57
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -40,7 +40,11 @@ CREATE TABLE `cat_niveles` (
 
 INSERT INTO `cat_niveles` (`id_nivel`, `departamento`, `nivel_usuario`) VALUES
 (1, 'ROOT', 0),
-(2, 'ADMINISTRADOR', 1);
+(2, 'ADMINISTRADOR', 1),
+(3, 'CONTABILIDAD', 2),
+(4, 'DISEÑO', 3),
+(5, 'VENTAS', 4),
+(6, 'PRODUCCIÓN', 5);
 
 -- --------------------------------------------------------
 
@@ -67,8 +71,8 @@ CREATE TABLE `citas` (
 --
 
 INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `costo_consulta`, `folio_sat`, `contabilizado`, `cobrado`, `forma_pago`, `activo`) VALUES
-(77, 1, 2, '2019-06-20', '09:30:00', '100', NULL, 0, 1, 1, 1),
-(78, 698, 3, '2019-06-20', '15:35:00', '100', NULL, 0, 1, 1, 1);
+(83, 7, 1, '2019-06-23', '08:05:00', '100', NULL, 0, 1, 1, 1),
+(84, 7, 2, '2019-06-23', '08:10:00', '100', NULL, 0, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4608,6 +4612,24 @@ INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `cor
 -- --------------------------------------------------------
 
 --
+-- Estructura de tabla para la tabla `cortes_caja`
+--
+
+CREATE TABLE `cortes_caja` (
+  `id_corte` int(11) NOT NULL,
+  `id_cliente` int(11) DEFAULT NULL,
+  `cortes_cajacol` varchar(45) DEFAULT NULL,
+  `fecha` date DEFAULT NULL,
+  `hora` time DEFAULT NULL,
+  `costo_consulta` varchar(45) DEFAULT NULL,
+  `numero_session` int(11) DEFAULT NULL,
+  `fecha_inicio_corte` date DEFAULT NULL,
+  `fecha_final_corte` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `costos`
 --
 
@@ -4622,9 +4644,10 @@ CREATE TABLE `costos` (
 --
 
 INSERT INTO `costos` (`id_costo`, `costo`, `activo`) VALUES
-(0, '100', '1'),
-(0, '200', '1'),
-(0, '300.00', '1');
+(11, '100', '1'),
+(12, '200', '1'),
+(13, '300', '1'),
+(14, '500', '1');
 
 -- --------------------------------------------------------
 
@@ -4648,7 +4671,8 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `usuario_email`, `nombre`, `apellido_p`, `apellido_m`, `id_nivel`, `contrasena`, `activo`) VALUES
-(1, 'root@pinguinosystems.com', 'MARTIN FRANCISCO', 'MARTINEZ', 'FEDERICO', 1, '123456', '1');
+(1, 'root@pinguinosystems.com', 'MARTIN FRANCISCO', 'MARTINEZ', 'FEDERICO', 1, '123456', '1'),
+(4, 'martin.francisco.martinez.f@gmail.com', 'MARTIN FRANCISCO', 'FEDERICO', 'MARTINEZ', 2, '123456', '1');
 
 --
 -- Índices para tablas volcadas
@@ -4673,6 +4697,18 @@ ALTER TABLE `clientes`
   ADD PRIMARY KEY (`id_cliente`);
 
 --
+-- Indices de la tabla `cortes_caja`
+--
+ALTER TABLE `cortes_caja`
+  ADD PRIMARY KEY (`id_corte`);
+
+--
+-- Indices de la tabla `costos`
+--
+ALTER TABLE `costos`
+  ADD PRIMARY KEY (`id_costo`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -4687,13 +4723,13 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `cat_niveles`
 --
 ALTER TABLE `cat_niveles`
-  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_nivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=79;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=85;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -4702,10 +4738,22 @@ ALTER TABLE `clientes`
   MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4509;
 
 --
+-- AUTO_INCREMENT de la tabla `cortes_caja`
+--
+ALTER TABLE `cortes_caja`
+  MODIFY `id_corte` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT de la tabla `costos`
+--
+ALTER TABLE `costos`
+  MODIFY `id_costo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+
+--
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
