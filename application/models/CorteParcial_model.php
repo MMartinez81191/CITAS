@@ -59,6 +59,7 @@ class CorteParcial_Model extends CI_Model {
         $this->db->where('activo',1);
         $this->db->where('fecha >=',$fecha_inicial);
         $this->db->where('fecha <=',$fecha_final);
+        $this->db->order_by('id_cita','ASC');
 
         $query = $this->db->get();
         
@@ -72,9 +73,47 @@ class CorteParcial_Model extends CI_Model {
         }
     }
 
+    public function get_max_citas($fecha_inicial,$fecha_final)
+    {
+        $this->db->select_max('id_cita');
+        $this->db->from('citas');
+        $this->db->where('cobrado',1);
+        $this->db->where('activo',1);
+        $this->db->where('fecha >=',$fecha_inicial);
+        $this->db->where('fecha <=',$fecha_final);
 
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 
+    public function get_min_citas($fecha_inicial,$fecha_final)
+    {
+        $this->db->select_min('id_cita');
+        $this->db->from('citas');
+        $this->db->where('cobrado',1);
+        $this->db->where('activo',1);
+        $this->db->where('fecha >=',$fecha_inicial);
+        $this->db->where('fecha <=',$fecha_final);
 
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 
     public function get_anios()
     {

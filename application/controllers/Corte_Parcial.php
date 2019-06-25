@@ -6,7 +6,7 @@ class Corte_Parcial extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('CorteParcial_Model');
+		$this->load->model('CorteParcial_model');
 	} 
 
 	public function index()
@@ -58,7 +58,7 @@ class Corte_Parcial extends CI_Controller {
 				$response = "0.00";
 				$fecha_inicial = trim($this->input->post('fecha_1'));
 				$fecha_final = trim($this->input->post('fecha_2'));
-				$DATA_TOTAL = $this->CorteParcial_Model->get_total_citas($fecha_inicial,$fecha_final);
+				$DATA_TOTAL = $this->CorteParcial_model->get_total_citas($fecha_inicial,$fecha_final);
 				if($DATA_TOTAL != FALSE)
 				{
 					foreach($DATA_TOTAL->result() as $row)
@@ -93,12 +93,26 @@ class Corte_Parcial extends CI_Controller {
 				$cantidad_fisica = trim($this->input->post('cantidad_fisica'));
 
 
-				$DATA_TOTAL = $this->CorteParcial_Model->get_citas_intervalo($fecha_inicial,$fecha_final);
+				$DATA_TOTAL = $this->CorteParcial_model->get_citas_intervalo($fecha_inicial,$fecha_final);
 
+				$id_max = $this->CorteParcial_model->get_max_citas($fecha_inicial,$fecha_final)->id_cita;
+				$id_min = $this->CorteParcial_model->get_min_citas($fecha_inicial,$fecha_final)->id_cita;
+				
+				//var_dump($id_max);
+				//var_dump($id_min);
+
+				$rand = range($id_min, $id_max); 
+				shuffle($rand);
+
+				foreach ($rand as $val) { 
+				    echo $val . '<br />'; 
+				}
 				if($DATA_TOTAL != FALSE)
 				{
-					/*
-					foreach($DATA_TOTAL->result() as $row)
+
+					
+
+					/*foreach($DATA_TOTAL->result() as $row)
 					{
 						$total_citas = $row->total_citas;
 					}

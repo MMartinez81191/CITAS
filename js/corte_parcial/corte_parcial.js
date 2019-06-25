@@ -11,11 +11,11 @@ var corte_parcial = {
                 fecha_1 : fecha_1,
                 fecha_2 : fecha_2, 
             }
-            console.log(data);
+            //console.log(data);
             var response = cargar_ajax.run_server_ajax('corte_parcial/recuperar_cantidades', data);
 
             $('#cantidad_recaudada').val(response);
-            console.log(response);
+            //console.log(response);
             //$("#tabla_citas").load(base_url + "corte/obtener_citas/1/" + dia_fecha + "/"); 
 
         });
@@ -29,7 +29,11 @@ var corte_parcial = {
             var fecha_2 = $('#txt_fecha2').val();
             var cantidad_recaudada = $('#cantidad_recaudada').val();
             cantidad_recaudada = cantidad_recaudada.substring(1);
+            cantidad_recaudada = cantidad_recaudada.replace(/,/g, "");
+            cantidad_recaudada = parseFloat(cantidad_recaudada);
+
             var cantidad_fisica = $('#cantidad_fisica').val();
+            cantidad_fisica = parseFloat(cantidad_fisica);
 
             var data = {
                 fecha_1 : fecha_1,
@@ -37,7 +41,8 @@ var corte_parcial = {
                 cantidad_recaudada : cantidad_recaudada,
                 cantidad_fisica : cantidad_fisica, 
             }
-
+            console.log(cantidad_recaudada);
+            console.log(cantidad_fisica);
             if(cantidad_fisica > cantidad_recaudada)
             {
                 //cargar_ajax.run_server_ajax('clientes/crear_cliente', data);
