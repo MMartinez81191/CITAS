@@ -98,13 +98,23 @@ class Corte_Parcial extends CI_Controller {
 				$id_max = $this->CorteParcial_model->get_max_citas($fecha_inicial,$fecha_final)->id_cita;
 				$id_min = $this->CorteParcial_model->get_min_citas($fecha_inicial,$fecha_final)->id_cita;
 				
-				//var_dump($id_max);
-				//var_dump($id_min);
 
-				$rand = range($id_min, $id_max); 
+				$random = range($id_min, $id_max); 
 				shuffle($rand);
 
-				foreach ($rand as $val) { 
+				$acumulado = 0;
+				foreach ($random as $id_cita) 
+				{ 
+				    $DATA_CITA = $this->CorteParcial_model->get_data_cita($id_cita);
+				    if($DATA_CITA != FALSE)
+				    {
+				    	$acumulado = $acumulado + $DATA_CITA->costo_consulta;
+				    	$this->CorteParcial_model->insert_cortes_caja($id_cita);
+				    	if($acumulado > $cantidad_fisica)
+				    	{
+				    		break;
+				    	}
+				    }
 				    echo $val . '<br />'; 
 				}
 				if($DATA_TOTAL != FALSE)

@@ -30,6 +30,8 @@ class CorteParcial_Model extends CI_Model {
         }
     }
 
+
+//================================================================
     public function get_total_citas($fecha_inicial,$fecha_final)
     {
         $this->db->select_sum('costo_consulta','total_citas');
@@ -115,6 +117,53 @@ class CorteParcial_Model extends CI_Model {
         }
     }
 
+
+    public function get_data_cita($id_cita)
+    {
+        $this->db->from('citas');
+        $this->db->where('id_cita',$id_cita);
+        $this->db->where('cobrado',1);
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+
+    }
+
+    public function insert_cortes_caja($data)
+    {
+        $this->db->insert('cortes_caja',$data);
+    }
+
+    public function get_numero_session()
+    {
+        $this->db->select_max('numero_session');
+        $this->db->from('cortes_caja');
+
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    public function update_corte_caja($)
+
+
+//===============================================================
     public function get_anios()
     {
         $this->db->distinct();
