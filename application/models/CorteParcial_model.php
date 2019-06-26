@@ -31,13 +31,15 @@ class CorteParcial_Model extends CI_Model {
     }
 
 
-//================================================================
+    //REALIZAR CORTES
+
     public function get_total_citas($fecha_inicial,$fecha_final)
     {
         $this->db->select_sum('costo_consulta','total_citas');
         $this->db->from('citas');
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
+        $this->db->where('contabilizado',0);
         $this->db->where('fecha >=',$fecha_inicial);
         $this->db->where('fecha <=',$fecha_final);
 
@@ -59,6 +61,7 @@ class CorteParcial_Model extends CI_Model {
         $this->db->from('citas');
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
+        $this->db->where('contabilizado',0);
         $this->db->where('fecha >=',$fecha_inicial);
         $this->db->where('fecha <=',$fecha_final);
         $this->db->order_by('id_cita','ASC');
@@ -81,6 +84,7 @@ class CorteParcial_Model extends CI_Model {
         $this->db->from('citas');
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
+        $this->db->where('contabilizado',0);
         $this->db->where('fecha >=',$fecha_inicial);
         $this->db->where('fecha <=',$fecha_final);
 
@@ -102,6 +106,7 @@ class CorteParcial_Model extends CI_Model {
         $this->db->from('citas');
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
+        $this->db->where('contabilizado',0);
         $this->db->where('fecha >=',$fecha_inicial);
         $this->db->where('fecha <=',$fecha_final);
 
@@ -122,6 +127,7 @@ class CorteParcial_Model extends CI_Model {
     {
         $this->db->from('citas');
         $this->db->where('id_cita',$id_cita);
+        $this->db->where('contabilizado',0);
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
 
@@ -138,9 +144,15 @@ class CorteParcial_Model extends CI_Model {
 
     }
 
-    public function insert_cortes_caja($data)
+    public function insert_cortes_caja_tmp($data)
     {
-        $this->db->insert('cortes_caja',$data);
+        $this->db->insert('cortes_caja_tmp',$data);
+    }
+
+    public function insert_cortes_caja()
+    {
+        $sql = 'INSERT INTO cortes_caja(id_cliente,fecha,hora,costo_consulta,numero_session,fecha_inicio_corte,fecha_final_corte) SELECT id_cliente,fecha,hora,costo_consulta,numero_session,fecha_inicio_corte,fecha_final_corte FROM cortes_caja_tmp ORDER BY fecha,hora ASC;';
+        $this->db->query($sql);
     }
 
     public function get_numero_session()
@@ -160,119 +172,18 @@ class CorteParcial_Model extends CI_Model {
         }
     }
 
-    public function update_corte_caja($)
-
-
-//===============================================================
-    public function get_anios()
+    public function delete_corte_caja_tmp()
     {
-        $this->db->distinct();
-        $this->db->select('year(fecha) AS anio');
-        $this->db->from('citas');
-        $this->db->where('activo',1);
-        $this->db->order_by('anio','asc');
-
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-        {
-            return $query;
-        }
-        else
-        {
-            return FALSE;
-        }
+        $this->db->where('id_cliente >',0);
+        $this->db->delete('cortes_caja_tmp');
     }
 
-    public function get_citas_dia($dia)
+    public function update_corte_caja($fecha_inicial,$fecha_final)
     {
-        $this->db->select('citas.*');
-        $this->db->select('clientes.nombre_cliente');
-        $this->db->from('citas');
-        $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');
-        $this->db->where('citas.activo',1);
-        $this->db->where('cobrado',1);
-        $this->db->where('fecha',$dia);
-        
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-        {
-            return $query;
-        }
-        else
-        {
-            return FALSE;
-        }
+        $this->db->set('contabilizado',1);
+        $this->db->where('fecha >=',$fecha_inicial);
+        $this->db->where('fecha <=',$fecha_final);
+        $this->db->update('citas');
     }
-
-    public function get_citas_mes($mes,$anio)
-    {
-        $this->db->select('citas.*');
-        $this->db->select('clientes.nombre_cliente');
-        $this->db->from('citas');
-        $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');
-        $this->db->where('citas.activo',1);
-        $this->db->where('cobrado',1);
-        $this->db->where('month(fecha)',$mes);
-        $this->db->where('year(fecha)',$anio);
-        
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-        {
-            return $query;
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
-
-    public function get_citas_anio($anio)
-    {
-        $this->db->select('citas.*');
-        $this->db->select('clientes.nombre_cliente');
-        $this->db->from('citas');
-        $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');
-        $this->db->where('citas.activo',1);
-        $this->db->where('cobrado',1);
-        $this->db->where('year(fecha)',$anio);
-        
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-        {
-            return $query;
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
-
-    public function get_citas_pendientes($mes,$anio)
-    {
-        $this->db->select('citas.*');
-        $this->db->select('clientes.nombre_cliente');
-        $this->db->from('citas');
-        $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');
-        $this->db->where('citas.activo',1);
-        $this->db->where('cobrado',0);
-        $this->db->where('month(fecha)',$mes);
-        $this->db->where('year(fecha)',$anio);
-        
-        $query = $this->db->get();
-
-        if($query->num_rows() > 0)
-        {
-            return $query;
-        }
-        else
-        {
-            return FALSE;
-        }
-    }
-
     
 }
