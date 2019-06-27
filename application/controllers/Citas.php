@@ -258,7 +258,7 @@ class Citas extends CI_Controller {
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
 	        $this->load->library('fpdf_manager');
-	        $pdf = new fpdf_manager('P','mm',array(34,50));
+	        $pdf = new fpdf_manager('P','mm',array(34,65));
 	        
 	        $Nombre_archivo = 'Ticket.pdf';
 	        $pdf->SetMargins(1,1,1,1);
@@ -268,41 +268,47 @@ class Citas extends CI_Controller {
 	        $pdf->setY(2);
 	        $pdf->Image(base_url().'images/logo.jpg',25,0,10);
 	        $pdf->SetFont('Times','B',5);
-	        //$pdf->setY(1);
-
+	        
 	        $pdf->Cell(0,3,'Control de Peso',0,1,'C');
 	        $pdf->Cell(0,2,'Lic. Nut. Luz Maria',0,1,'L');
         	$pdf->Cell(0,2,'Everardo Ramirez',0,1,'L');
 
 	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
-	        							 
-	        /*$pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,3,'Folio:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,$DATA_CITA->id_cita.'A',0,1,'L');*/
-
+	        
 	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Turno:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,'#'.$DATA_CITA->numero_turno,0,1,'L');
+	        $pdf->SetFillColor(230,230,230);
 
-	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Fecha:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,$DATA_CITA->fecha,0,1,'L');
+	        $pdf->Cell(0,2,utf8_decode('Datos Consulta'),1,1,'C',1);
+    		$pdf->Cell(11,2,'Turno:',1,0,'L',1);
+    		$pdf->Cell(21,2,$DATA_CITA->numero_turno,1,1,'L');
 
-	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Nombre:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,$DATA_CITA->nombre_cliente,0,1,'L');
+    		$pdf->Cell(0,2,'Nombre:',1,1,'L',1);
+    		$pdf->MultiCell(0,2,utf8_decode($DATA_CITA->nombre_cliente),1);
 
-	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Importe:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),0,1,'L');
+    		$pdf->Cell(11,2,'Fecha Consulta:',1,0,'L',1);
+    		$pdf->Cell(21,2,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');
 
-	        $pdf->Cell(0,2,'__________________________________________________________',0,1,'C');
+    		$pdf->Cell(11,2,'Hora Consulta:',1,0,'L',1);
+    		$pdf->Cell(21,2,date("h:m a", strtotime($DATA_CITA->fecha)),1,1,'L');
+
+    		$pdf->Cell(11,2,'Costo Consulta:',1,0,'L',1);
+    		$pdf->Cell(21,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+
+    		$pdf->ln();
+
+			$pdf->Cell(0,2,utf8_decode('Total'),1,1,'C',1);
+    		$pdf->Cell(11,2,'Subtotal:',1,0,'L',1);
+    		$pdf->Cell(21,2,'$'.number_format($DATA_CITA->costo_consulta - ($DATA_CITA->costo_consulta * 0.16),2,'.', ','),1,1,'L');
+
+    		$pdf->Cell(11,2,'IVA 16%:',1,0,'L',1);
+    		$pdf->Cell(21,2,'$'.number_format(($DATA_CITA->costo_consulta * 0.16),2,'.', ','),1,1,'L');
+
+    		$pdf->Cell(11,2,'Total:',1,0,'L',1);
+    		$pdf->Cell(21,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+
+    		$pdf->Ln();
+    		$pdf->Ln(); 
+
 	        $pdf->SetFont('Times','B',3);
 	        $pdf->Cell(0,1,'Maribel Calles Castro',0,1,'C');
 	        $pdf->Cell(0,1,'RFC : CACM620318MQ7 ',0,1,'C');
@@ -320,26 +326,24 @@ class Citas extends CI_Controller {
 	        $pdf->setY(2);
 	        $pdf->Image(base_url().'images/logo.jpg',25,0,10);
 	        $pdf->SetFont('Times','B',5);
-	        //$pdf->setY(1);
-
+	        
 	        $pdf->Cell(0,3,'Control de Peso',0,1,'C');
 	        $pdf->Cell(0,2,'Lic. Nut. Luz Maria',0,1,'L');
         	$pdf->Cell(0,2,'Everardo Ramirez',0,1,'L');
 
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
-	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Turno:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,'#'.$DATA_CITA->numero_turno,0,1,'L');
 
 	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Importe:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),0,1,'L');
+	        $pdf->SetFillColor(230,230,230);
+
+	        $pdf->Cell(0,2,utf8_decode('Datos Consulta'),1,1,'C',1);
+    		$pdf->Cell(11,2,'Turno:',1,0,'L',1);
+    		$pdf->Cell(21,2,$DATA_CITA->numero_turno,1,1,'L');
+
+    		$pdf->Cell(11,2,'Costo Consulta:',1,0,'L',1);
+    		$pdf->Cell(21,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+
 	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(0,3,'FAVOR DE ENTREGAR ESTE',0,1,'C');
-	        $pdf->Cell(0,3,'COMPROBANTE A SU MEDICO',0,1,'C');
+	        $pdf->MultiCell(0,3,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU MEDICO',1,1,'C');
 	        $pdf->SetFont('Times','',3);
 	        $pdf->Cell(0,1,'V1.PX-'.$DATA_CITA->id_cita,0,1,'R');
 	        
