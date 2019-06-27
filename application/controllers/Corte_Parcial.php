@@ -98,30 +98,6 @@ class Corte_Parcial extends CI_Controller {
     		$pdf->Cell(11,2,'Total:',1,0,'L',1);
     		$pdf->Cell(21,2,'$'.number_format($total_citas,2,'.', ','),1,1,'L');
         						 
-	        /*$pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,3,'Folio:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,3,$DATA_CITA->id_cita.'A',0,1,'L');*/
-
-	        /*$pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Turno:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,'#'.$DATA_CITA->numero_turno,0,1,'L');
-
-	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Fecha:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,$DATA_CITA->fecha,0,1,'L');
-
-	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Nombre:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,$DATA_CITA->nombre_cliente,0,1,'L');
-
-	        $pdf->SetFont('Times','B',4);
-	        $pdf->Cell(6,2,'Importe:',0,0,'L');
-	        $pdf->SetFont('Times','',4);
-	        $pdf->Cell(0,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),0,1,'L');*/
 
 	        $pdf->Cell(0,2,'__________________________________________________________',0,1,'C');
 	        $pdf->SetFont('Times','B',3);
@@ -263,7 +239,7 @@ class Corte_Parcial extends CI_Controller {
 
 	public function seguridad()
 	{
-		if(($this->session->userdata('logueado') == 1))
+		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') < 3))
 		{
 			return true;
 		}

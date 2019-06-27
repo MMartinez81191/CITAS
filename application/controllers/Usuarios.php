@@ -112,6 +112,7 @@ class Usuarios extends CI_Controller {
 					'apellido_p' => trim($this->input->post('apellido_p')),
 					'apellido_m' => trim($this->input->post('apellido_m')),
 					'id_nivel' => $this->input->post('id_nivel'),
+					'contrasena' => $this->input->post('contrasena'),
 				);
 
 				$this->Usuarios_model->update_usuarios($data,$id_usuario);
@@ -144,9 +145,24 @@ class Usuarios extends CI_Controller {
 		}
 	}
 
+	public function cambiar_contrasena()
+	{
+		if($this->input->is_ajax_request()){
+			$id_usuario = $this->input->post('id_usuario');
+			$data = array(				
+				'contrasena' => $this->input->post('contrasena'),
+			);
+
+			$this->Usuarios_model->update_usuarios($data,$id_usuario);
+		
+		}else{
+            show_404();
+        }
+	}
+
 	public function seguridad()
 	{
-		if(($this->session->userdata('logueado') == 1))
+		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') < 3))
 		{
 			return true;
 		}

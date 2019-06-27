@@ -66,9 +66,9 @@
 						 	</div>
 						 	<div class="form-group">		 			
                                 <div class="col-lg-4">
-                                    <label>Departamento:</label>
+                                    <label>Tipo de Usuario:</label>
                                     <select class="form-control" id="select_nivel" name="select_nivel" required>
-                                        <option value >SELECCIONAR UN DEPARTAMENTO</option>
+                                        <option value >SELECCIONE UNA OPCION</option>
 		                                <?php
 		                                    if($DATA_NIVELES != FALSE)
 		                                    {

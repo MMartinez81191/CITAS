@@ -117,6 +117,7 @@ class Clientes extends CI_Controller {
 					'correo_cliente' => trim($this->input->post('correo_cliente')),
 					'telefono_cliente' => trim($this->input->post('telefono_cliente')),
 					'fecha_nacimiento' => trim($this->input->post('fecha_nacimiento')),
+					'fecha_registro' => date('Y-m-d'),
 				);
 				$this->Clientes_model->insert_clientes($data);
 				echo json_encode($data);

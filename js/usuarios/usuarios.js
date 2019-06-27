@@ -36,7 +36,8 @@ var usuarios = {
             $('#txt_apellido_p_editar').val(response.DATA_USUARIO.apellido_p);
             $('#txt_apellido_m_editar').val(response.DATA_USUARIO.apellido_m);
             $('#txt_user_editar').val(response.DATA_USUARIO.usuario_email);
-            
+            $('#txt_password_editar').val(response.DATA_USUARIO.contrasena);
+
             $('#select_nivel_editar').val(response.DATA_USUARIO.id_nivel);
 
         });
@@ -52,9 +53,10 @@ var usuarios = {
                 	apellido_m: $('#txt_apellido_m_editar').val(),
                 	usuario: $('#txt_user_editar').val(), 
                 	id_nivel: $('#select_nivel_editar').val(),
+                  contrasena : $('#txt_password_editar').val(),
                 }
                 
-                
+                console.log(data);
 
                  var response = cargar_ajax.run_server_ajax('usuarios/editar_usuario', data);
                  if (response == 'false') {

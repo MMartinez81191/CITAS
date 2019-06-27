@@ -340,9 +340,12 @@
 		    case 'corte_parcial':
 			    echo '<script src="'.base_url().'js/corte_parcial/corte_parcial.js"></script>';
 		    break;
-	    }
-		?>
 
+		    
+	    }
+	    echo '<script src="'.base_url().'js/main/main.js"></script>';
+		?>
+		<script>var base_url = '<?php echo base_url() ?>';</script>
 
 	</body>
 </html>

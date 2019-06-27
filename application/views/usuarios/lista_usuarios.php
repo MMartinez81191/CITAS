@@ -68,6 +68,7 @@
 										?>
 											<center>
 												<button data-id="<?= $row->id_usuario; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_usuarios_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Usuario" ></span></button>
+												
 
 												<button data-id="<?= $row->id_usuario; ?>" class="btn btn-danger eliminar_user" title="Eliminar Usuario" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
 											</center>
@@ -124,7 +125,7 @@
 							<input type="email" class="form-control" id=txt_user_editar name="txt_user_editar" placeholder="CORREO ELECTRONICO" maxlength="150" required>
 				 		</div>
 				 		<div class="col-lg-4">
-                            <label >Niveles:</label>
+                            <label >Tipo de Usuario:</label>
                             <select class="form-control" style="width: 100%;" id="select_nivel_editar" name="select_nivel_editar" required>
 	                               <?php
 	                                if($DATA_NIVELES != FALSE)
@@ -145,19 +146,15 @@
 	                            ?>
                             </select>
                         </div>
-				 		<!--<div class="form-group col-lg-7">
-                            <label class="col-lg-12" >Empresas:</label>
-                            <select class="form-control select2 " multiple="multiple"  style="width: 100%;" id="select_empresas_editar" name="select_empresas_editar[]" required>
-                                <?php foreach ($DATA_EMPRESAS as $single_key) { ?>
-                                    <option value="<?= $single_key->id_empresa; ?>"><?= $single_key->razonSocial; ?></option>
-                                <?php } ?>
-                            </select>
-                        </div>-->
+                        <div class="form-group col-lg-4">
+				 			<label >Contraseña:</label>
+							<input type="password" class="form-control" id=txt_password_editar name="txt_password_editar" placeholder="CONTRASEÑA" maxlength="150" required>
+				 		</div>
 	 				</div>
 	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	                    <button type="submit" class="btn btn-primary" style="background-color: #62374e">Guardar</button>
+	                    <button type="submit" class="btn btn-primary">Guardar</button>
 	                </div>
 				</form> 
             </div>

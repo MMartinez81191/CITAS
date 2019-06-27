@@ -120,7 +120,7 @@
 							    							{
 							    								
 															?>
-							    								<tr id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+							    								<tr class="" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
 																	<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
 																	<td><center><?= $row->numero_turno;?></center></td>
 																	<td><center><?= $row->nombre_cliente;?></center></td>
@@ -296,6 +296,12 @@
 							
 				 		</div>	
 	 				</div>
+	 				<div class="row">
+				 		<div class="form-group col-lg-12">
+				 			<label >Peso:</label>
+							<input type="text" class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
+				 		</div>			 		
+					</div>
 	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

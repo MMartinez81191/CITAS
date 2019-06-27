@@ -103,12 +103,19 @@
                     <li><a href="<?=base_url()?>index.php/costos"><i class="fa fa-money"></i> Costos de Consultas</a></li>
                 </ul>
             </li>
+            <?php
+            }
+            ?>
             <li class="treeview" >
                 <li><a href="<?=base_url()?>citas"><i class="fa fa-calendar-check-o"></i><span>Citas</span></a></li>
             </li>
             <li class="treeview" >
                 <li><a href="<?=base_url()?>clientes"><i class="fa fa-users"></i><span>Pacientes</span></a></li>
             </li>
+            <?php
+            if($nivel < 3)
+            {
+            ?>
             <li class="treeview" >
                 <li><a href="<?=base_url()?>corte"><i class="fa fa-money"></i><span>Corte de Caja</span></a></li>
             </li>

@@ -232,6 +232,7 @@ class Citas extends CI_Controller {
 				$data = array(				
 					'costo_consulta' => trim($this->input->post('costo_consulta')),
 					'forma_pago' => trim($this->input->post('forma_pago')),
+					'peso_actual' => trim($this->input->post('peso_actual')),
 					'cobrado' => 1,
 					
 				);
@@ -285,6 +286,9 @@ class Citas extends CI_Controller {
     		$pdf->Cell(0,2,'Nombre:',1,1,'L',1);
     		$pdf->MultiCell(0,2,utf8_decode($DATA_CITA->nombre_cliente),1);
 
+    		$pdf->Cell(11,2,'Peso Actual:',1,0,'L',1);
+    		$pdf->Cell(21,2,utf8_decode($DATA_CITA->peso_actual).' Kg',1,1,'L');
+
     		$pdf->Cell(11,2,'Fecha Consulta:',1,0,'L',1);
     		$pdf->Cell(21,2,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');
 
@@ -307,7 +311,7 @@ class Citas extends CI_Controller {
     		$pdf->Cell(21,2,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
     		$pdf->Ln();
-    		$pdf->Ln(); 
+    		 
 
 	        $pdf->SetFont('Times','B',3);
 	        $pdf->Cell(0,1,'Maribel Calles Castro',0,1,'C');

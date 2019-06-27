@@ -1,3 +1,6 @@
+<?php
+$nivel_usuario = $this->session->userdata('nivel');
+?>
 <div class="content-wrapper">
 	<section class="content-header">
       <h1 class="Display1">
@@ -58,8 +61,14 @@
 										</center></td>
 										<td><center>
 											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Paciente" ></span></button>
-
+											<?php
+											if($nivel_usuario < 3)
+											{
+											?>
 											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-danger eliminar_cliente" title="Eliminar Paciente" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+											<?php
+											}
+											?>
 										</center></td>
 									</tr>
 								<?php

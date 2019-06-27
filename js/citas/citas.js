@@ -8,6 +8,7 @@ var citas = {
                 id_cliente : $('#select_cliente').val(), 
                 txt_fecha : $('#txt_fecha').val(),
                 txt_hora : $('#txt_hora').val(),
+
             }
             var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
             console.log(response);
@@ -106,6 +107,7 @@ var citas = {
                 id_cita: $('#id_cita_pagar').val(), 
                 costo_consulta : $('#sel_costo_cita').val(),
                 forma_pago : $("input[name='rd_forma_pago']:checked").val(),
+                peso_actual : $('#txt_peso_inicial_cita').val(),
             }
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
              
