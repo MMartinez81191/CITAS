@@ -9,14 +9,14 @@ class CorteParcial_Model extends CI_Model {
         parent::__construct();
     }
 
-    public function get_citas()
+    //LISTA CORTES
+    public function get_cortes()
     {
         
-        $this->db->select('citas.*');
-        $this->db->select('clientes.nombre_cliente');
-        $this->db->from('citas');
-        $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');
-        $this->db->where('citas.activo',1);
+        $this->db->select('numero_session,fecha_inicio_corte,fecha_final_corte');
+        $this->db->select_sum('costo_consulta','total_corte');
+        $this->db->from('cortes_caja');
+        $this->db->group_by('numero_session,fecha_inicio_corte,fecha_final_corte');
 
         $query = $this->db->get();
 
@@ -30,7 +30,24 @@ class CorteParcial_Model extends CI_Model {
         }
     }
 
+    public function get_cortes_ticket()
+    {
+        $this->db->select('clientes.nombre_cliente');
+        $this->db->select('id_corte,fecha,hora,costo_consulta');
+        $this->db->from('cortes_caja');
+        $this->db->join('clientes','clientes.id_cliente = cortes_caja.id_cliente');
 
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
     //REALIZAR CORTES
 
     public function get_total_citas($fecha_inicial,$fecha_final)
