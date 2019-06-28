@@ -156,7 +156,7 @@ class Corte extends CI_Controller {
             $pdf->SetTitle("Corte de Caja");
 	        $pdf->AddPage();
 	        /*Encabezado*/
-	        $pdf->Image(base_url().'images/logo.png',10,8,20);
+	        $pdf->Image(base_url().'images/logo.jpg',10,8,20);
 	        $pdf->SetFont('Arial','B',12);
 	        //$pdf->Cell(90,6,'',0,0);
 	        $pdf->Cell(0,6,'REPORTE DE CITAS',0,0,'C');
@@ -198,15 +198,18 @@ class Corte extends CI_Controller {
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
 					$DATA_CITAS = $this->Corte_model->get_citas_mes($mes,$anio);
+					$informacion_cita = 'EL MES '.$mes. ' DEL AÑO '.$anio;
 					break;
 				case '3':
 					$anio = $this->uri->segment(4);
 					$DATA_CITAS = $this->Corte_model->get_citas_anio($anio);
+					$informacion_cita = 'EL AÑO '.$anio;
 					break;
 				case '4':
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
 					$DATA_CITAS = $this->Corte_model->get_citas_pendientes($mes,$anio);
+					$informacion_cita = 'EL MES '.$mes. ' DEL AÑO '.$anio;
 					break;
 				default:
 					$DATA_CITAS = FALSE;
@@ -215,7 +218,7 @@ class Corte extends CI_Controller {
 	        
 
 	        $pdf->SetFont('Arial','B',12);
-	        $pdf->Cell(0,5,'LISTADO DE CITAS REGISTRADAS '.$informacion_cita,0,0,'L');
+	        $pdf->Cell(0,5,utf8_decode('LISTADO DE CITAS REGISTRADAS '.$informacion_cita),0,0,'L');
 	        $pdf->Ln();
 	        $pdf->SetFont('Arial','',8);
 	        $pdf->Ln();
@@ -238,7 +241,6 @@ class Corte extends CI_Controller {
 			        $pdf->Cell(110,5,$row->nombre_cliente,1,0,'L');
 			        $pdf->Cell(40,5,'$'.number_format($row->costo_consulta,2,'.', ','),1,0,'C');
 			        
-			        //$pdf->MultiCell(0,7,utf8_decode($row->importe),1,'');
 			        $pdf->Ln();
 
 			        if($pdf->getY() > 250)
@@ -274,7 +276,7 @@ class Corte extends CI_Controller {
 			$pdf->SetTitle("Corte de Caja");
 	        $pdf->AddPage();
 	        /*Encabezado*/
-	        $pdf->Image(base_url().'images/logo.png',10,8,20);
+	        $pdf->Image(base_url().'images/logo.jpg',10,8,20);
 	        $pdf->SetFont('Arial','B',12);
 	        //$pdf->Cell(90,6,'',0,0);
 	        $pdf->Cell(0,6,'REPORTE DE CITAS',0,0,'C');
