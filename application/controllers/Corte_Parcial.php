@@ -39,7 +39,7 @@ class Corte_Parcial extends CI_Controller {
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
 	        $this->load->library('fpdf_manager');
-	        $pdf = new fpdf_manager('P','mm',array(80,280));
+	        $pdf = new fpdf_manager('P','mm',array(80,290));
 	        
 	        $Nombre_archivo = 'Ticket.pdf';
 	        $pdf->SetMargins(1,1,1,1);
@@ -96,6 +96,38 @@ class Corte_Parcial extends CI_Controller {
 
 		    		$pdf->ln();
 
+		    		$y = $pdf->getY();
+		    		if($y >= 200)
+		    		{
+		    			$pdf->Cell(0,5,'__________________________________________________________',0,1,'C');
+				        $pdf->SetFont('Times','B',8);
+				        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
+				        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
+				        $pdf->SetFont('Times','',8);
+				        $pdf->Cell(0,4,'Enrrique Garcia Sanchez No. 115 Esquina',0,1,'C');
+				        $pdf->Cell(0,4,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
+				        $pdf->Cell(0,4,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
+				        $pdf->Cell(0,4,$pdf->PageNo(),0,1,'C');
+				        
+		    			$pdf->AddPage();
+
+		    			$pdf->setY(10);
+				        $pdf->SetFont('Times','B',12);
+				        $pdf->Cell(0,5,'Control de Peso',0,1,'C');
+				        $pdf->Image(base_url().'images/logo.jpg',60,0,20);
+				        $pdf->SetFont('Times','B',10);
+				        
+				        $pdf->Cell(2,5,'',0,0);
+				        $pdf->Cell(0,5,'Lic. Nut. Luz Maria',0,1,'L');
+				        $pdf->Cell(2,5,'',0,0);
+			        	$pdf->Cell(0,5,'Everardo Ramirez',0,1,'L');
+
+			        	$pdf->ln();
+				        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+				        $pdf->ln();
+
+		    		}
+
 		    		$total_citas = $total_citas + $row->costo_consulta;
 	        	}
 	        }
@@ -125,6 +157,7 @@ class Corte_Parcial extends CI_Controller {
 	        $pdf->Cell(0,4,'Enrrique Garcia Sanchez No. 115 Esquina',0,1,'C');
 	        $pdf->Cell(0,4,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
 	        $pdf->Cell(0,4,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
+	        $pdf->Cell(0,4,$pdf->PageNo(),0,1,'C');
 
 	        $pdf->Ln();
 			$pdf->Output($Nombre_archivo, 'I');
