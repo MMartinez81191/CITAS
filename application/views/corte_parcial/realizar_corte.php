@@ -14,7 +14,7 @@
 	          	<div class="box">
 		            <div class="box-header">
 		            	<div class="col-lg-offset-10">
-		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/corte_parcial"><i class="fa fa-arrow-left"></i> Regresar</a>
+		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/Corte_Parcial"><i class="fa fa-arrow-left"></i> Regresar</a>
 		              	</div>
 			        </div>
 			    </div>

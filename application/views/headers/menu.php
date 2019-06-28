@@ -120,7 +120,7 @@
                 <li><a href="<?=base_url()?>corte"><i class="fa fa-money"></i><span>Corte de Caja</span></a></li>
             </li>
             <li class="treeview" >
-                <li><a href="<?=base_url()?>corte_parcial"><i class="fa fa-money"></i><span>Cortes Parciales</span></a></li>
+                <li><a href="<?=base_url()?>Corte_Parcial"><i class="fa fa-money"></i><span>Cortes Parciales</span></a></li>
             </li>
             <?php
             }

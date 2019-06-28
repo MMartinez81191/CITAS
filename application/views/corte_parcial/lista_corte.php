@@ -14,7 +14,7 @@
 	          	<div class="box">
 		            <div class="box-header">
 		            	<div class="col-lg-offset-10">
-		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/corte_parcial/realizar_corte"><i class="fa fa-money"></i> Realizar Corte</a>
+		              		<a type="button" class="btn btn-block btn-primary" href="<?=base_url()?>index.php/Corte_Parcial/realizar_corte"><i class="fa fa-money"></i> Realizar Corte</a>
 		              	</div>
 			        </div>
 
@@ -58,7 +58,7 @@
 										</td>
 										<td>
 											<center>
-												<a href="<?=base_url()?>corte_parcial/imprimir_corte" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Imprimir Corte" target="_blanck"><i class="fa fa-print"></i><span></span></a>
+												<a href="<?=base_url()?>Corte_Parcial/imprimir_corte" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Imprimir Corte" target="_blanck"><i class="fa fa-print"></i><span></span></a>
 											</center>
 										</td>
 									</tr>

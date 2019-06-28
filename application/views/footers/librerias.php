@@ -337,7 +337,7 @@
 			    echo '<script src="'.base_url().'js/costos/costos.js"></script>';
 		    break;
 		    
-		    case 'corte_parcial':
+		    case 'Corte_Parcial':
 			    echo '<script src="'.base_url().'js/corte_parcial/corte_parcial.js"></script>';
 		    break;
 

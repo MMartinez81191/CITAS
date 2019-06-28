@@ -1,4 +1,4 @@
-var corte_parcial = {
+var Corte_Parcial = {
 
     recuperar_cantidades: function(){
         $('#recuperar_cantidades').on('submit', function(form){
@@ -11,12 +11,10 @@ var corte_parcial = {
                 fecha_1 : fecha_1,
                 fecha_2 : fecha_2, 
             }
-            //console.log(data);
-            var response = cargar_ajax.run_server_ajax('corte_parcial/recuperar_cantidades', data);
 
-            $('#cantidad_recaudada').val(response);
-            //console.log(response);
-            //$("#tabla_citas").load(base_url + "corte/obtener_citas/1/" + dia_fecha + "/"); 
+            var response = cargar_ajax.run_server_ajax('Corte_Parcial/recuperar_cantidades', data);
+
+            $('#cantidad_recaudada').val(response); 
 
         });
     },
@@ -45,14 +43,13 @@ var corte_parcial = {
             console.log(cantidad_fisica);
             if(cantidad_fisica > cantidad_recaudada)
             {
-                //cargar_ajax.run_server_ajax('clientes/crear_cliente', data);
                 swal({
                     title: 'ATENCION',
                     text: 'La cantidad fisica no puede ser mayor a la cantidad registrada',
                     type: 'warning',
                     closeOnConfirm: true
                 },function(){
-                    //window.location.reload();
+
                 });
             }
             else
@@ -66,7 +63,7 @@ var corte_parcial = {
                         type: 'warning',
                         closeOnConfirm: true
                     },function(){
-                        //window.location.reload();
+
                     });
                 }
                 else if(response == true)
@@ -77,20 +74,17 @@ var corte_parcial = {
                         type: 'success',
                         closeOnConfirm: true
                     },function(){
-                        window.location.href = base_url + 'corte_parcial';
+                        window.location.href = base_url + 'Corte_Parcial';
                     });
                 }
             }
             console.log(data);
-            //var response = cargar_ajax.run_server_ajax('corte_parcial/recuperar_cantidades', data);
-            //$("#tabla_citas").load(base_url + "corte/obtener_citas/2/" + mes_fecha + "/" + anio_fecha + "/"); 
-
         });
     },
 
 
 }
 jQuery(document).ready(function() { 
-   corte_parcial.recuperar_cantidades(this);
-   corte_parcial.generar_corte(this);
+   Corte_Parcial.recuperar_cantidades(this);
+   Corte_Parcial.generar_corte(this);
 });
