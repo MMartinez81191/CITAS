@@ -115,7 +115,7 @@
 
 				 		<div class="form-group col-lg-4">
 				 			<label >Apellido Materno:</label>
-							<input type="text" class="form-control" required id="txt_apellido_m_editar" name="txt_apellido_m_editar" placeholder="APELLIDO MATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
+							<input type="text" class="form-control" id="txt_apellido_m_editar" name="txt_apellido_m_editar" placeholder="APELLIDO MATERNO" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();">
 				 		</div>				 		
 					</div>
 

@@ -14,11 +14,12 @@ var clientes = {
             cargar_ajax.run_server_ajax('clientes/crear_cliente', data);
             swal({
                 title: 'CORRECTO',
-                text: 'SE AGREGO CORRECTAMENTE EL CLIENTE',
+                text: 'SE AGREGO CORRECTAMENTE EL PACIENTE',
                 type: 'success',
                 closeOnConfirm: false
             },function(){
-                window.location.reload();
+                //window.location.reload();
+                window.location.assign(base_url + 'clientes');
             });
         });
     },

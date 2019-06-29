@@ -88,7 +88,7 @@ class Corte_Parcial extends CI_Controller {
 
 		    		$pdf->Cell(2,5,'',0,0);
 		    		$pdf->Cell(28,5,'Hora Consulta:',1,0,'L',1);
-		    		$pdf->Cell(46,5,date("h:m a", strtotime($row->hora)),1,1,'L');
+		    		$pdf->Cell(46,5,date("g:i a", strtotime($row->hora)),1,1,'L');
 
 		    		$pdf->Cell(2,5,'',0,0);
 		    		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);

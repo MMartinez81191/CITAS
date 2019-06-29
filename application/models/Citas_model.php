@@ -96,6 +96,7 @@ class Citas_model extends CI_Model {
         $this->db->from('citas');
         $this->db->where('fecha',$fecha);
         $this->db->where('hora',$hora);
+        $this->db->where('activo',1);
 
         $query = $this->db->get();
         if($query->num_rows() > 0)

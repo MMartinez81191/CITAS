@@ -56,7 +56,7 @@ class Citas extends CI_Controller {
 				<thead>
 					<tr>
 						<th><center>Hora Cita</center></th>
-						<th><center>Turno</center></th>
+						<th><center># Paciente</center></th>
 						<th><center>Nombre Paciente</center></th>
 						<th><center>Fecha Cita</center></th>
 						<th class="no-sort"><center>Opciones</center></th>
@@ -157,7 +157,7 @@ class Citas extends CI_Controller {
 						'id_cliente' => trim($this->input->post('id_cliente')),
 						'numero_turno' => $numero_turno,
 						'fecha' => $fecha,
-						'hora' => date("H:i", strtotime($hora)),
+						'hora' => date("g:i", strtotime($hora)),
 						'activo' => 1,
 					);
 					
@@ -303,7 +303,7 @@ class Citas extends CI_Controller {
 
     		$pdf->Cell(2,5,'',0,0);
     		$pdf->Cell(28,5,'Hora Consulta:',1,0,'L',1);
-    		$pdf->Cell(46,5,date("h:m a", strtotime($DATA_CITA->fecha)),1,1,'L');
+    		$pdf->Cell(46,5, date("g:i a", strtotime($DATA_CITA->hora)) ,1,1,'L');
 
     		$pdf->Cell(2,5,'',0,0);
     		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);

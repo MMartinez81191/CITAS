@@ -79,7 +79,7 @@
 	            <form  name="agregar_costos" id="agregar_costos">
 			 		<div class="form-group">
 			 			<label >Importe:</label>
-						<input type="text" class="form-control" id="txt_costos_agregar" name="txt_costos_agregar" placeholder="Escriba el importe que desea agregar" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required="true">
+						<input type="text" class="form-control validador_decimales" id="txt_costos_agregar" name="txt_costos_agregar" placeholder="Escriba el importe que desea agregar" maxlength="12" required="true">
 			 		</div>			 		
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 				 		<div class="form-group">
@@ -93,4 +93,8 @@
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+ 	$('.validador_decimales').on('input', function () { this.value = this.value.match(/^\d+\.?\d{0,2}/); }); 
+</script>
 <!-- FIN DEL MODAL PARA EDITAR LOS CLIENTES -->
