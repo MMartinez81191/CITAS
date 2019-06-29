@@ -54,7 +54,7 @@ var Corte_Parcial = {
             }
             else
             {
-                var response = cargar_ajax.run_server_ajax('corte_parcial/generar_corte', data);
+                var response = cargar_ajax.run_server_ajax('Corte_Parcial/generar_corte', data);
                 if(response == false)
                 {
                     swal({

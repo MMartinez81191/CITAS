@@ -8,7 +8,7 @@ $nivel_usuario = $this->session->userdata('nivel');
       </h1>
       <ol class="breadcrumb">
         <li><u><a href="<?=base_url()?>index.php/main"><i class="fa fa-dashboard"></i> Inicio</a></u></li>
-        <li><u><a href="<?=base_url()?>clientes">Pacientess</a></u></li>
+        <li><u><a href="<?=base_url()?>clientes">Pacientes</a></u></li>
       </ol>
     </section>
 	<section class="content">

@@ -38,7 +38,7 @@
 				    				</div>
 				    				<div class="form-group">
 				    					<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
-				    					<button type="cancel" class="btn btn-default"><i class="fa fa-close"></i> Cancelar</button>
+				    					<button type="reset" class="btn btn-default"><i class="fa fa-close"></i> Cancelar</button>
 				    				</div>
 				    			</form>
 				    		</div>
@@ -60,7 +60,7 @@
 							</div>
 							<div class="form-group">
 								<button type="submit" class="btn btn-primary"><i class="fa fa-calculator"></i> Generar Corte</button>
-								<button type="cancel" class="btn btn-default"><i class="fa fa-close"></i> Cancelar</button>
+								<button type="reset" class="btn btn-default"><i class="fa fa-close"></i> Cancelar</button>
 							</div>
 						</form>
 					</div>

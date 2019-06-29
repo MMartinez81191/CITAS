@@ -27,5 +27,23 @@ class Main_model extends CI_Model {
         }        
     }
 
+    public function get_password($email)
+    {
+        $this->db->select('contrasena');
+        $this->db->from('usuarios');
+        $this->db->where('usuario_email',$email);
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }else{
+            return false;
+        } 
+
+    }
+
 }
 ?>

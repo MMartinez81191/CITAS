@@ -27,6 +27,7 @@
         background-image: url('<?= base_url(); ?>template/login/fondo_login.jpg');
         background-size: 100% 100%;
         background-repeat: no-repeat;
+        background-position: center;
         height: 100%;
         font-family: 'Numans', sans-serif;
 
@@ -116,7 +117,7 @@
             <div class="d-flex justify-content-center h-100">
                 <div class="card">
                     <div class="card-header">
-                        <h3>Iniciar Sesion</h3>
+                        <h3>Recordar Contraseña</h3>
                         <div class="d-flex justify-content-end social_icon">
                             <span><i class="fab fa-facebook-square"></i></span>
                             <span><i class="fab fa-google-plus-square"></i></span>
@@ -124,30 +125,17 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form id="login" name="login" action="<?=base_url()?>main/login" method="post">
-                            <div class="input-group form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-user"></i></span>
-                                </div>
-                                <input type="email" class="form-control" name="txt_usuario" id="txt_usuario" placeholder="username" required>
-                                
-                            </div>
-                            <div class="input-group form-group">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-key"></i></span>
-                                </div>
-                                <input type="password" class="form-control" name="txt_password" id="txt_password" placeholder="password" required>
-                            </div>
-                            <div class="row align-items-center remember">
-                                <input type="checkbox">Recordar...
+                        <form id="login" name="login" action="<?=base_url()?>main/enviarContrasena" method="post">
+                            <div class="form-group">
+                            	 <input class="form-control" type="text" id="email" name="email" placeholder="ESCRIBA SU USUARIO AQUI">
                             </div>
                             <div class="form-group">
-                                <input type="submit" value="Iniciar Sesion" class="btn float-right login_btn">
+                            	<button type="submit" class="btn login_btn">Enviar</button>
                             </div>
+                           
+                            
                         </form>
                     </div>
-                    <div class="d-flex justify-content-center">
-                        <a href="<?=base_url()?>Main/recordarContrasena" style="color:#39AAF4;">Olvide mi contraseña...</a>
                 </div>
             </div>
         </div>
