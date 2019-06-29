@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-06-2019 a las 00:33:50
+-- Tiempo de generación: 29-06-2019 a las 02:07:31
 -- Versión del servidor: 10.1.38-MariaDB
 -- Versión de PHP: 5.6.40
 
@@ -79,7 +79,11 @@ INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `
 (82, 1, 3, '2019-06-24', '10:55:00', '200', NULL, 1, 1, 2, NULL, 1),
 (83, 1, 1, '2019-06-27', '09:00:00', '100', NULL, 0, 1, 1, NULL, 1),
 (84, 1, 2, '2019-06-27', '12:40:00', '100', NULL, 0, 1, 1, '', 1),
-(85, 1, 3, '2019-06-27', '15:05:00', '100', NULL, 0, 1, 1, '60.00', 1);
+(85, 1, 3, '2019-06-27', '15:05:00', '100', NULL, 0, 1, 1, '60.00', 1),
+(86, 1, 1, '2019-06-28', '08:20:00', '0', NULL, 0, 0, NULL, NULL, 0),
+(87, 1, 2, '2019-06-28', '08:15:00', '0', NULL, 0, 0, NULL, NULL, 0),
+(88, 1, 3, '2019-06-28', '08:35:00', '0', NULL, 0, 0, NULL, NULL, 0),
+(89, 1, 4, '2019-06-28', '16:35:00', '20.30', NULL, 0, 1, 1, '', 1);
 
 -- --------------------------------------------------------
 
@@ -4618,7 +4622,9 @@ INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `cor
 (4507, 'WENDY RAMIREZ CRUZ', '', NULL, '01/01/1994', '2019-06-27', 1),
 (4508, 'JOSE LUIS OROZ SANEZ', '', NULL, '01/01/1940', '2019-06-27', 1),
 (4509, 'MARTIN FRANCISCO MARTINEZ', '123456123123', '', '1991-11-08', '1969-12-31', 1),
-(4510, 'ANIBAL SOTOMAYOR LOPEZ', '111111111111', '', '2019-06-05', '2019-06-27', 1);
+(4510, 'ANIBAL SOTOMAYOR LOPEZ', '111111111111', '', '2019-06-05', '2019-06-27', 1),
+(4511, 'JOSE JOSE', '662415622444', '', '1955-11-30', '2019-06-28', 1),
+(4512, 'ASD ASDA ASDASD ASDASDA ASDADASD', '6624162499', '', '2019-06-26', '2019-06-28', 1);
 
 -- --------------------------------------------------------
 
@@ -4681,9 +4687,8 @@ CREATE TABLE `costos` (
 --
 
 INSERT INTO `costos` (`id_costo`, `costo`, `activo`) VALUES
-(0, '100', '1'),
-(0, '200', '1'),
-(0, '300.00', '1');
+(2, '20.30', '1'),
+(3, '50', '1');
 
 -- --------------------------------------------------------
 
@@ -4740,6 +4745,12 @@ ALTER TABLE `cortes_caja`
   ADD PRIMARY KEY (`id_corte`);
 
 --
+-- Indices de la tabla `costos`
+--
+ALTER TABLE `costos`
+  ADD PRIMARY KEY (`id_costo`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -4760,19 +4771,25 @@ ALTER TABLE `cat_niveles`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=86;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4511;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4513;
 
 --
 -- AUTO_INCREMENT de la tabla `cortes_caja`
 --
 ALTER TABLE `cortes_caja`
   MODIFY `id_corte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+
+--
+-- AUTO_INCREMENT de la tabla `costos`
+--
+ALTER TABLE `costos`
+  MODIFY `id_costo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
