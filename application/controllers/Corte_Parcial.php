@@ -33,8 +33,8 @@ class Corte_Parcial extends CI_Controller {
 		if($this->seguridad() == TRUE)
 		{
 			//Datos necesarios para crear PDF
-			$id_cita = $this->uri->segment(3);
-			$DATA_CORTES = $this->CorteParcial_model->get_cortes_ticket();
+			$numero_session = $this->uri->segment(3);
+			$DATA_CORTES = $this->CorteParcial_model->get_cortes_ticket($numero_session);
 
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
@@ -43,12 +43,12 @@ class Corte_Parcial extends CI_Controller {
 	        
 	        $Nombre_archivo = 'Ticket.pdf';
 	        $pdf->SetMargins(1,1,1,1);
-	        $pdf->SetTitle("Ticket Pago");
+	        $pdf->SetTitle("Corte Caja");
 	        $pdf->AddPage();
 	        /*Encabezado*/
 	        $pdf->setY(10);
 	        $pdf->SetFont('Times','B',12);
-	        $pdf->Cell(0,5,'Control de Peso',0,1,'C');
+	        $pdf->Cell(0,5,'CONTROL DE PESO',0,1,'C');
 	        $pdf->Image(base_url().'images/logo.jpg',60,0,20);
 	        $pdf->SetFont('Times','B',10);
 	        
@@ -57,12 +57,36 @@ class Corte_Parcial extends CI_Controller {
 	        $pdf->Cell(2,5,'',0,0);
         	$pdf->Cell(0,5,'Everardo Ramirez',0,1,'L');
 
+        	if($DATA_CORTES != FALSE)
+	        {
+	        	foreach ($DATA_CORTES->result() as $row) 
+	        	{
+	        		$fecha_inicial = $row->fecha_inicio_corte;
+	        		$fecha_final = $row->fecha_final_corte;
+	        	}
+	        }
+
+        	$pdf->ln();
+	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+	        $pdf->ln();
+	        
+	        $pdf->Cell(0,5,'CORTE DE CAJA',0,1,'C');
+        	$pdf->Cell(2,5,'',0,0);
+        	$pdf->Cell(40,5,'Fecha de inicio de corte:',0,0,'L');
+        	$pdf->Cell(20,5,date('d-m-Y',strtotime($fecha_inicial)),0,1,'L');
+
+        	
+        	$pdf->Cell(2,5,'',0,0);
+        	$pdf->Cell(40,5,'Fecha final de corte:',0,0,'L');
+        	$pdf->Cell(40,5,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
+        	
+
         	$pdf->ln();
 	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
 	        $pdf->ln();
 
 	        $total_citas = 0;
-	        $pdf->SetFont('Times','B',10);
+	        $pdf->SetFont('Times','',10);
 	        $pdf->SetFillColor(230,230,230);
 
 	        if($DATA_CORTES != FALSE)
@@ -122,9 +146,24 @@ class Corte_Parcial extends CI_Controller {
 				        $pdf->Cell(2,5,'',0,0);
 			        	$pdf->Cell(0,5,'Everardo Ramirez',0,1,'L');
 
+				        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+				        $pdf->ln();
+				        
+				        $pdf->Cell(0,5,'CORTE DE CAJA',0,1,'C');
+			        	$pdf->Cell(2,5,'',0,0);
+			        	$pdf->Cell(40,5,'Fecha de inicio de corte:',0,0,'L');
+			        	$pdf->Cell(20,5,date('d-m-Y',strtotime($fecha_inicial)),0,1,'L');
+
+			        	
+			        	$pdf->Cell(2,5,'',0,0);
+			        	$pdf->Cell(40,5,'Fecha final de corte:',0,0,'L');
+			        	$pdf->Cell(40,5,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
+			        	
+
 			        	$pdf->ln();
 				        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
 				        $pdf->ln();
+
 
 		    		}
 
