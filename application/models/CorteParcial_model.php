@@ -168,10 +168,28 @@ class CorteParcial_Model extends CI_Model {
         $this->db->insert('cortes_caja_tmp',$data);
     }
 
-    public function insert_cortes_caja()
+    public function get_cortes_caja_tmp()
     {
-        $sql = 'INSERT INTO cortes_caja(id_cliente,fecha,hora,costo_consulta,numero_session,fecha_inicio_corte,fecha_final_corte) SELECT id_cliente,fecha,hora,costo_consulta,numero_session,fecha_inicio_corte,fecha_final_corte FROM cortes_caja_tmp ORDER BY fecha,hora ASC;';
-        $this->db->query($sql);
+        $this->db->from('cortes_caja_tmp');
+        $this->db->order_by('fecha','ASC');
+        $this->db->order_by('hora','ASC');
+        
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+
+    public function insert_cortes_caja($data)
+    {
+        $this->db->insert('cortes_caja',$data);
     }
 
     public function get_numero_session()
@@ -197,12 +215,14 @@ class CorteParcial_Model extends CI_Model {
         $this->db->delete('cortes_caja_tmp');
     }
 
-    public function update_corte_caja($fecha_inicial,$fecha_final)
+    public function update_corte_caja($id_cita)
     {
         $this->db->set('contabilizado',1);
-        $this->db->where('fecha >=',$fecha_inicial);
-        $this->db->where('fecha <=',$fecha_final);
+        $this->db->where('id_cita',$id_cita);
         $this->db->update('citas');
+        //$this->db->where('fecha >=',$fecha_inicial);
+        //$this->db->where('fecha <=',$fecha_final);
+        
     }
     
 }

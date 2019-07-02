@@ -78,7 +78,6 @@ var Corte_Parcial = {
                     });
                 }
             }
-            console.log(data);
         });
     },
 

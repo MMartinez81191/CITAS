@@ -336,19 +336,44 @@ class Corte_Parcial extends CI_Controller {
 				    	);
 
 				    	$this->CorteParcial_model->insert_cortes_caja_tmp($data);
-				    	if($acumulado >= $cantidad_fisica)
-				    	{
-				    		$this->CorteParcial_model->insert_cortes_caja();
-				    		$this->CorteParcial_model->update_corte_caja($fecha_inicial,$fecha_final);
-				    		$this->CorteParcial_model->delete_corte_caja_tmp();
-				    		$response = TRUE;
-				    		break;
-				    	}
+				    	$this->CorteParcial_model->update_corte_caja($id_cita);
 				    }
 				    else
 				    {
 				    	$response = FALSE;
 				    }
+
+				    if($acumulado >= $cantidad_fisica)
+			    	{
+			    		$DATA_CORTES_TMP = $this->CorteParcial_model->get_cortes_caja_tmp();
+
+			    		if($DATA_CORTES_TMP != FALSE)
+			    		{
+		    				foreach($DATA_CORTES_TMP->result() as $row)
+		    				{
+		    					$data = array(
+		    						'id_cliente' => $row->id_cliente,
+		    						'fecha' => $row->fecha,
+		    						'hora' => $row->hora,
+		    						'costo_consulta' => $row->costo_consulta,
+		    						'numero_session' => $row->numero_session,
+		    						'fecha_inicio_corte' => $row->fecha_inicio_corte,
+		    						'fecha_final_corte' => $row->fecha_final_corte,
+		    					);
+
+		    					$this->CorteParcial_model->insert_cortes_caja($data);
+		    				}	
+
+
+			    			$this->CorteParcial_model->delete_corte_caja_tmp();
+			    			$response = TRUE;
+			    		}else
+			    		{
+			    			$response = FALSE;
+			    		}
+			    		
+			    		break;
+			    	}
 				}
 				
 				echo json_encode($response);
