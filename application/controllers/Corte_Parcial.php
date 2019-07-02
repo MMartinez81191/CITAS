@@ -48,6 +48,7 @@ class Corte_Parcial extends CI_Controller {
 	        /*Encabezado*/
 	        $pdf->setY(17);
 	        $pdf->SetFont('Times','B',12);
+	        
 	        $pdf->Cell(0,5,'Control de Peso',0,1,'C');
 	        $pdf->Image(base_url().'images/logo.jpg',30,0,20);
 	        $pdf->SetFont('Times','B',8);
@@ -81,6 +82,30 @@ class Corte_Parcial extends CI_Controller {
         	$pdf->Cell(2,3,'',0,0);
         	$pdf->Cell(40,3,'Fecha final de corte:',0,0,'L');
         	$pdf->Cell(40,3,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
+        	
+
+        	if($DATA_CORTES != FALSE)
+	        {
+	        	foreach ($DATA_CORTES->result() as $row) 
+	        	{
+	        		$fecha_inicial = $row->fecha_inicio_corte;
+	        		$fecha_final = $row->fecha_final_corte;
+	        	}
+	        }
+
+        	$pdf->ln();
+	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+	        $pdf->ln();
+	        
+	        $pdf->Cell(0,5,'CORTE DE CAJA',0,1,'C');
+        	$pdf->Cell(2,5,'',0,0);
+        	$pdf->Cell(40,5,'Fecha de inicio de corte:',0,0,'L');
+        	$pdf->Cell(20,5,date('d-m-Y',strtotime($fecha_inicial)),0,1,'L');
+
+        	
+        	$pdf->Cell(2,5,'',0,0);
+        	$pdf->Cell(40,5,'Fecha final de corte:',0,0,'L');
+        	$pdf->Cell(40,5,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
         	
 
         	$pdf->ln();
@@ -161,6 +186,20 @@ class Corte_Parcial extends CI_Controller {
 			        	$pdf->Cell(2,3,'',0,0);
 			        	$pdf->Cell(40,3,'Fecha final de corte:',0,0,'L');
 			        	$pdf->Cell(40,3,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
+			        	
+
+				        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+				        $pdf->ln();
+				        
+				        $pdf->Cell(0,5,'CORTE DE CAJA',0,1,'C');
+			        	$pdf->Cell(2,5,'',0,0);
+			        	$pdf->Cell(40,5,'Fecha de inicio de corte:',0,0,'L');
+			        	$pdf->Cell(20,5,date('d-m-Y',strtotime($fecha_inicial)),0,1,'L');
+
+			        	
+			        	$pdf->Cell(2,5,'',0,0);
+			        	$pdf->Cell(40,5,'Fecha final de corte:',0,0,'L');
+			        	$pdf->Cell(40,5,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
 			        	
 
 			        	$pdf->ln();
