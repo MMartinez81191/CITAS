@@ -22,7 +22,7 @@ var citas = {
                     window.location.reload();
                 });
             }
-            else
+            else if(response == true)
             {
                 swal({
                     title: 'ATENCION!!',
@@ -38,6 +38,7 @@ var citas = {
 
     eliminar_cita: function(){
         $(document).on('click', 'button.eliminar_cita', function () {
+            
             id_cita = $(this).data('id');
             var data = {id_cita: id_cita};
             cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
@@ -52,12 +53,17 @@ var citas = {
                 allowEscapeKey: false,
                 allowEnterKey: false
             }, function () {
-                cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
-                swal('Eliminado!', 'Se elimino correctamente la cita', 'success');
-                var toDelete = '#tr_' + id_cita;
-                console.log(toDelete);
-                $(toDelete).remove();
-                window.location.reload();
+                swal({
+                    title: 'ELIMINADO',
+                    text: 'Se elimino correctamente la cita',
+                    type: 'success',
+                    closeOnConfirm: false
+                },function(){
+                    cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
+                    var toDelete = '#tr_' + id_cita;
+                    $(toDelete).remove();
+                    window.location.reload();
+                }); 
             });
         });
     },

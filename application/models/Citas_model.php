@@ -21,7 +21,7 @@ class Citas_model extends CI_Model {
         $this->db->where('citas.activo',1);
 
         $query = $this->db->get();
-
+        
         if($query->num_rows() > 0)
         {
             return $query;
@@ -100,6 +100,8 @@ class Citas_model extends CI_Model {
         $this->db->where('activo',1);
 
         $query = $this->db->get();
+
+
         if($query->num_rows() > 0)
         {
             return TRUE;

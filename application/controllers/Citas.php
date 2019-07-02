@@ -146,16 +146,15 @@ class Citas extends CI_Controller {
 		{
 			if($this->input->is_ajax_request())
 			{
+				$response = FALSE;
 				$fecha = trim($this->input->post('txt_fecha'));
 				$hora = trim($this->input->post('txt_hora'));
 				$confirmar_repetido = $this->Citas_model->comprobar_repetidos($fecha,date("H:i", strtotime($hora)));
 
 				if($confirmar_repetido == FALSE)
 				{
-					//$numero_turno = $this->Citas_model->get_turno($fecha);
 					$data = array(				
 						'id_cliente' => trim($this->input->post('id_cliente')),
-						/*'numero_turno' => $numero_turno,*/
 						'fecha' => $fecha,
 						'hora' => date("g:i", strtotime($hora)),
 						'activo' => 1,
@@ -376,7 +375,7 @@ class Citas extends CI_Controller {
 
 	public function seguridad()
 	{
-		if(($this->session->userdata('logueado') == 1))
+		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') != 2))
 		{
 			return true;
 		}

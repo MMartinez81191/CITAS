@@ -99,12 +99,23 @@
             <li class="treeview" >
                 <a href="#"><i class="fa fa-gears"></i><span>Administrar</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                 <ul class="treeview-menu">
+                <?php
+                if($nivel != 2)
+                {
+                ?>
                     <li><a href="<?=base_url()?>index.php/usuarios"><i class="fa fa-user-plus"></i> Cuentas de Usuarios</a></li>
+                <?php
+                }
+                ?>
                     <li><a href="<?=base_url()?>index.php/costos"><i class="fa fa-money"></i> Costos de Consultas</a></li>
                 </ul>
             </li>
             <?php
             }
+            ?>
+            <?php
+            if($nivel != 2)
+            {
             ?>
             <li class="treeview" >
                 <li><a href="<?=base_url()?>citas"><i class="fa fa-calendar-check-o"></i><span>Citas</span></a></li>
@@ -112,6 +123,9 @@
             <li class="treeview" >
                 <li><a href="<?=base_url()?>clientes"><i class="fa fa-users"></i><span>Pacientes</span></a></li>
             </li>
+            <?php
+            }
+            ?>
             <?php
             if($nivel < 3)
             {

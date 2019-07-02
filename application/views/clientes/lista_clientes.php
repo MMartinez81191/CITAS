@@ -110,8 +110,8 @@ $nivel_usuario = $this->session->userdata('nivel');
 
 			 		<div class="row" style="margin-top: 30px;">
 			 			<div class="form-group col-lg-4">
-				 			<label >Correo:</label>
-							<input type="email" class="form-control" id=txt_correo_editar name="txt_correo_editar" placeholder="CORREO ELECTRONICO" maxlength="100" required="true" >
+				 			<label >Correo (Opcional):</label>
+							<input type="email" class="form-control" id=txt_correo_editar name="txt_correo_editar" placeholder="CORREO ELECTRONICO" maxlength="100">
 				 		</div>
 				 		<div class="form-group col-lg-4">
 				 			<label >Fecha de nacimiento:</label>

@@ -71,7 +71,6 @@ class Clientes extends CI_Controller {
 				$data = array(
 					'DATA_CLIENTE' => $this->Clientes_model->get_clientes_by_id($id_cliente),
 				);
-				//var_dump($data);
 				echo json_encode($data);
 			}
 			else
@@ -153,7 +152,7 @@ class Clientes extends CI_Controller {
 
 	public function seguridad()
 	{
-		if(($this->session->userdata('logueado') == 1))
+		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') != 2))
 		{
 			return true;
 		}
