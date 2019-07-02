@@ -3,7 +3,6 @@ var citas = {
     add_cita: function(){
         $('#agregar_citas').on('submit', function(form){
             form.preventDefault();
-            //var base_url = '<?php echo base_url() ?>';
             var data = {
                 id_cliente : $('#select_cliente').val(), 
                 txt_fecha : $('#txt_fecha').val(),
@@ -39,7 +38,6 @@ var citas = {
 
     eliminar_cita: function(){
         $(document).on('click', 'button.eliminar_cita', function () {
-            //form.preventDefault();
             id_cita = $(this).data('id');
             var data = {id_cita: id_cita};
             cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
@@ -64,7 +62,8 @@ var citas = {
         });
     },
 
-    add_cliente: function(){
+    add_cliente: function()
+    {
         $('#agregar_cliente').on('submit', function(form){
             form.preventDefault();
             var data = {
@@ -89,19 +88,20 @@ var citas = {
 
     datos_cobro_citas: function(){
         $(document).on('click','button.cobrar_cita', function () {
-            form.preventDefault();
             var data = {id_cita: $(this).data('id')};    
             var response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
-
+            var numero_turno = response.DATA_TURNO;
+            console.log(numero_turno);
             $('#id_cita_pagar').val(response.DATA_CITA.id_cita);
-            $('#txt_turno_cita').val(response.DATA_CITA.numero_turno);
+            $('#fecha_cita').val(response.DATA_CITA.fecha);
+            $('#txt_turno_cita').val(numero_turno);
             $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
            
         });
     },
 
     cobro_citas : function(){
-        $("#pagar_citas").on("submit", function (e) {
+        $("#pagar_citas").on("submit", function (form) {
             form.preventDefault();
             var data = 
             {
@@ -110,9 +110,10 @@ var citas = {
                 forma_pago : $("input[name='rd_forma_pago']:checked").val(),
                 peso_actual : $('#txt_peso_inicial_cita').val(),
             }
+            console.log(data);
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
              
-             if (response == 'false') {
+            if (response == 'false') {
                  title = "Error!";
                  icon = "error";
                  mensaje = "No se pudo realizar la actualicación";
@@ -127,7 +128,7 @@ var citas = {
                  type: icon,
                  closeOnConfirm: false
              }, function () {
-                 location.reload(); 
+                location.reload(); 
              });
         });
     },

@@ -253,6 +253,7 @@
             <div class="modal-body">
 	            <form  name="pagar_citas" id="pagar_citas">
 	            	<input type="hidden" id="id_cita_pagar" name="id_cita_pagar" >
+	            	<input type="hidden" name="fecha_cita" name="fecha_cita">
 	            	<div class="row">
 				 		<div class="form-group col-lg-12">	
 				 			<label >Numero de turno:</label>
@@ -296,12 +297,12 @@
 							
 				 		</div>	
 	 				</div>
-	 				<div class="row">
+	 				<!--<div class="row">
 				 		<div class="form-group col-lg-12">
 				 			<label >Peso (Opcional):</label>
 							<input type="text" class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
 				 		</div>			 		
-					</div>
+					</div>-->
 	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>

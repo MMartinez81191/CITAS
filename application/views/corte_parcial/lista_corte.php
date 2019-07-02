@@ -58,7 +58,7 @@
 										</td>
 										<td>
 											<center>
-												<a href="<?=base_url()?>Corte_Parcial/imprimir_corte" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Imprimir Corte" target="_blanck"><i class="fa fa-print"></i><span></span></a>
+												<a href="<?=base_url()?>Corte_Parcial/imprimir_corte/<?=$row->numero_session?>" class="btn btn-success" data-toggle="tooltip" data-placement="top" title="Imprimir Corte" target="_blanck"><i class="fa fa-print"></i><span></span></a>
 											</center>
 										</td>
 									</tr>

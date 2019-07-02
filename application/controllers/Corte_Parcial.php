@@ -33,8 +33,8 @@ class Corte_Parcial extends CI_Controller {
 		if($this->seguridad() == TRUE)
 		{
 			//Datos necesarios para crear PDF
-			$id_cita = $this->uri->segment(3);
-			$DATA_CORTES = $this->CorteParcial_model->get_cortes_ticket();
+			$numero_session = $this->uri->segment(3);
+			$DATA_CORTES = $this->CorteParcial_model->get_cortes_ticket($numero_session);
 
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
@@ -43,26 +43,52 @@ class Corte_Parcial extends CI_Controller {
 	        
 	        $Nombre_archivo = 'Ticket.pdf';
 	        $pdf->SetMargins(1,1,1,1);
-	        $pdf->SetTitle("Ticket Pago");
+	        $pdf->SetTitle("Corte Caja");
 	        $pdf->AddPage();
 	        /*Encabezado*/
-	        $pdf->setY(10);
+	        $pdf->setY(17);
 	        $pdf->SetFont('Times','B',12);
 	        $pdf->Cell(0,5,'Control de Peso',0,1,'C');
-	        $pdf->Image(base_url().'images/logo.jpg',60,0,20);
-	        $pdf->SetFont('Times','B',10);
+	        $pdf->Image(base_url().'images/logo.jpg',30,0,20);
+	        $pdf->SetFont('Times','B',8);
 	        
-	        $pdf->Cell(2,5,'',0,0);
-	        $pdf->Cell(0,5,'Lic. Nut. Luz Maria',0,1,'L');
-	        $pdf->Cell(2,5,'',0,0);
-        	$pdf->Cell(0,5,'Everardo Ramirez',0,1,'L');
+	        $pdf->Cell(2,3,'',0,0);
+	        $pdf->Cell(0,3,'LIC. EN CIENCIAS NUTRICIONALES',0,1,'C');
+	        $pdf->Cell(2,3,'',0,0);
+        	$pdf->Cell(0,3,'JORGE LUIS ESPINOZA CALLES',0,1,'C');
+			$pdf->Cell(2,3,'',0,0);
+        	$pdf->Cell(0,3,'RESPONSABLE SANITARIO',0,1,'C');
+			
+	        $pdf->ln();
+
+        	if($DATA_CORTES != FALSE)
+	        {
+	        	foreach ($DATA_CORTES->result() as $row) 
+	        	{
+	        		$fecha_inicial = $row->fecha_inicio_corte;
+	        		$fecha_final = $row->fecha_final_corte;
+	        	}
+	        }
+	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+	        $pdf->ln();
+	        
+	        $pdf->Cell(0,3,'CORTE DE CAJA',0,1,'C');
+        	$pdf->Cell(2,3,'',0,0);
+        	$pdf->Cell(40,3,'Fecha de inicio de corte:',0,0,'L');
+        	$pdf->Cell(20,3,date('d-m-Y',strtotime($fecha_inicial)),0,1,'L');
+
+        	
+        	$pdf->Cell(2,3,'',0,0);
+        	$pdf->Cell(40,3,'Fecha final de corte:',0,0,'L');
+        	$pdf->Cell(40,3,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
+        	
 
         	$pdf->ln();
 	        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
 	        $pdf->ln();
 
 	        $total_citas = 0;
-	        $pdf->SetFont('Times','B',10);
+	        $pdf->SetFont('Times','',10);
 	        $pdf->SetFillColor(230,230,230);
 
 	        if($DATA_CORTES != FALSE)
@@ -87,10 +113,6 @@ class Corte_Parcial extends CI_Controller {
 		    		$pdf->Cell(46,5,date("d-m-Y", strtotime($row->fecha)),1,1,'L');
 
 		    		$pdf->Cell(2,5,'',0,0);
-		    		$pdf->Cell(28,5,'Hora Consulta:',1,0,'L',1);
-		    		$pdf->Cell(46,5,date("g:i a", strtotime($row->hora)),1,1,'L');
-
-		    		$pdf->Cell(2,5,'',0,0);
 		    		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);
 		    		$pdf->Cell(46,5,'$'.number_format($row->costo_consulta,2,'.', ','),1,1,'L');
 
@@ -100,31 +122,51 @@ class Corte_Parcial extends CI_Controller {
 		    		if($y >= 200)
 		    		{
 		    			$pdf->Cell(0,5,'__________________________________________________________',0,1,'C');
-				        $pdf->SetFont('Times','B',8);
+	        	        $pdf->SetFont('Times','B',8);
 				        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
 				        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
 				        $pdf->SetFont('Times','',8);
-				        $pdf->Cell(0,4,'Enrrique Garcia Sanchez No. 115 Esquina',0,1,'C');
+				        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115 Esquina',0,1,'C');
 				        $pdf->Cell(0,4,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
 				        $pdf->Cell(0,4,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
 				        $pdf->Cell(0,4,$pdf->PageNo(),0,1,'C');
 				        
 		    			$pdf->AddPage();
 
-		    			$pdf->setY(10);
+		    			/*Encabezado*/
+				        $pdf->setY(17);
 				        $pdf->SetFont('Times','B',12);
 				        $pdf->Cell(0,5,'Control de Peso',0,1,'C');
-				        $pdf->Image(base_url().'images/logo.jpg',60,0,20);
-				        $pdf->SetFont('Times','B',10);
+				        $pdf->Image(base_url().'images/logo.jpg',30,0,20);
+				        $pdf->SetFont('Times','B',8);
 				        
-				        $pdf->Cell(2,5,'',0,0);
-				        $pdf->Cell(0,5,'Lic. Nut. Luz Maria',0,1,'L');
-				        $pdf->Cell(2,5,'',0,0);
-			        	$pdf->Cell(0,5,'Everardo Ramirez',0,1,'L');
+				        $pdf->Cell(2,3,'',0,0);
+				        $pdf->Cell(0,3,'LIC. EN CIENCIAS NUTRICIONALES',0,1,'C');
+				        $pdf->Cell(2,3,'',0,0);
+			        	$pdf->Cell(0,3,'JORGE LUIS ESPINOZA CALLES',0,1,'C');
+						$pdf->Cell(2,3,'',0,0);
+			        	$pdf->Cell(0,3,'RESPONSABLE SANITARIO',0,1,'C');
+						
+				        $pdf->ln();
+
+				        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
+				        $pdf->ln();
+				        
+				        $pdf->Cell(0,3,'CORTE DE CAJA',0,1,'C');
+			        	$pdf->Cell(2,3,'',0,0);
+			        	$pdf->Cell(40,3,'Fecha de inicio de corte:',0,0,'L');
+			        	$pdf->Cell(20,3,date('d-m-Y',strtotime($fecha_inicial)),0,1,'L');
+
+			        	
+			        	$pdf->Cell(2,3,'',0,0);
+			        	$pdf->Cell(40,3,'Fecha final de corte:',0,0,'L');
+			        	$pdf->Cell(40,3,date('d-m-Y',strtotime($fecha_final)),0,1,'L');
+			        	
 
 			        	$pdf->ln();
 				        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
 				        $pdf->ln();
+
 
 		    		}
 
@@ -136,25 +178,16 @@ class Corte_Parcial extends CI_Controller {
 	        $pdf->Cell(2,5,'',0,0);
 			$pdf->Cell(74,5,utf8_decode('Total'),1,1,'C',1);
 
-			$pdf->Cell(2,5,'',0,0);
-    		$pdf->Cell(28,5,'Subtotal:',1,0,'L',1);
-    		$pdf->Cell(46,5,'$'.number_format($total_citas - ($total_citas * 0.16),2,'.', ','),1,1,'L');
-
-    		$pdf->Cell(2,5,'',0,0);
-    		$pdf->Cell(28,5,'IVA 16%:',1,0,'L',1);
-    		$pdf->Cell(46,5,'$'.number_format(($total_citas * 0.16),2,'.', ','),1,1,'L');
-
     		$pdf->Cell(2,5,'',0,0);
     		$pdf->Cell(28,5,'Total:',1,0,'L',1);
     		$pdf->Cell(46,5,'$'.number_format($total_citas,2,'.', ','),1,1,'L');
         						 
-
-	        $pdf->Cell(0,5,'__________________________________________________________',0,1,'C');
-	        $pdf->SetFont('Times','B',8);
+    		$pdf->Ln();
+        	$pdf->SetFont('Times','B',8);
 	        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
 	        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
 	        $pdf->SetFont('Times','',8);
-	        $pdf->Cell(0,4,'Enrrique Garcia Sanchez No. 115 Esquina',0,1,'C');
+	        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115 Esquina',0,1,'C');
 	        $pdf->Cell(0,4,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
 	        $pdf->Cell(0,4,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
 	        $pdf->Cell(0,4,$pdf->PageNo(),0,1,'C');

@@ -18,6 +18,7 @@ class CorteParcial_Model extends CI_Model {
         $this->db->from('cortes_caja');
         $this->db->group_by('numero_session,fecha_inicio_corte,fecha_final_corte');
 
+
         $query = $this->db->get();
 
         if($query->num_rows() > 0)
@@ -30,12 +31,13 @@ class CorteParcial_Model extends CI_Model {
         }
     }
 
-    public function get_cortes_ticket()
+    public function get_cortes_ticket($numero_session)
     {
         $this->db->select('clientes.nombre_cliente');
-        $this->db->select('id_corte,fecha,hora,costo_consulta');
+        $this->db->select('id_corte,fecha,hora,costo_consulta,fecha_inicio_corte,fecha_final_corte');
         $this->db->from('cortes_caja');
         $this->db->join('clientes','clientes.id_cliente = cortes_caja.id_cliente');
+        $this->db->where('numero_session',$numero_session);
 
         $query = $this->db->get();
 
