@@ -10,7 +10,7 @@
 		</h1>
 		<ol class="breadcrumb">
 			<li><u><a href="<?=base_url()?>index.php/main"><i class="fa fa-dashboard"></i> Inicio</a></u></li>
-			<li><u><a href="#"><i class="fa fa-calendar"></i> Citas</a></u></li>
+			<li><u><a href="#"><i class="fa fa-calendar"></i> Usuarios</a></u></li>
 		</ol>
     </section>
 	<section class="content">
@@ -93,7 +93,7 @@
 									<thead>
 										<tr>
 											<th><center>Hora Cita</center></th>
-											<th><center># Paciente</center></th>
+											<th><center>Turno</center></th>
 											<th><center>Nombre Paciente</center></th>
 											<th><center>Fecha Cita</center></th>
 											
@@ -299,7 +299,7 @@
 	 				</div>
 	 				<!--<div class="row">
 				 		<div class="form-group col-lg-12">
-				 			<label >Peso (Opcional):</label>
+				 			<label >Peso:</label>
 							<input type="text" class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
 				 		</div>			 		
 					</div>-->

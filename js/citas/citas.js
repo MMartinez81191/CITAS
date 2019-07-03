@@ -38,7 +38,10 @@ var citas = {
 
     eliminar_cita: function(){
         $(document).on('click', 'button.eliminar_cita', function () {
+<<<<<<< HEAD
             
+=======
+>>>>>>> parent of c6e6614... Ronda correcciones 1
             id_cita = $(this).data('id');
             var data = {id_cita: id_cita};
             cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
@@ -53,6 +56,7 @@ var citas = {
                 allowEscapeKey: false,
                 allowEnterKey: false
             }, function () {
+<<<<<<< HEAD
                 swal({
                     title: 'ELIMINADO',
                     text: 'Se elimino correctamente la cita',
@@ -64,6 +68,14 @@ var citas = {
                     $(toDelete).remove();
                     window.location.reload();
                 }); 
+=======
+                cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
+                swal('Eliminado!', 'Se elimino correctamente la cita', 'success');
+                var toDelete = '#tr_' + id_cita;
+                console.log(toDelete);
+                $(toDelete).remove();
+                
+>>>>>>> parent of c6e6614... Ronda correcciones 1
             });
         });
     },
@@ -94,6 +106,10 @@ var citas = {
 
     datos_cobro_citas: function(){
         $(document).on('click','button.cobrar_cita', function () {
+<<<<<<< HEAD
+=======
+
+>>>>>>> parent of c6e6614... Ronda correcciones 1
             var data = {id_cita: $(this).data('id')};    
             var response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
             var numero_turno = response.DATA_TURNO;
@@ -107,8 +123,13 @@ var citas = {
     },
 
     cobro_citas : function(){
+<<<<<<< HEAD
         $("#pagar_citas").on("submit", function (form) {
             form.preventDefault();
+=======
+        $("#pagar_citas").on("submit", function (e) {
+            e.preventDefault();
+>>>>>>> parent of c6e6614... Ronda correcciones 1
             var data = 
             {
                 id_cita: $('#id_cita_pagar').val(), 
