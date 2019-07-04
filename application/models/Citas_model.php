@@ -113,6 +113,7 @@ class Citas_model extends CI_Model {
 
     public function comprobar_repetidos($fecha,$hora)
     {
+        $this->db->limit(1);
         $this->db->from('citas');
         $this->db->where('fecha',$fecha);
         $this->db->where('hora',$hora);
