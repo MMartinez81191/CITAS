@@ -87,7 +87,7 @@ class Costos extends CI_Controller {
 
 	public function seguridad()
 	{
-		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') < 4))
+		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') < 5))
 		{
 			return true;
 		}
