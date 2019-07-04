@@ -104,7 +104,7 @@ class Citas extends CI_Controller {
 	    							{
 	    								
 									?>
-	    								<tr class="<?php $this->set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+	    								<tr class="<?=$this->set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
 											<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
 											<td><center><?= $row->numero_turno;?></center></td>
 											<td><center><?= $row->nombre_cliente;?></center></td>
@@ -170,7 +170,7 @@ class Citas extends CI_Controller {
 		{
 			if($this->input->is_ajax_request())
 			{
-				$response = FALSE;
+				//$response = FALSE;
 				$fecha = trim($this->input->post('txt_fecha'));
 				$hora = trim($this->input->post('txt_hora'));
 				$confirmar_repetido = $this->Citas_model->comprobar_repetidos($fecha,date("H:i", strtotime($hora)));
