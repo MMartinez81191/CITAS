@@ -100,7 +100,7 @@
                 <a href="#"><i class="fa fa-gears"></i><span>Administrar</span><span class="pull-right-container"><i class="fa fa-angle-left pull-right"></i></span></a>
                 <ul class="treeview-menu">
                 <?php
-                if($nivel != 2)
+                if($nivel != 3)
                 {
                 ?>
                     <li><a href="<?=base_url()?>index.php/usuarios"><i class="fa fa-user-plus"></i> Cuentas de Usuarios</a></li>
@@ -114,7 +114,7 @@
             }
             ?>
             <?php
-            if($nivel != 2)
+            if($nivel != 3)
             {
             ?>
             <li class="treeview" >
@@ -127,7 +127,7 @@
             }
             ?>
             <?php
-            if($nivel < 3)
+            if($nivel <= 3)
             {
             ?>
             <li class="treeview" >
