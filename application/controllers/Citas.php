@@ -156,7 +156,7 @@ class Citas extends CI_Controller {
 					$data = array(				
 						'id_cliente' => trim($this->input->post('id_cliente')),
 						'fecha' => $fecha,
-						'hora' => date("g:i", strtotime($hora)),
+						'hora' => date("H:i", strtotime($hora)),
 						'activo' => 1,
 					);
 					
