@@ -1,6 +1,27 @@
 <?php
 	$nombre = $this->session->userdata('nombre').' '.$this->session->userdata('apellido_p').' '.$this->session->userdata('apellido_m');
 
+	function set_color($id_tipo_cita)
+	{
+		
+		switch ($id_tipo_cita) {
+			case '1':
+				$class = 'info';
+				break;
+			case '2':
+				$class = 'danger';
+				break;
+			case '3':
+				$class = 'success';
+				break;
+			default:
+				# code...
+				break;
+		}
+
+		return $class;
+	}
+
 	
 ?>
 <div class="content-wrapper">
@@ -72,7 +93,29 @@
 							                </div>
 				          				</div>
 				          			</div>
-				          			<div class="col-lg-2" style="margin-top:2%;">
+				          			
+			      				</div>
+			      				<div class="row">
+			      					<div class="col-lg-4">
+			      						<div class="form-group">
+						                	<label>Tipo de cita:</label>
+						                	<select id="select_tipo_cita" name="select_tipo_cita" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+								                  <?php
+					                                if($DATA_TIPO_CITAS != FALSE)
+						                            {		                                
+						                                foreach ($DATA_TIPO_CITAS->result() as $row)
+						                                {
+						                                    echo '<option value="'.$row->id_tipo_cita.'">';
+						                                        echo $row->tipo_cita;
+						                                    echo '</option>';                                
+						                                }
+						                            
+						                            }                                      
+					                            ?>
+						                	</select>
+						              	</div>
+			          				</div>
+			          				<div class="col-lg-2" style="margin-top:2%;">
 			          					<button type="submit" class="btn btn-primary">Guardar Cita</button>
 			          				</div>
 			      				</div>
@@ -96,7 +139,7 @@
 											<th><center># Paciente</center></th>
 											<th><center>Nombre Paciente</center></th>
 											<th><center>Fecha Cita</center></th>
-											
+											<th><center>Tipo Cita</center></th>
 											<th class="no-sort"><center>Opciones</center></th>
 										</tr>
 									</thead>
@@ -120,11 +163,12 @@
 							    							{
 							    								
 															?>
-							    								<tr class="" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+							    								<tr class="<?=set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
 																	<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
 																	<td><center><?= $row->numero_turno;?></center></td>
 																	<td><center><?= $row->nombre_cliente;?></center></td>
 																	<td><center><?= $row->fecha ?></center></td>
+																	<td><center><?= $row->tipo_cita ?></center></td>
 																	<td>
 																		<center>
 																			<?php
@@ -158,6 +202,7 @@
 							    					?>
 														<tr>
 							    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+															<td><center>-</center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>

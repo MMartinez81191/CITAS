@@ -7,7 +7,7 @@ var citas = {
                 id_cliente : $('#select_cliente').val(), 
                 txt_fecha : $('#txt_fecha').val(),
                 txt_hora : $('#txt_hora').val(),
-
+                id_tipo_cita : $('#select_tipo_cita').val(),
             }
             var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
             console.log(response);
