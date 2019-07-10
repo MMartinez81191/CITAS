@@ -81,6 +81,7 @@ class CorteParcial_Model extends CI_Model {
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
         $this->db->where('contabilizado',0);
+        $this->db->where('costo_consulta','100');
         $this->db->where('fecha >=',$fecha_inicial);
         $this->db->where('fecha <=',$fecha_final);
         $this->db->order_by('id_cita','ASC');
