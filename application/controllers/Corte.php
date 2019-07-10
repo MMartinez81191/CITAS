@@ -69,7 +69,7 @@ class Corte extends CI_Controller {
 						<th><center>Hora Cita</center></th>
 						<th><center>Costo Consulta</center></th>
 						<th><center>Forma de Pago</center></th>
-						<!--<th class="no-sort"><center>Opciones</center></th>-->
+						<th class="no-sort"><center>Opciones</center></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -104,10 +104,10 @@ class Corte extends CI_Controller {
 								?>		
 								</center>
 							</td>
-							<!--<td>
-								<center>-->
+							<td>
+								<center>
 									<?php
-									/*if($row->costo_consulta == '0'){
+									if($row->costo_consulta == '0'){
 									?>
 										<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
 
@@ -119,10 +119,10 @@ class Corte extends CI_Controller {
 									?>
 										<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
 									<?php
-									}*/
+									}
 									?>
-								<!--</center>
-							</td>-->
+								</center>
+							</td>
 						</tr>
 					<?php
 						}

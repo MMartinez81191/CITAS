@@ -113,8 +113,7 @@ class Citas extends CI_Controller {
 											<td>
 												<center>
 													<?php
-													if($row->costo_consulta == '0' and $row->numero_turno == '')
-													{
+													if($row->costo_consulta == '0'){
 													?>
 														<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
 
