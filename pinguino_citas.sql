@@ -4629,6 +4629,32 @@ INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `cor
 -- --------------------------------------------------------
 
 --
+-- Estructura para la tabla `pesos`
+--
+
+CREATE TABLE `pesos` (
+`id_peso` int not null auto_increment primary key,
+`id_cliente` int not null,
+`fecha` varchar (30),
+`peso` double,
+foreign key (`id_cliente`) references clientes (`id_cliente`)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura para la tabla `pesos`
+--
+CREATE TABLE `membresias`(
+`id_membresia`int not null auto_increment primary key,
+`id_cliente` int not null,
+`cantidad` int(11) default 5,
+foreign key (`id_cliente`) references clientes (`id_cliente`)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Estructura de tabla para la tabla `cortes_caja`
 --
 
@@ -4642,17 +4668,6 @@ CREATE TABLE `cortes_caja` (
   `fecha_inicio_corte` date DEFAULT NULL,
   `fecha_final_corte` date DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `cortes_caja`
---
-
-INSERT INTO `cortes_caja` (`id_corte`, `id_cliente`, `fecha`, `hora`, `costo_consulta`, `numero_session`, `fecha_inicio_corte`, `fecha_final_corte`) VALUES
-(30, 1, '2019-06-20', '09:30:00', '100', 1, '2019-06-01', '2019-06-30'),
-(31, 698, '2019-06-20', '15:35:00', '100', 1, '2019-06-01', '2019-06-30'),
-(32, 1, '2019-06-24', '10:45:00', '300.00', 1, '2019-06-01', '2019-06-30'),
-(33, 1, '2019-06-24', '10:50:00', '300.00', 1, '2019-06-01', '2019-06-30'),
-(34, 1, '2019-06-24', '10:55:00', '200', 1, '2019-06-01', '2019-06-30');
 
 -- --------------------------------------------------------
 

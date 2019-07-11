@@ -102,13 +102,16 @@ var citas = {
             $('#fecha_cita').val(response.DATA_CITA.fecha);
             $('#txt_turno_cita').val(numero_turno);
             $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
-           
         });
     },
 
     cobro_citas : function(){
         $("#pagar_citas").on("submit", function (form) {
             form.preventDefault();
+            var id_cita = $('#id_cita_pagar').val();
+            //var ruta = "http://pinguinosystems.com/CITAS/citas/imprimir_ticket/" + id_cita;
+            var ruta = "http://localhost:8080/CITAS/citas/imprimir_ticket/" + id_cita;
+
             var data = 
             {
                 id_cita: $('#id_cita_pagar').val(), 
@@ -128,13 +131,15 @@ var citas = {
                  title = "Actualización de información";
                  mensaje = "Cobro Realizado Correctamente";
              }
+
              swal({
                  title: title,
                  text: mensaje,
                  type: icon,
                  closeOnConfirm: false
              }, function () {
-                location.reload(); 
+                window.open(ruta, 'Nombre Ventana');
+                location.reload();
              });
         });
     },

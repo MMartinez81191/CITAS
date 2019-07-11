@@ -55,6 +55,9 @@ class Citas extends CI_Controller {
 			case '3':
 				$class = 'success';
 				break;
+			case '5':
+				$class = 'warning';
+				break;
 			default:
 				# code...
 				break;

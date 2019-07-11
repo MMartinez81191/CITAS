@@ -6,13 +6,16 @@
 		
 		switch ($id_tipo_cita) {
 			case '1':
-				$class = 'info';
+				$class = 'info'; //consulta
 				break;
 			case '2':
-				$class = 'danger';
+				$class = 'danger'; //membresia
 				break;
 			case '3':
-				$class = 'success';
+				$class = 'success'; //paciente nuevo
+				break;
+			case '5':
+				$class = 'warning'; //terapia
 				break;
 			default:
 				# code...
@@ -221,6 +224,8 @@
 					</div>
 				</div>
 			</div>
+
+<!-- AGREGAR PACIENTE -->			
 			<div class="col-xs-4">
 				<div class="box box-primary">
 					<div class="box-body">
@@ -286,7 +291,8 @@
 		</div>
 	</section>
 </div>
-<!-- MODAL PARA EDITAR LOS CLIENTES -->
+
+<!-- MODAL PARA COBRAR CITAS -->
 <div class="modal fade" id="modal_cobrar_cita" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content" >
@@ -342,16 +348,17 @@
 							
 				 		</div>	
 	 				</div>
-	 				<!--<div class="row">
+	 				<div class="row">
 				 		<div class="form-group col-lg-12">
 				 			<label >Peso (Opcional):</label>
 							<input type="text" class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
 				 		</div>			 		
-					</div>-->
+					</div>
 	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	                    <button type="submit" class="btn btn-primary">Guardar</button>
+	                    <button type="submit" id="btn_pago_cita" name="btn_pago_cita"  class="btn btn-primary">Pagar</button>
+
 	                </div>
 				</form> 
             </div>
