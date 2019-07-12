@@ -62,5 +62,28 @@ class Clientes_model extends CI_Model {
         $this->db->update('clientes',$data);
     }
 
+    public function get_historial($id_cliente)
+    {
+        $this->db->select('pesos.id_cliente, nombre_cliente, peso, fecha');  
+        $this->db->from('pesos');
+        $this->db->join('clientes', 'pesos.id_cliente = clientes.id_cliente');
+        $this->db->where('clientes.id_cliente',$id_cliente);
+        
+        $query = $this->db->get();
 
+        //echo $this->db->last_query();
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    public function insert_pesos($data)
+    {
+        $this->db->insert('pesos',$data);
+    }
 }

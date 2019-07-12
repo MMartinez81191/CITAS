@@ -127,6 +127,7 @@ class Citas extends CI_Controller {
 													{
 													?>
 														<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
+														<a type="button" href="<?=base_url()?>clientes/historial/<?=$row->id_cliente;?>" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
 													<?php
 													}
 													?>

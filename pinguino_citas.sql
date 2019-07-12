@@ -62,7 +62,6 @@ CREATE TABLE `citas` (
   `contabilizado` int(11) DEFAULT '0',
   `cobrado` int(11) DEFAULT '0',
   `forma_pago` int(11) DEFAULT NULL,
-  `peso_actual` varchar(45) DEFAULT NULL,
   `activo` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -4640,6 +4639,15 @@ CREATE TABLE `pesos` (
 foreign key (`id_cliente`) references clientes (`id_cliente`)
 );
 
+INSERT INTO pesos (id_cliente, peso) VALUES (1, 80);
+INSERT INTO pesos (id_cliente, peso) VALUES (2, 82);
+
+select nombre_cliente, peso
+from pesos as p
+join clientes as ct
+on p.id_cliente = ct.id_cliente
+where ct.id_cliente = 1;
+
 -- --------------------------------------------------------
 
 --
@@ -4649,6 +4657,7 @@ CREATE TABLE `membresias`(
 `id_membresia`int not null auto_increment primary key,
 `id_cliente` int not null,
 `cantidad` int(11) default 5,
+`activo` int(11) default 1,
 foreign key (`id_cliente`) references clientes (`id_cliente`)
 );
 

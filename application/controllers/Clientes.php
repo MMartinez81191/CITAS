@@ -34,26 +34,67 @@ class Clientes extends CI_Controller {
 		}
 	}
 
+	public function historial()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->session->userdata('logueado') == TRUE)
+			{
+				$id_cliente = $this->uri->segment(3);
+				$data = array(
+					'DATA_HISTORIAL' => $this->Clientes_model->get_historial($id_cliente),
+				);
+
+				$this->load->view('headers/librerias');
+				$this->load->view('headers/menu');
+				$this->load->view('clientes/historial_clientes',$data);
+				$this->load->view('footers/librerias');
+			}else
+			{
+				$script = '';
+				$this->load->view('inicio/login',$script);
+			}
+		}
+		else{
+			redirect(base_url());
+		}
+	}
+
+	public function add_peso()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+				$data = array(				
+					'id_cliente' => trim($this->input->post('id_cliente')),
+					'peso' => trim($this->input->post('peso')),
+					'fecha' => trim($this->input->post('fecha')),
+				);
+				$this->Clientes_model->insert_pesos($data);
+				echo json_encode($data);
+			
+			}else{
+	            show_404();
+	        }
+        }else{
+			redirect(base_url());
+		}
+	}
+
 	public function add_client()
 	{
 		if($this->seguridad() == TRUE)
 		{
-			if($this->seguridad() == TRUE)
+			if($this->session->userdata('logueado') == TRUE)
 			{
-				if($this->session->userdata('logueado') == TRUE)
-				{
-					$this->load->view('headers/librerias');
-					$this->load->view('headers/menu');
-					$this->load->view('clientes/add_clientes');
-					$this->load->view('footers/librerias');
-				}else
-				{
-					$script = '';
-					$this->load->view('inicio/login',$script);
-				}
-			}
-			else{
-				redirect(base_url());
+				$this->load->view('headers/librerias');
+				$this->load->view('headers/menu');
+				$this->load->view('clientes/add_clientes');
+				$this->load->view('footers/librerias');
+			}else
+			{
+				$script = '';
+				$this->load->view('inicio/login',$script);
 			}
 		}else{
 			redirect(base_url());
