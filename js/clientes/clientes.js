@@ -105,36 +105,22 @@ var clientes = {
     add_peso: function(){
         $('#agregar_peso').on('submit', function(form){
             form.preventDefault();
+
             var data = {
                 id_cliente : $('#id_cliente').val(),
                 fecha : $('#fecha').val(),
                 peso : $('#txt_peso_inicial_cita').val(),
             }
-            
-            var response = cargar_ajax.run_server_ajax('clientes/add_peso', data);
 
-            if(response == false)
-            {
-                swal({
-                    title: 'CORRECTO',
-                    text: 'SE AGREGO CORRECTAMENTE',
-                    type: 'success',
+            cargar_ajax.run_server_ajax('clientes/add_peso', data);
+            swal({
+                title: 'CORRECTO',
+                text: 'SE AGREGO CORRECTAMENTE',
+                type: 'success',
                 closeOnConfirm: false
-                },function(){
-                    window.location.reload();
-                });
-            }
-            else if(response == true)
-            {
-                swal({
-                    title: 'ATENCION!!',
-                    text: 'Error',
-                    type: 'warning',
-                    closeOnConfirm: false
-                },function(){
-                    window.location.reload();
-                });
-            }
+            },function(){
+                window.location.reload();
+            });
         });
     },
 }

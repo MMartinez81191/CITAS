@@ -4639,14 +4639,16 @@ CREATE TABLE `pesos` (
 foreign key (`id_cliente`) references clientes (`id_cliente`)
 );
 
-INSERT INTO pesos (id_cliente, peso) VALUES (1, 80);
+INSERT INTO pesos (id_cliente, peso) VALUES (10, 80);
 INSERT INTO pesos (id_cliente, peso) VALUES (2, 82);
 
 select nombre_cliente, peso
 from pesos as p
 join clientes as ct
 on p.id_cliente = ct.id_cliente
-where ct.id_cliente = 1;
+where ct.id_cliente = 1
+order by id_peso desc
+;
 
 -- --------------------------------------------------------
 

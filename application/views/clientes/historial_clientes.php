@@ -3,12 +3,15 @@
 	{
 		foreach ($DATA_HISTORIAL->result() as $row) 
 		{
-			$id_cliente = $row->id_cliente;
 			$nombre_cliente = $row->nombre_cliente;
 			$peso = $row->peso;
 			$fecha = $row->fecha;
 		}
 	} 
+
+	$id_cliente = $this->uri->segment(3);
+	var_dump($id_cliente);
+
 ?>
 
 <div class="content-wrapper">
@@ -33,12 +36,11 @@
 			    </div>
 		        <div class="box">
 					<div class="box-body table-responsive">
-						<table id="" class="table table-bordered table-striped">
+						<table id="example1" class="table table-bordered table-striped">
 							<thead>
 								<tr>
-									<th><center>Nombre</center></th>
-									<th><center>Peso</center></th>
 									<th><center>Fecha</center></th>
+									<th><center>Peso</center></th>
 									<th class="no-sort"><center>Opciones</center></th>
 								</tr>
 							</thead>
@@ -49,13 +51,13 @@
 										foreach ($DATA_HISTORIAL->result() as $row) {
 											echo '<tr>';
 												echo '<td>';
-													echo $row->nombre_cliente;
+													echo $row->fecha;
 												echo '</td>';
 												echo '<td>';
 													echo $row->peso;
 												echo '</td>';
 												echo '<td>';
-													echo $row->fecha;
+													echo 'Opciones';
 												echo '</td>';
 											echo '</tr>';
 										}
@@ -70,6 +72,7 @@
 	</section>
 </div>
 
+
 <!-- MODAL PARA AGREGAR PESO -->
 <div class="modal fade" id="modal_agregar_peso" tabindex="-1" role="dialog" aria-hidden="true" >
     <div class="modal-dialog modal-md" role="document">
@@ -80,8 +83,8 @@
             </div>
             <div class="modal-body">
 	            <form  name="agregar_peso" id="agregar_peso">
-	            	<input type="text" style="display: none;" id="id_cliente" name="id_cliente" value="<?=$row->id_cliente;?>" >
-	            	<input readonly type="text" style="display: none;" class="form-control" name="fecha" id="fecha" value="<?php date_default_timezone_set('America/Los_Angeles');
+	            	<input type="text" style="display: none;" id="id_cliente" name="id_cliente" value="<?=$id_cliente;?>">
+	            	<input type="text" style="display: none;" class="form-control" name="fecha" id="fecha" value="<?php date_default_timezone_set('America/Los_Angeles');
 					$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
 					echo date('d')."/".$meses[date('n')-1]. "/".date('Y') ;	
 					?>">

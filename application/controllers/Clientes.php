@@ -65,6 +65,7 @@ class Clientes extends CI_Controller {
 		if($this->seguridad() == TRUE)
 		{
 			if($this->input->is_ajax_request()){
+				
 				$data = array(				
 					'id_cliente' => trim($this->input->post('id_cliente')),
 					'peso' => trim($this->input->post('peso')),

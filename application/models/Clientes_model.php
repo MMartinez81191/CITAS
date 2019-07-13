@@ -64,10 +64,11 @@ class Clientes_model extends CI_Model {
 
     public function get_historial($id_cliente)
     {
-        $this->db->select('pesos.id_cliente, nombre_cliente, peso, fecha');  
+        $this->db->select('clientes.id_cliente, nombre_cliente, peso, fecha');  
         $this->db->from('pesos');
         $this->db->join('clientes', 'pesos.id_cliente = clientes.id_cliente');
         $this->db->where('clientes.id_cliente',$id_cliente);
+        $this->db->order_by('id_peso', 'DESC');
         
         $query = $this->db->get();
 
