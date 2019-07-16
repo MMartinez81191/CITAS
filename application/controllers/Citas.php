@@ -262,8 +262,8 @@ class Citas extends CI_Controller {
 		if($DATA_COSTOS != FALSE)
 		{
 			if ($id_tipo_cita == 2) {
-				echo '<option value="'.$row->costo.'">';
-					echo '$'.number_format(400,2,'.', ',');	
+				echo '<option value="400">';
+					echo '$400.00';	
 				echo '</option>';
 
 			}
