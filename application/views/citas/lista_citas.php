@@ -1,6 +1,7 @@
 <?php
 	$nombre = $this->session->userdata('nombre').' '.$this->session->userdata('apellido_p').' '.$this->session->userdata('apellido_m');
 
+
 	function set_color($id_tipo_cita)
 	{
 		
@@ -27,6 +28,7 @@
 
 	
 ?>
+
 <div class="content-wrapper">
 	<section class="content-header">
 		<h1 class="Display1">
@@ -306,6 +308,7 @@
 	            <form  name="pagar_citas" id="pagar_citas">
 	            	<input type="hidden" id="id_cita_pagar" name="id_cita_pagar" >
 	            	<input type="hidden" name="fecha_cita" name="fecha_cita">
+	            	<input type="hidden" name="txt_tipo_cita" id="txt_tipo_cita">
 	            	<div class="row">
 				 		<div class="form-group col-lg-12">	
 				 			<label >Numero de turno:</label>
@@ -320,19 +323,10 @@
 					</div>
 
 			 		<div class="row">
-			 			<div class="form-group col-lg-12">
+			 			<div class="form-group col-lg-12">			 				
 				 			<label >Costo de la consulta:</label>
 				 			<select class="select2" id=sel_costo_cita name="sel_costo_cita" style="width: 100%">
-				 				<?php
-				 				if($DATA_COSTOS != FALSE)
-				 				{
-				 					foreach ($DATA_COSTOS->result() as $row) {
-					 					echo '<option value="'.$row->costo.'">';
-					 						echo '$'.number_format($row->costo,2,'.', ',');
-					 					echo '</option>';
-					 				}
-				 				}
-				 				?>
+				 				
 				 			</select>
 				 		</div>	
 	 				</div>
@@ -349,13 +343,6 @@
 							
 				 		</div>	
 	 				</div>
-	 				<!--<div class="row">
-				 		<div class="form-group col-lg-12">
-				 			<label >Peso (Opcional):</label>
-							<input type="text" class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
-				 		</div>			 		
-					</div>-->
-	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
 	                    <button type="submit" id="btn_pago_cita" name="btn_pago_cita"  class="btn btn-primary">Pagar</button>

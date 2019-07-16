@@ -62,7 +62,8 @@ CREATE TABLE `citas` (
   `contabilizado` int(11) DEFAULT '0',
   `cobrado` int(11) DEFAULT '0',
   `forma_pago` int(11) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1'
+  `activo` int(11) DEFAULT '1',
+  `membresia` int(11) Default 0
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
@@ -4646,22 +4647,9 @@ select nombre_cliente, peso
 from pesos as p
 join clientes as ct
 on p.id_cliente = ct.id_cliente
-where ct.id_cliente = 1
+where ct.id_cliente = 38
 order by id_peso desc
 ;
-
--- --------------------------------------------------------
-
---
--- Estructura para la tabla `pesos`
---
-CREATE TABLE `membresias`(
-`id_membresia`int not null auto_increment primary key,
-`id_cliente` int not null,
-`cantidad` int(11) default 5,
-`activo` int(11) default 1,
-foreign key (`id_cliente`) references clientes (`id_cliente`)
-);
 
 -- --------------------------------------------------------
 

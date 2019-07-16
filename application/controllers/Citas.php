@@ -23,8 +23,8 @@ class Citas extends CI_Controller {
 				$data = array(
 					'DATA_CITAS' => $this->Citas_model->get_citas($fechaInicio,$fechaFinal),
 					'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
-					'DATA_COSTOS' => $this->Costos_model->get_costos(),
 					'DATA_TIPO_CITAS' => $this->Citas_model->get_tipo_citas(),
+					//'DATA_COSTOS' => $this->Costos_model->get_costos(),
 				);
 
 				$this->load->view('headers/librerias');
@@ -240,6 +240,7 @@ class Citas extends CI_Controller {
 				$data = array(
 					'DATA_CITA' => $DATA_CITA,
 					'DATA_TURNO' =>  $this->Citas_model->get_turno($DATA_CITA->fecha),
+					//'DATA_COSTOS' => $this->Costos_model->get_costos(),
 				);
 				echo json_encode($data);
 			}
@@ -249,6 +250,31 @@ class Citas extends CI_Controller {
 	        }
         }else{
 			redirect(base_url());
+		}
+	}
+
+	//OBTIENE LOS PRODUCTOS DEPENDIENDO DEL TIPO
+	public function get_co()
+	{
+		$id_tipo_cita = $this->uri->segment(3);
+		$DATA_COSTOS = $this->Costos_model->get_costos();
+		
+		if($DATA_COSTOS != FALSE)
+		{
+			if ($id_tipo_cita == 2) {
+				echo '<option value="'.$row->costo.'">';
+					echo '$'.number_format(400,2,'.', ',');	
+				echo '</option>';
+
+			}
+			else
+			{
+				foreach ($DATA_COSTOS->result() as $row) {
+					echo '<option value="'.$row->costo.'">';
+						echo '$'.number_format($row->costo,2,'.', ',');	
+					echo '</option>';
+				}
+			}
 		}
 	}
 
