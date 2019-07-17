@@ -257,7 +257,11 @@ class Citas extends CI_Controller {
 	public function get_co()
 	{
 		$id_tipo_cita = $this->uri->segment(3);
+		//$id_cliente = $this->uri->segment(4);
+
 		$DATA_COSTOS = $this->Costos_model->get_costos();
+		//$DATA_CLIENT = $this->Citas_model->get_dt_cli($id_cliente);
+
 		
 		if($DATA_COSTOS != FALSE)
 		{

@@ -97,7 +97,7 @@ var citas = {
             var data = {id_cita: $(this).data('id')};    
             var response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
             var numero_turno = response.DATA_TURNO;
-
+            
             //console.log(numero_turno);
             $('#id_cita_pagar').val(response.DATA_CITA.id_cita);
             $('#fecha_cita').val(response.DATA_CITA.fecha);
@@ -105,9 +105,45 @@ var citas = {
             $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
             $('#txt_tipo_cita').val(response.DATA_CITA.id_tipo_cita);
 
-            var id_tipo_cita = response.DATA_CITA.id_tipo_cita; 
+            var id_tipo_cita = response.DATA_CITA.id_tipo_cita;
+            var id_cliente = response.DATA_CITA.id_cliente;
 
-            $.post("Citas/get_co/"+id_tipo_cita, function(data)
+            if (id_tipo_cita == 2) 
+            {
+            /*consulta
+                --busca * datos cliente
+                if (CampoMemebresiabd == 0) 
+                {
+                    mensaje(¿Comprar membresia?)
+                    if (ok) 
+                    {
+                        update membresia == 4;
+                        costo =  400
+                    }
+                    else
+                    {
+                        mensaje(¿cambiar solo a consulta?)
+                        if(ok)
+                        {
+                            costo = 100;
+                            tipo_cita = 1;
+                        }
+                        else
+                        {
+                            eliminar?
+                        }
+                    }
+                }
+                else
+                {
+                    membresia =- 1;
+                    costo = 0; 
+                }
+
+            */
+            }
+ 
+            $.post("Citas/get_co/"+id_tipo_cita + "/"+id_cliente, function(data)
             {
                $("#sel_costo_cita").html(data);
             }); 

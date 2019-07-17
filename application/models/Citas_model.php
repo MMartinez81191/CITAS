@@ -34,6 +34,23 @@ class Citas_model extends CI_Model {
         }
     }
 
+    public function get_dt_cli($id_cliente)
+    {
+        $this->db->from('clientes');
+        $this->db->where('id_cliente',$id_cliente);
+        
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
     public function get_tipo_citas()
     {
         $this->db->from('tipos_citas');
@@ -88,7 +105,7 @@ class Citas_model extends CI_Model {
     public function get_citas_by_id($id_cita)
     {
         $this->db->select('citas.*');
-        $this->db->select('clientes.nombre_cliente');
+        $this->db->select('clientes.nombre_cliente, clientes.id_cliente');
         $this->db->from('citas');
         $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');
         $this->db->where('citas.id_cita',$id_cita);
