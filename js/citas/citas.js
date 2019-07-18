@@ -156,7 +156,7 @@ var citas = {
             form.preventDefault();
             var id_cita = $('#id_cita_pagar').val();
             //var ruta = "http://pinguinosystems.com/CITAS/citas/imprimir_ticket/" + id_cita;
-            var ruta = "http://localhost:8080/CITAS/citas/imprimir_ticket/" + id_cita;
+            var ruta = base_url + "/citas/imprimir_ticket/" + id_cita;
 
             var data = 
             {
