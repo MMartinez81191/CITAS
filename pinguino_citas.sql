@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-06-2019 a las 02:07:31
--- Versión del servidor: 10.1.38-MariaDB
--- Versión de PHP: 5.6.40
+-- Tiempo de generación: 18-07-2019 a las 19:30:22
+-- Versión del servidor: 10.1.37-MariaDB
+-- Versión de PHP: 7.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -57,33 +57,27 @@ CREATE TABLE `citas` (
   `numero_turno` int(11) DEFAULT NULL,
   `fecha` date DEFAULT NULL,
   `hora` time DEFAULT NULL,
-  `costo_consulta` varchar(45) DEFAULT '0',
+  `costo_consulta` varchar(45) DEFAULT '-1',
   `folio_sat` int(11) DEFAULT NULL,
   `contabilizado` int(11) DEFAULT '0',
   `cobrado` int(11) DEFAULT '0',
   `forma_pago` int(11) DEFAULT NULL,
-  `activo` int(11) DEFAULT '1',
-  `membresia` int(11) Default 0
+  `peso_actual` varchar(45) DEFAULT NULL,
+  `id_tipo_cita` int(11) DEFAULT NULL,
+  `activo` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `citas`
 --
 
-INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `costo_consulta`, `folio_sat`, `contabilizado`, `cobrado`, `forma_pago`, `peso_actual`, `activo`) VALUES
-(77, 1, 2, '2019-06-20', '09:30:00', '100', NULL, 1, 1, 1, NULL, 1),
-(78, 698, 3, '2019-06-20', '15:35:00', '100', NULL, 1, 1, 1, NULL, 1),
-(79, 1, 1, '2019-06-25', '10:45:00', '0', NULL, 1, 0, NULL, NULL, 1),
-(80, 1, 1, '2019-06-24', '10:45:00', '300.00', NULL, 1, 1, 1, NULL, 1),
-(81, 1, 2, '2019-06-24', '10:50:00', '300.00', NULL, 1, 1, 1, NULL, 1),
-(82, 1, 3, '2019-06-24', '10:55:00', '200', NULL, 1, 1, 2, NULL, 1),
-(83, 1, 1, '2019-06-27', '09:00:00', '100', NULL, 0, 1, 1, NULL, 1),
-(84, 1, 2, '2019-06-27', '12:40:00', '100', NULL, 0, 1, 1, '', 1),
-(85, 1, 3, '2019-06-27', '15:05:00', '100', NULL, 0, 1, 1, '60.00', 1),
-(86, 1, 1, '2019-06-28', '08:20:00', '0', NULL, 0, 0, NULL, NULL, 0),
-(87, 1, 2, '2019-06-28', '08:15:00', '0', NULL, 0, 0, NULL, NULL, 0),
-(88, 1, 3, '2019-06-28', '08:35:00', '0', NULL, 0, 0, NULL, NULL, 0),
-(89, 1, 4, '2019-06-28', '16:35:00', '20.30', NULL, 0, 1, 1, '', 1);
+INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `costo_consulta`, `folio_sat`, `contabilizado`, `cobrado`, `forma_pago`, `peso_actual`, `id_tipo_cita`, `activo`) VALUES
+(1, 1, NULL, '2019-07-03', '20:25:00', '-1', NULL, 0, 0, NULL, NULL, 2, 1),
+(2, 1, 1, '2019-07-17', '08:25:00', '200', NULL, 0, 1, 1, '', 1, 1),
+(3, 1, 2, '2019-07-17', '08:30:00', '100', NULL, 0, 1, 1, '', 1, 1),
+(4, 1, NULL, '2019-07-17', '20:20:00', '-1', NULL, 0, 0, NULL, NULL, 1, 1),
+(5, 1, 3, '2019-07-17', '08:20:00', '100', NULL, 0, 1, 1, '', 1, 1),
+(6, 1, 4, '2019-07-17', '08:15:00', '100', NULL, 0, 1, 1, '', 1, 1);
 
 -- --------------------------------------------------------
 
@@ -4620,36 +4614,7 @@ INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `cor
 (4505, 'BEATRIZ COCKBURN FÉLIX', '', NULL, '01/01/1973', '2019-06-27', 1),
 (4506, 'MARÍA ISABEL BAŃUELOS SÁNCHEZ', '', NULL, '01/01/1971', '2019-06-27', 1),
 (4507, 'WENDY RAMIREZ CRUZ', '', NULL, '01/01/1994', '2019-06-27', 1),
-(4508, 'JOSE LUIS OROZ SANEZ', '', NULL, '01/01/1940', '2019-06-27', 1),
-(4509, 'MARTIN FRANCISCO MARTINEZ', '123456123123', '', '1991-11-08', '1969-12-31', 1),
-(4510, 'ANIBAL SOTOMAYOR LOPEZ', '111111111111', '', '2019-06-05', '2019-06-27', 1),
-(4511, 'JOSE JOSE', '662415622444', '', '1955-11-30', '2019-06-28', 1),
-(4512, 'ASD ASDA ASDASD ASDASDA ASDADASD', '6624162499', '', '2019-06-26', '2019-06-28', 1);
-
--- --------------------------------------------------------
-
---
--- Estructura para la tabla `pesos`
---
-
-CREATE TABLE `pesos` (
-`id_peso` int not null auto_increment primary key,
-`id_cliente` int not null,
-`fecha` varchar (30),
-`peso` double,
-foreign key (`id_cliente`) references clientes (`id_cliente`)
-);
-
-INSERT INTO pesos (id_cliente, peso) VALUES (10, 80);
-INSERT INTO pesos (id_cliente, peso) VALUES (2, 82);
-
-select nombre_cliente, peso
-from pesos as p
-join clientes as ct
-on p.id_cliente = ct.id_cliente
-where ct.id_cliente = 38
-order by id_peso desc
-;
+(4508, 'JOSE LUIS OROZ SANEZ', '', NULL, '01/01/1940', '2019-06-27', 1);
 
 -- --------------------------------------------------------
 
@@ -4701,8 +4666,56 @@ CREATE TABLE `costos` (
 --
 
 INSERT INTO `costos` (`id_costo`, `costo`, `activo`) VALUES
-(2, '20.30', '1'),
-(3, '50', '1');
+(4, '100', '1'),
+(5, '200', '1'),
+(6, '400', '1'),
+(7, '0', '1');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `pesos`
+--
+
+CREATE TABLE `pesos` (
+  `id_peso` int(11) NOT NULL,
+  `id_cliente` int(11) NOT NULL,
+  `fecha` varchar(30) DEFAULT NULL,
+  `peso` double DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `pesos`
+--
+
+INSERT INTO `pesos` (`id_peso`, `id_cliente`, `fecha`, `peso`) VALUES
+(1, 10, NULL, 80),
+(2, 2, NULL, 82),
+(3, 1, '17/Julio/2019', 80);
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipos_citas`
+--
+
+CREATE TABLE `tipos_citas` (
+  `id_tipo_cita` int(11) NOT NULL,
+  `tipo_cita` varchar(30) DEFAULT NULL,
+  `activo` int(11) DEFAULT '1'
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipos_citas`
+--
+
+INSERT INTO `tipos_citas` (`id_tipo_cita`, `tipo_cita`, `activo`) VALUES
+(1, 'Consulta', 1),
+(2, 'Membresia', 1),
+(3, 'Paciente Nuevo', 1),
+(4, 'Asistieron a cita', 0),
+(5, 'Terapia', 0),
+(6, 'No asistio', 0);
 
 -- --------------------------------------------------------
 
@@ -4726,9 +4739,9 @@ CREATE TABLE `usuarios` (
 --
 
 INSERT INTO `usuarios` (`id_usuario`, `usuario_email`, `nombre`, `apellido_p`, `apellido_m`, `id_nivel`, `contrasena`, `activo`) VALUES
-(1, 'root@pinguinosystems.com', 'MARTIN FRANCISCO', 'MARTINEZ', 'FEDERICO', 1, '123456', '1'),
-(4, 'root12@pinguinosystems.com', 'JOSE', 'LOPEZ', 'JOSE LOPEZ', 2, '123', '1'),
-(5, 'a@pinguinosystems.com', 'PRUEBA', 'A', 'B', 3, 'x', '1');
+(1, 'root@pinguinosystems.com', 'MARTIN FRANCISCO', 'MARTINEZ', 'FEDERICO', 1, '81191', '1'),
+(2, 'jorgespino11@hotmail.com', 'JORGE', 'ESPINOZA', 'CALLES', 2, 'jorgeluis1215', '1'),
+(3, 'maribelcallesc@hotmail.com', 'ALEXIS AMAYRANI', 'HURTADO', 'PACHECO', 5, '123456', '1');
 
 --
 -- Índices para tablas volcadas
@@ -4765,6 +4778,19 @@ ALTER TABLE `costos`
   ADD PRIMARY KEY (`id_costo`);
 
 --
+-- Indices de la tabla `pesos`
+--
+ALTER TABLE `pesos`
+  ADD PRIMARY KEY (`id_peso`),
+  ADD KEY `id_cliente` (`id_cliente`);
+
+--
+-- Indices de la tabla `tipos_citas`
+--
+ALTER TABLE `tipos_citas`
+  ADD PRIMARY KEY (`id_tipo_cita`);
+
+--
 -- Indices de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
@@ -4785,31 +4811,53 @@ ALTER TABLE `cat_niveles`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=90;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
 --
 ALTER TABLE `clientes`
-  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4513;
+  MODIFY `id_cliente` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4509;
 
 --
 -- AUTO_INCREMENT de la tabla `cortes_caja`
 --
 ALTER TABLE `cortes_caja`
-  MODIFY `id_corte` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id_corte` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `costos`
 --
 ALTER TABLE `costos`
-  MODIFY `id_costo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id_costo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT de la tabla `pesos`
+--
+ALTER TABLE `pesos`
+  MODIFY `id_peso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT de la tabla `tipos_citas`
+--
+ALTER TABLE `tipos_citas`
+  MODIFY `id_tipo_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_usuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `pesos`
+--
+ALTER TABLE `pesos`
+  ADD CONSTRAINT `pesos_ibfk_1` FOREIGN KEY (`id_cliente`) REFERENCES `clientes` (`id_cliente`);
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
