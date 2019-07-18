@@ -104,49 +104,31 @@ var citas = {
             $('#txt_turno_cita').val(numero_turno);
             $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
             $('#txt_tipo_cita').val(response.DATA_CITA.id_tipo_cita);
+            $('#txt_id_cliente').val(response.DATA_CITA.id_cliente);
 
             var id_tipo_cita = response.DATA_CITA.id_tipo_cita;
-            var id_cliente = response.DATA_CITA.id_cliente;
+            //var id_cliente = response.DATA_CITA.id_cliente;
+            var membresia = response.DATA_CITA.membresia;
 
-            if (id_tipo_cita == 2) 
-            {
-            /*consulta
-                --busca * datos cliente
-                if (CampoMemebresiabd == 0) 
-                {
-                    mensaje(¿Comprar membresia?)
-                    if (ok) 
-                    {
-                        update membresia == 4;
-                        costo =  400
-                    }
-                    else
-                    {
-                        mensaje(¿cambiar solo a consulta?)
-                        if(ok)
-                        {
-                            costo = 100;
-                            tipo_cita = 1;
-                        }
-                        else
-                        {
-                            eliminar?
-                        }
-                    }
-                }
-                else
-                {
-                    membresia =- 1;
-                    costo = 0; 
-                }
-
-            */
-            }
- 
-            $.post("Citas/get_co/"+id_tipo_cita + "/"+id_cliente, function(data)
+            //Manda los datos para mostrar el costo y hacer el update
+            $.post("Citas/get_co/"+id_tipo_cita + "/"+membresia, function(data)
             {
                $("#sel_costo_cita").html(data);
-            }); 
+            });
+
+            //resta la consulta actual y obtiene el nuevo numero de membresias
+            if (id_tipo_cita == 2)  //cuando es membresia
+            {
+                if (membresia == 0)  //cuando compra la membresia
+                {
+                    membresia = 4;
+                }
+                else                //cuando ya tiene la membresia
+                {
+                    membresia -= 1;
+                }
+                $('#txt_membresia').val(membresia);
+            }
 
         });
     },
@@ -166,8 +148,19 @@ var citas = {
                 peso_actual : $('#txt_peso_inicial_cita').val(),
             }
             console.log(data);
-            var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
-             
+            //var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
+
+            //actualizar membresia
+                var data2 = 
+                {
+                    membresia: $('#txt_membresia').val(),
+                }
+
+                var id_cliente = $('#txt_id_cliente').val();
+                alert(id_cliente);
+                //cargar_ajax.run_server_ajax('citas/up_membresia', id_cliente, data2);
+            //fin actualizar membresia
+            
             if (response == 'false') {
                  title = "Error!";
                  icon = "error";

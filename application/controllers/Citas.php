@@ -237,6 +237,7 @@ class Citas extends CI_Controller {
 				
 				$id_cita = $this->input->post('id_cita');
 				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
+				
 				$data = array(
 					'DATA_CITA' => $DATA_CITA,
 					'DATA_TURNO' =>  $this->Citas_model->get_turno($DATA_CITA->fecha),
@@ -257,19 +258,24 @@ class Citas extends CI_Controller {
 	public function get_co()
 	{
 		$id_tipo_cita = $this->uri->segment(3);
-		//$id_cliente = $this->uri->segment(4);
+		$membresia = $this->uri->segment(4);
 
 		$DATA_COSTOS = $this->Costos_model->get_costos();
-		//$DATA_CLIENT = $this->Citas_model->get_dt_cli($id_cliente);
-
 		
 		if($DATA_COSTOS != FALSE)
 		{
 			if ($id_tipo_cita == 2) {
-				echo '<option value="400">';
-					echo '$400.00';	
-				echo '</option>';
-
+				if ($membresia != 0) {
+					echo '<option value="0">';
+						echo '$0.00';	
+					echo '</option>';
+				}
+				else
+				{
+					echo '<option value="400">';
+						echo '$400.00';	
+					echo '</option>';
+				}
 			}
 			else
 			{
@@ -279,6 +285,28 @@ class Citas extends CI_Controller {
 					echo '</option>';
 				}
 			}
+		}
+	}
+
+	public function up_membresia()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+				$id_cliente = trim($this->input->post('id_cliente'));
+				$data2 = array(
+					'membresia' => trim($this->input->post('membresia')), 
+					//$membresia = trim($this->input->post('membresia'));
+				);
+
+				$this->Citas_model->upd_membresia($id_cliente, $data2);
+				var_dump($data2);
+			}else
+			{
+	            show_404();
+	        }
+        }else{
+			redirect(base_url());
 		}
 	}
 
