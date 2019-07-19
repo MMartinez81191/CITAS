@@ -296,11 +296,9 @@ class Citas extends CI_Controller {
 				$id_cliente = trim($this->input->post('id_cliente'));
 				$data2 = array(
 					'membresia' => trim($this->input->post('membresia')), 
-					//$membresia = trim($this->input->post('membresia'));
 				);
 
 				$this->Citas_model->upd_membresia($id_cliente, $data2);
-				var_dump($data2);
 			}else
 			{
 	            show_404();

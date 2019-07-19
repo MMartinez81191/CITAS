@@ -310,7 +310,7 @@
 	            	<input type="hidden" name="fecha_cita" name="fecha_cita">
 	            	<input type="hidden" name="txt_tipo_cita" id="txt_tipo_cita">
 	            	<input type="hidden" name="txt_membresia" id="txt_membresia"> 
-	            	<input type="" name="txt_id_cliente" id="txt_id_cliente">
+	            	<input type="hidden" name="txt_id_cliente" id="txt_id_cliente">
 	            	<div class="row">
 				 		<div class="form-group col-lg-12">	
 				 			<label >Numero de turno:</label>

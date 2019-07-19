@@ -148,17 +148,17 @@ var citas = {
                 peso_actual : $('#txt_peso_inicial_cita').val(),
             }
             console.log(data);
-            //var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
+            var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
 
             //actualizar membresia
+            var id_cliente = $('#txt_id_cliente').val();
                 var data2 = 
                 {
+                    id_cliente : id_cliente,
                     membresia: $('#txt_membresia').val(),
                 }
 
-                var id_cliente = $('#txt_id_cliente').val();
-                alert(id_cliente);
-                //cargar_ajax.run_server_ajax('citas/up_membresia', id_cliente, data2);
+                cargar_ajax.run_server_ajax('citas/up_membresia', data2);
             //fin actualizar membresia
             
             if (response == 'false') {

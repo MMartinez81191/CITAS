@@ -40,16 +40,9 @@ class Citas_model extends CI_Model {
         $this->db->where('id_cliente',$id_cliente);
         $this->db->update('clientes',$data2);
         
-        $query = $this->db->get();
+        //echo $this->db->last_query();
 
-        if($query->num_rows() > 0)
-        {
-            return $query;
-        }
-        else
-        {
-            return FALSE;
-        }
+        
     }
 
     public function get_tipo_citas()
