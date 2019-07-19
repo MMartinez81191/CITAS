@@ -50,6 +50,7 @@ class Clientes extends CI_Controller {
 				$this->load->view('headers/menu');
 				$this->load->view('clientes/historial_clientes',$data);
 				$this->load->view('footers/librerias');
+				$this->load->view('footers/cargar_js');
 			}else
 			{
 				$script = '';
