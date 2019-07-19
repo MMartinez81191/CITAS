@@ -183,6 +183,32 @@ var citas = {
         });
     },
 
+    add_peso: function(){
+//        $('#enviar').on('onclick', function(form){
+        $(document).on('click','button.enviar', function () {
+            alert('hola');
+            //form.preventDefault();
+
+            var data = {
+                id_cliente : $('#txt_id_cliente_peso').val(),
+                //fecha : $('#fecha').val(),
+                peso : $('#txt_peso_inicial_cita').val(),
+            }
+
+            cargar_ajax.run_server_ajax('citas/add_peso', data);
+            swal({
+                title: 'CORRECTO',
+                text: 'SE AGREGO CORRECTAMENTE',
+                type: 'success',
+                closeOnConfirm: false
+            },function(){
+                //window.location.reload();
+            });
+        });
+    },
+
+
+
 }
 jQuery(document).ready(function() { 
    citas.add_cita(this);
@@ -190,4 +216,5 @@ jQuery(document).ready(function() {
    citas.eliminar_cita(this);
    citas.datos_cobro_citas(this);
    citas.cobro_citas(this);
+   citas.add_peso(this);
 });

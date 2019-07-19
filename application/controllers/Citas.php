@@ -75,7 +75,9 @@ class Citas extends CI_Controller {
 			$fechaFinal = $this->uri->segment(4);
 
 			$DATA_CITAS = $this->Citas_model->get_citas($fechaInicio,$fechaFinal);
+
 			?>
+
 			<table id="example2" class="table table-bordered table-striped">
 				<thead>
 					<tr>
@@ -127,7 +129,7 @@ class Citas extends CI_Controller {
 													{
 													?>
 														<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
-														<a type="button" href="<?=base_url()?>clientes/historial/<?=$row->id_cliente;?>" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+														<a type="button" data-toggle="modal" data-target="#modal_agregar_peso" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top"  title="Historial"  ></i><span></span></a>
 													<?php
 													}
 													?>
@@ -467,6 +469,29 @@ class Citas extends CI_Controller {
 		else
 		{
 			return false;
+		}
+	}
+
+	//PESOS DE CLEINTES
+	public function add_peso()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+				
+				$data = array(				
+					'id_cliente' => trim($this->input->post('id_cliente')),
+					'peso' => trim($this->input->post('peso')),
+					'fecha' => trim($this->input->post('fecha')),
+				);
+				$this->Clientes_model->insert_pesos($data);
+				echo json_encode($data);
+			
+			}else{
+	            show_404();
+	        }
+        }else{
+			redirect(base_url());
 		}
 	}
 }

@@ -13,7 +13,7 @@ class Citas_model extends CI_Model {
     {
         
         $this->db->select('citas.*');
-        $this->db->select('clientes.nombre_cliente');
+        $this->db->select('clientes.nombre_cliente, clientes.id_cliente');
         $this->db->select('tipos_citas.id_tipo_cita,tipos_citas.tipo_cita');
         $this->db->from('citas');
         $this->db->join('clientes','clientes.id_cliente = citas.id_cliente');

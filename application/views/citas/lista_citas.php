@@ -26,7 +26,14 @@
 		return $class;
 	}
 
-	
+
+	if($DATA_CITAS != FALSE)
+	{
+		foreach ($DATA_CITAS->result() as $row) 
+		{
+			$id_cliente = $row->id_cliente;
+		}
+	}
 ?>
 
 <div class="content-wrapper">
@@ -188,7 +195,7 @@
 																			{
 																			?>
 																				<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
-																				<a type="button" href="<?=base_url()?>clientes/historial/<?=$row->id_cliente;?>" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+																				<a type="button" data-toggle="modal" data-target="#modal_agregar_peso" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top"  title="Historial"  ></i><span></span></a>
 																			<?php
 																			}
 																			?>
@@ -356,6 +363,39 @@
     </div>
 </div>
 <!-- FIN DEL MODAL PARA EDITAR LOS CLIENTES -->
+
+<!-- MODAL PARA AGREGAR PESO -->
+<div class="modal fade" id="modal_agregar_peso" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+            	<center><h3 class="modal-title">Actualizar peso</h3></center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+	            <form  name="agregar_peso_citas" id="agregar_peso_citas">
+	            	<input type="" name="txt_id_cliente_peso" id="txt_id_cliente_peso" value="<?=$id_cliente;?>">
+
+	 				<div class="row">
+				 		<div class="form-group col-lg-12">
+				 			<label >Peso:</label>
+							<input type="text" required class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
+				 		</div>			 		
+					</div>
+	 				<hr>
+				 	<div class="row modal-footer" style="margin-top: 10px;">
+	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	                    <button type="button"  class="btn btn-primary enviar">Guardar</button>
+
+	                </div>
+				</form> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN DEL MODAL PARA AGREGAR PESO -->
+
+
 
 
 
