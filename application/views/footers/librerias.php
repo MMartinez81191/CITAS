@@ -310,8 +310,8 @@
         // FUNCION PARA CARGAR MENSAJES SWAL DESDE LOS CONTROLADORES
         <?php if(isset($mensajes_swal)){ echo  $mensajes_swal;}?>
     </script>
-
-    	<?php
+<!--
+    	<?/*php
 		$_curController = $this->router->fetch_class();
 		$_curAction = $this->router->fetch_method();
 		
@@ -344,8 +344,8 @@
 		    
 	    }
 	    echo '<script src="'.base_url().'js/main/main.js"></script>';
-		?>
+		*/?>
 		<script>var base_url = '<?php echo base_url() ?>';</script>
 
 	</body>
-</html>
+</html>-->

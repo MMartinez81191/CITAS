@@ -23,6 +23,7 @@ class Usuarios extends CI_Controller {
 			$this->load->view('headers/menu');
 			$this->load->view('usuarios/lista_usuarios',$data);
 			$this->load->view('footers/librerias');
+			$this->load->view('footers/cargar_js');
 		}else
 		{
 			redirect(base_url());
@@ -44,6 +45,7 @@ class Usuarios extends CI_Controller {
 				$this->load->view('headers/menu');
 				$this->load->view('usuarios/add_usuarios',$data);
 				$this->load->view('footers/librerias');
+				$this->load->view('footers/cargar_js');
 			}else
 			{
 				$script = '';

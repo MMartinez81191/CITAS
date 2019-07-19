@@ -195,7 +195,8 @@
 																			{
 																			?>
 																				<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
-																				<a type="button" data-toggle="modal" data-target="#modal_agregar_peso" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top"  title="Historial"  ></i><span></span></a>
+																				<!--<buton class="btn btn-primary cargar_modal_peso" data-id="<?= $row->id_cita;?>" data-toggle="modal" data-target="#modal_agregar_peso" ><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top"  title="Historial"  ></i><span></span></button>-->
+																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Agregar Peso" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
 																			<?php
 																			}
 																			?>
@@ -374,18 +375,18 @@
             </div>
             <div class="modal-body">
 	            <form  name="agregar_peso_citas" id="agregar_peso_citas">
-	            	<input type="" name="txt_id_cliente_peso" id="txt_id_cliente_peso" value="<?=$id_cliente;?>">
-
+	            	<input type="hidden" id="txt_id_cita_peso" name="txt_id_cita_peso">
+	            	
 	 				<div class="row">
 				 		<div class="form-group col-lg-12">
 				 			<label >Peso:</label>
-							<input type="text" required class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;">
+							<input type="text" required class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required = "true" >
 				 		</div>			 		
 					</div>
 	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-	                    <button type="button"  class="btn btn-primary enviar">Guardar</button>
+	                    <button type="submit" class="btn btn-primary" class="btn btn-primary">Guardar</button>
 
 	                </div>
 				</form> 

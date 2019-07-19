@@ -21,6 +21,7 @@ class Corte_Parcial extends CI_Controller {
 			$this->load->view('headers/menu');
 			$this->load->view('corte_parcial/lista_corte',$data);
 			$this->load->view('footers/librerias');
+			$this->load->view('footers/cargar_js');
 		}
 		else
 		{

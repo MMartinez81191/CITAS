@@ -23,6 +23,7 @@ class Costos extends CI_Controller {
 				$this->load->view('headers/menu');
 				$this->load->view('costos/lista_costos',$data);
 				$this->load->view('footers/librerias');
+				$this->load->view('footers/cargar_js');
 			}else
 			{
 				$script = '';

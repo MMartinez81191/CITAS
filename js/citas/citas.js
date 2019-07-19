@@ -183,15 +183,20 @@ var citas = {
         });
     },
 
+    load_modal_peso: function(){
+        $(document).on('click', 'button.cargar_modal_peso', function () {
+            id_cita = $(this).data('id');
+            $('#txt_id_cita_peso').val(id_cita);
+            $("#modal_agregar_peso").modal("show");
+        });
+    },
+
     add_peso: function(){
-//        $('#enviar').on('onclick', function(form){
-        $(document).on('click','button.enviar', function () {
-            alert('hola');
-            //form.preventDefault();
+       $("#agregar_peso_citas").on("submit", function (form) {
+            form.preventDefault();
 
             var data = {
-                id_cliente : $('#txt_id_cliente_peso').val(),
-                //fecha : $('#fecha').val(),
+                id_cita : $('#txt_id_cita_peso').val(),
                 peso : $('#txt_peso_inicial_cita').val(),
             }
 
@@ -202,7 +207,7 @@ var citas = {
                 type: 'success',
                 closeOnConfirm: false
             },function(){
-                //window.location.reload();
+                window.location.reload();
             });
         });
     },
@@ -216,5 +221,6 @@ jQuery(document).ready(function() {
    citas.eliminar_cita(this);
    citas.datos_cobro_citas(this);
    citas.cobro_citas(this);
+   citas.load_modal_peso(this);
    citas.add_peso(this);
 });

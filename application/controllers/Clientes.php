@@ -23,6 +23,7 @@ class Clientes extends CI_Controller {
 				$this->load->view('headers/menu');
 				$this->load->view('clientes/lista_clientes',$data);
 				$this->load->view('footers/librerias');
+				$this->load->view('footers/cargar_js');
 			}else
 			{
 				$script = '';
@@ -92,6 +93,7 @@ class Clientes extends CI_Controller {
 				$this->load->view('headers/menu');
 				$this->load->view('clientes/add_clientes');
 				$this->load->view('footers/librerias');
+				$this->load->view('footers/cargar_js');
 			}else
 			{
 				$script = '';
