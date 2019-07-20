@@ -27,6 +27,24 @@ class Clientes_model extends CI_Model {
         }
     }
 
+    public function get_peso_by_id($id_peso)
+    {
+        
+        $this->db->from('pesos');
+        $this->db->where('id_peso',$id_peso);
+        
+        
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
     public function get_clientes_by_id($id_cliente)
     {
         
@@ -43,6 +61,12 @@ class Clientes_model extends CI_Model {
         {
             return FALSE;
         }
+    }
+
+    public function update_peso($data,$id_peso)
+    {
+        $this->db->where('id_peso', $id_peso);
+        $this->db->update('pesos',$data);
     }
 
     public function update_cliente($data,$id_cliente)
@@ -62,12 +86,19 @@ class Clientes_model extends CI_Model {
         $this->db->update('clientes',$data);
     }
 
+    public function delete_peso($id_peso,$data)
+    {
+        $this->db->where('id_peso', $id_peso);
+        $this->db->update('pesos',$data);
+    }
+
     public function get_historial($id_cliente)
     {
-        $this->db->select('clientes.id_cliente, nombre_cliente, peso, fecha');  
+        $this->db->select('clientes.id_cliente, nombre_cliente, pesos.id_peso, peso, fecha');  
         $this->db->from('pesos');
         $this->db->join('clientes', 'pesos.id_cliente = clientes.id_cliente');
         $this->db->where('clientes.id_cliente',$id_cliente);
+        $this->db->where('pesos.activo',1);
         $this->db->order_by('id_peso', 'DESC');
         
         $query = $this->db->get();

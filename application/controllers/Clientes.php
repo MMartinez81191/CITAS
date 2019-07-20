@@ -127,6 +127,49 @@ class Clientes extends CI_Controller {
 		}
 	}
 
+	public function datos_editar_peso()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request())
+			{
+				
+				$id_peso = $this->input->post('id_peso');
+				$data = array(
+					'DATA_PESO' => $this->Clientes_model->get_peso_by_id($id_peso),
+				);
+				echo json_encode($data);
+			}
+			else
+			{
+	            show_404();
+	        }
+    	}else{
+			redirect(base_url());
+		}
+	}
+
+	public function editar_peso()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+				$id_peso = $this->input->post('id_peso');
+				
+				$data = array(				
+					'peso' => trim($this->input->post('peso')),
+				);
+
+				$this->Clientes_model->update_peso($data,$id_peso);
+				var_dump($data);
+			}else{
+	            show_404();
+	        }
+        }else{
+			redirect(base_url());
+		}
+	}
+
 	public function editar_cliente()
 	{
 		if($this->seguridad() == TRUE)
@@ -184,6 +227,28 @@ class Clientes extends CI_Controller {
 					'activo' => 0,
 				);
 				$this->Clientes_model->delete_clientes($id_cliente,$data);
+
+			}
+			else
+			{
+	            show_404();
+	        }
+        }else{
+			redirect(base_url());
+		}
+	}
+
+	public function eliminar_peso()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+
+				$id_peso = $this->input->post('id_peso');
+				$data = array(
+					'activo' => 0,
+				);
+				$this->Clientes_model->delete_peso($id_peso,$data);
 
 			}
 			else

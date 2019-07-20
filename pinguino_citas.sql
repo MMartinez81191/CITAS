@@ -197,6 +197,7 @@ CREATE TABLE `pesos` (
   `id_cliente` int(11) NOT NULL,
   `fecha` varchar(30) DEFAULT NULL,
   `peso` double DEFAULT NULL,
+  `activo` varchar(45) default '1',
   PRIMARY KEY (`id_peso`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
