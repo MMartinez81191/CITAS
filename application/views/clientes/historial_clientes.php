@@ -93,9 +93,10 @@
             <div class="modal-body">
 	            <form  name="agregar_peso" id="agregar_peso">
 	            	<input type="text" style="display: none;" id="id_cliente" name="id_cliente" value="<?=$id_cliente;?>">
-	            	<input type="text" style="display: none;" class="form-control" name="fecha" id="fecha" value="<?php date_default_timezone_set('America/Los_Angeles');
+	            	<input type="text" style="display: none;" class="form-control" name="fecha" id="fecha" value="<?/*php date_default_timezone_set('America/Los_Angeles');
 					$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
-					echo date('d')."/".$meses[date('n')-1]. "/".date('Y') ;	
+					echo date('d')."/".$meses[date('n')-1]. "/".date('Y') ;	*/
+					echo date("Y-m-d");
 					?>">
 	 				<div class="row">
 				 		<div class="form-group col-lg-12">
