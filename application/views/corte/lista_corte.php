@@ -1,3 +1,7 @@
+<?php
+	$nivel = $this->session->userdata('nivel');
+?>
+
 <div class="content-wrapper">
 	<section class="content-header">
 		<h1 class="Display1">
@@ -18,9 +22,19 @@
 								<div class="nav-tabs-custom">
 									<ul class="nav nav-tabs">
 										<li class="active" id="pestania_1" name="pestania_1"><a href="#tab_1" data-toggle="tab">Filtro Por Dia</a></li>
+										
+										<?php
+										if($nivel < 5)
+										{
+										?>
+
 										<li id="pestania_2" name="pestania_2"><a href="#tab_2" data-toggle="tab">Filtro Por Mes</a></li>
 										<li id="pestania_3" name="pestania_3"><a href="#tab_3" data-toggle="tab">Filtro Por Año</a></li>
 										<li id="pestania_4" name="pestania_4"><a href="#tab_4" data-toggle="tab">Citas Pendientes de Registrar</a></li>
+										
+										<?php
+										}
+										?>
 									</ul>
 									<div class="tab-content">
 										<div class="tab-pane active" id="tab_1">
@@ -42,6 +56,11 @@
 												</div>
 											</div>
 										</div>
+
+										<?php
+										if($nivel < 5)
+										{
+										?>
 										<div class="tab-pane" id="tab_2">
 											<div class="row">
 												<div class="col-xs-4">
@@ -148,6 +167,10 @@
 												</div>
 											</div>
 										</div>
+										<?php
+										}
+										?>
+										
 									</div>
 								</div>
 				    		</div>
