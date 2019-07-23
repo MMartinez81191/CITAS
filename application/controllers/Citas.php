@@ -483,6 +483,8 @@ class Citas extends CI_Controller {
 		}
 	}
 
+
+	//SEGURIDAD PARA EVITAR QUE SE ACCESE A PARTES DEL SISTEMA SIN NIVEL
 	public function seguridad()
 	{
 		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') != 3))

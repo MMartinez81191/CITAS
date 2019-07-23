@@ -64,18 +64,39 @@ class Corte extends CI_Controller {
 			<table id="example1" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th><center>Folio</center></th>
-						<th><center>Nombre Paciente</center></th>
-						<th><center>Fecha Cita</center></th>
-						<th><center>Hora Cita</center></th>
-						<th><center>Costo Consulta</center></th>
-						<th><center>Forma de Pago</center></th>
-						<th class="no-sort"><center>Opciones</center></th>
+						<th><center>Pacientes</center></th>
+						<th><center>Tipo Consulta</center></th>
+						<th><center>Costo</center></th>
+						<th><center>Total</center></th>
 					</tr>
 				</thead>
 				<tbody>
 					<?php 
 					$total_corte = 0;
+					if($DATA_CITAS != FALSE)
+					{
+						foreach ($DATA_CITAS->result() as $row) 
+						{
+							?>
+							<tr>
+								<td><center><?=$row->pacientes;?></center></td>
+								<td><center><?= $row->tipo_cita;?></center></td>
+								<td><center><?= '$'.number_format($row->costo,2,'.', ',')?></center></td>
+								<td><center><?= '$'.number_format($row->total,2,'.', ',')?></center></td>
+							</tr>
+							<?php
+							$total_corte = $total_corte + $row->total;
+						}
+					}
+					?>
+				</tbody> 
+					<tr>
+						<th colspan="3" style="text-align: right;">Total</th>
+						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
+					</tr>
+			</table>
+			<?php
+					/*$total_corte = 0;
 					if($DATA_CITAS != FALSE) {
 						foreach ($DATA_CITAS->result() as $row) 
 						{
@@ -128,15 +149,15 @@ class Corte extends CI_Controller {
 						</tr>
 					<?php
 						}
-					} ?>
+					} 
 					
 				</tbody> 
 				<tr>
 					<th colspan="4" style="text-align: right;">Total</th>
 					<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 				</tr>
-			</table>
-			<?php
+			</table>*/
+			
 		}else
 		{
 			redirect(base_url());
@@ -230,19 +251,23 @@ class Corte extends CI_Controller {
 	        {
 	        	$pdf->SetFillColor(175,175,175); 
 	        	$pdf->SetFont('Arial','B',10);
-		        $pdf->Cell(40,5,'Fecha de Cita',1,0,'C',1);
-		        $pdf->Cell(110,5,'Nombre del Paciente',1,0,'C',1);
-		        $pdf->Cell(40,5,'Importe Cobrado',1,0,'C',1);
+	        	$pdf->Cell(15,5,'',0,0,'C',0,0);
+		        $pdf->Cell(40,5,'Pacientes',1,0,'C',1);
+		        $pdf->Cell(40,5,'Tipo Cita',1,0,'C',1);
+		        $pdf->Cell(40,5,'Costo',1,0,'C',1);
+		        $pdf->Cell(40,5,'Total',1,0,'C',1);
 		        $pdf->Ln();
 		        
 	        	foreach($DATA_CITAS->result() as $row)
 	        	{
-	        		$total_corte = $row->costo_consulta + $total_corte;
+	        		$total_corte = $row->costo + $total_corte;
         			$pdf->SetFont('Arial','',7);
-			        $pdf->Cell(40,5,$row->fecha,1,0,'C');
-			        $pdf->Cell(110,5,$row->nombre_cliente,1,0,'L');
-			        $pdf->Cell(40,5,'$'.number_format($row->costo_consulta,2,'.', ','),1,0,'C');
-			        
+			        $pdf->Cell(15,5,'',0,0,'C',0,0);
+			        $pdf->Cell(40,5,$row->pacientes,1,0,'C');
+			        $pdf->Cell(40,5,$row->tipo_cita,1,0,'L');
+			        $pdf->Cell(40,5,'$'.number_format($row->costo,2,'.', ','),1,0,'C');
+			        $pdf->Cell(40,5,'$'.number_format($row->total,2,'.', ','),1,0,'C');
+
 			        $pdf->Ln();
 
 			        if($pdf->getY() > 250)
@@ -257,7 +282,8 @@ class Corte extends CI_Controller {
 
 	        	$pdf->SetFillColor(155,155,155); 
 	        	$pdf->SetFont('Arial','B',10);
-		        $pdf->Cell(150,5,'Total:',1,0,'R');
+		        $pdf->Cell(15,5,'',0,0,'C',0,0);
+		        $pdf->Cell(120,5,'Total:',1,0,'R');
 		        $pdf->Cell(40,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
 	        }
 
