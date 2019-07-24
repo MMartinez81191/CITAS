@@ -260,7 +260,7 @@ class Corte extends CI_Controller {
 		        
 	        	foreach($DATA_CITAS->result() as $row)
 	        	{
-	        		$total_corte = $row->costo + $total_corte;
+	        		$total_corte = $row->total + $total_corte;
         			$pdf->SetFont('Arial','',7);
 			        $pdf->Cell(15,5,'',0,0,'C',0,0);
 			        $pdf->Cell(40,5,$row->pacientes,1,0,'C');
@@ -277,6 +277,7 @@ class Corte extends CI_Controller {
 				        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
 			        	$this->encabezado_pdf($pdf,$fecha_actual);
 			        }
+
 	        		
 	        	}
 

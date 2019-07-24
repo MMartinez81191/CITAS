@@ -1,10 +1,10 @@
 <?php if (!defined('BASEPATH')) exit('No direct script access allowed');
  
 //include_once APPPATH.'/third_party/fpdf/fpdf.php';
-require(APPPATH.'/third_party/fpdf/fpdf.php');
+//require(APPPATH.'/third_party/fpdf/fpdf.php');
+require(APPPATH.'/third_party/fpdf/PDF_AutoPrint.php');
 
-
-class fpdf_manager extends FPDF
+class fpdf_manager extends PDF_AutoPrint
 {
 	
 }

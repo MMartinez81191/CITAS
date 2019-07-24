@@ -476,8 +476,9 @@ class Citas extends CI_Controller {
 	        $pdf->SetFont('Times','',6);
 	        $pdf->Cell(0,5,'PX-'.$DATA_CITA->numero_turno,0,1,'R');
 	        
-	        //$pdf->AutoPrint();
-			$pdf->Output($Nombre_archivo, 'I');
+	        $pdf->AutoPrint();
+	        $pdf->Output();
+			//$pdf->Output($Nombre_archivo, 'I');
 		}else{
 			redirect(base_url());
 		}
