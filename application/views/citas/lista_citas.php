@@ -196,7 +196,7 @@
 																			?>
 																				<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
 																				<!--<buton class="btn btn-primary cargar_modal_peso" data-id="<?= $row->id_cita;?>" data-toggle="modal" data-target="#modal_agregar_peso" ><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top"  title="Historial"  ></i><span></span></button>-->
-																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Agregar Peso" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
+																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
 																			<?php
 																			}
 																			?>

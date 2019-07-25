@@ -130,7 +130,7 @@ class Citas extends CI_Controller {
 													{
 													?>
 														<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
-														<button  data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Agregar Peso" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
+														<button  data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
 													<?php
 													}
 													?>
@@ -309,6 +309,27 @@ class Citas extends CI_Controller {
         }else{
 			redirect(base_url());
 		}
+	}
+
+	public function get_estatura()
+	{
+		$id_cita = trim($this->input->post('id_cita'));
+		$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
+		if($DATA_CITA != FALSE)
+		{
+			$id_cliente = $DATA_CITA->id_cliente;
+			$DATA_CLIENTE = $this->Clientes_model->get_estatura($id_cliente);
+			if($DATA_CLIENTE != FALSE)
+			{
+				$response = $DATA_CLIENTE->estatura;
+			}
+		}
+		else
+		{
+			$response = 0;
+		}
+		echo json_encode($response);
+		
 	}
 
 	public function pagar_cita()
@@ -525,14 +546,22 @@ class Citas extends CI_Controller {
 						'fecha' =>$fecha,
 					);
 					$this->Clientes_model->insert_pesos($data);	
-						
+
+					$data = array(
+						'estatura' => trim($this->input->post('estatura')),
+					);
+					$this->Clientes_model->update_estatura($data,$id_cliente);
 				}
 				echo json_encode($data);
 			
-			}else{
+			}
+			else
+			{
 	            show_404();
 	        }
-        }else{
+        }
+        else
+        {
 			redirect(base_url());
 		}
 	}

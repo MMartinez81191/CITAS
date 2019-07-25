@@ -210,9 +210,11 @@ var citas = {
 
             var data = {
                 id_cita : $('#txt_id_cita_peso').val(),
+                estatura : $('#txt_estatura').val(),
                 peso : $('#txt_peso_inicial_cita').val(),
-            }
 
+            }
+            console.log(data);
             cargar_ajax.run_server_ajax('citas/add_peso', data);
             swal({
                 title: 'CORRECTO',
