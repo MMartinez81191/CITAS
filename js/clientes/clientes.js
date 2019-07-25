@@ -189,6 +189,27 @@ var clientes = {
             });
         });
     },
+
+    actualizar_estatura: function(){
+        $('#estatura_form').on('submit', function(form){
+            form.preventDefault();
+            var data = {
+                id_cliente : $('#id_cliente').val(),
+                estatura : $('#txt_estatura').val(),
+            }
+
+            console.log(data);
+            cargar_ajax.run_server_ajax('clientes/editar_estatura', data);
+            swal({
+                title: 'CORRECTO',
+                text: 'Estatura actualizada correctamente',
+                type: 'success',
+                closeOnConfirm: false
+            },function(){
+                window.location.reload();
+            });
+        });
+    },
 }
 jQuery(document).ready(function() { 
     clientes.add_cliente(this);
@@ -199,4 +220,5 @@ jQuery(document).ready(function() {
     clientes.datos_editar_peso(this);
     clientes.editar_editar_peso(this);
     clientes.eliminar_peso(this);
+    clientes.actualizar_estatura(this);
 });

@@ -319,6 +319,9 @@ class Citas extends CI_Controller {
 				$id_cita = $this->input->post('id_cita');
 				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
 				$numero_turno = $this->Citas_model->get_turno($DATA_CITA->fecha);
+				$id_tipo_cita = trim($this->input->post('id_tipo_cita'));
+
+
 
 				$data = array(				
 					'costo_consulta' => trim($this->input->post('costo_consulta')),
@@ -329,8 +332,11 @@ class Citas extends CI_Controller {
 					
 				);
 
+
+
+
 				$this->Citas_model->pagar_cita($data,$id_cita);
-				var_dump($data);
+				var_dump($id_tipo_cita);
 			}else
 			{
 	            show_404();

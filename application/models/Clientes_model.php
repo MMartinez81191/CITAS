@@ -63,6 +63,12 @@ class Clientes_model extends CI_Model {
         }
     }
 
+    public function update_estatura($data,$id_cliente)
+    {
+        $this->db->where('id_cliente', $id_cliente);
+        $this->db->update('clientes',$data);
+    }
+
     public function update_peso($data,$id_peso)
     {
         $this->db->where('id_peso', $id_peso);
@@ -90,6 +96,25 @@ class Clientes_model extends CI_Model {
     {
         $this->db->where('id_peso', $id_peso);
         $this->db->update('pesos',$data);
+    }
+
+    //FUNCION PARA OBTENER LA ESTATURA DE UN CLIENTE
+    public function get_estatura($id_cliente)
+    {
+        $this->db->select('id_cliente,estatura');
+        $this->db->from('clientes');
+        $this->db->where('id_cliente',$id_cliente);
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+
     }
 
     public function get_historial($id_cliente)

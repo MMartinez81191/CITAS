@@ -146,32 +146,39 @@ var citas = {
                 costo_consulta : $('#sel_costo_cita').val(),
                 forma_pago : $("input[name='rd_forma_pago']:checked").val(),
                 peso_actual : $('#txt_peso_inicial_cita').val(),
+                id_tipo_cita : $('#txt_tipo_cita').val(),
             }
             console.log(data);
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
 
             //actualizar membresia
             var id_cliente = $('#txt_id_cliente').val();
-                var data2 = 
-                {
-                    id_cliente : id_cliente,
-                    membresia: $('#txt_membresia').val(),
-                }
+            var data2 = 
+            {
+                id_cliente : id_cliente,
+                membresia: $('#txt_membresia').val(),
+            }
 
-                cargar_ajax.run_server_ajax('citas/up_membresia', data2);
+            cargar_ajax.run_server_ajax('citas/up_membresia', data2);
             //fin actualizar membresia
             
-            if (response == 'false') {
+            if (response == 'false') 
+            {
                  title = "Error!";
                  icon = "error";
                  mensaje = "No se pudo realizar la actualicación";
-             } else {
+            } 
+            else 
+            {
                  icon = "success";
                  title = "Actualización de información";
                  mensaje = "Cobro Realizado Correctamente";
-             }
+            }
 
-             swal({
+            //window.open(ruta, 'Nombre Ventana');
+            //location.reload();
+
+            swal({
                  title: title,
                  text: mensaje,
                  type: icon,
@@ -186,7 +193,13 @@ var citas = {
     load_modal_peso: function(){
         $(document).on('click', 'button.cargar_modal_peso', function () {
             id_cita = $(this).data('id');
+            var data = 
+            {
+                id_cita : id_cita,
+            }
+            var estatura = cargar_ajax.run_server_ajax('citas/get_estatura', data);
             $('#txt_id_cita_peso').val(id_cita);
+            $('#txt_estatura').val(estatura);
             $("#modal_agregar_peso").modal("show");
         });
     },

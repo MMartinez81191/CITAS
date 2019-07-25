@@ -27,11 +27,32 @@
     </section>
 	<section class="content">
 		<div class="row">
+			<div class="col-lg-12">
+				<div class="box">
+					<div class="box-header">
+						<form id="estatura_form" name="estatura_form">
+							<input type="hidden" name="id_cliente_estatura" name="id_cliente_estatura" value="<?=$DATA_ESTATURA->id_cliente?>">
+							<div class="form-group">
+								<h3>Actualizar Estatura</h3>
+							</div>
+							<div class="form-group col-lg-3">
+								<label>Estatura en metros:</label>
+								<input type="text" class="form-control" id="txt_estatura" name="txt_estatura" placeholder="Estatura" required="true" value="<?=$DATA_ESTATURA->estatura?>" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="4">
+							</div>
+							<div class="form-group">
+								<button style="margin-top: 2%;" type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i> Actualizar Estatura</button>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="row">
 	        <div class="col-xs-12">
 	          	<div class="box">
 		            <div class="box-header">
 		            	<div class="col-lg-offset-10">
-		              		<a type="button" data-toggle="modal" data-target="#modal_agregar_peso"  class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Nuevo registro</a>
+		              		<a type="button" data-toggle="modal" data-target="#modal_agregar_peso"  class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Agregar Peso</a>
 		              	</div>
 			        </div>
 			    </div>
@@ -41,7 +62,7 @@
 							<thead>
 								<tr>
 									<th><center>Fecha</center></th>
-									<th><center>Peso</center></th>
+									<th><center>Peso en Kg</center></th>
 									<th class="no-sort"><center>Opciones</center></th>
 								</tr>
 							</thead>
@@ -58,7 +79,7 @@
 												echo '</center></td>';
 
 												echo '<td><center>';
-													echo $row->peso;
+													echo $row->peso.' Kg';
 												echo '</center></td>';
 
 												echo '<td><center>';
@@ -93,11 +114,7 @@
             <div class="modal-body">
 	            <form  name="agregar_peso" id="agregar_peso">
 	            	<input type="text" style="display: none;" id="id_cliente" name="id_cliente" value="<?=$id_cliente;?>">
-	            	<input type="text" style="display: none;" class="form-control" name="fecha" id="fecha" value="<?/*php date_default_timezone_set('America/Los_Angeles');
-					$meses = array("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre"); 
-					echo date('d')."/".$meses[date('n')-1]. "/".date('Y') ;	*/
-					echo date("Y-m-d");
-					?>">
+	            	<input type="text" style="display: none;" class="form-control" name="fecha" id="fecha" value="<?=date("Y-m-d");?>">
 	 				<div class="row">
 				 		<div class="form-group col-lg-12">
 				 			<label >Peso:</label>

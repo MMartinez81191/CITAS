@@ -44,6 +44,7 @@ class Clientes extends CI_Controller {
 				$id_cliente = $this->uri->segment(3);
 				$data = array(
 					'DATA_HISTORIAL' => $this->Clientes_model->get_historial($id_cliente),
+					'DATA_ESTATURA' => $this->Clientes_model->get_estatura($id_cliente),
 				);
 
 				$this->load->view('headers/librerias');
@@ -145,6 +146,27 @@ class Clientes extends CI_Controller {
 	            show_404();
 	        }
     	}else{
+			redirect(base_url());
+		}
+	}
+
+	public function editar_estatura()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+				$id_cliente = trim($this->input->post('id_cliente'));
+				
+				$data = array(				
+					'estatura' => trim($this->input->post('estatura')),
+				);
+
+				$this->Clientes_model->update_estatura($data,$id_cliente);
+				var_dump($data);
+			}else{
+	            show_404();
+	        }
+        }else{
 			redirect(base_url());
 		}
 	}

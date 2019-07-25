@@ -383,6 +383,12 @@
 							<input type="text" required class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required = "true" >
 				 		</div>			 		
 					</div>
+					<div class="row">
+				 		<div class="form-group col-lg-12">
+				 			<label >Estatura en metros:</label>
+							<input type="text" required class="form-control" id="txt_estatura" name="txt_estatura" placeholder="ESTATURA" maxlength="4" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required = "true" >
+				 		</div>			 		
+					</div>
 	 				<hr>
 				 	<div class="row modal-footer" style="margin-top: 10px;">
 	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
