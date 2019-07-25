@@ -55,7 +55,7 @@
 	        m    = date.getMonth(),
 	        y    = date.getFullYear()
 	    $('#calendar').fullCalendar({
-			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Augosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
+			monthNames: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio','Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
 			dayNamesShort  : ['Dom','Lun','Mar','Mie','Jue','Vie','Sab'],
 			header    : {
 				left  : 'prev,next',
@@ -115,7 +115,8 @@
 		//Date picker
 	    $('#txt_fecha').datepicker({
 	    	autoclose: true,
-	    	format: 'yyyy-mm-dd'
+	    	format: 'yyyy-mm-dd',
+	    	todayHighlight: true,
 	    })
 	</script>
 	<script type="text/javascript">
@@ -124,7 +125,8 @@
 		//Date picker
 	    $('#txt_fecha2').datepicker({
 	    	autoclose: true,
-	    	format: 'yyyy-mm-dd'
+	    	format: 'yyyy-mm-dd',
+	    	todayHighlight: true,
 	    })
 	</script>
 	<script type="text/javascript">
@@ -133,6 +135,7 @@
 	    	autoclose: true,
 	    	format: 'yyyy-mm-dd',
 	    	language: 'es',
+	    	todayHighlight: true,
 	    })
 	</script>
 
