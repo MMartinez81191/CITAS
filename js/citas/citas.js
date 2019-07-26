@@ -138,7 +138,7 @@ var citas = {
             form.preventDefault();
             var id_cita = $('#id_cita_pagar').val();
             //var ruta = "http://pinguinosystems.com/CITAS/citas/imprimir_ticket/" + id_cita;
-            var ruta = base_url + "/citas/imprimir_ticket/" + id_cita;
+            var ruta = base_url + "citas/imprimir_ticket/" + id_cita;
 
             var data = 
             {
@@ -148,9 +148,10 @@ var citas = {
                 peso_actual : $('#txt_peso_inicial_cita').val(),
                 id_tipo_cita : $('#txt_tipo_cita').val(),
             }
-            console.log(data);
+            //console.log(data);
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
 
+            
             //actualizar membresia
             var id_cliente = $('#txt_id_cliente').val();
             var data2 = 

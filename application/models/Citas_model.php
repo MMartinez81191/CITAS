@@ -143,5 +143,51 @@ class Citas_model extends CI_Model {
         }
     }
 
+    //AREA DE MEMBRESIAS
+    public function get_info_membresia($id_cliente)
+    {
+        
+        $this->db->from('membresias');
+        $this->db->where('id_cliente',$id_cliente);
+        $this->db->order_by('numero_membresia,numero_cita','DESC');
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    public function get_max_membresia()
+    {
+        $this->db->select_max('numero_membresia');
+        $this->db->from('membresias');
+
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
+
+    public function insert_membresia($data)
+    {
+        $this->db->insert('membresias',$data);
+    }
+
 
 }

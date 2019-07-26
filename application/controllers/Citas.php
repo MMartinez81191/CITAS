@@ -341,7 +341,7 @@ class Citas extends CI_Controller {
 				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
 				$numero_turno = $this->Citas_model->get_turno($DATA_CITA->fecha);
 				$id_tipo_cita = trim($this->input->post('id_tipo_cita'));
-
+				$id_cliente = $DATA_CITA->id_cliente;
 
 
 				$data = array(				
@@ -352,12 +352,62 @@ class Citas extends CI_Controller {
 					'cobrado' => 1,
 					
 				);
-
-
-
-
 				$this->Citas_model->pagar_cita($data,$id_cita);
 				var_dump($id_tipo_cita);
+				//SECCION MEMBRESIAS
+				if($id_tipo_cita == 2)
+				{
+					$DATA_MEMBRESIA = $this->Citas_model->get_info_membresia($id_cliente);
+					if($DATA_MEMBRESIA != FALSE)
+					{
+						$numero_cita = $DATA_MEMBRESIA->numero_cita;
+						if($numero_cita >= 5)
+						{
+							$DATA_MEMBRESIA = $this->Citas_model->get_max_membresia();
+							$numero_membresia = $DATA_MEMBRESIA->numero_membresia + 1;
+							$numero_cita = 1;
+
+							$data = array(
+								'numero_membresia' => $numero_membresia,
+								'id_cita' => $id_cita,
+								'id_cliente' => $id_cliente,
+								'numero_cita' => $numero_cita,
+							);
+							$this->Citas_model->insert_membresia($data);
+						}
+						else
+						{
+							$numero_membresia = $DATA_MEMBRESIA->numero_membresia;
+							$numero_cita = $numero_cita + 1;
+
+							$data = array(
+								'numero_membresia' => $numero_membresia,
+								'id_cita' => $id_cita,
+								'id_cliente' => $id_cliente,
+								'numero_cita' => $numero_cita,
+							);
+							$this->Citas_model->insert_membresia($data);
+						}
+					}
+					else
+					{
+						$DATA_MEMBRESIA = $this->Citas_model->get_max_membresia();
+						$numero_membresia = $DATA_MEMBRESIA->numero_membresia + 1;
+						$numero_cita = 1;
+
+						$data = array(
+							'numero_membresia' => $numero_membresia,
+							'id_cita' => $id_cita,
+							'id_cliente' => $id_cliente,
+							'numero_cita' => $numero_cita,
+						);
+						$this->Citas_model->insert_membresia($data);
+					}
+				}
+
+
+				
+				
 			}else
 			{
 	            show_404();
