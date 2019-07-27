@@ -15,11 +15,9 @@ class PDF_AutoPrint extends PDF_JavaScript
 			$script .= "print(pp);";
 		}
 		else
-		//$script = 'print(true);';
+		$script = 'print(true);';
 
-		$script = 'window.onafterprint = function(){
-   console.log("Printing completed...");
-}';
+		
 		$this->IncludeJS($script);
 	}
 }

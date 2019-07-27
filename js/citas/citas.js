@@ -176,10 +176,10 @@ var citas = {
                  mensaje = "Cobro Realizado Correctamente";
             }
 
-            //window.open(ruta, 'Nombre Ventana');
-            //location.reload();
+            window.open(ruta, 'Nombre Ventana');
+            location.reload();
 
-            swal({
+            /*swal({
                  title: title,
                  text: mensaje,
                  type: icon,
@@ -187,7 +187,7 @@ var citas = {
              }, function () {
                 window.open(ruta, 'Nombre Ventana');
                 location.reload();
-             });
+             });*/
         });
     },
 

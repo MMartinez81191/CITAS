@@ -424,6 +424,18 @@ class Citas extends CI_Controller {
 			//Datos necesarios para crear PDF
 			$id_cita = $this->uri->segment(3);
 			$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
+			
+			//OBTENER INFORMACION MEMBRESIA
+			if($DATA_CITA->id_tipo_cita == 2)
+			{
+				$DATA_MEMBRESIA = $this->Citas_model->get_info_membresia_by_id_cita($id_cita);
+				$numero_membresia = $DATA_MEMBRESIA->numero_membresia;
+				$numero_cita = $DATA_MEMBRESIA->numero_cita;
+			}
+
+
+
+
 
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
@@ -477,11 +489,11 @@ class Citas extends CI_Controller {
     		{
     			$pdf->Cell(4,5,'',0,0);
 	    		$pdf->Cell(26,5,'Folio Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, "" ,1,1,'L');
+	    		$pdf->Cell(46,5, $numero_membresia ,1,1,'L');
 
 	    		$pdf->Cell(4,5,'',0,0);
 	    		$pdf->Cell(26,5,'Cita Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, "" ,1,1,'L');
+	    		$pdf->Cell(46,5, $numero_cita ." de 5" ,1,1,'L');
     		}
 
     		$pdf->Cell(4,5,'',0,0);
@@ -540,11 +552,11 @@ class Citas extends CI_Controller {
     		{
     			$pdf->Cell(4,5,'',0,0);
 	    		$pdf->Cell(26,5,'Folio Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, date("g:i a", strtotime($DATA_CITA->hora)) ,1,1,'L');
+	    		$pdf->Cell(46,5, $numero_membresia ,1,1,'L');
 
 	    		$pdf->Cell(4,5,'',0,0);
 	    		$pdf->Cell(26,5,'Cita Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, date("g:i a", strtotime($DATA_CITA->hora)) ,1,1,'L');
+	    		$pdf->Cell(46,5, $numero_cita ." de 5" ,1,1,'L');
     		}
 
     		$pdf->Cell(4,5,'',0,0);

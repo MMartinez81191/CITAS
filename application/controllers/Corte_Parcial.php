@@ -206,7 +206,7 @@ class Corte_Parcial extends CI_Controller {
 			        	$pdf->ln();
 				        $pdf->Cell(0,3,'________________________________________________________',0,1,'C');
 				        $pdf->ln();
-
+				        $pdf->SetFont('Times','',10);
 
 		    		}
 

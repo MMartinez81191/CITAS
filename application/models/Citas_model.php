@@ -164,6 +164,27 @@ class Citas_model extends CI_Model {
             return FALSE;
         }
     }
+    
+    public function get_info_membresia_by_id_cita($id_cita)
+    {
+        
+        $this->db->from('membresias');
+        $this->db->where('id_cita',$id_cita);
+        $this->db->order_by('numero_membresia,numero_cita','DESC');
+        $this->db->limit(1);
+
+        $query = $this->db->get();
+        //echo $this->db->last_query();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->row();
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
 
     public function get_max_membresia()
     {

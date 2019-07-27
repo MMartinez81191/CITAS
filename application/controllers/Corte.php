@@ -40,20 +40,24 @@ class Corte extends CI_Controller {
 				case '1':
 					$dia = $this->uri->segment(4);
 					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
 					break;
 				case '2':
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
 					$DATA_CITAS = $this->Corte_model->get_citas_mes($mes,$anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_mes_membresia($mes,$anio);
 					break;
 				case '3':
 					$anio = $this->uri->segment(4);
 					$DATA_CITAS = $this->Corte_model->get_citas_anio($anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_anio_membresia($anio);
 					break;
 				case '4':
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
 					$DATA_CITAS = $this->Corte_model->get_citas_pendientes($mes,$anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_pendientes_membresia($mes,$anio);
 					break;
 				default:
 					$DATA_CITAS = FALSE;
@@ -61,6 +65,9 @@ class Corte extends CI_Controller {
 			}
 
 			?>
+			<hr>
+			<center><h4>Detalle de Consultas</h4></center>
+			<br>
 			<table id="example1" class="table table-bordered table-striped">
 				<thead>
 					<tr>
@@ -92,6 +99,43 @@ class Corte extends CI_Controller {
 				</tbody> 
 					<tr>
 						<th colspan="3" style="text-align: right;">Total</th>
+						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
+					</tr>
+			</table>
+
+			<hr>
+			<center><h4>Detalle de Membresias</h4></center>
+			<br>
+			<table id="example2" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th><center>Folio Membresia</center></th>
+						<th><center>Numero Consulta</center></th>
+						<th><center>Importe</center></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$total_corte = 0;
+					if($DATA_MEMBRESIA != FALSE)
+					{
+						foreach ($DATA_MEMBRESIA->result() as $row) 
+						{
+							?>
+							<tr>
+								<td><center><?=$row->numero_membresia;?></center></td>
+								<td><center><?= $row->numero_cita;?></center></td>
+								<td><center><?=number_format($row->costo_consulta,2,'.', ',')?></center></td>
+								
+							</tr>
+							<?php
+							$total_corte = $total_corte + $row->costo_consulta;
+						}
+					}
+					?>
+				</tbody> 
+					<tr>
+						<th colspan="2" style="text-align: right;">Total</th>
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
@@ -215,23 +259,27 @@ class Corte extends CI_Controller {
 				case '1':
 					$dia = $this->uri->segment(4);
 					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
 					$informacion_cita = 'EL DIA '.$dia;
 					break;
 				case '2':
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
 					$DATA_CITAS = $this->Corte_model->get_citas_mes($mes,$anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_mes_membresia($mes,$anio);
 					$informacion_cita = 'EL MES '.$mes. ' DEL AÑO '.$anio;
 					break;
 				case '3':
 					$anio = $this->uri->segment(4);
 					$DATA_CITAS = $this->Corte_model->get_citas_anio($anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_anio_membresia($anio);
 					$informacion_cita = 'EL AÑO '.$anio;
 					break;
 				case '4':
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
 					$DATA_CITAS = $this->Corte_model->get_citas_pendientes($mes,$anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_pendientes_membresia($mes,$anio);
 					$informacion_cita = 'EL MES '.$mes. ' DEL AÑO '.$anio;
 					break;
 				default:
@@ -249,6 +297,7 @@ class Corte extends CI_Controller {
 	        
 	        if($DATA_CITAS != FALSE)
 	        {
+	        	
 	        	$pdf->SetFillColor(175,175,175); 
 	        	$pdf->SetFont('Arial','B',10);
 	        	$pdf->Cell(15,5,'',0,0,'C',0,0);
@@ -285,6 +334,56 @@ class Corte extends CI_Controller {
 	        	$pdf->SetFont('Arial','B',10);
 		        $pdf->Cell(15,5,'',0,0,'C',0,0);
 		        $pdf->Cell(120,5,'Total:',1,0,'R');
+		        $pdf->Cell(40,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
+	        }
+	        $pdf->Ln();
+	        $pdf->Ln();
+	        $pdf->SetFont('Arial','B',12);
+	        $pdf->Cell(0,5,utf8_decode('DETALLE MEMBRESIAS REGISTRADAS '.$informacion_cita),0,0,'L');
+	        $pdf->SetFont('Arial','',8);
+	        $pdf->Ln();
+	        $pdf->Ln();
+
+
+	        if($DATA_MEMBRESIA != FALSE)
+	        {
+	        	
+	        	$pdf->SetFillColor(175,175,175); 
+	        	$pdf->SetFont('Arial','B',10);
+	        	$pdf->Cell(35,5,'',0,0,'C',0,0);
+		        $pdf->Cell(40,5,'Folio Membresia',1,0,'C',1);
+		        $pdf->Cell(40,5,'Numero Consulta',1,0,'C',1);
+		        $pdf->Cell(40,5,'Importe',1,0,'C',1);
+		        
+		        $pdf->Ln();
+		        $total_corte = 0;
+	        	foreach($DATA_MEMBRESIA->result() as $row)
+	        	{
+	        		$total_corte = $row->costo_consulta + $total_corte;
+        			$pdf->SetFont('Arial','',7);
+			        $pdf->Cell(35,5,'',0,0,'C',0,0);
+			        $pdf->Cell(40,5,$row->numero_membresia,1,0,'C');
+			        $pdf->Cell(40,5,$row->numero_cita,1,0,'L');
+			        $pdf->Cell(40,5,'$'.number_format($row->costo_consulta,2,'.', ','),1,0,'C');
+			        
+
+			        $pdf->Ln();
+
+			        if($pdf->getY() > 250)
+			        {
+			        	$pdf->Ln();
+				        $pdf->SetY(-30);
+				        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
+			        	$this->encabezado_pdf($pdf,$fecha_actual);
+			        }
+
+	        		
+	        	}
+
+	        	$pdf->SetFillColor(155,155,155); 
+	        	$pdf->SetFont('Arial','B',10);
+		        $pdf->Cell(35,5,'',0,0,'C',0,0);
+		        $pdf->Cell(80,5,'Total:',1,0,'R');
 		        $pdf->Cell(40,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
 	        }
 
