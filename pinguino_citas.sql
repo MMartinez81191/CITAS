@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-07-2019 a las 16:12:43
+-- Tiempo de generación: 27-07-2019 a las 17:46:58
 -- Versión del servidor: 10.1.37-MariaDB
 -- Versión de PHP: 7.2.12
 
@@ -67,21 +67,6 @@ CREATE TABLE `citas` (
   `id_tipo_cita` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `citas`
---
-
-INSERT INTO `citas` (`id_cita`, `id_cliente`, `numero_turno`, `fecha`, `hora`, `costo_consulta`, `folio_sat`, `contabilizado`, `cobrado`, `forma_pago`, `peso_actual`, `activo`, `id_tipo_cita`) VALUES
-(1, 1, 1, '2019-07-25', '08:05:00', '400', NULL, 0, 0, 1, NULL, 1, 2),
-(2, 1, 2, '2019-07-25', '08:10:00', '0', NULL, 0, 0, 1, NULL, 1, 2),
-(3, 1, 3, '2019-07-25', '08:15:00', '0', NULL, 0, 1, 1, '', 1, 2),
-(4, 1, 4, '2019-07-25', '08:20:00', '0', NULL, 0, 1, 1, '', 1, 2),
-(5, 1, 5, '2019-07-25', '08:25:00', '0', NULL, 0, 1, 1, '', 1, 2),
-(6, 1, 6, '2019-07-25', '09:00:00', '400', NULL, 0, 1, 1, '', 1, 2),
-(8, 1, 9, '2019-07-25', '09:30:00', '0', NULL, 0, 1, 1, '', 1, 2),
-(9, 2, 7, '2019-07-25', '09:35:00', '0', NULL, 0, 1, 1, '', 1, 2),
-(10, 2, 8, '2019-07-25', '09:40:00', '0', NULL, 0, 1, 1, '', 1, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -105,8 +90,8 @@ CREATE TABLE `clientes` (
 --
 
 INSERT INTO `clientes` (`id_cliente`, `nombre_cliente`, `telefono_cliente`, `correo_cliente`, `fecha_nacimiento`, `fecha_registro`, `activo`, `estatura`, `membresia`) VALUES
-(1, 'DINA ISLAS ARREDONDO', '182895', NULL, '01/01/1957', '2019-06-27', 1, 1.35, 3),
-(2, 'GLORIA PEÑUÑURI GARNER', '219406', NULL, '01/01/1953', '2019-06-27', 1, 0, 2),
+(1, 'DINA ISLAS ARREDONDO', '182895', NULL, '01/01/1957', '2019-06-27', 1, 0, 0),
+(2, 'GLORIA PEÑUÑURI GARNER', '219406', NULL, '01/01/1953', '2019-06-27', 1, 0, 0),
 (3, 'SUSANA GONZALEZ OSORIO', '626840', NULL, '01/01/1968', '2019-06-27', 1, 0, 0),
 (4, 'JOSEFINA PIÑA MONTIJO', '1187880', NULL, '01/01/1968', '2019-06-27', 1, 0, 0),
 (5, 'DANIELA AVILA OJEDA', '1189471', NULL, '01/01/1979', '2019-06-27', 1, 0, 0),
@@ -4709,21 +4694,6 @@ CREATE TABLE `membresias` (
   `numero_cita` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
---
--- Volcado de datos para la tabla `membresias`
---
-
-INSERT INTO `membresias` (`id_membresia`, `numero_membresia`, `id_cita`, `id_cliente`, `numero_cita`) VALUES
-(1, 1, 1, 1, 1),
-(2, 1, 2, 1, 2),
-(3, 1, 3, 1, 3),
-(4, 1, 4, 1, 4),
-(5, 1, 5, 1, 5),
-(6, 2, 6, 1, 1),
-(8, 3, 9, 2, 1),
-(9, 3, 10, 2, 2),
-(10, 2, 8, 1, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -4737,14 +4707,6 @@ CREATE TABLE `pesos` (
   `peso` double DEFAULT NULL,
   `activo` int(11) DEFAULT '1'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Volcado de datos para la tabla `pesos`
---
-
-INSERT INTO `pesos` (`id_peso`, `id_cliente`, `fecha`, `peso`, `activo`) VALUES
-(1, 1, '<?/*php date_default_timezone_', 57, 1),
-(2, 1, '2019-07-24', 120, 1);
 
 -- --------------------------------------------------------
 
@@ -4870,7 +4832,7 @@ ALTER TABLE `cat_niveles`
 -- AUTO_INCREMENT de la tabla `citas`
 --
 ALTER TABLE `citas`
-  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_cita` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `clientes`
@@ -4894,13 +4856,13 @@ ALTER TABLE `costos`
 -- AUTO_INCREMENT de la tabla `membresias`
 --
 ALTER TABLE `membresias`
-  MODIFY `id_membresia` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id_membresia` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `pesos`
 --
 ALTER TABLE `pesos`
-  MODIFY `id_peso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id_peso` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT de la tabla `tipos_citas`
