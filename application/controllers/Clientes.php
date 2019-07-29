@@ -295,8 +295,8 @@ class Clientes extends CI_Controller {
 	        $pdf = new fpdf_manager();
 	        
 	        
-	        $Nombre_archivo = 'Reporte de Citas.pdf';
-            $pdf->SetTitle("Corte de Caja");
+	        $Nombre_archivo = 'Historial de Pacientes.pdf';
+            $pdf->SetTitle("Historial de Pacientes");
 	        $pdf->AddPage();
 	        /*Encabezado*/
 	        $pdf->Image(base_url().'images/logo.jpg',10,8,20);
