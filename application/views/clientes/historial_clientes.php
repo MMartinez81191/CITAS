@@ -39,8 +39,8 @@
 								<label>Estatura en metros:</label>
 								<input type="text" class="form-control" id="txt_estatura" name="txt_estatura" placeholder="Estatura" required="true" value="<?=$DATA_ESTATURA->estatura?>" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="4">
 							</div>
-							<div class="form-group">
-								<button style="margin-top: 2%;" type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i> Actualizar Estatura</button>
+							<div class="form-group col-lg-2" style="margin-top: 2%;">
+								<button  type="submit" class="btn btn-primary"><i class="fa fa-refresh"></i> Actualizar Estatura</button>
 							</div>
 						</form>
 					</div>
@@ -51,9 +51,14 @@
 	        <div class="col-xs-12">
 	          	<div class="box">
 		            <div class="box-header">
-		            	<div class="col-lg-offset-10">
-		              		<a type="button" data-toggle="modal" data-target="#modal_agregar_peso"  class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Agregar Peso</a>
-		              	</div>
+		            	<div class="row">
+		            		<div class="col-lg-2">
+			            		<a type="button" href="<?=base_url()?>clientes/imprmir_historial/<?=$id_cliente?>" class="btn btn-block btn-primary"><i class="fa fa-print"></i> Imprimir</a>
+		            		</div>
+			            	<div class="col-lg-offset-10">
+		              			<a type="button" data-toggle="modal" data-target="#modal_agregar_peso"  class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Agregar Peso</a>
+			              	</div>
+		            	</div>
 			        </div>
 			    </div>
 		        <div class="box">

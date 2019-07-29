@@ -348,7 +348,10 @@
 				 				<label class="form-check-label" for="" style="margin-right: 20px;">Efectivo</label>
 
 								<input class="form-check-input" type="radio" name="rd_forma_pago" value="2">
-								<label class="form-check-label" for="">Cheque</label>
+								<label class="form-check-label" for="" style="margin-right: 20px;">Cheque</label>
+
+								<input class="form-check-input" type="radio" name="rd_forma_pago" value="3">
+								<label class="form-check-label" for="">Transferencia</label>
 				 			</div>
 							
 				 		</div>	

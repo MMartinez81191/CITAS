@@ -478,31 +478,31 @@ class Citas extends CI_Controller {
     		$pdf->MultiCell(72,5,utf8_decode($DATA_CITA->nombre_cliente),1);
 
 			$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(26,5,'Fecha Consulta:',1,0,'L',1);
-    		$pdf->Cell(46,5,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');
+    		$pdf->Cell(28,5,'Fecha Consulta:',1,0,'L',1);
+    		$pdf->Cell(44,5,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');
 
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(26,5,'Hora Consulta:',1,0,'L',1);
-    		$pdf->Cell(46,5, date("g:i a", strtotime($DATA_CITA->hora)) ,1,1,'L');
+    		$pdf->Cell(28,5,'Hora Consulta:',1,0,'L',1);
+    		$pdf->Cell(44,5, date("g:i a", strtotime($DATA_CITA->hora)) ,1,1,'L');
 
     		if($DATA_CITA->id_tipo_cita == 2)
     		{
     			$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(26,5,'Folio Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, $numero_membresia ,1,1,'L');
+	    		$pdf->Cell(28,5,'Folio Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,5, $numero_membresia ,1,1,'L');
 
 	    		$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(26,5,'Cita Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, $numero_cita ." de 5" ,1,1,'L');
+	    		$pdf->Cell(28,5,'Cita Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,5, $numero_cita ." de 5" ,1,1,'L');
     		}
 
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(26,5,'Costo Consulta:',1,0,'L',1);
-    		$pdf->Cell(46,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+    		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);
+    		$pdf->Cell(44,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(26,5,'Total:',1,0,'L',1);
-    		$pdf->Cell(46,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+    		$pdf->Cell(28,5,'Total:',1,0,'L',1);
+    		$pdf->Cell(44,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
     		$pdf->Ln();
     		 
@@ -545,18 +545,18 @@ class Citas extends CI_Controller {
     		$pdf->MultiCell(72,5,utf8_decode($DATA_CITA->nombre_cliente),1);
 			
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(26,5,'Costo Consulta:',1,0,'L',1);
-    		$pdf->Cell(46,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+    		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);
+    		$pdf->Cell(44,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
     		if($DATA_CITA->id_tipo_cita == 2)
     		{
     			$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(26,5,'Folio Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, $numero_membresia ,1,1,'L');
+	    		$pdf->Cell(28,5,'Folio Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,5, $numero_membresia ,1,1,'L');
 
 	    		$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(26,5,'Cita Membresia:',1,0,'L',1);
-	    		$pdf->Cell(46,5, $numero_cita ." de 5" ,1,1,'L');
+	    		$pdf->Cell(28,5,'Cita Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,5, $numero_cita ." de 5" ,1,1,'L');
     		}
 
     		$pdf->Cell(4,5,'',0,0);
