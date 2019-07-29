@@ -53,7 +53,7 @@
 		            <div class="box-header">
 		            	<div class="row">
 		            		<div class="col-lg-2">
-			            		<a type="button" href="<?=base_url()?>clientes/imprmir_historial/<?=$id_cliente?>" class="btn btn-block btn-primary"><i class="fa fa-print"></i> Imprimir</a>
+			            		<a type="button" href="<?=base_url()?>clientes/imprmir_historial/<?=$id_cliente?>" class="btn btn-block btn-primary" target="_blanck"><i class="fa fa-print"></i> Imprimir</a>
 		            		</div>
 			            	<div class="col-lg-offset-10">
 		              			<a type="button" data-toggle="modal" data-target="#modal_agregar_peso"  class="btn btn-block btn-primary"><i class="fa fa-plus"></i> Agregar Peso</a>
