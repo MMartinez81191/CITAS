@@ -573,19 +573,66 @@ class Citas extends CI_Controller {
 		}
 	}
 
-
-	//SEGURIDAD PARA EVITAR QUE SE ACCESE A PARTES DEL SISTEMA SIN NIVEL
-	public function seguridad()
+	public function consultar_proximas_citas()
 	{
-		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') != 3))
+		if($this->seguridad() == TRUE)
 		{
-			return true;
+			$id_cliente = $this->uri->segment(3);
+			$fecha_actual = date('Y-m-d');
+			$DATA_CITAS = $this->Citas_model->get_proximas_citas($id_cliente,$fecha_actual);
+			
+			?>
+				<div class="box-body table-responsive">
+					<div id="consultar_proximas_citas" name="consultar_proximas_citas">
+						<table id="example2" class="table table-bordered table-striped">
+							<thead>
+								<tr>
+									<th><center>Tipo Consulta</center></th>
+									<th><center>Fecha Cita</center></th>
+									<th><center>Hora Cita</center></th>
+								</tr>
+							</thead>
+							<tbody>
+								<?php
+								if($DATA_CITAS != FALSE)
+								{
+									foreach ($DATA_CITAS->result() as $row) 
+									{
+										echo '<tr>';
+											echo '<td>';
+												echo '<center>';
+													echo $row->tipo_cita;
+												echo '</center>';
+											echo '</td>';
+
+											echo '<td>';
+												echo '<center>';
+											echo $row->fecha;
+												echo '</center>';
+											echo '</td>';
+
+											echo '<td>';
+												echo '<center>';
+											echo $row->hora;
+												echo '</center>';
+											echo '<td>';
+										echo '</tr>';
+									}
+								}
+								?>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+			<?php
 		}
-		else
-		{
-			return false;
+        else
+        {
+			redirect(base_url());
 		}
 	}
+	
 
 	//PESOS DE CLEINTES
 	public function add_peso()
@@ -625,6 +672,19 @@ class Citas extends CI_Controller {
         else
         {
 			redirect(base_url());
+		}
+	}
+
+	//SEGURIDAD PARA EVITAR QUE SE ACCESE A PARTES DEL SISTEMA SIN NIVEL
+	public function seguridad()
+	{
+		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') != 3))
+		{
+			return true;
+		}
+		else
+		{
+			return false;
 		}
 	}
 }

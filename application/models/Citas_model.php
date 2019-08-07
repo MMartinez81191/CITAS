@@ -192,7 +192,6 @@ class Citas_model extends CI_Model {
         $this->db->from('membresias');
 
         $query = $this->db->get();
-        //echo $this->db->last_query();
 
         if($query->num_rows() > 0)
         {
@@ -208,6 +207,30 @@ class Citas_model extends CI_Model {
     public function insert_membresia($data)
     {
         $this->db->insert('membresias',$data);
+    }
+
+    public function get_proximas_citas($id_cliente,$fecha_actual)
+    {
+        $this->db->select('citas.fecha,citas.hora');
+        $this->db->select('tipos_citas.tipo_cita');
+        $this->db->from('citas');
+        $this->db->join('tipos_citas','tipos_citas.id_tipo_cita = citas.id_tipo_cita');
+        $this->db->where('id_cliente',$id_cliente);
+        $this->db->where('citas.fecha >=',$fecha_actual);
+        $this->db->where('citas.activo',1);
+        $this->db->where('citas.cobrado',0);
+        $this->db->where('citas.contabilizado',0);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 
 

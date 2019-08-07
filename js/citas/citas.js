@@ -228,6 +228,15 @@ var citas = {
         });
     },
 
+    consultar_citas: function(){
+       $("#consultar_citas").on("submit", function (form) {
+            form.preventDefault();
+            var id_cliente = $('#select_cliente_consulta_citas').val();
+            $("#consulta_citas_tabla").load(base_url + "citas/consultar_proximas_citas/"+id_cliente);
+        });
+    },
+
+
 
 
 }
@@ -239,4 +248,5 @@ jQuery(document).ready(function() {
    citas.cobro_citas(this);
    citas.load_modal_peso(this);
    citas.add_peso(this);
+   citas.consultar_citas(this);
 });

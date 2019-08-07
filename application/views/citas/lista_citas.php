@@ -50,7 +50,7 @@
 		<div class="row">
 	        <div class="col-xs-8">
 	        	<div class="row">
-	        		<div class="box">
+	        		<div class="box box-primary">
 						<div class="box-header">
 							<center>
 								<h4>Agregar Citas</h4>
@@ -128,15 +128,16 @@
 						              	</div>
 			          				</div>
 			          				<div class="col-lg-2" style="margin-top:2%;">
-			          					<button type="submit" class="btn btn-primary">Guardar Cita</button>
+			          					<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Cita</button>
 			          				</div>
+			          				
 			      				</div>
 			          		</form>
 			      		</div>
 				    </div>
 	        	</div>
 	        	<div class="row">
-			        <div class="box">
+			        <div class="box box-primary">
 			        	<div class="box-header">
 			        		<center>
 			        			<h3>Citas Programadas</h3>
@@ -243,7 +244,48 @@
 						<div id="calendar"></div>
 					</div>
 				</div>
-			    <div class="box">
+			    <div class="box box-primary">
+					<div class="box-header">
+						<center>
+							<h4>Consultar Citas</h4>
+						</center>
+						<hr/>
+					</div>
+	          		<div class="box-body">
+	          			<form id="consultar_citas" name="consultar_citas" autocomplete="off">
+		          			<div class="row">
+		          				<div class="col-lg-12">
+	          						<div class="form-group">
+					                	<label>Seleccione Paciente:</label>
+					                	<select id="select_cliente_consulta_citas" name="select_cliente_consulta_citas" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+							                  <?php
+				                                if($DATA_CLIENTES != FALSE)
+					                            {		                                
+					                                foreach ($DATA_CLIENTES->result() as $row)
+					                                {
+					                                    echo '<option value="'.$row->id_cliente.'">';
+					                                        echo $row->nombre_cliente;
+					                                    echo '</option>';                                
+					                                }
+					                            
+					                            }                                      
+				                            ?>
+					                	</select>
+						              	
+					              	</div>
+					              	<div class="form-group">
+			          					<button class="btn btn-default" data-toggle="modal" data-target="#modal_consulta_citas"><i class="fa fa-search"></i> Consultar Citas</button>
+			          				</div>
+		          				</div>
+	          				</div>
+	          				
+		          		</form>
+		          		<div id="consulta_citas_tabla">
+	          				
+	          			</div>
+	          		</div>
+			    </div>
+			    <div class="box box-primary">
 					<div class="box-header">
 						<center>
 							<h4>Agregar Pacientes</h4>
@@ -255,7 +297,7 @@
 		          			<div class="row">
 		          				<div class="col-lg-12">
 	          						<div class="form-group">
-					                	<label>Nombre Cliente:</label>
+					                	<label>Nombre Paciente:</label>
 					                	<input type="text" id="txt_nombre" name="txt_nombre" class="form-control" placeholder="Nombre del paciente" onKeyUp="this.value=this.value.toUpperCase();">
 					              	</div>
 		          				</div>
@@ -404,8 +446,6 @@
     </div>
 </div>
 <!-- FIN DEL MODAL PARA AGREGAR PESO -->
-
-
 
 
 
