@@ -254,7 +254,8 @@
 
 			    }],
 			     "pageLength": 100,
-			     "ordering": false
+			     "ordering": true,
+			     "order" : [0,'desc'],
 
 			} );
 

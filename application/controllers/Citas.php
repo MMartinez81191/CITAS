@@ -607,13 +607,13 @@ class Citas extends CI_Controller {
 
 											echo '<td>';
 												echo '<center>';
-											echo $row->fecha;
+													echo date('d-m-Y',strtotime($row->fecha));
 												echo '</center>';
 											echo '</td>';
 
 											echo '<td>';
 												echo '<center>';
-											echo $row->hora;
+													echo date('h:m a',strtotime($row->hora));
 												echo '</center>';
 											echo '<td>';
 										echo '</tr>';

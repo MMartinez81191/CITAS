@@ -5,7 +5,7 @@ var citas = {
             form.preventDefault();
             var data = {
                 id_cliente : $('#select_cliente').val(), 
-                txt_fecha : $('#txt_fecha').val(),
+                txt_fecha : $('#txt_fecha_citas').val(),
                 txt_hora : $('#txt_hora').val(),
                 id_tipo_cita : $('#select_tipo_cita').val(),
             }
@@ -76,7 +76,7 @@ var citas = {
                  
                 nombre : $('#txt_nombre').val(), 
                 telefono_cliente : $('#txt_telefono').val(), 
-                fecha_nacimiento : $('#txt_fecha_cliente').val(), 
+                fecha_nacimiento : $('#txt_fecha_cliente_citas').val(), 
                 correo_cliente : $('#txt_correo').val(),
             }
             

@@ -23,7 +23,7 @@ $nivel_usuario = $this->session->userdata('nivel');
 			    </div>
 		        <div class="box">
 					<div class="box-body table-responsive">
-						<table id="example1" class="table table-bordered table-striped">
+						<table id="example2" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th><center>ID</center></th>

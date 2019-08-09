@@ -80,28 +80,45 @@
 						                	</select>
 						              	</div>
 			          				</div>
-			          				<div class="col-lg-3">
+			          				<div class="col-lg-4">
 			          					<!-- Date -->
 							            <div class="form-group">
 							             	<label>Fecha:</label>
-							                <div class="input-group date">
+							             	<div class="input-group">
+							             		<span class="input-group-addon">
+											        <i class="fa fa-calendar"></i>
+											    </span>
+											    <input type="date" class="form-control" id="txt_fecha_citas" name="txt_fecha" required="true" value="<?=date('Y-m-d')?>" >
+											    
+							             	</div>
+							             	
+							                <!--<div class="input-group date">
 								                <div class="input-group-addon">
 								                	<i class="fa fa-calendar"></i>
 								                </div>
-								                <input type="text" class="form-control pull-right" id="txt_fecha" name="txt_fecha" required="true" placeholder="yyyy-mm-dd" autocomplete="off">
-							                </div>
+								                <input type="date" class="form-control" name="">
+								                <!--<input type="text" class="form-control pull-right" id="txt_fecha" name="txt_fecha" required="true" placeholder="yyyy-mm-dd" autocomplete="off">--
+							                </div>-->
 							            </div>
 			          				</div>
-			          				<div class="col-lg-3" >
+			          				<div class="col-lg-4" >
 			          					<div class="bootstrap-timepicker">
 							                <div class="form-group">
 								                <label>Hora de Cita:</label>
 								                <div class="input-group">
+								                	<span class="input-group-addon">
+												        <i class="fa fa-clock-o"></i>
+												    </span>
+								                	<input type="time" class="form-control" id="txt_hora" name="txt_hora" min="08:00" max="20:59" required="true" value="<?=date('H:00')?>" step="300">
+								                </div>
+								                
+								                <!--<div class="input-group">
+								                	<input type="time" name="">
 													<div class="input-group-addon">
 														<i class="fa fa-clock-o"></i>
 													</div>
-													<input id="txt_hora" name="txt_hora" type="text" class="form-control timepicker" autocomplete="off" readonly="true" required="true">
-												</div>
+													<!--<input id="txt_hora" name="txt_hora" type="text" class="form-control timepicker" autocomplete="off" readonly="true" required="true">--
+												</div>-->
 							                </div>
 				          				</div>
 				          			</div>
@@ -305,7 +322,7 @@
 	          				<div class="row">
 		          				<div class="col-lg-12">
 	          						<div class="form-group">
-					                	<label>Telefono del Cliente:</label>
+					                	<label>Telefono del Paciente (Opcional):</label>
 					                	<input type="text" id="txt_telefono" name="txt_telefono" class="form-control" placeholder="Telefono del paciente" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" maxlength="12">
 					              	</div>
 		          				</div>
@@ -314,13 +331,23 @@
 		          				<div class="col-lg-12">
 		          					<!-- Date -->
 						            <div class="form-group">
-						             	<label>Fecha de Nacimiento:</label>
-						                <div class="input-group date">
+						             	<label>Fecha de Nacimiento (Opcional):</label>
+						                <div class="input-group">
+						             		<span class="input-group-addon">
+										        <i class="fa fa-calendar"></i>
+										    </span>
+										    <input type="date" class="form-control" id="txt_fecha_cliente_citas" name="txt_fecha_cliente_citas" >
+										    
+						             	</div>
+						                <!--<div class="input-group date">
 							                <div class="input-group-addon">
 							                	<i class="fa fa-calendar"></i>
 							                </div>
-							                <input type="text" class="form-control pull-right" id="txt_fecha_cliente" name="txt_fecha_cliente" required="true" placeholder="yyyy-mm-dd" autocomplete="off">
-						                </div>
+
+							                
+							                <input type="text" class="form-control pull-right" id="txt_fecha_cliente" name="txt_fecha_cliente" placeholder="yyyy-mm-dd" autocomplete="off">
+							            	
+						                </div>-->
 						            </div>
 		          				</div>
 	          				</div>
