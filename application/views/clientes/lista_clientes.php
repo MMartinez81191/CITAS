@@ -61,7 +61,11 @@ $nivel_usuario = $this->session->userdata('nivel');
 										</center></td>
 										<td><center>
 											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Paciente" ></span></button>
+											
 											<a type="button" href="<?=base_url()?>clientes/historial/<?=$row->id_cliente;?>" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+
+											<a type="button" href="<?=base_url()?>clientes/imprimir_expediente/<?=$row->id_cliente;?>" class="btn btn-primary" target="_blanck"><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Expediente"  ></i><span></span></a>
+
 											<?php
 											if($nivel_usuario < 3)
 											{
@@ -104,8 +108,8 @@ $nivel_usuario = $this->session->userdata('nivel');
 				 		</div>
 
 				 		<div class="form-group col-lg-4">
-				 			<label >Telefono:</label>
-							<input type="text" class="form-control" id="txt_telefono_editar" name="txt_telefono_editar" placeholder="Escriba el " maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required="true">
+				 			<label >Telefono (Opcional):</label>
+							<input type="text" class="form-control" id="txt_telefono_editar" name="txt_telefono_editar" placeholder="Escriba el telefono del paciente" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required="true">
 				 		</div>			 		
 					</div>
 
@@ -115,8 +119,15 @@ $nivel_usuario = $this->session->userdata('nivel');
 							<input type="email" class="form-control" id=txt_correo_editar name="txt_correo_editar" placeholder="CORREO ELECTRONICO" maxlength="100">
 				 		</div>
 				 		<div class="form-group col-lg-4">
-				 			<label >Fecha de nacimiento:</label>
-							<input type="text" class="form-control" required id="txt_fecha" name="txt_fecha" placeholder="yyyy-mm-dd" maxlength="150" autocomplete="off" required="true">
+				 			<label >Fecha de nacimiento (Opcional):</label>
+				 			<div class="input-group">
+			             		<span class="input-group-addon">
+							        <i class="fa fa-calendar"></i>
+							    </span>
+							    <input type="date" class="form-control" id="txt_fecha_cliente_modificar" name="txt_fecha_cliente_modificar" >
+							    
+			             	</div>
+							<!--<input type="text" class="form-control"  id="txt_fecha" name="txt_fecha" placeholder="yyyy-mm-dd" maxlength="150" autocomplete="off" required="true">-->
 				 		</div>	
 	 				</div>
 	 				<hr>

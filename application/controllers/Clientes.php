@@ -282,6 +282,316 @@ class Clientes extends CI_Controller {
 		}
 	}
 
+	public function imprimir_expediente()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_cliente = $this->uri->segment(3);
+			//Datos necesarios para crear PDF
+	        $fecha_actual=date("d/m/Y");
+	        $hora = date("h:m:s a");
+	        $this->load->library('fpdf_manager');
+	        $pdf = new fpdf_manager();
+	        $DATA_CLIENTE = $this->Clientes_model->get_clientes_by_id($id_cliente);
+	        $DATA_HISTORIAL = $this->Clientes_model->get_historial($id_cliente);
+	        
+	        //CALCULAR LA EDAD
+	        $fecha_nacimiento = date("d-m-Y", strtotime($DATA_CLIENTE->fecha_nacimiento));
+			$dias = explode("-",$fecha_nacimiento, 3);
+		    $dias = mktime(0,0,0,$dias[1],$dias[0],$dias[2]);
+		    $edad = (int)((time()-$dias)/31556926 );
+		    
+
+
+	        $Nombre_archivo = 'Historial de Pacientes.pdf';
+            $pdf->SetTitle("Expediente");
+	        $pdf->AddPage();
+	        /*Encabezado*/
+	        $pdf->Image(base_url().'images/logo.jpg',10,8,30);
+	        $pdf->SetFont('Arial','B',12);
+	        //$pdf->Cell(90,6,'',0,0);
+	        $pdf->Cell(0,6,utf8_decode($DATA_CLIENTE->nombre_cliente),0,0,'C');
+	        $pdf->SetFont('Arial','B',8);
+	        $pdf->Cell(0,6,utf8_decode('Edad:'.$edad . ' años'),0,0,'R');
+	        $pdf->ln();
+	        $pdf->SetFont('Arial','B',16);
+	        $pdf->Cell(0,6,'NOTA EVOLUTORIA DE CONSULTA',0,0,'C');
+	        $pdf->SetFont('Arial','I',7);
+	        
+	        $pdf->ln();
+	        $pdf->Ln();
+	        $pdf->Ln();
+	        $pdf->Ln();
+
+	        $pdf->ln();
+	        $pdf->Ln();
+	        $pdf->Ln();
+	        $pdf->Ln();
+	        
+
+	        $pdf->SetFillColor(175,175,175); 
+        	$pdf->SetFont('Arial','B',10);
+
+        	$pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 1',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 2',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 3',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 4',1,0,'C',1);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+	        $pdf->ln();
+
+	        $pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 5',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 6',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 7',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 8',1,0,'C',1);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+	        $pdf->ln();
+
+	        $pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 9',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 10',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 11',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 12',1,0,'C',1);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+	        $pdf->ln();
+
+	        $pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 13',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 14',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 15',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 16',1,0,'C',1);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+	        $pdf->ln();
+
+	        $pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 17',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 18',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 19',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 20',1,0,'C',1);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+	        $pdf->ln();
+
+	        $pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 21',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 22',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 23',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 24',1,0,'C',1);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+	        $pdf->ln();
+
+	        $pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 25',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 26',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 27',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 28',1,0,'C',1);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+	        $pdf->ln();
+
+
+
+			$pdf->Output($Nombre_archivo, 'I');
+		}else{
+			redirect(base_url());
+		}
+	}
+
 	public function imprmir_historial()
 	{
 		

@@ -220,10 +220,11 @@
 				},
 			        "columnDefs": [ {
 			         "targets": 'no-sort',
-			         "orderable": false,
+			         "orderable": true,
 
 			    }],
-
+			    "pageLength": 100,
+			    "ordering": false,
 			} );
 
 			$('#example2').dataTable( {
@@ -250,7 +251,7 @@
 				},
 			        "columnDefs": [ {
 			         "targets": 'no-sort',
-			         "orderable": false,
+			         "orderable": true,
 
 			    }],
 			     "pageLength": 100,

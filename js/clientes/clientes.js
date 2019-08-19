@@ -8,7 +8,7 @@ var clientes = {
                 correo_cliente : $('#txt_user').val(), 
                 nombre : $('#txt_nombre').val(), 
                 telefono_cliente : $('#txt_telefono').val(), 
-                fecha_nacimiento : $('#txt_fecha').val(), 
+                fecha_nacimiento : $('#txt_fecha_cliente_agregar').val(), 
             }
 
             cargar_ajax.run_server_ajax('clientes/crear_cliente', data);
@@ -33,7 +33,7 @@ var clientes = {
             $('#txt_nombre_editar').val(response.DATA_CLIENTE.nombre_cliente);
             $('#txt_telefono_editar').val(response.DATA_CLIENTE.telefono_cliente);
             $('#txt_correo_editar').val(response.DATA_CLIENTE.correo_cliente);
-            $('#txt_fecha').val(response.DATA_CLIENTE.fecha_nacimiento);
+            $('#txt_fecha_cliente_modificar').val(response.DATA_CLIENTE.fecha_nacimiento);
             
 
         });
@@ -90,7 +90,7 @@ var clientes = {
                 	nombre_cliente : $('#txt_nombre_editar').val(),
                 	telefono_cliente : $('#txt_telefono_editar').val(), 
                 	correo_cliente : $('#txt_correo_editar').val(),
-                	fecha_nacimiento : $('#txt_fecha').val(), 
+                	fecha_nacimiento : $('#txt_fecha_cliente_modificar').val(), 
                 	
                 }
                 

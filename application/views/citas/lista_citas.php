@@ -162,7 +162,7 @@
 			        	</div>
 						<div class="box-body table-responsive">
 							<div id="tabla_citas" name="tabla_citas">
-								<table id="example2" class="table table-bordered table-striped">
+								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
 											<th><center>Hora Cita</center></th>
@@ -452,13 +452,13 @@
 	 				<div class="row">
 				 		<div class="form-group col-lg-12">
 				 			<label >Peso:</label>
-							<input type="text" required class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required = "true" >
+							<input type="text" required class="form-control" id="txt_peso_inicial_cita" name="txt_peso_inicial_cita" placeholder="PESO" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required = "true" autocomplete="off" >
 				 		</div>			 		
 					</div>
 					<div class="row">
 				 		<div class="form-group col-lg-12">
 				 			<label >Estatura en metros:</label>
-							<input type="text" required class="form-control" id="txt_estatura" name="txt_estatura" placeholder="ESTATURA" maxlength="4" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required = "true" >
+							<input type="text" required class="form-control" id="txt_estatura" name="txt_estatura" placeholder="ESTATURA" maxlength="4" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required = "true" autocomplete="off" >
 				 		</div>			 		
 					</div>
 	 				<hr>
