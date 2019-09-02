@@ -79,7 +79,7 @@ class Citas extends CI_Controller {
 
 			?>
 
-			<table id="example2" class="table table-bordered table-striped">
+			<table id="example1" class="table table-bordered table-striped">
 				<thead>
 					<tr>
 						<th><center>Hora Cita</center></th>

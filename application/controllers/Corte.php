@@ -139,6 +139,40 @@ class Corte extends CI_Controller {
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
+
+			<center><h4>Detalle de Gastos</h4></center>
+			<br>
+			<table id="example2" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th><center>Concepto</center></th>
+						<th><center>Importe</center></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$total_corte = 0;
+					if($DATA_GASTO != FALSE)
+					{
+						foreach ($DATA_GASTO->result() as $row) 
+						{
+							?>
+							<tr>
+								<td><center><?=$row->concepto;?></center></td>
+								<td><center><?=number_format($row->importe;,2,'.', ',')?></center></td>
+								
+							</tr>
+							<?php
+							$total_corte = $total_corte + $row->costo_consulta;
+						}
+					}
+					?>
+				</tbody> 
+					<tr>
+						<th colspan="2" style="text-align: right;">Total</th>
+						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
+					</tr>
+			</table>
 			<?php
 					/*$total_corte = 0;
 					if($DATA_CITAS != FALSE) {
