@@ -23,42 +23,24 @@ $nivel_usuario = $this->session->userdata('nivel');
 			    </div>
 		        <div class="box">
 					<div class="box-body table-responsive">
-						<table id="example2" class="table table-bordered table-striped">
+						<table id="example3" class="table table-bordered table-striped">
 							<thead>
 								<tr>
 									<th><center>ID</center></th>
 									<th><center>Nombre del Paciente</center></th>
-									<th><center>Edad</center></th>
-									<th><center>Telefono</center></th>
-									<th><center>Correo</center></th>
 									<th class="no-sort"><center>Opciones</center></th>
 								</tr>
 							</thead>
 							<tbody>
-								<?php if($DATA_CLIENTES != FALSE) {
-									foreach ($DATA_CLIENTES->result() as $row) {
+								<?php /*if($DATA_CLIENTES != FALSE) {
+									/*foreach ($DATA_CLIENTES->result() as $row) {
 								?>
 									<tr id="tr_<?= $row->id_cliente;?>" name="tr_<?= $row->id_cliente; ?>" >
 										<td><center><?= $row->id_cliente;?></center></td>
 										<td><center>
 											<?= $row->nombre_cliente;?>
 										</center></td>
-										<td><center>
-											<?php
-												$fecha_nacimiento = date("d-m-Y", strtotime($row->fecha_nacimiento));
-												$dias = explode("-",$fecha_nacimiento, 3);
-											    $dias = mktime(0,0,0,$dias[1],$dias[0],$dias[2]);
-											    $edad = (int)((time()-$dias)/31556926 );
-											    echo  $edad;
-												
-											?>
-										</center></td>
-										<td><center>
-											<?= $row->telefono_cliente;?>
-										</center></td>
-										<td><center>
-											<?= $row->correo_cliente;?>
-										</center></td>
+										
 										<td><center>
 											<button data-id="<?= $row->id_cliente; ?>" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Paciente" ></span></button>
 											
@@ -78,7 +60,7 @@ $nivel_usuario = $this->session->userdata('nivel');
 									</tr>
 								<?php
 									}
-								} ?>
+								}*/ ?>
 							</tbody> 
 						</table>
 					</div>

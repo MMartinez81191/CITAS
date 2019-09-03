@@ -21,7 +21,7 @@ class Clientes extends CI_Controller {
 
 				$this->load->view('headers/librerias');
 				$this->load->view('headers/menu');
-				$this->load->view('clientes/lista_clientes',$data);
+				$this->load->view('clientes/lista_clientes');
 				$this->load->view('footers/librerias');
 				$this->load->view('footers/cargar_js');
 			}else
@@ -34,6 +34,68 @@ class Clientes extends CI_Controller {
 			redirect(base_url());
 		}
 	}
+
+	function getLists(){
+        $nivel_usuario = $this->session->userdata('nivel');
+        $data = $row = array();
+        
+        // Fetch member's records
+        $memData = $this->Clientes_model->getRows($_POST);
+        
+        $i = $_POST['start'];
+        foreach($memData as $member){
+            $i++;
+           // $created = date( 'jS M Y', strtotime($member->created));
+           // $status = ($member->status == 1)?'Active':'Inactive';
+            if($nivel_usuario < 3)
+            {
+            	$data[] = 
+            	array(
+    				'<center>'.$i.'</center>', 
+    				'<center>'.$member->nombre_cliente.'</center>',
+					'
+					<center>
+						<button data-id="'.$member->id_cliente.'" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Paciente" ></span></button>
+
+						<a type="button" href="'.base_url().'clientes/historial/'.$member->id_cliente.'" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+
+						<a type="button" href="'.base_url().'clientes/imprimir_expediente/'.$member->id_cliente.'" class="btn btn-primary" target="_blanck"><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Expediente"  ></i><span></span></a>
+
+						<button data-id="'.$member->id_cliente.'" class="btn btn-danger eliminar_cliente" title="Eliminar Paciente" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+					</center>
+					'
+				);
+            }
+            else
+            {
+	            $data[] = 
+	            	array(
+        				'<center>'.$i.'</center>', 
+        				'<center>'.$member->nombre_cliente.'</center>',
+						'
+						<center>
+							<button data-id="'.$member->id_cliente.'" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Paciente" ></span></button>
+
+							<a type="button" href="'.base_url().'clientes/historial/'.$member->id_cliente.'" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+
+							<a type="button" href="'.base_url().'clientes/imprimir_expediente/'.$member->id_cliente.'" class="btn btn-primary" target="_blanck"><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Expediente"  ></i><span></span></a>
+						</center>
+						'
+					);
+	        }
+        }
+        
+        $output = array(
+            "draw" => $_POST['draw'],
+            "recordsTotal" => $this->Clientes_model->countAll(),
+            "recordsFiltered" => $this->Clientes_model->countFiltered($_POST),
+            "data" => $data,
+        );
+        
+        // Output to JSON format
+        echo json_encode($output);
+    }
+
 
 	public function historial()
 	{
@@ -308,25 +370,21 @@ class Clientes extends CI_Controller {
 	        $pdf->AddPage();
 	        /*Encabezado*/
 	        $pdf->Image(base_url().'images/logo.jpg',10,8,30);
-	        $pdf->SetFont('Arial','B',12);
+	        $pdf->SetFont('Arial','B',16);
 	        //$pdf->Cell(90,6,'',0,0);
-	        $pdf->Cell(0,6,utf8_decode($DATA_CLIENTE->nombre_cliente),0,0,'C');
-	        $pdf->SetFont('Arial','B',8);
-	        $pdf->Cell(0,6,utf8_decode('Edad:'.$edad . ' años'),0,0,'R');
+	        $pdf->Cell(0,7,utf8_decode($DATA_CLIENTE->nombre_cliente),0,0,'C');
+	        $pdf->SetFont('Arial','B',10);
+	        $pdf->Cell(0,7,utf8_decode('Edad:'.$edad . ' años'),0,0,'R');
+	        $pdf->SetFont('Arial','B',7);
 	        $pdf->ln();
 	        $pdf->SetFont('Arial','B',16);
-	        $pdf->Cell(0,6,'NOTA EVOLUTORIA DE CONSULTA',0,0,'C');
+	        $pdf->Cell(0,12,'NOTA EVOLUTORIA DE CONSULTA',0,0,'C');
 	        $pdf->SetFont('Arial','I',7);
 	        
 	        $pdf->ln();
 	        $pdf->Ln();
-	        $pdf->Ln();
-	        $pdf->Ln();
-
-	        $pdf->ln();
-	        $pdf->Ln();
-	        $pdf->Ln();
-	        $pdf->Ln();
+	        
+	        
 	        
 
 	        $pdf->SetFillColor(175,175,175); 
@@ -582,106 +640,43 @@ class Clientes extends CI_Controller {
 	        $pdf->Cell(38,5,'',1,0,'C',0);
 	        $pdf->Cell(38,5,'',1,0,'C',0);
 	        $pdf->Ln();
-	        $pdf->ln();
-
-
-
-			$pdf->Output($Nombre_archivo, 'I');
-		}else{
-			redirect(base_url());
-		}
-	}
-
-	public function imprmir_historial()
-	{
-		
-		if($this->seguridad() == TRUE)
-		{
-			$id_cliente = $this->uri->segment(3);
-			//Datos necesarios para crear PDF
-	        $fecha_actual=date("d/m/Y");
-	        $hora = date("h:m:s a");
-	        $this->load->library('fpdf_manager');
-	        $pdf = new fpdf_manager();
-	        
-	        
-	        $Nombre_archivo = 'Historial de Pacientes.pdf';
-            $pdf->SetTitle("Historial de Pacientes");
-	        $pdf->AddPage();
-	        /*Encabezado*/
-	        $pdf->Image(base_url().'images/logo.jpg',10,8,20);
-	        $pdf->SetFont('Arial','B',12);
-	        //$pdf->Cell(90,6,'',0,0);
-	        $pdf->Cell(0,6,'HISTORIAL DE PACIENTE',0,0,'C');
-	        $pdf->SetFont('Arial','I',7);
-	        $pdf->Cell(0,6,'Fecha de realizacion:'.$fecha_actual,0,0,'R');
 	        $pdf->Ln();
 
-
-	        $pdf->SetFont('Arial','B',11);
-	        $pdf->Cell(90,6,"",0,0);
-	        $pdf->Cell(97,6,"",0,0,'C');
-	        $pdf->Cell(90,6,"",0,0,'R');
-	        $pdf->Ln();
-	        $pdf->Ln();
-
-	        
-	        $pdf->Cell(30,5,"Realizado Por:",0,0,'L');
-	        $pdf->SetFont('Arial','',12);
-	        $pdf->Cell(222,5,$this->session->userdata('nombre'),0,0,'L');
-	        $pdf->Ln();
+	        $pdf->Cell(38,5,'DATOS',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 29',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 30',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 31',1,0,'C',1);
+	        $pdf->Cell(38,5,'CONSULTA 32',1,0,'C',1);
 	        $pdf->Ln();
 
-	        $DATA_CLIENTE = $this->Clientes_model->get_clientes_by_id($id_cliente);
-	        $DATA_HISTORIAL = $this->Clientes_model->get_historial($id_cliente);
-
-	        $pdf->SetFont('Arial','',12);
-	        $pdf->Cell(0,5,'Nombre del Paciente:'.$DATA_CLIENTE->nombre_cliente,0,1,'');
-	        $pdf->Cell(0,5,'Fecha de Nacimimento:'.$DATA_CLIENTE->fecha_nacimiento,0,1,'');
-	        $pdf->Cell(0,5,'Correo:'.$DATA_CLIENTE->correo_cliente,0,1,'');
-	        $pdf->Cell(0,5,'Estatura:'.$DATA_CLIENTE->estatura.' m',0,1,'');
-	        
-	        
+	        $pdf->Cell(38,5,'P.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'L',0);
 	        $pdf->Ln();
 
-	        $pdf->SetFillColor(175,175,175); 
-        	$pdf->SetFont('Arial','B',10);
-        	$pdf->Cell(15,5,'',0,0,'C',0,0);
-	        $pdf->Cell(80,5,'Fecha',1,0,'C',1);
-	        $pdf->Cell(80,5,'Peso',1,0,'C',1);
-	        $pdf->Cell(40,5,'',0,0,'C',0);
+	        $pdf->Cell(38,5,'G.A.:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
 	        $pdf->Ln();
 
-	        if($DATA_HISTORIAL != FALSE)
-	        {
-	        	foreach($DATA_HISTORIAL->result() as $row)
-	        	{
-        			$pdf->SetFont('Arial','',7);
-			        $pdf->Cell(15,5,'',0,0,'C',0,0);
-			        $pdf->Cell(80,5,$row->fecha,1,0,'C');
-			        $pdf->Cell(80,5,$row->peso.' Kg',1,0,'C');
-
-			        $pdf->Ln();
-
-			        if($pdf->getY() > 250)
-			        {
-			        	$pdf->Ln();
-				        $pdf->SetY(-30);
-				        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
-			        	$this->encabezado_pdf($pdf,$fecha_actual);
-			        }
-
-	        		
-	        	}
-	        }
-	        
-
-
-	        
-
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
 	        $pdf->Ln();
-	        $pdf->SetY(-30);
-	        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
+
+	        $pdf->Cell(38,5,'FECHA:',1,0,'L',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Cell(38,5,'',1,0,'C',0);
+	        $pdf->Ln();
+
 
 			$pdf->Output($Nombre_archivo, 'I');
 		}else{
