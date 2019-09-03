@@ -41,6 +41,7 @@ class Corte extends CI_Controller {
 					$dia = $this->uri->segment(4);
 					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
 					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
+					$DATA_GASTO = $this->Corte_model->get_gasto_dia($dia);
 					break;
 				case '2':
 					$mes = $this->uri->segment(4);
@@ -65,6 +66,7 @@ class Corte extends CI_Controller {
 			}
 
 			?>
+			<button>Agrgar Gasto</button>
 			<hr>
 			<center><h4>Detalle de Consultas</h4></center>
 			<br>
@@ -151,7 +153,7 @@ class Corte extends CI_Controller {
 				</thead>
 				<tbody>
 					<?php 
-					$total_corte = 0;
+					$total_gasto = 0;
 					if($DATA_GASTO != FALSE)
 					{
 						foreach ($DATA_GASTO->result() as $row) 
@@ -159,18 +161,18 @@ class Corte extends CI_Controller {
 							?>
 							<tr>
 								<td><center><?=$row->concepto;?></center></td>
-								<td><center><?=number_format($row->importe;,2,'.', ',')?></center></td>
+								<td><center><?=number_format($row->importe,2,'.', ',')?></center></td>
 								
 							</tr>
 							<?php
-							$total_corte = $total_corte + $row->costo_consulta;
+							$total_gasto = $total_gasto + $row->importe;
 						}
 					}
 					?>
 				</tbody> 
 					<tr>
-						<th colspan="2" style="text-align: right;">Total</th>
-						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
+						<th colspan="1" style="text-align: right;">Total</th>
+						<th><center><?='$'.number_format($total_gasto,2,'.', ',')?></center></th>
 					</tr>
 			</table>
 			<?php

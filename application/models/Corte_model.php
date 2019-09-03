@@ -295,5 +295,26 @@ class Corte_model extends CI_Model {
             return FALSE;
         }
     }
+
+    //=================================================================
+    //GASTOS
+    //=================================================================
+
+    public function get_gasto_dia($dia)
+    {
+        $this->db->from('gastos');
+        $this->db->where('fecha',$dia);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
     
 }
