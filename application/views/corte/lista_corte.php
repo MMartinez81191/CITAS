@@ -53,6 +53,12 @@
 														<button id="busqueda_dia" name="busqueda_dia" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
 														<button style="display: none;" id="imprimir_dia" name="imprimir_dia" class="btn btn-default" ><i class="fa fa-print"></i> Imprimir</button>
 													</div>
+
+												</div>
+												<div class="form-group" align="right">
+													<button class="btn btn-primary" data-toggle="modal" data-target="#modal_agregar_gasto"><i class="fa fa-plus"></i> Agregar Gasto</button>
+													<button class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Devolucion</button>
+													<button class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Venta Carnet</button>
 												</div>
 											</div>
 										</div>
@@ -188,6 +194,39 @@
 		</div>
 	</section>
 </div>
+
+<!-- MODAL PARA AGERGAR GASTO-->
+<div class="modal fade" id="modal_agregar_gasto" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+            	<center><h3 class="modal-title">Agregar Gastos</h3></center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <hr>    
+            </div>
+            <div class="modal-body">
+	            <form  name="agregar_gasto" id="agregar_gasto">
+			 		<div class="form-group">	
+			 			<label >Concepto:</label>
+						<input type="text" class="form-control" required id="txt_concepto_gasto" name="txt_concepto_gasto" placeholder="Concepto del gasto del Paciente" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();" required="true">
+			 		</div>
+			 		<div class="form-group">
+			 			<label >Importe:</label>
+						<input type="text" class="form-control" id="txt_importe_gasto" name="txt_importe_gasto" placeholder="Escriba el importe del gasto" maxlength="12" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" required="true">
+			 		</div>			 		
+	 				<hr>
+				 	<div class="row modal-footer" style="margin-top: 10px;">
+	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	                    <button type="submit" class="btn btn-primary">Guardar</button>
+	                </div>
+				</form> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN DEL MODAL PARA AGREGAR GASTO -->
+
+
 
 <script type="text/javascript">
 	var base_url = '<?=base_url()?>';

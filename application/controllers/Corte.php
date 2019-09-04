@@ -66,7 +66,6 @@ class Corte extends CI_Controller {
 			}
 
 			?>
-			<button>Agrgar Gasto</button>
 			<hr>
 			<center><h4>Detalle de Consultas</h4></center>
 			<br>
@@ -104,7 +103,7 @@ class Corte extends CI_Controller {
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
-
+			<br>
 			<hr>
 			<center><h4>Detalle de Membresias</h4></center>
 			<br>
@@ -141,7 +140,9 @@ class Corte extends CI_Controller {
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
-
+			
+			<br>
+			<hr>
 			<center><h4>Detalle de Gastos</h4></center>
 			<br>
 			<table id="example2" class="table table-bordered table-striped">
@@ -475,6 +476,34 @@ class Corte extends CI_Controller {
 	        $pdf->Cell(40,5,'Importe Cobrado',1,0,'C',1);
 	        $pdf->Ln();
         }else{
+			redirect(base_url());
+		}
+	}
+
+	//======================================================================================
+	//GASTOS
+	//======================================================================================
+	public function crear_gasto()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request())
+			{
+				$data = array(				
+					'concepto' => trim($this->input->post('txt_concepto')),
+					'importe' => trim($this->input->post('txt_importe')),
+					'fecha' => date('Y-m-d'),
+				);
+				$response = $this->Corte_model->insert_gasto($data);
+				echo json_encode($response);
+			}
+			else
+			{
+	            show_404();
+	        }
+        }
+        else
+        {
 			redirect(base_url());
 		}
 	}

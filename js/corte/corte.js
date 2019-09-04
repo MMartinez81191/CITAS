@@ -126,6 +126,29 @@ var corte = {
         });
     },
 
+    //====================================
+    //GASTOS
+    //====================================
+    add_gastos: function(){
+        $('#agregar_gasto').on('submit', function(form){
+            form.preventDefault();
+            
+            var data = {
+                txt_concepto : $('#txt_concepto_gasto').val(), 
+                txt_importe : $('#txt_importe_gasto').val(), 
+            }
+
+            cargar_ajax.run_server_ajax('corte/crear_gasto', data);
+            swal({
+                title: 'CORRECTO',
+                text: 'SE AGREGO CORRECTAMENTE EL GASTO',
+                type: 'success',
+                closeOnConfirm: false
+            },function(){
+                window.location.assign(base_url + 'corte');
+            });
+        });
+    },
 
 }
 jQuery(document).ready(function() { 
@@ -138,4 +161,6 @@ jQuery(document).ready(function() {
    corte.obtener_reporte_mes(this);
    corte.obtener_reporte_anio(this);
    corte.obtener_reporte_pendientes(this);
+   
+   corte.add_gastos(this);
 });
