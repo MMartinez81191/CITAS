@@ -103,7 +103,7 @@ class Clientes_model extends CI_Model {
         
         $this->db->from('clientes');
         $this->db->where('activo',1);
-        //$this->db->order_by('id_cliente','DESC');
+        $this->db->order_by('id_cliente','DESC');
         
         $query = $this->db->get();
 

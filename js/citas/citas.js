@@ -136,6 +136,8 @@ var citas = {
     cobro_citas : function(){
         $("#pagar_citas").on("submit", function (form) {
             form.preventDefault();
+            document.getElementById("btn_pago_cita").disabled = true;
+            
             var id_cita = $('#id_cita_pagar').val();
             //var ruta = "http://pinguinosystems.com/CITAS/citas/imprimir_ticket/" + id_cita;
             var ruta = base_url + "citas/imprimir_ticket/" + id_cita;
@@ -176,6 +178,7 @@ var citas = {
                  mensaje = "Cobro Realizado Correctamente";
             }
 
+            //document.getElementById("btn_pago_cita").disabled = false;
             window.open(ruta, 'Nombre Ventana');
             location.reload();
 

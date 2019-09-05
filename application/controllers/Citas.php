@@ -339,6 +339,7 @@ class Citas extends CI_Controller {
 			if($this->input->is_ajax_request()){
 				$id_cita = $this->input->post('id_cita');
 				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
+				$numero_consulta = $this->Citas_model->get_numero_consulta();
 				$numero_turno = $this->Citas_model->get_turno($DATA_CITA->fecha);
 				$id_tipo_cita = trim($this->input->post('id_tipo_cita'));
 				$id_cliente = $DATA_CITA->id_cliente;
@@ -346,6 +347,7 @@ class Citas extends CI_Controller {
 
 				$data = array(				
 					'costo_consulta' => trim($this->input->post('costo_consulta')),
+					'numero_consulta' => $numero_consulta,
 					'numero_turno' => $numero_turno,
 					'forma_pago' => trim($this->input->post('forma_pago')),
 					'peso_actual' => trim($this->input->post('peso_actual')),
@@ -464,7 +466,7 @@ class Citas extends CI_Controller {
 			
 			
 	        $pdf->SetFont('Times','B',8);
-	        $pdf->Cell(0,6,'FOLIO: A-'.$DATA_CITA->id_cita,0,1,'R');
+	        $pdf->Cell(0,6,'FOLIO: A-'.$DATA_CITA->numero_consulta,0,1,'R');
 			
 	        $pdf->SetFont('Times','',10);
 	        $pdf->SetFillColor(230,230,230);

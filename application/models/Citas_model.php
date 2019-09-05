@@ -85,6 +85,28 @@ class Citas_model extends CI_Model {
         }
     }
 
+    public function get_numero_consulta()
+    {
+        $this->db->select_max('numero_consulta','numero_consulta');
+        $this->db->from('citas');
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            foreach ($query->result() as $row) 
+            {
+                $numero_consulta = $row->numero_consulta;
+            }
+            return $numero_consulta + 1;
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
     public function insert_citas($data)
     {
         $this->db->insert('citas',$data);
