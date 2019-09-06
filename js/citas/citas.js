@@ -239,6 +239,12 @@ var citas = {
         });
     },
 
+    get_tipo_cita: function(){
+        $("#select_cliente").on("change", function (form) {
+           alert('hola mundo'); 
+        });
+    },
+
 
 
 
@@ -252,4 +258,5 @@ jQuery(document).ready(function() {
    citas.load_modal_peso(this);
    citas.add_peso(this);
    citas.consultar_citas(this);
+   citas.get_tipo_cita(this);
 });
