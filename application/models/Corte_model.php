@@ -299,6 +299,23 @@ class Corte_model extends CI_Model {
     //=================================================================
     //GASTOS
     //=================================================================
+    public function get_gasto()
+    {
+        $this->db->from('gastos');
+        $this->db->where('activo',1);
+        $this->db->order_by('fecha','DESC');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }    
+    }
 
     public function get_gasto_dia($dia)
     {
@@ -321,5 +338,84 @@ class Corte_model extends CI_Model {
     {
         $this->db->insert('gastos',$data);        
     }
+
+    public function delete_gastos($id_gasto,$data)
+    {
+        $this->db->where('id_gasto', $id_gasto);
+        $this->db->update('gastos',$data);
+    }
+
+    //=================================================================
+    //DEVOLUCIONES
+    //=================================================================
+    public function get_devoluciones()
+    {
+        $this->db->from('devoluciones');
+        $this->db->join('clientes','clientes.id_cliente = devoluciones.id_cliente');
+        $this->db->where('devoluciones.activo',1);
+        $this->db->order_by('fecha','DESC');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }    
+    }
+
+    public function get_clientes()
+    {
+        $this->db->select('id_cliente,nombre_cliente');
+        $this->db->from('clientes');
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }  
+    }
+
+    public function insert_devolucion($data)
+    {
+        $this->db->insert('devoluciones',$data);        
+    }
     
+    public function delete_devolucion($id_devolucion,$data)
+    {
+        $this->db->where('id_devolucion', $id_devolucion);
+        $this->db->update('devoluciones',$data);
+    }
+
+    //=================================================================
+    //VENTA CARNETS
+    //=================================================================
+    public function get_venta_carnets()
+    {
+        $this->db->from('venta_carnets');
+        $this->db->join('clientes','clientes.id_cliente = venta_carnets.id_cliente');
+        $this->db->where('venta_carnets.activo',1);
+        $this->db->order_by('fecha','DESC');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }    
+    }
+
 }

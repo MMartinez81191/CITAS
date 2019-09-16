@@ -7,6 +7,7 @@ class Corte extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Corte_model');
+
 	} 
 
 	public function index()
@@ -16,6 +17,10 @@ class Corte extends CI_Controller {
 			$data = array(
 				'DATA_CITAS' => FALSE,
 				'DATA_ANIOS' => $this->Corte_model->get_anios(),
+				'DATA_GASTO' => $this->Corte_model->get_gasto(),
+				'DATA_DEVOLUCION' => $this->Corte_model->get_devoluciones(),
+				'DATA_CLIENTES' => $this->Corte_model->get_clientes(),
+				'DATA_VENTA_CARNETS' => $this->Corte_model->get_venta_carnets(), 
 			);
 
 			$this->load->view('headers/librerias');
@@ -492,7 +497,7 @@ class Corte extends CI_Controller {
 				$data = array(				
 					'concepto' => trim($this->input->post('txt_concepto')),
 					'importe' => trim($this->input->post('txt_importe')),
-					'fecha' => date('Y-m-d'),
+					'fecha' => trim($this->input->post('txt_fecha')),
 				);
 				$response = $this->Corte_model->insert_gasto($data);
 				echo json_encode($response);
@@ -508,6 +513,86 @@ class Corte extends CI_Controller {
 		}
 	}
 
+	public function eliminar_gasto()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+
+				$id_gasto = $this->input->post('id_gasto');
+				$data = array(
+					'activo' => 0, 
+				);
+				$this->Corte_model->delete_gastos($id_gasto,$data);
+				
+			}
+			else
+			{
+	            show_404();
+        	}
+        }else{
+			redirect(base_url());
+		}
+	}
+
+	//======================================================================================
+	//DEVOLUCIONES
+	//======================================================================================
+	public function crear_devolucion()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request())
+			{
+				$data = array(				
+					'id_cliente' => trim($this->input->post('select_cliente')),
+					'importe' => trim($this->input->post('txt_importe')),
+					'fecha' => trim($this->input->post('txt_fecha')),
+				);
+				$response = $this->Corte_model->insert_devolucion($data);
+				echo json_encode($response);
+			}
+			else
+			{
+	            show_404();
+	        }
+        }
+        else
+        {
+			redirect(base_url());
+		}
+	}
+	
+	public function eliminar_devolucion()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+
+				$id_devolucion = $this->input->post('id_devolucion');
+				$data = array(
+					'activo' => 0, 
+				);
+				$this->Corte_model->delete_devolucion($id_devolucion,$data);
+				
+			}
+			else
+			{
+	            show_404();
+        	}
+        }else{
+			redirect(base_url());
+		}
+	}
+
+	//======================================================================================
+	//VENTA CARNETS
+	//======================================================================================
+
+
+	//======================================================================================
+	//FUNCIONES ADICIONALES
+	//======================================================================================
 	public function seguridad()
 	{
 		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') <= 5))

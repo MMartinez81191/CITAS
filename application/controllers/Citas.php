@@ -486,8 +486,6 @@ class Citas extends CI_Controller {
 			$pdf->Cell(2,3,'',0,0);
         	$pdf->Cell(0,3,'RESPONSABLE SANITARIO',0,1,'L');
 			
-	        $pdf->ln();
-			
 			
 	        $pdf->SetFont('Times','B',8);
 	        $pdf->Cell(0,6,'FOLIO: A-'.$DATA_CITA->numero_consulta,0,1,'R');
@@ -496,20 +494,20 @@ class Citas extends CI_Controller {
 	        $pdf->SetFillColor(230,230,230);
 
 	        $pdf->Cell(4,5,'',0,0);
-	        $pdf->Cell(72,5,utf8_decode('Datos Consulta'),1,1,'C',1);
+	        $pdf->SetFont('Times','B',10);
+	        $pdf->Cell(72,5,utf8_decode('Datos Consulta').'                                      '.date("g:i a", strtotime($DATA_CITA->hora)),1,1,'L',1);
+	        $pdf->SetFont('Times','',10);
 
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(72,5,'Nombre:',1,1,'L',1);
-    		$pdf->Cell(4,5,'',0,0);
-    		$pdf->MultiCell(72,5,utf8_decode($DATA_CITA->nombre_cliente),1);
+    		$pdf->MultiCell(72,5,utf8_decode('Nombre: '.$DATA_CITA->nombre_cliente),1);
 
 			$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Fecha Consulta:',1,0,'L',1);
     		$pdf->Cell(44,5,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');
 
-    		$pdf->Cell(4,5,'',0,0);
+    		/*$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Hora Consulta:',1,0,'L',1);
-    		$pdf->Cell(44,5, date("g:i a", strtotime($DATA_CITA->hora)) ,1,1,'L');
+    		$pdf->Cell(44,5, date("g:i a", strtotime($DATA_CITA->hora)) ,1,1,'L');*/
 
     		if($DATA_CITA->id_tipo_cita == 2)
     		{
@@ -530,9 +528,6 @@ class Citas extends CI_Controller {
     		$pdf->Cell(28,5,'Total:',1,0,'L',1);
     		$pdf->Cell(44,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
-    		$pdf->Ln();
-    		 
-
 	        $pdf->SetFont('Times','B',8);
 	        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
 	        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
@@ -549,12 +544,12 @@ class Citas extends CI_Controller {
 
 	        $pdf->setY(17);
 	        $pdf->SetFont('Times','B',12);
-	        $pdf->Cell(0,5,'Control de Peso',0,1,'C');
+	        /*$pdf->Cell(0,5,'Control de Peso',0,1,'C');*/
 	        $pdf->Image(base_url().'images/logo.jpg',30,0,20);
 	        $pdf->SetFont('Times','B',10);
 	        
 
-        	$pdf->ln();
+        	//$pdf->ln();
 	        
 	        $pdf->SetFont('Times','',10);
 	        $pdf->SetFillColor(230,230,230);
@@ -562,13 +557,14 @@ class Citas extends CI_Controller {
 	        $pdf->SetFont('Times','',10);
 	        $pdf->SetFillColor(230,230,230);
 
+	        $pdf->SetFont('Times','B',10);
 	        $pdf->Cell(4,5,'',0,0);
-	        $pdf->Cell(72,5,utf8_decode('Datos Consulta'),1,1,'C',1);
+	        $pdf->Cell(72,5,utf8_decode('Datos Consulta').'                                  '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
+	        $pdf->SetFont('Times','',10);
+
 			
-			$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(72,5,'Nombre:',1,1,'L',1);
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->MultiCell(72,5,utf8_decode($DATA_CITA->nombre_cliente),1);
+    		$pdf->MultiCell(72,5,'Nombre:'.utf8_decode($DATA_CITA->nombre_cliente),1);
 			
     		$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);
@@ -585,9 +581,9 @@ class Citas extends CI_Controller {
 	    		$pdf->Cell(44,5, $numero_cita ." de 5" ,1,1,'L');
     		}
 
-    		$pdf->Cell(4,5,'',0,0);
+    		/*$pdf->Cell(4,5,'',0,0);
 	        $pdf->SetFont('Times','B',12);
-	        $pdf->MultiCell(72,5,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU NUTRIOLOGO',1,'C');
+	        $pdf->MultiCell(72,5,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU NUTRIOLOGO',1,'C');*/
 	        $pdf->SetFont('Times','',6);
 	        $pdf->Cell(0,5,'PX-'.$DATA_CITA->numero_turno,0,1,'R');
 	        

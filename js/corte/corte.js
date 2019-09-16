@@ -134,6 +134,7 @@ var corte = {
             form.preventDefault();
             
             var data = {
+                txt_fecha : $('#txt_fecha_gasto').val(),
                 txt_concepto : $('#txt_concepto_gasto').val(), 
                 txt_importe : $('#txt_importe_gasto').val(), 
             }
@@ -146,6 +147,91 @@ var corte = {
                 closeOnConfirm: false
             },function(){
                 window.location.assign(base_url + 'corte');
+            });
+        });
+    },
+
+     eliminar_gasto: function(){
+        $(document).on('click', 'button.eliminar_gasto', function () {
+            
+            id_gasto = $(this).data('id');
+            var data = {id_gasto: id_gasto};
+            swal({
+                title: "¿Esta seguro de eliminar este gasto?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, eliminar",
+                closeOnConfirm: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            }, function () {
+                swal({
+                    title: 'ELIMINADO',
+                    text: 'Se elimino correctamente la cita',
+                    type: 'success',
+                    closeOnConfirm: false
+                },function(){
+                    cargar_ajax.run_server_ajax('corte/eliminar_gasto', data);
+                    var toDelete = '#tr_' + id_gasto;
+                    $(toDelete).remove();
+                    window.location.reload();
+                }); 
+            });
+        });
+    },
+
+    //====================================
+    //DEVOLUCIONES
+    //====================================
+    add_devoluciones: function(){
+        $('#agregar_devolucion').on('submit', function(form){
+            form.preventDefault();
+            
+            var data = {
+                txt_fecha : $('#txt_fecha_devolucion').val(),
+                select_cliente : $('#select_cliente_devolucion').val(), 
+                txt_importe : $('#txt_importe_devolucion').val(), 
+            }
+
+            cargar_ajax.run_server_ajax('corte/crear_devolucion', data);
+            swal({
+                title: 'CORRECTO',
+                text: 'SE AGREGO CORRECTAMENTE LA DEVOLUCION',
+                type: 'success',
+                closeOnConfirm: false
+            },function(){
+                window.location.assign(base_url + 'corte');
+            });
+        });
+    },
+
+    eliminar_devolucion: function(){
+        $(document).on('click', 'button.eliminar_devolucion', function () {
+            
+            id_devolucion = $(this).data('id');
+            var data = {id_devolucion : id_devolucion};
+            swal({
+                title: "¿Esta seguro de eliminar esta devolucion?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, eliminar",
+                closeOnConfirm: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            }, function () {
+                swal({
+                    title: 'ELIMINADO',
+                    text: 'Se elimino correctamente la cita',
+                    type: 'success',
+                    closeOnConfirm: false
+                },function(){
+                    cargar_ajax.run_server_ajax('corte/eliminar_devolucion', data);
+                    var toDelete = '#tr_' + id_devolucion;
+                    $(toDelete).remove();
+                    window.location.reload();
+                }); 
             });
         });
     },
@@ -163,4 +249,10 @@ jQuery(document).ready(function() {
    corte.obtener_reporte_pendientes(this);
    
    corte.add_gastos(this);
+   corte.eliminar_gasto(this);
+
+   corte.add_devoluciones(this);
+   corte.eliminar_devolucion(this);
+
+   
 });
