@@ -22,8 +22,9 @@ class Citas extends CI_Controller {
 
 				$data = array(
 					'DATA_CITAS' => $this->Citas_model->get_citas($fechaInicio,$fechaFinal),
+					'DATA_FECHA' => $fechaInicio,
 					'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
-					'DATA_TIPO_CITAS' => $this->Citas_model->get_tipo_citas(),
+					'DATA_TIPO_CITAS' => $this->Citas_model->get_tipo_citas($this->Citas_model->get_tipo_cita_max_id_cliente()),
 					//'DATA_COSTOS' => $this->Costos_model->get_costos(),
 				);
 
@@ -76,94 +77,100 @@ class Citas extends CI_Controller {
 			$fechaFinal = $this->uri->segment(4);
 
 			$DATA_CITAS = $this->Citas_model->get_citas($fechaInicio,$fechaFinal);
-
+			$DATA_FECHA = $fechaInicio;
 			?>
+			<div class="box-header">
+        		<center>
+        			<h3>Citas programadas del dia <?=date('d-m-Y',strtotime($DATA_FECHA))?></h3>
+        		</center>
+        	</div>
+			<div class="box-body table-responsive">
+				<table id="example1" class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th><center>#</center></th>
+							<th><center>Hora Cita</center></th>
+							<th><center>Turno</center></th>
+							<th><center>Nombre Paciente</center></th>
+							<th><center>Tipo Cita</center></th>
+							<th class="no-sort"><center>Opciones</center></th>
+						</tr>
+					</thead>
+					<tbody>
+						<?php
+							$aumento = 5;
+		    				for($i=0; $i<144; $i++)
+		    				{
+		    					$hora_inicial = '08:00:00';
+		    					$hora1 = date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));
+								$hora2 = date('h:i a', strtotime('00:00:00'));
+		    					if($DATA_CITAS != FALSE)
+		    					{
+		    						foreach ($DATA_CITAS->result() as $row) 
+		    						{
+		    							$hora1 = date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));
+		    							$hora2 = date('h:i a', strtotime($row->hora));
+		    							//$hora2 = date('h:i a', $row->hora);
+		    							
+		    							if($hora1 == $hora2)
+		    							{
+		    								
+										?>
+		    								<tr class="<?=$this->set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+												<td><center><?=$i + 1?></center></td>
+												<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
+												<td><center><?= $row->numero_turno;?></center></td>
+												<td><center><?= $row->nombre_cliente;?></center></td>
+												<td><center><?= $row->tipo_cita ?></center></td>
+												<td>
+													<center>
+														<?php
+														if($row->costo_consulta == '-1'){
+														?>
+															<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
 
-			<table id="example1" class="table table-bordered table-striped">
-				<thead>
-					<tr>
-						<th><center>Hora Cita</center></th>
-						<th><center># Paciente</center></th>
-						<th><center>Nombre Paciente</center></th>
-						<th><center>Fecha Cita</center></th>
-						<th><center>Tipo Cita</center></th>
-						<th class="no-sort"><center>Opciones</center></th>
-					</tr>
-				</thead>
-				<tbody>
-					<?php
-						$aumento = 5;
-	    				for($i=0; $i<144; $i++)
-	    				{
-	    					$hora_inicial = '08:00:00';
-	    					$hora1 = date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));
-							$hora2 = date('h:i a', strtotime('00:00:00'));
-	    					if($DATA_CITAS != FALSE)
-	    					{
-	    						foreach ($DATA_CITAS->result() as $row) 
-	    						{
-	    							$hora1 = date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));
-	    							$hora2 = date('h:i a', strtotime($row->hora));
-	    							//$hora2 = date('h:i a', $row->hora);
-	    							
-	    							if($hora1 == $hora2)
-	    							{
-	    								
-									?>
-	    								<tr class="<?=$this->set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
-											<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
-											<td><center><?= $row->numero_turno;?></center></td>
-											<td><center><?= $row->nombre_cliente;?></center></td>
-											<td><center><?= $row->fecha ?></center></td>
-											<td><center><?= $row->tipo_cita ?></center></td>
-											<td>
-												<center>
-													<?php
-													if($row->costo_consulta == '-1'){
-													?>
-														<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
+															<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
+														<?php
+														}
+														else
+														{
+														?>
+															<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
+															<button  data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
+														<?php
+														}
+														?>
+													</center>
+												</td>
+											</tr>
+										<?php
+											$aumento = $aumento + 5;
+		    								break;
+		    							}
 
-														<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
-													<?php
-													}
-													else
-													{
-													?>
-														<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
-														<button  data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
-													<?php
-													}
-													?>
-												</center>
-											</td>
-										</tr>
-									<?php
-										$aumento = $aumento + 5;
-	    								break;
-	    							}
-
-	    						}	
-	    					}
-	    					
-	    					if($hora1 != $hora2)
-							{
-	    					?>
-								<tr>
-	    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
-									<td><center>-</center></td>
-									<td><center>-</center></td>
-									<td><center>-</center></td>
-									<td><center>-</center></td>
-									<td><center>-</center></td>
-	    						</tr>
-							<?php
-								
-		    					$aumento = $aumento + 5;
+		    						}	
+		    					}
+		    					
+		    					if($hora1 != $hora2)
+								{
+		    					?>
+									<tr>
+										<td><center><?=$i + 1?></center></td>
+		    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+										<td><center>-</center></td>
+										<td><center>-</center></td>
+										<td><center>-</center></td>
+										<td><center><button class="btn btn-success btn_add_cita_modal" data-hora="<?=$hora1?>" data-fecha="<?=$DATA_FECHA?>" data-toggle="modal" data-target="#modal_agregar_citas"><i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cita"  ></i><span></span></button></center></td>
+		    						</tr>
+								<?php
+									
+			    					$aumento = $aumento + 5;
+			    				}
 		    				}
-	    				}
-	    			?>
-				</tbody> 
-			</table>
+		    			?>
+					</tbody> 
+				</table>
+			</div>
 			<?php
 		}else{
 			redirect(base_url());
@@ -255,6 +262,22 @@ class Citas extends CI_Controller {
         }else{
 			redirect(base_url());
 		}
+	}
+
+	//LLENA EL SELECT DE TIPO DE CITAS CUANDO CAMBIA EL CLIENTE Y ESTABLECE SI ES MEMBRESIA O NO
+	public function set_select_tipo_cita()
+	{
+		$id_cliente = $this->uri->segment(3);
+		$is_membresia = $this->Citas_model->get_tipo_cita($id_cliente);
+		$DATA_MEMBRESIA = $this->Citas_model->get_tipo_citas($is_membresia);
+		if($DATA_MEMBRESIA != FALSE)
+		{
+			foreach ($DATA_MEMBRESIA->result() as $row) 
+			{
+				echo '<option value="'.$row->id_tipo_cita.'">'.$row->tipo_cita.'</option>';
+			}
+		}
+		
 	}
 
 	//OBTIENE LOS PRODUCTOS DEPENDIENDO DEL TIPO
@@ -449,18 +472,19 @@ class Citas extends CI_Controller {
 	        $pdf->SetTitle("Ticket Pago");
 	        $pdf->AddPage();
 	        /*Encabezado*/
-	        $pdf->setY(17);
+	        $pdf->setY(3);
 	        $pdf->SetFont('Times','B',12);
-	        $pdf->Cell(0,5,'Control de Peso',0,1,'C');
-	        $pdf->Image(base_url().'images/logo.jpg',30,0,20);
+	        $pdf->Cell(2,3,'',0,0);
+	        $pdf->Cell(0,5,'Control de Peso',0,1,'L');
+	        $pdf->Image(base_url().'images/logo.jpg',60,0,20);
 	        $pdf->SetFont('Times','B',8);
 	        
 	        $pdf->Cell(2,3,'',0,0);
-	        $pdf->Cell(0,3,'LIC. EN CIENCIAS NUTRICIONALES',0,1,'C');
+	        $pdf->Cell(0,3,'LIC. EN CIENCIAS NUTRICIONALES',0,1,'L');
 	        $pdf->Cell(2,3,'',0,0);
-        	$pdf->Cell(0,3,'JORGE LUIS ESPINOZA CALLES',0,1,'C');
+        	$pdf->Cell(0,3,'JORGE LUIS ESPINOZA CALLES',0,1,'L');
 			$pdf->Cell(2,3,'',0,0);
-        	$pdf->Cell(0,3,'RESPONSABLE SANITARIO',0,1,'C');
+        	$pdf->Cell(0,3,'RESPONSABLE SANITARIO',0,1,'L');
 			
 	        $pdf->ln();
 			

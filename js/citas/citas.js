@@ -36,6 +36,54 @@ var citas = {
         });
     },
 
+    datos_add_cita: function(){
+        $(document).on('click','button.btn_add_cita_modal', function () {
+            var data = {
+                fecha : $(this).data('fecha'),
+                hora : $(this).data('hora')
+            };  
+
+            $('#txt_fecha_citas_modal').val(data.fecha);
+            $('#txt_hora_citas_modal').val(data.hora);
+        });
+    },
+
+    add_cita_modal: function(){
+        $('#agregar_citas_modal').on('submit', function(form){
+            form.preventDefault();
+            var data = {
+                id_cliente : $('#select_cliente_modal').val(), 
+                txt_fecha : $('#txt_fecha_citas_modal').val(),
+                txt_hora : $('#txt_hora_citas_modal').val(),
+                id_tipo_cita : $('#select_tipo_cita_modal').val(),
+            }
+            var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
+            console.log(response);
+            if(response == false)
+            {
+                swal({
+                    title: 'CORRECTO',
+                    text: 'LA CITA SE AGREGO CORRECTAMENTE',
+                    type: 'success',
+                closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
+            }
+            else if(response == true)
+            {
+                swal({
+                    title: 'ATENCION!!',
+                    text: 'LA HORA Y FECHA DE LA CITA YA ESTA OCUPADA',
+                    type: 'warning',
+                    closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
+            }
+        });
+    },
+
     eliminar_cita: function(){
         $(document).on('click', 'button.eliminar_cita', function () {
             
@@ -241,16 +289,24 @@ var citas = {
 
     get_tipo_cita: function(){
         $("#select_cliente").on("change", function (form) {
-           alert('hola mundo'); 
+            $('#select_tipo_cita').html('');
+            var id_cliente = $('#select_cliente').val();
+            $("#select_tipo_cita").load(base_url + "citas/set_select_tipo_cita/"+id_cliente);
         });
     },
 
-
-
-
+    get_tipo_cita_modal: function(){
+        $("#select_cliente_modal").on("change", function (form) {
+            $('#select_tipo_cita_modal').html('');
+            var id_cliente = $('#select_cliente_modal').val();
+            $("#select_tipo_cita_modal").load(base_url + "citas/set_select_tipo_cita/"+id_cliente);
+        });
+    },
 }
 jQuery(document).ready(function() { 
    citas.add_cita(this);
+   citas.datos_add_cita(this);
+   citas.add_cita_modal(this);
    citas.add_cliente(this);
    citas.eliminar_cita(this);
    citas.datos_cobro_citas(this);
@@ -259,4 +315,5 @@ jQuery(document).ready(function() {
    citas.add_peso(this);
    citas.consultar_citas(this);
    citas.get_tipo_cita(this);
+   citas.get_tipo_cita_modal(this);
 });

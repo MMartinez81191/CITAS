@@ -45,10 +45,71 @@ class Citas_model extends CI_Model {
         
     }
 
-    public function get_tipo_citas()
+    //OBTIENE SI EL MAXIMO CLIENTE ES UNA MEMBRESIA
+    public function get_tipo_cita_max_id_cliente()
+    {
+        $this->db->limit(1);
+        $this->db->select('membresia');
+        $this->db->from('clientes');
+        $this->db->where('activo',1);
+        $this->db->order_by('id_cliente','DESC');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            if($query->row('membresia') == "0")
+            {
+                return FALSE;
+            }
+            else
+            {
+                return TRUE;
+            }
+        }
+        else
+        {
+            return FALSE;
+        }        
+    }
+
+    //OBTIENE SI LA CITA ES MEMBRESIA O NO
+    public function get_tipo_cita($id_cliente)
+    {
+        $this->db->select('membresia');
+        $this->db->from('clientes');
+        $this->db->where('activo',1);
+        $this->db->where('id_cliente',$id_cliente);
+        $this->db->order_by('id_cliente','DESC');
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            if($query->row('membresia') == "0")
+            {
+                return FALSE;
+            }
+            else
+            {
+                return TRUE;
+            }
+        }
+        else
+        {
+            return FALSE;
+        }        
+    }
+
+    //OBTIENE LOS TIPOS DE CITAS DISPONIBLES
+    public function get_tipo_citas($membresia)
     {
         $this->db->from('tipos_citas');
         $this->db->where('activo',1);
+        if($membresia == TRUE)
+        {
+            $this->db->where('id_tipo_cita',2);            
+        }
 
         $query = $this->db->get();
         

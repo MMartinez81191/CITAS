@@ -224,7 +224,7 @@
 
 			    }],
 			    "pageLength": 100,
-			    "ordering": false,
+			    "ordering": true,
 			} );
 
 			$('#example2').dataTable( {

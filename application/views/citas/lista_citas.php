@@ -64,7 +64,7 @@
 			          				<div class="col-lg-4">
 			      						<div class="form-group">
 						                	<label>Nombre Paciente:</label>
-						                	<select id="select_cliente" name="select_cliente" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+						                	<select id="select_cliente" name="select_cliente" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required="true">
 								                  <?php
 					                                if($DATA_CLIENTES != FALSE)
 						                            {		                                
@@ -128,7 +128,7 @@
 			      					<div class="col-lg-4">
 			      						<div class="form-group">
 						                	<label>Tipo de cita:</label>
-						                	<select id="select_tipo_cita" name="select_tipo_cita" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+						                	<select id="select_tipo_cita" name="select_tipo_cita" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required="true">
 								                  <?php
 					                                if($DATA_TIPO_CITAS != FALSE)
 						                            {		                                
@@ -139,7 +139,7 @@
 						                                    echo '</option>';                                
 						                                }
 						                            
-						                            }                                      
+						                            }                                    
 					                            ?>
 						                	</select>
 						              	</div>
@@ -154,21 +154,21 @@
 				    </div>
 	        	</div>
 	        	<div class="row">
-			        <div class="box box-primary">
+			        <div class="box box-primary" id="tabla_citas" name="tabla_citas">
 			        	<div class="box-header">
 			        		<center>
-			        			<h3>Citas Programadas</h3>
+			        			<h3>Citas programadas del dia <?=date('d-m-Y',strtotime($DATA_FECHA))?></h3>
 			        		</center>
 			        	</div>
 						<div class="box-body table-responsive">
-							<div id="tabla_citas" name="tabla_citas">
+							<div>
 								<table id="example1" class="table table-bordered table-striped">
 									<thead>
 										<tr>
+											<th><center>#</center></th>
 											<th><center>Hora Cita</center></th>
-											<th><center># Paciente</center></th>
+											<th><center>Turno</center></th>
 											<th><center>Nombre Paciente</center></th>
-											<th><center>Fecha Cita</center></th>
 											<th><center>Tipo Cita</center></th>
 											<th class="no-sort"><center>Opciones</center></th>
 										</tr>
@@ -185,6 +185,7 @@
 							    					{
 							    						foreach ($DATA_CITAS->result() as $row) 
 							    						{
+
 							    							$hora1 = date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));
 							    							$hora2 = date('h:i a', strtotime($row->hora));
 							    							//$hora2 = date('h:i a', $row->hora);
@@ -194,10 +195,10 @@
 							    								
 															?>
 							    								<tr class="<?=set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
+							    									<td><center><?=$i + 1?></center></td>
 																	<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
 																	<td><center><?= $row->numero_turno;?></center></td>
 																	<td><center><?= $row->nombre_cliente;?></center></td>
-																	<td><center><?= $row->fecha ?></center></td>
 																	<td><center><?= $row->tipo_cita ?></center></td>
 																	<td>
 																		<center>
@@ -233,12 +234,12 @@
 													{
 							    					?>
 														<tr>
+															<td><center><?=$i + 1?></center></td>
 							    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>
-															<td><center>-</center></td>
-															<td><center>-</center></td>
+															<td><center><button class="btn btn-success btn_add_cita_modal" data-hora="<?=$hora1?>" data-fecha="<?=$DATA_FECHA?>" data-toggle="modal" data-target="#modal_agregar_citas"><i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cita"  ></i><span></span></button></center></td>
 							    						</tr>
 													<?php
 														
@@ -474,7 +475,83 @@
 </div>
 <!-- FIN DEL MODAL PARA AGREGAR PESO -->
 
+<!-- MODAL PARA AGREGAR CITAS -->
+<div class="modal fade" id="modal_agregar_citas" tabindex="-1" role="dialog" aria-hidden="true" >
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+            	<center><h3 class="modal-title">Agregar citas</h3></center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+	            <form  name="agregar_citas_modal" id="agregar_citas_modal">
+	            	<div class="form-group">
+		                <label>Fecha de cita:</label>
+		                <div class="input-group">
+		                	<span class="input-group-addon">
+						        <i class="fa fa-calendar"></i>
+						    </span>
+		                	<input type="text" class="form-control" id="txt_fecha_citas_modal" name="txt_fecha_citas_modal" required="true" readonly="true">
+		                </div>
+		            </div>
 
+	            	<div class="form-group">
+		                <label>Hora de Cita:</label>
+		                <div class="input-group">
+		                	<span class="input-group-addon">
+						        <i class="fa fa-clock-o"></i>
+						    </span>
+		                	<input type="text" class="form-control" id="txt_hora_citas_modal" name="txt_hora_citas_modal" required="true" readonly="true">
+		                </div>
+		            </div>
+
+	            	<div class="form-group">
+	            		<label>Nombre Paciente:</label>
+	                	<select id="select_cliente_modal" name="select_cliente_modal" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+			                  <?php
+	                            if($DATA_CLIENTES != FALSE)
+	                            {		                                
+	                                foreach ($DATA_CLIENTES->result() as $row)
+	                                {
+	                                    echo '<option value="'.$row->id_cliente.'">';
+	                                        echo $row->nombre_cliente;
+	                                    echo '</option>';                                
+	                                }
+	                            
+	                            }                                      
+	                        ?>
+	                	</select>
+	            	</div>
+	            	
+	            	<div class="form-group">
+	                	<label>Tipo de cita:</label>
+	                	<select id="select_tipo_cita_modal" name="select_tipo_cita_modal" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+			                  <?php
+                                if($DATA_TIPO_CITAS != FALSE)
+	                            {		                                
+	                                foreach ($DATA_TIPO_CITAS->result() as $row)
+	                                {
+	                                    echo '<option value="'.$row->id_tipo_cita.'">';
+	                                        echo $row->tipo_cita;
+	                                    echo '</option>';                                
+	                                }
+	                            
+	                            }                                      
+                            ?>
+	                	</select>
+	              	</div>
+	 				<hr>
+				 	<div class="row modal-footer" style="margin-top: 10px;">
+	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	                    <button type="submit" class="btn btn-primary" class="btn btn-primary">Guardar</button>
+
+	                </div>
+				</form> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN DEL MODAL PARA AGREGAR CITAS -->
 
 
 
