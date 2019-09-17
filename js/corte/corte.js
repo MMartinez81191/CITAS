@@ -236,6 +236,61 @@ var corte = {
         });
     },
 
+    //====================================
+    //VENTA DE CARNETS
+    //====================================
+    add_venta_carnets: function(){
+        $('#agregar_venta_carnets').on('submit', function(form){
+            form.preventDefault();
+            
+            var data = {
+                txt_fecha : $('#txt_fecha_venta_carnets').val(),
+                select_cliente : $('#select_cliente_venta_carnets').val(), 
+                txt_numero_carnets : $('#txt_numero_venta_carnets').val(), 
+            }
+
+            cargar_ajax.run_server_ajax('corte/crear_venta_carnets', data);
+            swal({
+                title: 'CORRECTO',
+                text: 'SE AGREGO CORRECTAMENTE LA VENTA DE CARNET',
+                type: 'success',
+                closeOnConfirm: false
+            },function(){
+                window.location.assign(base_url + 'corte');
+            });
+        });
+    },
+
+    eliminar_venta_carnets: function(){
+        $(document).on('click', 'button.eliminar_venta_carnet', function () {
+            
+            id_venta = $(this).data('id');
+            var data = {id_venta : id_venta};
+            swal({
+                title: "¿Esta seguro de eliminar esta venta?",
+                type: "warning",
+                showCancelButton: true,
+                confirmButtonColor: "#DD6B55",
+                confirmButtonText: "Si, eliminar",
+                closeOnConfirm: false,
+                allowEscapeKey: false,
+                allowEnterKey: false
+            }, function () {
+                swal({
+                    title: 'ELIMINADO',
+                    text: 'Se elimino correctamente la cita',
+                    type: 'success',
+                    closeOnConfirm: false
+                },function(){
+                    cargar_ajax.run_server_ajax('corte/eliminar_venta_carnet', data);
+                    var toDelete = '#tr_' + id_venta;
+                    $(toDelete).remove();
+                    window.location.reload();
+                }); 
+            });
+        });
+    },
+
 }
 jQuery(document).ready(function() { 
    corte.busqueda_dia(this);
@@ -247,12 +302,10 @@ jQuery(document).ready(function() {
    corte.obtener_reporte_mes(this);
    corte.obtener_reporte_anio(this);
    corte.obtener_reporte_pendientes(this);
-   
    corte.add_gastos(this);
    corte.eliminar_gasto(this);
-
    corte.add_devoluciones(this);
    corte.eliminar_devolucion(this);
-
-   
+   corte.add_venta_carnets(this);
+   corte.eliminar_venta_carnets(this);
 });

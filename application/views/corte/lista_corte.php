@@ -21,7 +21,7 @@
 				    		<div class="col-xs-12">
 								<div class="nav-tabs-custom">
 									<ul class="nav nav-tabs">
-										<li  id="pestania_1" name="pestania_1"><a href="#tab_1" data-toggle="tab">Filtro por dia</a></li>
+										<li class="active" id="pestania_1" name="pestania_1"><a href="#tab_1" data-toggle="tab">Filtro por dia</a></li>
 										
 										<?php
 										if($nivel < 5)
@@ -35,10 +35,10 @@
 										<?php
 										}
 										?>
-										<li class="active" id="pestania_5" name="pestania_5"><a href="#tab_5" data-toggle="tab">Gastos, devoluciones y carnets</a></li>
+										<li id="pestania_5" name="pestania_5"><a href="#tab_5" data-toggle="tab">Gastos, devoluciones y carnets</a></li>
 									</ul>
 									<div class="tab-content">
-										<div class="tab-pane" id="tab_1">
+										<div class="tab-pane  active" id="tab_1">
 											<div class="row">
 												<div class="col-xs-4">
 													<div class="form-group">
@@ -172,7 +172,7 @@
 										<?php
 										}
 										?>
-										<div class="tab-pane active" id="tab_5">
+										<div class="tab-pane" id="tab_5">
 											<div class="row">
 									          	<div class="box">
 										            <div class="box-header">
@@ -266,7 +266,7 @@
 										            <div class="box-header">
 										            	<h3>Venta de carnets</h3>
 										            	<div class="col-lg-offset-10">
-										              		<button class="btn btn-primary"><i class="fa fa-plus"></i> Agregar Venta Carnet</button>
+										              		<button class="btn btn-primary" data-toggle="modal" data-target="#modal_agregar_venta_carnet"><i class="fa fa-plus"></i> Agregar Venta Carnet</button>
 										              	</div>
 											        </div>
 											    </div>

@@ -297,6 +297,57 @@ class Corte_model extends CI_Model {
     }
 
     //=================================================================
+    //BALANCE GENERAL
+    //=================================================================
+    public function get_balance_general($dia)
+    {
+        $sql = "
+                    SELECT COUNT(costo_consulta) numero_pacientes,'Consultas' AS descripcion,SUM(costo_consulta) AS importe ,fecha
+                    FROM citas 
+                    WHERE  
+                    fecha = '".$dia."' AND 
+                    id_tipo_cita != 2 AND 
+                    cobrado = 1 AND
+                    activo = 1
+                    UNION
+                    SELECT COUNT(costo_consulta) numero_pacientes,'Membresias' AS descripcion,SUM(costo_consulta) AS importe ,fecha
+                    FROM citas 
+                    WHERE  
+                    fecha = '".$dia."' AND 
+                    id_tipo_cita = 2 AND 
+                    cobrado = 1 AND
+                    activo = 1
+                    UNION
+                    SELECT 0 AS numero_pacientes,'Total Venta de carnets' AS descripcion, SUM(numero_carnets_vendidos) as importe,fecha
+                    FROM venta_carnets 
+                    WHERE
+                    fecha = '".$dia."' AND 
+                    activo = 1
+                    UNION
+                    SELECT 0 AS numero_pacientes,'Total gastos' AS descripcion ,SUM(importe) AS importe ,fecha
+                    FROM gastos 
+                    WHERE fecha = '".$dia."' AND 
+                    activo = 1 
+                    UNION
+                    SELECT 0 AS numero_pacientes, 'Total devoluciones' AS descripcion, SUM(importe) AS importe, fecha
+                    FROM devoluciones
+                    WHERE activo = 1 AND
+                    fecha = '".$dia."';
+
+                    ";
+        $query = $this->db->query($sql);
+        
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }   
+
+    //=================================================================
     //GASTOS
     //=================================================================
     public function get_gasto()
@@ -321,6 +372,7 @@ class Corte_model extends CI_Model {
     {
         $this->db->from('gastos');
         $this->db->where('fecha',$dia);
+        $this->db->where('activo',1);
 
         $query = $this->db->get();
 
@@ -365,6 +417,27 @@ class Corte_model extends CI_Model {
         {
             return FALSE;
         }    
+    }
+
+    public function get_devolucion_dia($dia)
+    {
+
+        $this->db->select('COUNT(importe) as numero_devoluciones,importe');
+        $this->db->select_sum('importe','importe_suma');
+        $this->db->from('devoluciones');
+        $this->db->where('fecha',$dia);
+        $this->db->where('activo',1);
+        $this->db->group_by('importe');
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
     }
 
     public function get_clientes()
@@ -418,4 +491,34 @@ class Corte_model extends CI_Model {
         }    
     }
 
+    public function get_venta_carnets_dia($dia)
+    {
+
+        $this->db->select_sum('numero_carnets_vendidos');
+        $this->db->from('venta_carnets');
+        $this->db->where('fecha',$dia);
+        $this->db->where('activo',1);
+        $this->db->group_by('numero_carnets_vendidos');
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    public function insert_venta_carnet($data)
+    {
+        $this->db->insert('venta_carnets',$data);        
+    }
+
+    public function delete_venta_carnet($id_venta,$data)
+    {
+        $this->db->where('id_venta', $id_venta);
+        $this->db->update('venta_carnets',$data);
+    }
 }

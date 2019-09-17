@@ -44,9 +44,12 @@ class Corte extends CI_Controller {
 			switch ($operacion) {
 				case '1':
 					$dia = $this->uri->segment(4);
+					$DATA_BALANCE = $this->Corte_model->get_balance_general($dia);
 					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
 					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
 					$DATA_GASTO = $this->Corte_model->get_gasto_dia($dia);
+					$DATA_DEVOLUCION = $this->Corte_model->get_devolucion_dia($dia);
+					$DATA_CARNET = $this->Corte_model->get_venta_carnets_dia($dia);
 					break;
 				case '2':
 					$mes = $this->uri->segment(4);
@@ -71,6 +74,44 @@ class Corte extends CI_Controller {
 			}
 
 			?>
+			<hr>
+			<center><h4>Balance General</h4></center>
+			<br>
+			<table id="example1" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th><center># Pacientes</center></th>
+						<th><center>Concepto de pago</center></th>
+						<th><center>Costo</center></th>
+						<th><center>Total</center></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$total_corte = 0;
+					if($DATA_BALANCE != FALSE)
+					{
+						foreach ($DATA_BALANCE->result() as $row) 
+						{
+							?>
+							<tr>
+								<td><center><?=$row->numero_pacientes;?></center></td>
+								<td><center><?= $row->descripcion;?></center></td>
+								<td><center><?= '$'.number_format($row->importe,2,'.', ',')?></center></td>
+								<td><center><?= '$'.number_format($row->importe,2,'.', ',')?></center></td>
+							</tr>
+							<?php
+							$total_corte = $total_corte + $row->importe;
+						}
+					}
+					?>
+				</tbody> 
+					<tr>
+						<th colspan="3" style="text-align: right;">Total</th>
+						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
+					</tr>
+			</table>
+			<br>
 			<hr>
 			<center><h4>Detalle de Consultas</h4></center>
 			<br>
@@ -148,7 +189,7 @@ class Corte extends CI_Controller {
 			
 			<br>
 			<hr>
-			<center><h4>Detalle de Gastos</h4></center>
+			<center><h4>Detalle de gastos</h4></center>
 			<br>
 			<table id="example2" class="table table-bordered table-striped">
 				<thead>
@@ -179,6 +220,82 @@ class Corte extends CI_Controller {
 					<tr>
 						<th colspan="1" style="text-align: right;">Total</th>
 						<th><center><?='$'.number_format($total_gasto,2,'.', ',')?></center></th>
+					</tr>
+			</table>
+
+			<br>
+			<hr>
+			<center><h4>Detalle de devoluciones</h4></center>
+			<br>
+			<table id="example2" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th><center>Numero de devoluciones</center></th>
+						<th><center>Importe devolucion</center></th>
+						<th><center>Total</center></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$total_devolucion = 0;
+					if($DATA_DEVOLUCION != FALSE)
+					{
+						foreach ($DATA_DEVOLUCION->result() as $row) 
+						{
+							?>
+							<tr>
+								<td><center><?=$row->numero_devoluciones;?></center></td>
+								<td><center><?=number_format($row->importe,2,'.', ',')?></center></td>
+								<td><center><?=number_format($row->importe_suma,2,'.', ',')?></center></td>
+								
+							</tr>
+							<?php
+							$total_devolucion = $total_devolucion + $row->importe_suma;
+						}
+					}
+					?>
+				</tbody> 
+					<tr>
+						<th colspan="2" style="text-align: right;">Total</th>
+						<th><center><?='$'.number_format($total_devolucion,2,'.', ',')?></center></th>
+					</tr>
+			</table>
+
+			<br>
+			<hr>
+			<center><h4>Detalle venta de carnets</h4></center>
+			<br>
+			<table id="example2" class="table table-bordered table-striped">
+				<thead>
+					<tr>
+						<th><center>Numero de carnets vendidos</center></th>
+						<th><center>Costo Carnet</center></th>
+						<th><center>Importe</center></th>
+					</tr>
+				</thead>
+				<tbody>
+					<?php 
+					$total_carnet_vendidos = 0;
+					if($DATA_CARNET != FALSE)
+					{
+						foreach ($DATA_CARNET->result() as $row) 
+						{
+							?>
+							<tr>
+								<td><center><?=$row->numero_carnets_vendidos;?></center></td>
+								<td><center>$20.00</center></td>
+								<td><center><?='$'.number_format(($row->numero_carnets_vendidos * 20),2,'.', ',')?></center></td>
+								
+							</tr>
+							<?php
+							$total_carnet_vendidos = $total_carnet_vendidos + ($row->numero_carnets_vendidos * 20);
+						}
+					}
+					?>
+				</tbody> 
+					<tr>
+						<th colspan="2" style="text-align: right;">Total</th>
+						<th><center><?='$'.number_format($total_carnet_vendidos,2,'.', ',')?></center></th>
 					</tr>
 			</table>
 			<?php
@@ -588,7 +705,52 @@ class Corte extends CI_Controller {
 	//======================================================================================
 	//VENTA CARNETS
 	//======================================================================================
+	public function crear_venta_carnets()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request())
+			{
+				$data = array(				
+					'id_cliente' => trim($this->input->post('select_cliente')),
+					'numero_carnets_vendidos' => trim($this->input->post('txt_numero_carnets')),
+					'fecha' => trim($this->input->post('txt_fecha')),
+				);
+				$response = $this->Corte_model->insert_venta_carnet($data);
+				echo json_encode($response);
+			}
+			else
+			{
+	            show_404();
+	        }
+        }
+        else
+        {
+			redirect(base_url());
+		}
+	}
 
+	public function eliminar_venta_carnet()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request()){
+
+				$id_venta = $this->input->post('id_venta');
+				$data = array(
+					'activo' => 0, 
+				);
+				$this->Corte_model->delete_venta_carnet($id_venta,$data);
+				
+			}
+			else
+			{
+	            show_404();
+        	}
+        }else{
+			redirect(base_url());
+		}
+	}
 
 	//======================================================================================
 	//FUNCIONES ADICIONALES
