@@ -38,16 +38,28 @@ WHERE
 	fecha = '2019-09-16' AND 
 	activo = 1
 UNION
-SELECT 0 numero_pacientes,'Total gastos' AS descripcion, count(importe) AS costo ,SUM(importe) AS total 
+SELECT 
+	0 numero_pacientes,
+    COUNT(importe) as numero,
+    'Total gastos' AS descripcion, 
+    count(importe) AS costo ,
+    SUM(importe) AS total 
 FROM gastos 
-WHERE fecha = '2019-09-16' AND 
-activo = 1
+WHERE 
+	fecha = '2019-09-16' AND 
+	activo = 1
  
 UNION
-SELECT 0 AS numero_pacientes, 'Total devoluciones' AS descripcion,count(importe) as costo, SUM(importe) AS total
+SELECT 
+	0 AS numero_pacientes, 
+	COUNT(importe) AS numero,
+    'Total devoluciones' AS descripcion,
+    count(importe) as costo,
+    SUM(importe) AS total
 FROM devoluciones
-WHERE activo = 1 AND
-fecha = '2019-09-16'
+WHERE 
+	activo = 1 AND
+	fecha = '2019-09-16'
 
 
 

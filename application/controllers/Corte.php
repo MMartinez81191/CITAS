@@ -81,6 +81,7 @@ class Corte extends CI_Controller {
 				<thead>
 					<tr>
 						<th><center># Pacientes</center></th>
+						<th><center></center></th>
 						<th><center>Concepto de pago</center></th>
 						<th><center>Costo</center></th>
 						<th><center>Total</center></th>
@@ -95,19 +96,37 @@ class Corte extends CI_Controller {
 						{
 							?>
 							<tr>
-								<td><center><?=$row->numero_pacientes;?></center></td>
+								<td><center><?php 
+									if($row->numero_pacientes != 0)
+									{ 
+										echo $row->numero_pacientes;
+									}?>
+								</center></td>
+								<td><center><?php 
+									if($row->numero != 0)
+									{ 
+										echo $row->numero;
+									}?>
+								</center></td>
 								<td><center><?= $row->descripcion;?></center></td>
-								<td><center><?= '$'.number_format($row->importe,2,'.', ',')?></center></td>
-								<td><center><?= '$'.number_format($row->importe,2,'.', ',')?></center></td>
+								<td><center><?= '$'.number_format($row->costo,2,'.', ',')?></center></td>
+								<td><center><?= '$'.number_format($row->total,2,'.', ',')?></center></td>
 							</tr>
 							<?php
-							$total_corte = $total_corte + $row->importe;
+							if($row->descripcion == 'Total gastos' OR $row->descripcion == 'Total devoluciones')
+							{
+								$total_corte = $total_corte - $row->total;
+							}
+							else
+							{
+								$total_corte = $total_corte + $row->total;
+							}
 						}
 					}
 					?>
 				</tbody> 
 					<tr>
-						<th colspan="3" style="text-align: right;">Total</th>
+						<th colspan="4" style="text-align: right;">Total</th>
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
@@ -369,7 +388,185 @@ class Corte extends CI_Controller {
 
 	public function imprimir_reporte_citas()
 	{
+		
 		if($this->seguridad() == TRUE)
+		{
+			//Datos necesarios para crear PDF
+	        $fecha_actual=date("d/m/Y");
+	        $hora = date("h:m:s a");
+	        $this->load->library('fpdf_manager');
+	        $pdf = new fpdf_manager('P','mm',array(80,550));
+	        $pdf->SetMargins(1,1,1,1);
+	        
+	        $Nombre_archivo = 'Reporte de Citas.pdf';
+            $pdf->SetTitle("Corte de Caja");
+	        $pdf->AddPage();
+	        $pdf->setY(3);
+	        /*Encabezado*/
+	        $pdf->Image(base_url().'images/logo.jpg',60,3,20);
+	        $pdf->SetFont('Arial','B',12);
+	        //$pdf->Cell(90,6,'',0,0);
+	        
+	        $pdf->Cell(0,6,'CORTE DE CAJA',0,0,'L');
+	        $pdf->ln();
+	        $pdf->ln();
+	        $pdf->SetFont('Arial','B',9);
+	        $pdf->Cell(0,6,'Fecha:'.$fecha_actual,0,0,'L');
+	        $pdf->Ln();
+	        $pdf->Cell(0,5,"Realizado Por:".$this->session->userdata('nombre'),0,0,'L');
+	        $pdf->Ln();
+	        $pdf->Cell(0,0,"",1,1);
+
+			$operacion = $this->uri->segment(3);
+			$total_corte = 0;
+
+			switch ($operacion) {
+				case '1':
+					$dia = $this->uri->segment(4);
+					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
+					$informacion_cita = 'EL DIA '.$dia;
+					break;
+				case '2':
+					$mes = $this->uri->segment(4);
+					$anio = $this->uri->segment(5);
+					$DATA_CITAS = $this->Corte_model->get_citas_mes($mes,$anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_mes_membresia($mes,$anio);
+					$informacion_cita = 'EL MES '.$mes. ' DEL AÑO '.$anio;
+					break;
+				case '3':
+					$anio = $this->uri->segment(4);
+					$DATA_CITAS = $this->Corte_model->get_citas_anio($anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_anio_membresia($anio);
+					$informacion_cita = 'EL AÑO '.$anio;
+					break;
+				case '4':
+					$mes = $this->uri->segment(4);
+					$anio = $this->uri->segment(5);
+					$DATA_CITAS = $this->Corte_model->get_citas_pendientes($mes,$anio);
+					$DATA_MEMBRESIA = $this->Corte_model->get_citas_pendientes_membresia($mes,$anio);
+					$informacion_cita = 'EL MES '.$mes. ' DEL AÑO '.$anio;
+					break;
+				default:
+					$DATA_CITAS = FALSE;
+					break;
+			}
+
+			$pdf->Ln();
+			$pdf->Ln();
+	        $pdf->Ln();
+			$pdf->Ln();
+	        $pdf->Cell(0,0,"",1,1);
+	        $pdf->SetFont('Arial','B',9);
+	        $pdf->Cell(0,5,utf8_decode('DETALLE CONSULTAS Y MEMBRESIAS'),0,0,'C');
+	        $pdf->Ln();
+	        $pdf->Cell(0,0,"",1,1);
+	        $pdf->Ln();
+	        $pdf->SetFont('Arial','',8);
+	        $pdf->Ln();
+
+	        
+	        if($DATA_CITAS != FALSE)
+	        {
+	        	
+	        	$pdf->SetFillColor(175,175,175); 
+	        	$pdf->SetFont('Arial','B',10);
+	        	$pdf->Cell(15,5,'',0,0,'C',0,0);
+		        $pdf->Cell(40,5,'Pacientes',1,0,'C',1);
+		        $pdf->Cell(40,5,'Tipo Cita',1,0,'C',1);
+		        $pdf->Cell(40,5,'Costo',1,0,'C',1);
+		        $pdf->Cell(40,5,'Total',1,0,'C',1);
+		        $pdf->Ln();
+		        
+	        	foreach($DATA_CITAS->result() as $row)
+	        	{
+	        		$total_corte = $row->total + $total_corte;
+        			$pdf->SetFont('Arial','',7);
+			        $pdf->Cell(15,5,'',0,0,'C',0,0);
+			        $pdf->Cell(40,5,$row->pacientes,1,0,'C');
+			        $pdf->Cell(40,5,$row->tipo_cita,1,0,'L');
+			        $pdf->Cell(40,5,'$'.number_format($row->costo,2,'.', ','),1,0,'C');
+			        $pdf->Cell(40,5,'$'.number_format($row->total,2,'.', ','),1,0,'C');
+
+			        $pdf->Ln();
+
+			        if($pdf->getY() > 250)
+			        {
+			        	$pdf->Ln();
+				        $pdf->SetY(-30);
+				        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
+			        	$this->encabezado_pdf($pdf,$fecha_actual);
+			        }
+
+	        		
+	        	}
+
+	        	$pdf->SetFillColor(155,155,155); 
+	        	$pdf->SetFont('Arial','B',10);
+		        $pdf->Cell(15,5,'',0,0,'C',0,0);
+		        $pdf->Cell(120,5,'Total:',1,0,'R');
+		        $pdf->Cell(40,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
+	        }
+	        $pdf->Ln();
+	        $pdf->Ln();
+	        $pdf->SetFont('Arial','B',12);
+	        $pdf->Cell(0,5,utf8_decode('DETALLE MEMBRESIAS REGISTRADAS '.$informacion_cita),0,0,'L');
+	        $pdf->SetFont('Arial','',8);
+	        $pdf->Ln();
+	        $pdf->Ln();
+
+
+	        if($DATA_MEMBRESIA != FALSE)
+	        {
+	        	
+	        	$pdf->SetFillColor(175,175,175); 
+	        	$pdf->SetFont('Arial','B',10);
+	        	$pdf->Cell(35,5,'',0,0,'C',0,0);
+		        $pdf->Cell(40,5,'Folio Membresia',1,0,'C',1);
+		        $pdf->Cell(40,5,'Numero Consulta',1,0,'C',1);
+		        $pdf->Cell(40,5,'Importe',1,0,'C',1);
+		        
+		        $pdf->Ln();
+		        $total_corte = 0;
+	        	foreach($DATA_MEMBRESIA->result() as $row)
+	        	{
+	        		$total_corte = $row->costo_consulta + $total_corte;
+        			$pdf->SetFont('Arial','',7);
+			        $pdf->Cell(35,5,'',0,0,'C',0,0);
+			        $pdf->Cell(40,5,$row->numero_membresia,1,0,'C');
+			        $pdf->Cell(40,5,$row->numero_cita,1,0,'L');
+			        $pdf->Cell(40,5,'$'.number_format($row->costo_consulta,2,'.', ','),1,0,'C');
+			        
+
+			        $pdf->Ln();
+
+			        if($pdf->getY() > 250)
+			        {
+			        	$pdf->Ln();
+				        $pdf->SetY(-30);
+				        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
+			        	$this->encabezado_pdf($pdf,$fecha_actual);
+			        }
+
+	        		
+	        	}
+
+	        	$pdf->SetFillColor(155,155,155); 
+	        	$pdf->SetFont('Arial','B',10);
+		        $pdf->Cell(35,5,'',0,0,'C',0,0);
+		        $pdf->Cell(80,5,'Total:',1,0,'R');
+		        $pdf->Cell(40,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
+	        }
+
+	        $pdf->Ln();
+	        $pdf->SetY(-30);
+	        $pdf->Cell(0,3,$pdf->PageNo(),0,0,'C');
+
+			$pdf->Output($Nombre_archivo, 'I');
+		}else{
+			redirect(base_url());
+		}
+		/*if($this->seguridad() == TRUE)
 		{
 			//Datos necesarios para crear PDF
 	        $fecha_actual=date("d/m/Y");
@@ -381,7 +578,7 @@ class Corte extends CI_Controller {
 	        $Nombre_archivo = 'Reporte de Citas.pdf';
             $pdf->SetTitle("Corte de Caja");
 	        $pdf->AddPage();
-	        /*Encabezado*/
+	        /*Encabezado*
 	        $pdf->Image(base_url().'images/logo.jpg',10,8,20);
 	        $pdf->SetFont('Arial','B',12);
 	        //$pdf->Cell(90,6,'',0,0);
@@ -553,7 +750,7 @@ class Corte extends CI_Controller {
 			$pdf->Output($Nombre_archivo, 'I');
 		}else{
 			redirect(base_url());
-		}
+		}*/
 	}
 
 	public function encabezado_pdf($pdf,$fecha_actual)

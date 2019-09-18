@@ -495,15 +495,15 @@ class Citas extends CI_Controller {
 
 	        $pdf->Cell(4,5,'',0,0);
 	        $pdf->SetFont('Times','B',10);
-	        $pdf->Cell(72,5,utf8_decode('Datos Consulta').'                                      '.date("g:i a", strtotime($DATA_CITA->hora)),1,1,'L',1);
+	        $pdf->Cell(72,5,utf8_decode('Datos Consulta').'                                   '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
 	        $pdf->SetFont('Times','',10);
 
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->MultiCell(72,5,utf8_decode('Nombre: '.$DATA_CITA->nombre_cliente),1);
+    		$pdf->MultiCell(72,5,utf8_decode('Nombre: '.$DATA_CITA->nombre_cliente),1,'L');
 
-			$pdf->Cell(4,5,'',0,0);
+			/*$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Fecha Consulta:',1,0,'L',1);
-    		$pdf->Cell(44,5,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');
+    		$pdf->Cell(44,5,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');*/
 
     		/*$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Hora Consulta:',1,0,'L',1);
