@@ -415,7 +415,8 @@ class Corte extends CI_Controller {
 	        $pdf->Ln();
 	        $pdf->Cell(0,5,"Realizado Por:".$this->session->userdata('nombre'),0,0,'L');
 	        $pdf->Ln();
-	        $pdf->Cell(0,0,"",1,1);
+	        $pdf->Ln();
+
 
 			$operacion = $this->uri->segment(3);
 			$total_corte = 0;
@@ -423,9 +424,12 @@ class Corte extends CI_Controller {
 			switch ($operacion) {
 				case '1':
 					$dia = $this->uri->segment(4);
+					$DATA_BALANCE = $this->Corte_model->get_balance_general($dia);
 					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
 					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
-					$informacion_cita = 'EL DIA '.$dia;
+					$DATA_GASTO = $this->Corte_model->get_gasto_dia($dia);
+					$DATA_DEVOLUCION = $this->Corte_model->get_devolucion_dia($dia);
+					$DATA_CARNET = $this->Corte_model->get_venta_carnets_dia($dia);
 					break;
 				case '2':
 					$mes = $this->uri->segment(4);
@@ -452,26 +456,15 @@ class Corte extends CI_Controller {
 					break;
 			}
 
-			$pdf->Ln();
-			$pdf->Ln();
-	        $pdf->Ln();
-			$pdf->Ln();
-	        $pdf->Cell(0,0,"",1,1);
-	        $pdf->SetFont('Arial','B',9);
-	        $pdf->Cell(0,5,utf8_decode('DETALLE CONSULTAS Y MEMBRESIAS'),0,0,'C');
-	        $pdf->Ln();
-	        $pdf->Cell(0,0,"",1,1);
-	        $pdf->Ln();
-	        $pdf->SetFont('Arial','',8);
-	        $pdf->Ln();
-
+			
 	        
 	        if($DATA_CITAS != FALSE)
 	        {
 	        	
-	        	$pdf->SetFillColor(175,175,175); 
+	        	$pdf->SetFillColor(175,175,175);
+
 	        	$pdf->SetFont('Arial','B',10);
-	        	$pdf->Cell(15,5,'',0,0,'C',0,0);
+	        	$pdf->Cell(0,5,'DETALLE CONSULTAS',1,1,'C',1); 
 		        $pdf->Cell(40,5,'Pacientes',1,0,'C',1);
 		        $pdf->Cell(40,5,'Tipo Cita',1,0,'C',1);
 		        $pdf->Cell(40,5,'Costo',1,0,'C',1);
@@ -510,7 +503,7 @@ class Corte extends CI_Controller {
 	        $pdf->Ln();
 	        $pdf->Ln();
 	        $pdf->SetFont('Arial','B',12);
-	        $pdf->Cell(0,5,utf8_decode('DETALLE MEMBRESIAS REGISTRADAS '.$informacion_cita),0,0,'L');
+	        //$pdf->Cell(0,5,utf8_decode('DETALLE MEMBRESIAS REGISTRADAS '.$informacion_cita),0,0,'L');
 	        $pdf->SetFont('Arial','',8);
 	        $pdf->Ln();
 	        $pdf->Ln();

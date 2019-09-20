@@ -476,7 +476,7 @@
 <!-- FIN DEL MODAL PARA AGREGAR PESO -->
 
 <!-- MODAL PARA AGREGAR CITAS -->
-<div class="modal fade" id="modal_agregar_citas" tabindex="-1" role="dialog" aria-hidden="true" >
+<div class="modal fade" id="modal_agregar_citas"  role="dialog" aria-hidden="true" >
     <div class="modal-dialog modal-md" role="document">
         <div class="modal-content" >
             <div class="modal-header">
