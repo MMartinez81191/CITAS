@@ -223,7 +223,7 @@
 			         "orderable": true,
 
 			    }],
-			    "pageLength": 100,
+			    "pageLength": 200,
 			    "ordering": true,
 			} );
 

@@ -333,7 +333,7 @@ class Corte_model extends CI_Model {
                     SELECT 
                         0 AS numero_pacientes,
                         SUM(numero_carnets_vendidos) as numero,
-                        'Total Venta de carnets' AS descripcion,
+                        'Total de venta de carnets' AS descripcion,
                         20 as costo ,
                         (SUM(numero_carnets_vendidos) * 20) as total
                     FROM venta_carnets 

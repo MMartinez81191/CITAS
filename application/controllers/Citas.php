@@ -312,6 +312,12 @@ class Citas extends CI_Controller {
 				}
 			}
 		}
+		else
+		{
+			echo '<option value="0">';
+				echo '$0.00';	
+			echo '</option>';
+		}
 	}
 
 	public function up_membresia()
@@ -465,10 +471,10 @@ class Citas extends CI_Controller {
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
 	        $this->load->library('fpdf_manager');
-	        $pdf = new fpdf_manager('P','mm',array(80,150));
+	        $pdf = new fpdf_manager('P','mm',array(80,100));
 	        
 	        $Nombre_archivo = 'Ticket.pdf';
-	        $pdf->SetMargins(1,1,1,1);
+	        $pdf->SetMargins(0,1,1,0);
 	        $pdf->SetTitle("Ticket Pago");
 	        $pdf->AddPage();
 	        /*Encabezado*/
@@ -499,8 +505,17 @@ class Citas extends CI_Controller {
 	        $pdf->SetFont('Times','',10);
 
     		$pdf->Cell(4,5,'',0,0);
-    		$pdf->MultiCell(72,5,utf8_decode('Nombre: '.$DATA_CITA->nombre_cliente),1,'L');
+    		$y = $pdf->getY();
+    		$x = $pdf->getX();
 
+    		$pdf->MultiCell(72,5,utf8_decode('                                  '.$DATA_CITA->nombre_cliente.' '),1,'L');
+
+    		$pdf->setXY($x,$y);
+    		$pdf->Cell(28,5,'Nombre',1,1,'L',1,0);
+
+    		$y = $pdf->getY();
+    		$pdf->setY($y + 5);
+    		
 			/*$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Fecha Consulta:',1,0,'L',1);
     		$pdf->Cell(44,5,date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L');*/
@@ -562,9 +577,17 @@ class Citas extends CI_Controller {
 	        $pdf->Cell(72,5,utf8_decode('Datos Consulta').'                                  '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
 	        $pdf->SetFont('Times','',10);
 
-			
-    		$pdf->Cell(4,5,'',0,0);
-    		$pdf->MultiCell(72,5,'Nombre:'.utf8_decode($DATA_CITA->nombre_cliente),1);
+			$pdf->Cell(4,5,'',0,0);
+    		$y = $pdf->getY();
+    		$x = $pdf->getX();
+
+    		$pdf->MultiCell(72,5,utf8_decode('                                  '.$DATA_CITA->nombre_cliente.' '),1,'L');
+
+    		$pdf->setXY($x,$y);
+    		$pdf->Cell(28,5,'Nombre',1,1,'L',1,0);
+
+    		$y = $pdf->getY();
+    		$pdf->setY($y + 5);
 			
     		$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);

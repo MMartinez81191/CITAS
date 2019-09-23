@@ -24,7 +24,7 @@
 										<li class="active" id="pestania_1" name="pestania_1"><a href="#tab_1" data-toggle="tab">Filtro por dia</a></li>
 										
 										<?php
-										if($nivel < 5)
+										if($nivel == 1)
 										{
 										?>
 

@@ -405,7 +405,7 @@
 			 		<div class="row">
 			 			<div class="form-group col-lg-12">			 				
 				 			<label >Costo de la consulta:</label>
-				 			<select class="select2" id=sel_costo_cita name="sel_costo_cita" style="width: 100%">
+				 			<select class="form-control" id=sel_costo_cita name="sel_costo_cita" style="width: 100%">
 				 				
 				 			</select>
 				 		</div>	
