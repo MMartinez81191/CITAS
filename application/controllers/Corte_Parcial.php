@@ -121,8 +121,10 @@ class Corte_Parcial extends CI_Controller {
 	        {
 	        	foreach ($DATA_CORTES->result() as $row) 
 	        	{
+	        		$pdf->SetFont('Times','B',10);
 			        $pdf->Cell(2,5,'',0,0);
-			        $pdf->Cell(74,5,utf8_decode('Datos Consulta'),1,1,'C',1);
+			        $pdf->Cell(74,5,utf8_decode('Hermosillo Sonora').'                             '.date("d-m-Y", strtotime($row->fecha)),1,1,'L',1);
+			        $pdf->SetFont('Times','',10);
 
 			        $pdf->Cell(2,5,'',0,0);
 		    		$pdf->Cell(28,5,'Folio:',1,0,'L',1);
@@ -134,9 +136,9 @@ class Corte_Parcial extends CI_Controller {
 		    		$pdf->Cell(2,5,'',0,0);
 		    		$pdf->MultiCell(74,5,utf8_decode($row->nombre_cliente),1);
 
-		    		$pdf->Cell(2,5,'',0,0);
+		    		/*$pdf->Cell(2,5,'',0,0);
 		    		$pdf->Cell(28,5,'Fecha Consulta:',1,0,'L',1);
-		    		$pdf->Cell(46,5,date("d-m-Y", strtotime($row->fecha)),1,1,'L');
+		    		$pdf->Cell(46,5,date("d-m-Y", strtotime($row->fecha)),1,1,'L');*/
 
 		    		$pdf->Cell(2,5,'',0,0);
 		    		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);
@@ -151,10 +153,11 @@ class Corte_Parcial extends CI_Controller {
 	        	        $pdf->SetFont('Times','B',8);
 				        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
 				        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
+				        $pdf->Cell(0,4,utf8_decode('Régimen de las personas fisicas con actividades'),0,1,'C');
+				        $pdf->Cell(0,4,'empresariales y profesionales',0,1,'C');
 				        $pdf->SetFont('Times','',8);
-				        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115 Esquina',0,1,'C');
-				        $pdf->Cell(0,4,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
-				        $pdf->Cell(0,4,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
+				        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115, Col. San Benito ',0,1,'C');
+				        $pdf->Cell(0,4,'Hermosillo, Sonora Tel. (662) 210-02-85',0,1,'C');
 				        $pdf->Cell(0,4,$pdf->PageNo(),0,1,'C');
 				        
 		    			$pdf->AddPage();
@@ -223,13 +226,13 @@ class Corte_Parcial extends CI_Controller {
     		$pdf->Cell(46,5,'$'.number_format($total_citas,2,'.', ','),1,1,'L');
         						 
     		$pdf->Ln();
-        	$pdf->SetFont('Times','B',8);
-	        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
+        	$pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
 	        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
+	        $pdf->Cell(0,4,utf8_decode('Régimen de las personas fisicas con actividades'),0,1,'C');
+	        $pdf->Cell(0,4,'empresariales y profesionales',0,1,'C');
 	        $pdf->SetFont('Times','',8);
-	        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115 Esquina',0,1,'C');
-	        $pdf->Cell(0,4,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
-	        $pdf->Cell(0,4,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
+	        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115, Col. San Benito ',0,1,'C');
+	        $pdf->Cell(0,4,'Hermosillo, Sonora Tel. (662) 210-02-85',0,1,'C');
 	        $pdf->Cell(0,4,$pdf->PageNo(),0,1,'C');
 
 	        $pdf->Ln();

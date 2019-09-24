@@ -464,14 +464,51 @@ class Corte extends CI_Controller {
 	        	$pdf->SetFillColor(175,175,175);
 	        	$pdf->Cell(0,5,'DETALLE CORTE',0,1,'C');
 
+
+	        	$pdf->Cell(27,5,'Concepto',1,0,'C',1);
+		        $pdf->Cell(19,5,'Cantidad',1,0,'C',1);
+		        $pdf->Cell(24,5,'Importe',1,1,'C',1);
+
 	        	foreach($DATA_BALANCE->result() as $row)
 	        	{
-	        		$pdf->SetFont('Arial','B',9);
+	        		
+	        		$total_consultas = 
+
+			        $pdf->SetFont('Arial','',9);
+			        $pdf->Cell(27,5,$row->descripcion,1,0,'C',0);
+			        if($row->descripcion == "Total gastos" OR $row->descripcion == "Total devoluciones")
+			        {
+			        	$pdf->Cell(19,5,$row->numero,1,0,'C',0);
+			        	$pdf->Cell(0,5,number_format(($row->total * -1),2,'.', ','),1,1,'C');
+			        	$total_corte = $total_corte - $row->total;
+			        }
+			        else
+			        {
+			        	if($row->descripcion == "Venta de carnets")
+			        	{
+			        		$pdf->Cell(19,5,$row->numero,1,0,'C',0);
+			        	}
+			        	else
+			        	{
+			        		$pdf->Cell(19,5,$row->numero_pacientes,1,0,'C',0);
+			        	}
+			        	
+			        	$pdf->Cell(24,5,number_format($row->total,2,'.', ','),1,1,'C',0);
+			        	$total_corte = $row->total + $total_corte;
+
+			        }
+			        
+			        
+
+
+
+	        		/*$pdf->SetFont('Arial','B',9);
 	        		$pdf->Cell(0,5,$row->descripcion,1,1,'L',1);
 	        		
         			$pdf->SetFont('Arial','',7);
 
 			        $pdf->Cell(28,5,'Numero:',1,0,'C',1,0);
+			        
 			        if($row->numero_pacientes == "0")
 			        {
 			        	$pdf->Cell(0,5,$row->numero,1,1,'L');
@@ -484,7 +521,7 @@ class Corte extends CI_Controller {
 			        if($row->descripcion == "Total gastos" OR $row->descripcion == "Total devoluciones")
 			        {
 			        	$pdf->Cell(28,5,'Importe:',1,0,'C',1,0);
-				        $pdf->Cell(0,5,'-'.number_format($row->total,2,'.', ','),1,1,'L');
+				        $pdf->Cell(0,5,number_format(($row->total * -1),2,'.', ','),1,1,'L');
 
 				        $total_corte = $total_corte - $row->total;
 			        }
@@ -497,12 +534,12 @@ class Corte extends CI_Controller {
 				        $pdf->Cell(0,5,number_format($row->total,2,'.', ','),1,1,'L');
 
 				        $total_corte = $row->total + $total_corte;
-			        }
+			        }*/
 	        	}
 
 	        	$pdf->SetFillColor(155,155,155); 
 	        	$pdf->SetFont('Arial','B',10);
-		        $pdf->Cell(28,5,'Total:',1,0,'C',1,0);
+		        $pdf->Cell(46,5,'Total:',1,0,'C',1,0);
 		        $pdf->Cell(0,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
 	        }
 
@@ -529,14 +566,14 @@ class Corte extends CI_Controller {
 			        $pdf->Cell(22,5,$row->numero_membresia,1,0,'C');
 			        $pdf->Cell(24,5,$row->numero_cita,1,0,'C');
 			        $pdf->Cell(24,5,'$'.number_format($row->costo_consulta,2,'.', ','),1,0,'C');
+			        $pdf->Ln();
 
 	        	}
 
 	        	$pdf->SetFillColor(155,155,155); 
 	        	$pdf->SetFont('Arial','B',10);
-		        $pdf->Cell(35,5,'',0,0,'C',0,0);
-		        $pdf->Cell(80,5,'Total:',1,0,'R');
-		        $pdf->Cell(40,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
+		        $pdf->Cell(46,5,'Total:',1,0,'R');
+		        $pdf->Cell(24,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C');
 	        }
 
 			$pdf->Output($Nombre_archivo, 'I');

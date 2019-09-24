@@ -471,7 +471,7 @@ class Citas extends CI_Controller {
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
 	        $this->load->library('fpdf_manager');
-	        $pdf = new fpdf_manager('P','mm',array(80,100));
+	        $pdf = new fpdf_manager('P','mm',array(80,150));
 	        
 	        $Nombre_archivo = 'Ticket.pdf';
 	        $pdf->SetMargins(0,1,1,0);
@@ -501,7 +501,7 @@ class Citas extends CI_Controller {
 
 	        $pdf->Cell(4,5,'',0,0);
 	        $pdf->SetFont('Times','B',10);
-	        $pdf->Cell(72,5,utf8_decode('Datos Consulta').'                                   '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
+	        $pdf->Cell(72,5,utf8_decode('Hermosillo Sonora a').'                          '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
 	        $pdf->SetFont('Times','',10);
 
     		$pdf->Cell(4,5,'',0,0);
@@ -546,10 +546,11 @@ class Citas extends CI_Controller {
 	        $pdf->SetFont('Times','B',8);
 	        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
 	        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
+	        $pdf->Cell(0,4,utf8_decode('Régimen de las personas fisicas con actividades'),0,1,'C');
+	        $pdf->Cell(0,4,'empresariales y profesionales',0,1,'C');
 	        $pdf->SetFont('Times','',8);
-	        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115 Esquina',0,1,'C');
-	        $pdf->Cell(0,4,'Avenida Aguascalientes Planta Baja Col. San Benito',0,1,'C');
-	        $pdf->Cell(0,4,'Hermosillo Sonora Tel. (662) 210-02-85',0,1,'C');
+	        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115, Col. San Benito ',0,1,'C');
+	        $pdf->Cell(0,4,'Hermosillo, Sonora Tel. (662) 210-02-85',0,1,'C');
 	
 			
 
@@ -574,7 +575,7 @@ class Citas extends CI_Controller {
 
 	        $pdf->SetFont('Times','B',10);
 	        $pdf->Cell(4,5,'',0,0);
-	        $pdf->Cell(72,5,utf8_decode('Datos Consulta').'                                  '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
+	        $pdf->Cell(72,5,utf8_decode('Hermosillo Sonora a').'                          '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
 	        $pdf->SetFont('Times','',10);
 
 			$pdf->Cell(4,5,'',0,0);
