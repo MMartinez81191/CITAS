@@ -528,9 +528,11 @@ class Corte_model extends CI_Model {
         $this->db->from('venta_carnets');
         $this->db->where('fecha',$dia);
         $this->db->where('activo',1);
-        $this->db->group_by('numero_carnets_vendidos');
+        //$this->db->group_by('numero_carnets_vendidos');
 
         $query = $this->db->get();
+
+
         if($query->num_rows() > 0)
         {
             return $query;
@@ -551,4 +553,41 @@ class Corte_model extends CI_Model {
         $this->db->where('id_venta', $id_venta);
         $this->db->update('venta_carnets',$data);
     }
+
+    public function get_max_cita($dia)
+    {
+        $this->db->select_max('numero_consulta');
+        $this->db->from('citas');
+        $this->db->where('activo',1);
+        $this->db->where('fecha',$dia);
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query->row('numero_consulta');
+        }
+        else
+        {
+            return 1;
+        }
+    }
+
+    public function get_min_cita($dia)
+    {
+        $this->db->select_min('numero_consulta');
+        $this->db->from('citas');
+        $this->db->where('activo',1);
+        $this->db->where('fecha',$dia);
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query->row('numero_consulta');
+        }
+        else
+        {
+            return 1;
+        }
+    }
 }
+
