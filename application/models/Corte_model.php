@@ -296,6 +296,11 @@ class Corte_model extends CI_Model {
         }
     }
 
+    public function get_data_citas($dia)
+    {
+        //$this->db->select_sum('')
+    }
+
     //=================================================================
     //BALANCE GENERAL
     //=================================================================

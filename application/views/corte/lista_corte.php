@@ -47,7 +47,8 @@
 															<div class="input-group-addon">
 															<i class="fa fa-calendar"></i>
 															</div>
-															<input type="text" class="form-control pull-right" id="txt_fecha" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask placeholder="yyyy-mm-dd">
+															<input type="date" class="form-control" id="txt_fecha_corte" name="txt_fecha_corte" required="true" value="<?=date('Y-m-d')?>" >
+															<!--<input type="text" class="form-control pull-right" id="txt_fecha" data-inputmask="'alias': 'yyyy-mm-dd'" data-mask placeholder="yyyy-mm-dd">-->
 														</div>
 													</div>
 													<div class="form-group">

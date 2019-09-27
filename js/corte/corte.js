@@ -5,7 +5,7 @@ var corte = {
             form.preventDefault();
 
             document.getElementById('imprimir_dia').style.display = '';
-            var dia_fecha = $('#txt_fecha').val();
+            var dia_fecha = $('#txt_fecha_corte').val();
             $("#tabla_citas").load(base_url + "corte/obtener_citas/1/" + dia_fecha + "/"); 
 
         });
@@ -86,7 +86,7 @@ var corte = {
     obtener_reporte_dia: function(){
         $('#imprimir_dia').on('click', function(form){
             form.preventDefault();
-            var dia_fecha = $('#txt_fecha').val();
+            var dia_fecha = $('#txt_fecha_corte').val();
             
             window.open(base_url + "corte/imprimir_reporte_citas/1/" + dia_fecha + "/");
 

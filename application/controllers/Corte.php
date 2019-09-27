@@ -44,6 +44,7 @@ class Corte extends CI_Controller {
 			switch ($operacion) {
 				case '1':
 					$dia = $this->uri->segment(4);
+					$dia = date('Y-m-d',strtotime($dia));
 					$DATA_BALANCE = $this->Corte_model->get_balance_general($dia);
 					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
 					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
@@ -75,7 +76,7 @@ class Corte extends CI_Controller {
 
 			?>
 			<hr>
-			<center><h4>Balance General</h4></center>
+			<center><h4>Balance General <?=$dia?></h4></center>
 			<br>
 			<table id="example1" class="table table-bordered table-striped">
 				<thead>
