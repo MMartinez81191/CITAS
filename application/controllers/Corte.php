@@ -402,24 +402,10 @@ class Corte extends CI_Controller {
             $pdf->SetTitle("Corte de Caja");
 	        $pdf->AddPage();
 	        $pdf->setY(3);
-	        /*Encabezado*/
-	        $pdf->Image(base_url().'images/logo.jpg',60,3,20);
-	        $pdf->SetFont('Arial','B',12);
-	        //$pdf->Cell(90,6,'',0,0);
-	        
-	        $pdf->Cell(0,6,'CORTE DE CAJA',0,0,'L');
-	        $pdf->ln();
-	        $pdf->ln();
-	        $pdf->SetFont('Arial','B',9);
-	        $pdf->Cell(0,6,'Fecha:'.$fecha_actual,0,0,'L');
-	        $pdf->Ln();
-	        $pdf->Cell(0,5,"Realizado Por:".$this->session->userdata('nombre'),0,0,'L');
-	        $pdf->Ln();
-	        $pdf->Ln();
 
 
 			$operacion = $this->uri->segment(3);
-			$total_corte = 0;
+			
 
 			switch ($operacion) {
 				case '1':
@@ -458,25 +444,43 @@ class Corte extends CI_Controller {
 					break;
 			}
 
-			
+			/*Encabezado*/
+	        $pdf->Image(base_url().'images/logo.jpg',60,3,20);
+	        $pdf->SetFont('Arial','B',12);
+	        //$pdf->Cell(90,6,'',0,0);
 	        
+	        $pdf->Cell(0,6,'CORTE DE CAJA',0,0,'L');
+	        $pdf->ln();
+	        $pdf->ln();
+	        $pdf->SetFont('Arial','B',9);
+	        $pdf->Cell(0,6,'Fecha:'.$fecha_actual,0,0,'L');
+	        $pdf->Ln();
+	        $pdf->Cell(0,5,"Realizado Por:".$this->session->userdata('nombre'),0,1,'L');
+	        $pdf->Cell(0,5,"Folios:".$GET_MIN_CITA.'-'.$GET_MAX_CITA,0,1,'L');
+	        $pdf->Ln();
+	        $total_corte = 0;
+			
+	        //DECLARACION DE VARIABLES
+        	$numero_consultas = 0;
+        	$total_ingreso_consulta = 0;
+	        	
 	        if($DATA_CITAS != FALSE)
 	        {
-	        	//DECLARACION DE VARIABLES
-	        	$numero_consultas = 0;
-	        	$total_ingreso_consulta = 0;
+	        	
 
 	        	$pdf->SetFillColor(175,175,175);
-	        	$pdf->Cell(0,5,'INGRESOS CONSULTAS',0,1,'C');
+	        	$pdf->Cell(0,5,'DETALLE CORTE',0,1,'C');
 
 
 	        	$pdf->Cell(10,5,'Cant',1,0,'C',1);
 		        $pdf->Cell(28,5,'Concepto',1,0,'C',1);
 		        $pdf->Cell(20,5,'Costo',1,0,'C',1);
 		        $pdf->Cell(20,5,'Importe',1,1,'C',1);
+		        $pdf->SetFont('Arial','',8);
 
 	        	foreach($DATA_CITAS->result() as $row)
 	        	{
+
 	        		$pdf->Cell(10,5,$row->pacientes,1,0,'C',0);
 			        $pdf->Cell(28,5,$row->tipo_cita,1,0,'C',0);
 			        $pdf->Cell(20,5,'$'.number_format($row->costo,2,'.',','),1,0,'C',0);
@@ -486,21 +490,101 @@ class Corte extends CI_Controller {
 	        		$total_ingreso_consulta = $total_ingreso_consulta + $row->total;
 	        	}
 
-	        	$pdf->SetFillColor(155,155,155); 
-	        	$pdf->SetFont('Arial','B',9);
-
-	        	$pdf->Cell(58,5,'Numero Citas Registradas:',1,0,'R',1);
-		        $pdf->Cell(0,5,$numero_consultas,1,1,'C',1);
-
-		        $pdf->Cell(58,5,'Total Ingreso:',1,0,'R',1,0);
-		        $pdf->Cell(0,5,'$'.number_format($total_ingreso_consulta,2,'.', ','),1,0,'C',1);
+	        	
 	        }
 
-	        $pdf->ln();
-	        $pdf->ln();
+	        if($DATA_CARNET != FALSE)
+	        {
+
+
+	        	foreach ($DATA_CARNET->result() as $row) 
+	        	{
+	        		$numero_carnets_vendidos = $row->numero_carnets_vendidos;
+	        		$importe_carnets_vendidos = $numero_carnets_vendidos * 20;
+ 
+	        		$pdf->Cell(10,5,$numero_carnets_vendidos,1,0,'C',0);
+			        $pdf->Cell(28,5,'Venta Carnet',1,0,'C',0);
+			        $pdf->Cell(20,5,'$'.number_format('20',2,'.',','),1,0,'C',0);
+			        $pdf->Cell(20,5,'$'.number_format($importe_carnets_vendidos,2,'.',','),1,1,'C',0);
+	        	}
+
+	        	
+	        }
+
+	        $numero_devolucion = 0;
+        	$numero_devoluciones_totales = 0;
+        	$importe_devolucion = 0;
+        	$total_importe_devolucion = 0;
+
+	        if($DATA_DEVOLUCION != FALSE)
+	        {
+
+	        	foreach ($DATA_DEVOLUCION->result() as $row) 
+	        	{
+	        		$numero_devolucion = $row->numero_devoluciones;
+	        		$numero_devoluciones_totales = $numero_devoluciones_totales + $row->numero_devoluciones;
+
+
+	        		$importe_devolucion = $row->importe * $row->numero_devoluciones;
+	        		$total_importe_devolucion = $total_importe_devolucion + $importe_devolucion;
+
+	        		$pdf->Cell(10,5,$numero_devolucion,1,0,'C',0);
+			        $pdf->Cell(28,5,'Devolucion',1,0,'C',0);
+			        $pdf->Cell(20,5,'$ -'.number_format($row->importe,2,'.',','),1,0,'C',0);
+			        $pdf->Cell(20,5,'$ -'.number_format($importe_devolucion,2,'.',','),1,1,'C',0);
+	        	}
+
+	        }
+
+
+	        $suma_total_gasto = 0;
+        	$total_importe_devolucion = 0;
+
+	        if($DATA_GASTO != FALSE)
+	        {
+	        	foreach ($DATA_GASTO->result() as $row) 
+	        	{
+	        		$suma_total_gasto = $suma_total_gasto + $row->importe;
+
+	        		$pdf->Cell(10,5,'1',1,0,'C',0);
+			        $pdf->Cell(28,5,$row->concepto,1,0,'C',0);
+			        $pdf->Cell(20,5,'$ -'.number_format($row->importe,2,'.',','),1,0,'C',0);
+			        $pdf->Cell(20,5,'$ -'.number_format($row->importe,2,'.',','),1,1,'C',0);
+	        	}
+	        }
+
+	        $total_ingresos = $total_ingreso_consulta + $importe_carnets_vendidos;
+	        $total_egresos = $suma_total_gasto + $total_importe_devolucion;
+	        $total_efectivo = $total_ingresos - $total_egresos;
+	        $signo = "";
+
+	        if($total_efectivo < 0)
+	        {
+	        	$signo = "-";
+	        }
+
+	        $pdf->SetFont('Arial','B',8);
+	        $pdf->Cell(10,5,$numero_consultas,1,0,'C',1);
+	        $pdf->Cell(48,5,'Total pacientes:',1,0,'R',1,0);
+	        $pdf->Cell(0,5,'$'.$signo.number_format($total_efectivo,2,'.', ','),1,0,'C',1);
+
+
+	        /*$pdf->SetFillColor(155,155,155); 
+        	$pdf->SetFont('Arial','B',9);
+
+        	$pdf->Cell(58,5,'Numero Citas Registradas:',1,0,'R',1);
+	        $pdf->Cell(0,5,$numero_consultas,1,1,'C',1);
+
+	        $pdf->Cell(58,5,'Total Ingreso:',1,0,'R',1,0);
+	        $pdf->Cell(0,5,'$'.number_format($total_ingreso_consulta,2,'.', ','),1,0,'C',1);*/
+	        
+	        $total_corte = 0;
 
 	        if($DATA_MEMBRESIA != FALSE)
 	        {
+	        	$pdf->ln();
+	        	$pdf->ln();
+
 	        	$pdf->Cell(0,5,'DETALLE MEMBRESIAS',0,1,'C');
 
 	        	$pdf->SetFillColor(175,175,175); 
@@ -511,7 +595,7 @@ class Corte extends CI_Controller {
 		        $pdf->Cell(26,5,'Importe',1,0,'C',1);
 		        
 		        $pdf->Ln();
-		        $total_corte = 0;
+		        
 	        	foreach($DATA_MEMBRESIA->result() as $row)
 	        	{
 	        		$total_corte = $row->costo_consulta + $total_corte;
@@ -529,45 +613,21 @@ class Corte extends CI_Controller {
 		        $pdf->Cell(26,5,'$'.number_format($total_corte,2,'.', ','),1,0,'C',1);
 	        }
 
-	        $pdf->ln();
-	        $pdf->ln();
 	        
-	        if($DATA_CARNET != FALSE)
-	        {
-	        	$pdf->Cell(0,5,'INGRESOS CARNETS',0,1,'C');
+	        
+	        
 
-	        	$pdf->Cell(10,5,'Cant',1,0,'C',1);
-		        $pdf->Cell(28,5,'Concepto',1,0,'C',1);
-		        $pdf->Cell(20,5,'Costo',1,0,'C',1);
-		        $pdf->Cell(20,5,'Importe',1,1,'C',1);
-
-	        	foreach ($DATA_CARNET->result() as $row) 
-	        	{
-	        		$numero_carnets_vendidos = $row->numero_carnets_vendidos;
-	        		$importe_carnets_vendidos = $numero_carnets_vendidos * 20;
- 
-	        		$pdf->Cell(10,5,$numero_carnets_vendidos,1,0,'C',0);
-			        $pdf->Cell(28,5,'Venta Carnet',1,0,'C',0);
-			        $pdf->Cell(20,5,'$'.number_format('20',2,'.',','),1,0,'C',0);
-			        $pdf->Cell(20,5,'$'.number_format($importe_carnets_vendidos,2,'.',','),1,1,'C',0);
-	        	}
-
-	        	$pdf->Cell(58,5,'Numero Carnets Vendidos:',1,0,'R',1);
-		        $pdf->Cell(0,5,$numero_carnets_vendidos,1,1,'C',1);
-
-		        $pdf->Cell(58,5,'Total Ingreso:',1,0,'R',1,0);
-		        $pdf->Cell(0,5,'$'.number_format($importe_carnets_vendidos,2,'.', ','),1,0,'C',1);
-	        }
-
-	        $pdf->ln();
-	        $pdf->ln();
+	        
+	        /*
+	        $numero_devolucion = 0;
+        	$numero_devoluciones_totales = 0;
+        	$importe_devolucion = 0;
+        	$total_importe_devolucion = 0;
 
 	        if($DATA_DEVOLUCION != FALSE)
 	        {
-	        	$numero_devolucion = 0;
-	        	$numero_devoluciones_totales = 0;
-	        	$importe_devolucion = 0;
-	        	$total_importe_devolucion = 0;
+	        	$pdf->ln();
+	        	$pdf->ln();
 
 	        	$pdf->Cell(0,5,'EGRESOS DEVULUCIONES',0,1,'C');
 
@@ -597,13 +657,16 @@ class Corte extends CI_Controller {
 		        $pdf->Cell(58,5,'Total Ingreso:',1,0,'R',1,0);
 		        $pdf->Cell(0,5,'$'.number_format($total_importe_devolucion,2,'.', ','),1,0,'C',1);
 	        }
-
-	        $pdf->ln();
-	        $pdf->ln();
+			*/
+	        
+	        /*
+	        $suma_total_gasto = 0;
+        	$total_importe_devolucion = 0;
 
 	        if($DATA_GASTO != FALSE)
 	        {
-	        	$suma_total_gasto = 0;
+	        	$pdf->ln();
+	        	$pdf->ln();
 
 	        	$pdf->Cell(0,5,'EGRESOS GASTOS',0,1,'C');
 
@@ -621,7 +684,7 @@ class Corte extends CI_Controller {
 		        $pdf->Cell(58,5,'Total Gastos:',1,0,'R',1,0);
 		        $pdf->Cell(0,5,'$'.number_format($suma_total_gasto,2,'.', ','),1,0,'C',1);
 	        }
-
+	        /*
 	        $pdf->ln();
 	        $pdf->ln();
 
@@ -655,7 +718,7 @@ class Corte extends CI_Controller {
 	        $pdf->Cell(30,5,$numero_consultas,1,1,'C',0);
 	        $pdf->Cell(48,5,'Folios',1,0,'C',0);
 	        $pdf->Cell(30,5,$GET_MIN_CITA.' al '.$GET_MAX_CITA,1,1,'C',0);
-
+			*/
 
 
 			$pdf->Output($Nombre_archivo, 'I');

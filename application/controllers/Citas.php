@@ -501,7 +501,7 @@ class Citas extends CI_Controller {
 
 	        $pdf->Cell(4,5,'',0,0);
 	        $pdf->SetFont('Times','B',10);
-	        $pdf->Cell(72,5,utf8_decode('Hermosillo Sonora a').'                          '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
+	        $pdf->Cell(72,5,utf8_decode('Hermosillo, Sonora a').'                          '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
 	        $pdf->SetFont('Times','',10);
 
     		$pdf->Cell(4,5,'',0,0);

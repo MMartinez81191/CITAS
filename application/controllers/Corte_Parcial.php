@@ -123,7 +123,7 @@ class Corte_Parcial extends CI_Controller {
 	        	{
 	        		$pdf->SetFont('Times','B',10);
 			        $pdf->Cell(2,5,'',0,0);
-			        $pdf->Cell(74,5,utf8_decode('Hermosillo Sonora').'                             '.date("d-m-Y", strtotime($row->fecha)),1,1,'L',1);
+			        $pdf->Cell(74,5,utf8_decode('Hermosillo, Sonora').'                             '.date("d-m-Y", strtotime($row->fecha)),1,1,'L',1);
 			        $pdf->SetFont('Times','',10);
 
 			        $pdf->Cell(2,5,'',0,0);
