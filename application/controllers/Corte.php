@@ -411,7 +411,7 @@ class Corte extends CI_Controller {
 			switch ($operacion) {
 				case '1':
 					$dia = $this->uri->segment(4);
-					$DATA_BALANCE = $this->Corte_model->get_balance_general($dia);
+					$DATA_BALANCE = $this->Corte_model->get_balance_general_ticket($dia);
 					$DATA_CITAS = $this->Corte_model->get_citas_dia($dia);
 					$DATA_MEMBRESIA = $this->Corte_model->get_citas_dia_membresia($dia);
 					$DATA_GASTO = $this->Corte_model->get_gasto_dia($dia);
@@ -465,7 +465,7 @@ class Corte extends CI_Controller {
         	$numero_consultas = 0;
         	$total_ingreso_consulta = 0;
 	        	
-	        if($DATA_CITAS != FALSE)
+	        if($DATA_BALANCE != FALSE)
 	        {
 	        	
 
@@ -479,15 +479,15 @@ class Corte extends CI_Controller {
 		        $pdf->Cell(20,5,'Importe',1,1,'C',1);
 		        $pdf->SetFont('Arial','',8);
 
-	        	foreach($DATA_CITAS->result() as $row)
+	        	foreach($DATA_BALANCE->result() as $row)
 	        	{
 
-	        		$pdf->Cell(10,5,$row->pacientes,1,0,'C',0);
-			        $pdf->Cell(28,5,$row->tipo_cita,1,0,'C',0);
+	        		$pdf->Cell(10,5,$row->numero_pacientes,1,0,'C',0);
+			        $pdf->Cell(28,5,$row->descripcion,1,0,'C',0);
 			        $pdf->Cell(20,5,'$'.number_format($row->costo,2,'.',','),1,0,'C',0);
 			        $pdf->Cell(20,5,'$'.number_format($row->total,2,'.',','),1,1,'C',0);
 	        		
-	        		$numero_consultas = $numero_consultas + $row->pacientes;
+	        		$numero_consultas = $numero_consultas + $row->numero_pacientes;
 	        		$total_ingreso_consulta = $total_ingreso_consulta + $row->total;
 	        	}
 

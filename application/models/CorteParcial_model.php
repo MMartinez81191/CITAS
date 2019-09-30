@@ -101,7 +101,7 @@ class CorteParcial_Model extends CI_Model {
 
     public function get_max_citas($fecha_inicial,$fecha_final)
     {
-        $this->db->select_max('id_cita');
+        $this->db->select_max('numero_consulta');
         $this->db->from('citas');
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
@@ -111,7 +111,6 @@ class CorteParcial_Model extends CI_Model {
         $this->db->where('fecha <=',$fecha_final);
 
         $query = $this->db->get();
-        
         if($query->num_rows() > 0)
         {
             return $query->row();
@@ -124,7 +123,7 @@ class CorteParcial_Model extends CI_Model {
 
     public function get_min_citas($fecha_inicial,$fecha_final)
     {
-        $this->db->select_min('id_cita');
+        $this->db->select_min('numero_consulta');
         $this->db->from('citas');
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
@@ -146,10 +145,10 @@ class CorteParcial_Model extends CI_Model {
     }
 
 
-    public function get_data_cita($id_cita)
+    public function get_data_cita($numero_consulta)
     {
         $this->db->from('citas');
-        $this->db->where('id_cita',$id_cita);
+        $this->db->where('numero_consulta',$numero_consulta);
         $this->db->where('contabilizado',0);
         $this->db->where('cobrado',1);
         $this->db->where('activo',1);
@@ -220,10 +219,18 @@ class CorteParcial_Model extends CI_Model {
         $this->db->delete('cortes_caja_tmp');
     }
 
-    public function update_corte_caja($id_cita)
+    public function update_citas_pendientes($id_min,$id_max)
     {
         $this->db->set('contabilizado',1);
-        $this->db->where('id_cita',$id_cita);
+        $this->db->where('numero_consulta >= ',$id_min);
+        $this->db->where('numero_consulta <= ',$id_max);
+        $this->db->update('citas');
+    }
+
+    public function update_corte_caja($numero_consulta)
+    {
+        $this->db->set('contabilizado',1);
+        $this->db->where('numero_consulta',$numero_consulta);
         $this->db->update('citas');
         //$this->db->where('fecha >=',$fecha_inicial);
         //$this->db->where('fecha <=',$fecha_final);

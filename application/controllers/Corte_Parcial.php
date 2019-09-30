@@ -45,7 +45,7 @@ class Corte_Parcial extends CI_Controller {
 	        $Nombre_archivo = 'Ticket.pdf';
 	        $pdf->SetMargins(0,1,1,0);
 	        $pdf->SetTitle("Corte Caja");
-	        $pdf->AddPage();
+	        //$pdf->AddPage();
 	        
 
 	        $total_citas = 0;
@@ -57,7 +57,7 @@ class Corte_Parcial extends CI_Controller {
 
 	        	foreach ($DATA_CORTES->result() as $row) 
 	        	{
-	        		
+	        		$pdf->AddPage();
 			        /*Encabezado*/
 			        $pdf->setY(3);
 			        $pdf->SetFont('Times','B',12);
@@ -112,7 +112,7 @@ class Corte_Parcial extends CI_Controller {
 			        $pdf->SetFont('Times','',8);
 			        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115, Col. San Benito ',0,1,'C');
 			        $pdf->Cell(0,4,'Hermosillo, Sonora Tel. (662) 210-02-85',0,1,'C');
-
+			        
 		    		
 
 	        	}
@@ -188,11 +188,17 @@ class Corte_Parcial extends CI_Controller {
 				$response = FALSE;
 				$fecha_inicial = trim($this->input->post('fecha_1'));
 				$fecha_final = trim($this->input->post('fecha_2'));
+				
 				$cantidad_recaudada = trim($this->input->post('cantidad_recaudada'));
+
 				$cantidad_fisica = trim($this->input->post('cantidad_fisica'));
+				
 				$DATA_TOTAL = $this->CorteParcial_model->get_citas_intervalo($fecha_inicial,$fecha_final);
-				$id_max = $this->CorteParcial_model->get_max_citas($fecha_inicial,$fecha_final)->id_cita;
-				$id_min = $this->CorteParcial_model->get_min_citas($fecha_inicial,$fecha_final)->id_cita;
+
+				$id_max = $this->CorteParcial_model->get_max_citas($fecha_inicial,$fecha_final)->numero_consulta;
+
+				$id_min = $this->CorteParcial_model->get_min_citas($fecha_inicial,$fecha_final)->numero_consulta;
+
 				$numero_session = $this->CorteParcial_model->get_numero_session()->numero_session;
 				
 				//DETERMINA EL NUMERO DE SESSION
@@ -211,9 +217,9 @@ class Corte_Parcial extends CI_Controller {
 
 				//CICLO QUE CALCULA LOS NUMEROS QUE SE INSETARAN EN LA BASE DE DATOS
 				$acumulado = 0;
-				foreach ($random as $id_cita) 
+				foreach ($random as $numero_consulta) 
 				{ 
-				    $DATA_CITA = $this->CorteParcial_model->get_data_cita($id_cita);
+				    $DATA_CITA = $this->CorteParcial_model->get_data_cita($numero_consulta);
 				    if($DATA_CITA != FALSE)
 				    {
 				    	$acumulado = $acumulado + $DATA_CITA->costo_consulta;
@@ -228,7 +234,7 @@ class Corte_Parcial extends CI_Controller {
 				    	);
 
 				    	$this->CorteParcial_model->insert_cortes_caja_tmp($data);
-				    	$this->CorteParcial_model->update_corte_caja($id_cita);
+				    	$this->CorteParcial_model->update_corte_caja($numero_consulta);
 				    }
 				    else
 				    {
@@ -258,6 +264,7 @@ class Corte_Parcial extends CI_Controller {
 
 
 			    			$this->CorteParcial_model->delete_corte_caja_tmp();
+			    			$this->CorteParcial_model->update_citas_pendientes($id_min,$id_max);
 			    			$response = TRUE;
 			    		}else
 			    		{

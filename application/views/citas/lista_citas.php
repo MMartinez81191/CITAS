@@ -1,6 +1,6 @@
 <?php
 	$nombre = $this->session->userdata('nombre').' '.$this->session->userdata('apellido_p').' '.$this->session->userdata('apellido_m');
-
+	$id_nivel = $this->session->userdata('nivel');
 
 	function set_color($id_tipo_cita)
 	{
@@ -205,7 +205,7 @@
 																			<?php
 																			if($row->costo_consulta == '-1'){
 																			?>
-																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
+																				<button data-id="<?= $row->id_cita; ?>" data-edit="false" class="btn btn-success cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
 
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
 																			<?php
@@ -214,8 +214,18 @@
 																			{
 																			?>
 																				<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
+
 																				<!--<buton class="btn btn-primary cargar_modal_peso" data-id="<?= $row->id_cita;?>" data-toggle="modal" data-target="#modal_agregar_peso" ><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top"  title="Historial"  ></i><span></span></button>-->
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
+																				<?php
+																					if($row->id_tipo_cita != 2 AND $id_nivel < 5)
+																					{
+																						?>
+																						<button data-id="<?= $row->id_cita; ?>" data-edit="true" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
+																						<?php
+																					}
+																				?>
+																				
 																			<?php
 																			}
 																			?>
@@ -385,6 +395,7 @@
             <div class="modal-body">
 	            <form  name="pagar_citas" id="pagar_citas">
 	            	<input type="hidden" id="id_cita_pagar" name="id_cita_pagar" >
+	            	<input type="hidden" name="edit" id="edit" value="false">
 	            	<input type="hidden" name="fecha_cita" name="fecha_cita">
 	            	<input type="hidden" name="txt_tipo_cita" id="txt_tipo_cita">
 	            	<input type="hidden" name="txt_membresia" id="txt_membresia"> 
@@ -449,7 +460,7 @@
             <div class="modal-body">
 	            <form  name="agregar_peso_citas" id="agregar_peso_citas">
 	            	<input type="hidden" id="txt_id_cita_peso" name="txt_id_cita_peso">
-	            	
+
 	 				<div class="row">
 				 		<div class="form-group col-lg-12">
 				 			<label >Peso:</label>
@@ -485,6 +496,7 @@
             </div>
             <div class="modal-body">
 	            <form  name="agregar_citas_modal" id="agregar_citas_modal">
+	            	
 	            	<div class="form-group">
 		                <label>Fecha de cita:</label>
 		                <div class="input-group">

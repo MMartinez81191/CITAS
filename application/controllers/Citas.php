@@ -479,42 +479,42 @@ class Citas extends CI_Controller {
 	        $pdf->AddPage();
 	        /*Encabezado*/
 	        $pdf->setY(3);
-	        $pdf->SetFont('Times','B',12);
+	        $pdf->SetFont('Times','B',11);
 	        $pdf->Cell(2,3,'',0,0);
 	        $pdf->Cell(0,5,'Control de Peso',0,1,'L');
-	        $pdf->Image(base_url().'images/logo.jpg',60,0,20);
-	        $pdf->SetFont('Times','B',8);
+	        $pdf->Image(base_url().'images/logo.jpg',65,3,15);
+	        $pdf->SetFont('Times','B',7);
 	        
 	        $pdf->Cell(2,3,'',0,0);
 	        $pdf->Cell(0,3,'LIC. EN CIENCIAS NUTRICIONALES',0,1,'L');
 	        $pdf->Cell(2,3,'',0,0);
         	$pdf->Cell(0,3,'JORGE LUIS ESPINOZA CALLES',0,1,'L');
 			$pdf->Cell(2,3,'',0,0);
-        	$pdf->Cell(0,3,'RESPONSABLE SANITARIO',0,1,'L');
+        	$pdf->Cell(0,3,'RESPONSABLE SANITARIO',0,0,'L');
 			
 			
-	        $pdf->SetFont('Times','B',8);
+	        $pdf->SetFont('Times','B',7);
 	        $pdf->Cell(0,6,'FOLIO: A-'.$DATA_CITA->numero_consulta,0,1,'R');
 			
-	        $pdf->SetFont('Times','',10);
+	        $pdf->SetFont('Times','',8);
 	        $pdf->SetFillColor(230,230,230);
 
-	        $pdf->Cell(4,5,'',0,0);
-	        $pdf->SetFont('Times','B',10);
-	        $pdf->Cell(72,5,utf8_decode('Hermosillo, Sonora a').'                          '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
-	        $pdf->SetFont('Times','',10);
+	        $pdf->Cell(4,4,'',0,0);
+	        $pdf->SetFont('Times','B',8);
+	        $pdf->Cell(72,4,utf8_decode('Hermosillo Sonora a').'                                             '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
+	        $pdf->SetFont('Times','',8);
 
-    		$pdf->Cell(4,5,'',0,0);
-    		$y = $pdf->getY();
-    		$x = $pdf->getX();
+    		//
+    		//$y = $pdf->getY();
+    		//$x = $pdf->getX();
+	        $pdf->Cell(4,4,'',0,0);
+    		$pdf->MultiCell(72,4,utf8_decode('Nombre:'.$DATA_CITA->nombre_cliente.' '),1,'L');
 
-    		$pdf->MultiCell(72,5,utf8_decode('                                  '.$DATA_CITA->nombre_cliente.' '),1,'L');
+    		//$pdf->setXY($x,$y);
+    		//$pdf->Cell(28,4,'Nombre',1,1,'L',1,0);
 
-    		$pdf->setXY($x,$y);
-    		$pdf->Cell(28,5,'Nombre',1,1,'L',1,0);
-
-    		$y = $pdf->getY();
-    		$pdf->setY($y + 5);
+    		//$y = $pdf->getY();
+    		//$pdf->setY($y + 4);
     		
 			/*$pdf->Cell(4,5,'',0,0);
     		$pdf->Cell(28,5,'Fecha Consulta:',1,0,'L',1);
@@ -526,31 +526,31 @@ class Citas extends CI_Controller {
 
     		if($DATA_CITA->id_tipo_cita == 2)
     		{
-    			$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(28,5,'Folio Membresia:',1,0,'L',1);
-	    		$pdf->Cell(44,5, $numero_membresia ,1,1,'L');
+    			$pdf->Cell(4,4,'',0,0);
+	    		$pdf->Cell(28,4,'Folio Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,4, $numero_membresia ,1,1,'L');
 
-	    		$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(28,5,'Cita Membresia:',1,0,'L',1);
-	    		$pdf->Cell(44,5, $numero_cita ." de 5" ,1,1,'L');
+	    		$pdf->Cell(4,4,'',0,0);
+	    		$pdf->Cell(28,4,'Cita Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,4, $numero_cita ." de 5" ,1,1,'L');
     		}
 
-    		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);
-    		$pdf->Cell(44,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+    		$pdf->Cell(4,4,'',0,0);
+    		$pdf->Cell(28,4,'Costo Consulta:',1,0,'L',1);
+    		$pdf->Cell(44,4,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
-    		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(28,5,'Total:',1,0,'L',1);
-    		$pdf->Cell(44,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+    		$pdf->Cell(4,4,'',0,0);
+    		$pdf->Cell(28,4,'Total:',1,0,'L',1);
+    		$pdf->Cell(44,4,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
 	        $pdf->SetFont('Times','B',8);
-	        $pdf->Cell(0,4,'Maribel Calles Castro',0,1,'C');
-	        $pdf->Cell(0,4,'RFC : CACM620318MQ7 ',0,1,'C');
-	        $pdf->Cell(0,4,utf8_decode('Régimen de las personas fisicas con actividades'),0,1,'C');
-	        $pdf->Cell(0,4,'empresariales y profesionales',0,1,'C');
+	        $pdf->Cell(0,3,'Maribel Calles Castro',0,1,'C');
+	        $pdf->Cell(0,3,'RFC : CACM620318MQ7 ',0,1,'C');
+	        $pdf->Cell(0,3,utf8_decode('Régimen de las personas fisicas con actividades'),0,1,'C');
+	        $pdf->Cell(0,3,'empresariales y profesionales',0,1,'C');
 	        $pdf->SetFont('Times','',8);
-	        $pdf->Cell(0,4,'Enrique Garcia Sanchez No. 115, Col. San Benito ',0,1,'C');
-	        $pdf->Cell(0,4,'Hermosillo, Sonora Tel. (662) 210-02-85',0,1,'C');
+	        $pdf->Cell(0,3,'Enrique Garcia Sanchez No. 115, Col. San Benito ',0,1,'C');
+	        $pdf->Cell(0,3,'Hermosillo, Sonora Tel. (662) 210-02-85',0,1,'C');
 	
 			
 
@@ -558,57 +558,50 @@ class Citas extends CI_Controller {
 	        
 	        $pdf->AddPage();
 
-	        $pdf->setY(17);
+	        //$pdf->setY(17);
 	        $pdf->SetFont('Times','B',12);
 	        /*$pdf->Cell(0,5,'Control de Peso',0,1,'C');*/
-	        $pdf->Image(base_url().'images/logo.jpg',30,0,20);
-	        $pdf->SetFont('Times','B',10);
+	        //$pdf->Image(base_url().'images/logo.jpg',35,0,15);
+	        $pdf->SetFont('Times','B',7);
 	        
 
         	//$pdf->ln();
 	        
-	        $pdf->SetFont('Times','',10);
+	        $pdf->SetFont('Times','',8);
 	        $pdf->SetFillColor(230,230,230);
 	        
-	        $pdf->SetFont('Times','',10);
+	        $pdf->SetFont('Times','',8);
 	        $pdf->SetFillColor(230,230,230);
 
-	        $pdf->SetFont('Times','B',10);
+	        $pdf->SetFont('Times','B',8);
 	        $pdf->Cell(4,5,'',0,0);
-	        $pdf->Cell(72,5,utf8_decode('Hermosillo Sonora a').'                          '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
-	        $pdf->SetFont('Times','',10);
+	        $pdf->Cell(72,5,utf8_decode('Hermosillo Sonora a').'                                              '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
+	        $pdf->SetFont('Times','',8);
 
 			$pdf->Cell(4,5,'',0,0);
-    		$y = $pdf->getY();
-    		$x = $pdf->getX();
+    		
 
-    		$pdf->MultiCell(72,5,utf8_decode('                                  '.$DATA_CITA->nombre_cliente.' '),1,'L');
-
-    		$pdf->setXY($x,$y);
-    		$pdf->Cell(28,5,'Nombre',1,1,'L',1,0);
-
-    		$y = $pdf->getY();
-    		$pdf->setY($y + 5);
+    		$pdf->MultiCell(72,5,utf8_decode('Nombre:'.$DATA_CITA->nombre_cliente.' '),1,'L');
 			
-    		$pdf->Cell(4,5,'',0,0);
-    		$pdf->Cell(28,5,'Costo Consulta:',1,0,'L',1);
-    		$pdf->Cell(44,5,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
+    		$pdf->Cell(4,4,'',0,0);
+    		$pdf->Cell(28,4,'Costo Consulta:',1,0,'L',1);
+    		$pdf->Cell(44,4,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
     		if($DATA_CITA->id_tipo_cita == 2)
     		{
-    			$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(28,5,'Folio Membresia:',1,0,'L',1);
-	    		$pdf->Cell(44,5, $numero_membresia ,1,1,'L');
+    			$pdf->Cell(4,4,'',0,0);
+	    		$pdf->Cell(28,4,'Folio Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,4, $numero_membresia ,1,1,'L');
 
-	    		$pdf->Cell(4,5,'',0,0);
-	    		$pdf->Cell(28,5,'Cita Membresia:',1,0,'L',1);
-	    		$pdf->Cell(44,5, $numero_cita ." de 5" ,1,1,'L');
+	    		$pdf->Cell(4,4,'',0,0);
+	    		$pdf->Cell(28,4,'Cita Membresia:',1,0,'L',1);
+	    		$pdf->Cell(44,4, $numero_cita ." de 5" ,1,1,'L');
     		}
 
     		/*$pdf->Cell(4,5,'',0,0);
 	        $pdf->SetFont('Times','B',12);
 	        $pdf->MultiCell(72,5,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU NUTRIOLOGO',1,'C');*/
-	        $pdf->SetFont('Times','',6);
+	        $pdf->SetFont('Times','',5);
 	        $pdf->Cell(0,5,'PX-'.$DATA_CITA->numero_turno,0,1,'R');
 	        
 	        $pdf->AutoPrint();

@@ -4,8 +4,8 @@ var Corte_Parcial = {
         $('#recuperar_cantidades').on('submit', function(form){
             form.preventDefault();
 
-            var fecha_1 = $('#txt_fecha').val();
-            var fecha_2 = $('#txt_fecha2').val();
+            var fecha_1 = $('#txt_fecha_corte_parcial_1').val();
+            var fecha_2 = $('#txt_fecha_corte_parcial_2').val();
 
             var data = {
                 fecha_1 : fecha_1,
@@ -23,8 +23,8 @@ var Corte_Parcial = {
         $('#generar_corte').on('submit', function(form){
             form.preventDefault();
 
-            var fecha_1 = $('#txt_fecha').val();
-            var fecha_2 = $('#txt_fecha2').val();
+            var fecha_1 = $('#txt_fecha_corte_parcial_1').val();
+            var fecha_2 = $('#txt_fecha_corte_parcial_2').val();
             var cantidad_recaudada = $('#cantidad_recaudada').val();
             cantidad_recaudada = cantidad_recaudada.substring(1);
             cantidad_recaudada = cantidad_recaudada.replace(/,/g, "");

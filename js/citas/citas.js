@@ -142,12 +142,16 @@ var citas = {
 
     datos_cobro_citas: function(){
         $(document).on('click','button.cobrar_cita', function () {
-            var data = {id_cita: $(this).data('id')};    
+            var data = {
+                id_cita: $(this).data('id'),
+                edit : $(this).data('edit'),
+            };    
             var response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
             var numero_turno = response.DATA_TURNO;
-            
-            //console.log(numero_turno);
+            var edit = $(this).data('edit');
+
             $('#id_cita_pagar').val(response.DATA_CITA.id_cita);
+            $('#edit').val(edit);
             $('#fecha_cita').val(response.DATA_CITA.fecha);
             $('#txt_turno_cita').val(numero_turno);
             $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
@@ -192,13 +196,13 @@ var citas = {
 
             var data = 
             {
-                id_cita: $('#id_cita_pagar').val(), 
+                id_cita: $('#id_cita_pagar').val(),
+                edit : $('#edit').val(), 
                 costo_consulta : $('#sel_costo_cita').val(),
                 forma_pago : $("input[name='rd_forma_pago']:checked").val(),
                 peso_actual : $('#txt_peso_inicial_cita').val(),
                 id_tipo_cita : $('#txt_tipo_cita').val(),
             }
-            //console.log(data);
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
 
             

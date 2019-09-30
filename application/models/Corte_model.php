@@ -296,10 +296,7 @@ class Corte_model extends CI_Model {
         }
     }
 
-    public function get_data_citas($dia)
-    {
-        //$this->db->select_sum('')
-    }
+    
 
     //=================================================================
     //BALANCE GENERAL
@@ -382,6 +379,48 @@ class Corte_model extends CI_Model {
         }
     }   
 
+    public function get_balance_general_ticket($dia)
+    {
+        $sql = "
+                    SELECT 
+                        COUNT(costo_consulta) numero_pacientes,
+                        0 AS numero,
+                        'Consultas' AS descripcion, 
+                        costo_consulta AS costo,
+                        (COUNT(costo_consulta) * costo_consulta) AS total
+                    FROM citas 
+                    WHERE  
+                        fecha = '".$dia."' AND 
+                        id_tipo_cita != 2 AND 
+                        cobrado = 1 AND
+                        activo = 1
+                        GROUP BY costo_consulta
+                    UNION
+                    SELECT 
+                        COUNT(costo_consulta) numero_pacientes,
+                        0 AS numero,
+                        'Membresias' AS descripcion, 
+                        costo_consulta AS costo,
+                        (COUNT(costo_consulta) * costo_consulta) AS total 
+                    FROM citas 
+                    WHERE  
+                        fecha = '".$dia."' AND 
+                        id_tipo_cita = 2 AND 
+                        cobrado = 1 AND
+                        activo = 1
+                        GROUP BY costo_consulta;"
+                    ;
+        $query = $this->db->query($sql);
+        
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
     //=================================================================
     //GASTOS
     //=================================================================

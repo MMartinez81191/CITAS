@@ -29,12 +29,14 @@
 				    			<form id="recuperar_cantidades" name="recuperar_cantidades">
 				    				<div class="form-group">
 				    					<label>Fecha Inicial:</label>
-				    					<input class="form-control" id="txt_fecha" name="txt_fecha" type="text">
+											<input type="date" class="form-control" id="txt_fecha_corte_parcial_1" name="txt_fecha_corte_parcial_1" required="true" value="<?=date('Y-m-d')?>" >
+				    					<!--<input class="form-control" id="txt_fecha" name="txt_fecha" type="text">-->
 
 				    				</div>
 				    				<div class="form-group">
 				    					<label>Fecha Final:</label>
-				    					<input class="form-control" id="txt_fecha2" name="txt_fecha2" type="text">
+				    					<input type="date" class="form-control" id="txt_fecha_corte_parcial_2" name="txt_fecha_corte_parcial_2" required="true" value="<?=date('Y-m-d')?>" >
+				    					<!--<input class="form-control" id="txt_fecha2" name="txt_fecha2" type="text">-->
 				    				</div>
 				    				<div class="form-group">
 				    					<button type="submit" class="btn btn-primary"><i class="fa fa-search"></i> Buscar</button>
