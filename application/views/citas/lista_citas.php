@@ -170,6 +170,7 @@
 											<th><center>Turno</center></th>
 											<th><center>Nombre Paciente</center></th>
 											<th><center>Tipo Cita</center></th>
+											<th><center>Costo</center></th>
 											<th class="no-sort"><center>Opciones</center></th>
 										</tr>
 									</thead>
@@ -200,6 +201,25 @@
 																	<td><center><?= $row->numero_turno;?></center></td>
 																	<td><center><?= $row->nombre_cliente;?></center></td>
 																	<td><center><?= $row->tipo_cita ?></center></td>
+																	<td><center><?php 
+																					if($row->costo_consulta != -1)
+																					{	
+																						if(is_numeric($row->costo_consulta))
+																						{
+																							echo number_format($row->costo_consulta,2,'.', ',');
+																						}
+																						else
+																						{
+																							echo $row->costo_consulta;
+																						}
+																						
+																					}
+																					else
+																					{
+																						echo '-';
+																					} 
+																					?>
+																	</center></td>
 																	<td>
 																		<center>
 																			<?php
@@ -221,7 +241,8 @@
 																					if($row->id_tipo_cita != 2 AND $id_nivel < 5)
 																					{
 																						?>
-																						<button data-id="<?= $row->id_cita; ?>" data-edit="true" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
+																						<!--<button data-id="<?= $row->id_cita; ?>" data-edit="true" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
+																						<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
 																						<?php
 																					}
 																				?>
@@ -246,6 +267,7 @@
 														<tr>
 															<td><center><?=$i + 1?></center></td>
 							    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+															<td><center>-</center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>

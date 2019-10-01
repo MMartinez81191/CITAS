@@ -89,7 +89,6 @@ var citas = {
             
             id_cita = $(this).data('id');
             var data = {id_cita: id_cita};
-            cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
             console.log(data);
             swal({
                 title: "¿Esta seguro de eliminar esta cita?",

@@ -78,6 +78,7 @@ class Citas extends CI_Controller {
 
 			$DATA_CITAS = $this->Citas_model->get_citas($fechaInicio,$fechaFinal);
 			$DATA_FECHA = $fechaInicio;
+			$id_nivel = $this->session->userdata('nivel');
 			?>
 			<div class="box-header">
         		<center>
@@ -93,6 +94,7 @@ class Citas extends CI_Controller {
 							<th><center>Turno</center></th>
 							<th><center>Nombre Paciente</center></th>
 							<th><center>Tipo Cita</center></th>
+							<th><center>Costo</center></th>
 							<th class="no-sort"><center>Opciones</center></th>
 						</tr>
 					</thead>
@@ -122,6 +124,25 @@ class Citas extends CI_Controller {
 												<td><center><?= $row->numero_turno;?></center></td>
 												<td><center><?= $row->nombre_cliente;?></center></td>
 												<td><center><?= $row->tipo_cita ?></center></td>
+												<td><center><?php 
+																if($row->costo_consulta != -1)
+																{	
+																	if(is_numeric($row->costo_consulta))
+																	{
+																		echo number_format($row->costo_consulta,2,'.', ',');
+																	}
+																	else
+																	{
+																		echo $row->costo_consulta;
+																	}
+																	
+																}
+																else
+																{
+																	echo '-';
+																} 
+																?>
+												</center></td>
 												<td>
 													<center>
 														<?php
@@ -137,6 +158,15 @@ class Citas extends CI_Controller {
 														?>
 															<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
 															<button  data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
+															<?php
+																if($row->id_tipo_cita != 2 AND $id_nivel < 5)
+																{
+																	?>
+																	<!--<button data-id="<?= $row->id_cita; ?>" data-edit="true" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
+																	<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
+																	<?php
+																}
+															?>
 														<?php
 														}
 														?>
@@ -157,6 +187,7 @@ class Citas extends CI_Controller {
 									<tr>
 										<td><center><?=$i + 1?></center></td>
 		    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+										<td><center>-</center></td>
 										<td><center>-</center></td>
 										<td><center>-</center></td>
 										<td><center>-</center></td>
@@ -372,10 +403,31 @@ class Citas extends CI_Controller {
 				$numero_turno = $this->Citas_model->get_turno($DATA_CITA->fecha);
 				$id_tipo_cita = trim($this->input->post('id_tipo_cita'));
 				$id_cliente = $DATA_CITA->id_cliente;
+				$costo_consulta = trim($this->input->post('costo_consulta'));
 
+				//PARCHE TEMPORAL
+				if($id_tipo_cita == "5")
+				{
+					$costo_consulta = "200";
+				}
+				else if(
+						($id_tipo_cita == "1" AND $costo_consulta != "100.00") AND
+					    ($id_tipo_cita == "1" AND $costo_consulta != "0.00") 
+					   )
+				{
+					$costo_consulta = "100.00";
+				}
+				else if(
+						($id_tipo_cita == "3" AND $costo_consulta != "100.00") AND
+					    ($id_tipo_cita == "3" AND $costo_consulta != "0.00") 
+					   )
+				{
+					$costo_consulta = "100.00";
+				}
+				
 
 				$data = array(				
-					'costo_consulta' => trim($this->input->post('costo_consulta')),
+					'costo_consulta' => $costo_consulta,
 					'numero_consulta' => $numero_consulta,
 					'numero_turno' => $numero_turno,
 					'forma_pago' => trim($this->input->post('forma_pago')),
