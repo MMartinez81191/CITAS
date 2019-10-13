@@ -50,110 +50,6 @@
 		<div class="row">
 	        <div class="col-xs-8">
 	        	<div class="row">
-	        		<div class="box box-primary">
-						<div class="box-header">
-							<center>
-								<h4>Agregar Citas</h4>
-								
-							</center>
-							<hr/>
-						</div>
-			      		<div class="box-body">
-			      			<form id="agregar_citas" name="agregar_citas" autocomplete="off">
-			          			<div class="row">
-			          				<div class="col-lg-4">
-			      						<div class="form-group">
-						                	<label>Nombre Paciente:</label>
-						                	<select id="select_cliente" name="select_cliente" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required="true">
-								                  <?php
-					                                if($DATA_CLIENTES != FALSE)
-						                            {		                                
-						                                foreach ($DATA_CLIENTES->result() as $row)
-						                                {
-						                                    echo '<option value="'.$row->id_cliente.'">';
-						                                        echo $row->nombre_cliente;
-						                                    echo '</option>';                                
-						                                }
-						                            
-						                            }                                      
-					                            ?>
-						                	</select>
-						              	</div>
-			          				</div>
-			          				<div class="col-lg-4">
-			          					<!-- Date -->
-							            <div class="form-group">
-							             	<label>Fecha:</label>
-							             	<div class="input-group">
-							             		<span class="input-group-addon">
-											        <i class="fa fa-calendar"></i>
-											    </span>
-											    <input type="date" class="form-control" id="txt_fecha_citas" name="txt_fecha" required="true" value="<?=date('Y-m-d')?>" >
-											    
-							             	</div>
-							             	
-							                <!--<div class="input-group date">
-								                <div class="input-group-addon">
-								                	<i class="fa fa-calendar"></i>
-								                </div>
-								                <input type="date" class="form-control" name="">
-								                <!--<input type="text" class="form-control pull-right" id="txt_fecha" name="txt_fecha" required="true" placeholder="yyyy-mm-dd" autocomplete="off">--
-							                </div>-->
-							            </div>
-			          				</div>
-			          				<div class="col-lg-4" >
-			          					<div class="bootstrap-timepicker">
-							                <div class="form-group">
-								                <label>Hora de Cita:</label>
-								                <div class="input-group">
-								                	<span class="input-group-addon">
-												        <i class="fa fa-clock-o"></i>
-												    </span>
-								                	<input type="time" class="form-control" id="txt_hora" name="txt_hora" min="08:00" max="20:59" required="true" value="<?=date('H:00')?>" step="300">
-								                </div>
-								                
-								                <!--<div class="input-group">
-								                	<input type="time" name="">
-													<div class="input-group-addon">
-														<i class="fa fa-clock-o"></i>
-													</div>
-													<!--<input id="txt_hora" name="txt_hora" type="text" class="form-control timepicker" autocomplete="off" readonly="true" required="true">--
-												</div>-->
-							                </div>
-				          				</div>
-				          			</div>
-				          			
-			      				</div>
-			      				<div class="row">
-			      					<div class="col-lg-4">
-			      						<div class="form-group">
-						                	<label>Tipo de cita:</label>
-						                	<select id="select_tipo_cita" name="select_tipo_cita" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" required="true">
-								                  <?php
-					                                if($DATA_TIPO_CITAS != FALSE)
-						                            {		                                
-						                                foreach ($DATA_TIPO_CITAS->result() as $row)
-						                                {
-						                                    echo '<option value="'.$row->id_tipo_cita.'">';
-						                                        echo $row->tipo_cita;
-						                                    echo '</option>';                                
-						                                }
-						                            
-						                            }                                    
-					                            ?>
-						                	</select>
-						              	</div>
-			          				</div>
-			          				<div class="col-lg-2" style="margin-top:2%;">
-			          					<button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Guardar Cita</button>
-			          				</div>
-			          				
-			      				</div>
-			          		</form>
-			      		</div>
-				    </div>
-	        	</div>
-	        	<div class="row">
 			        <div class="box box-primary" id="tabla_citas" name="tabla_citas">
 			        	<div class="box-header">
 			        		<center>
@@ -225,7 +121,7 @@
 																			<?php
 																			if($row->costo_consulta == '-1'){
 																			?>
-																				<button data-id="<?= $row->id_cita; ?>" data-edit="false" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
+																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
 
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
 																			<?php
@@ -241,7 +137,7 @@
 																					if($row->id_tipo_cita != 2 AND $id_nivel < 5)
 																					{
 																						?>
-																						<!--<button data-id="<?= $row->id_cita; ?>" data-edit="true" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
+																						<!--<button data-id="<?= $row->id_cita; ?>"class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
 																						<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
 																						<?php
 																					}
@@ -307,24 +203,13 @@
 		          				<div class="col-lg-12">
 	          						<div class="form-group">
 					                	<label>Seleccione Paciente:</label>
-					                	<select id="select_cliente_consulta_citas" name="select_cliente_consulta_citas" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-							                  <?php
-				                                if($DATA_CLIENTES != FALSE)
-					                            {		                                
-					                                foreach ($DATA_CLIENTES->result() as $row)
-					                                {
-					                                    echo '<option value="'.$row->id_cliente.'">';
-					                                        echo $row->nombre_cliente;
-					                                    echo '</option>';                                
-					                                }
-					                            
-					                            }                                      
-				                            ?>
+					                	<select id="select_cliente_consulta_citas" name="select_cliente_consulta_citas" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+							                  <option>seleccionar</option>
 					                	</select>
 						              	
 					              	</div>
 					              	<div class="form-group">
-			          					<button class="btn btn-default" data-toggle="modal" data-target="#modal_consulta_citas"><i class="fa fa-search"></i> Consultar Citas</button>
+			          					<button class="btn btn-default"><i class="fa fa-search"></i> Consultar Citas</button>
 			          				</div>
 		          				</div>
 	          				</div>
@@ -417,7 +302,6 @@
             <div class="modal-body">
 	            <form  name="pagar_citas" id="pagar_citas">
 	            	<input type="hidden" id="id_cita_pagar" name="id_cita_pagar" >
-	            	<input type="hidden" name="edit" id="edit" value="false">
 	            	<input type="hidden" name="fecha_cita" name="fecha_cita">
 	            	<input type="hidden" name="txt_tipo_cita" id="txt_tipo_cita">
 	            	<input type="hidden" name="txt_membresia" id="txt_membresia"> 
@@ -541,19 +425,7 @@
 
 	            	<div class="form-group">
 	            		<label>Nombre Paciente:</label>
-	                	<select id="select_cliente_modal" name="select_cliente_modal" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-			                  <?php
-	                            if($DATA_CLIENTES != FALSE)
-	                            {		                                
-	                                foreach ($DATA_CLIENTES->result() as $row)
-	                                {
-	                                    echo '<option value="'.$row->id_cliente.'">';
-	                                        echo $row->nombre_cliente;
-	                                    echo '</option>';                                
-	                                }
-	                            
-	                            }                                      
-	                        ?>
+	                	<select id="select_cliente_modal" name="select_cliente_modal" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" required="true"> 
 	                	</select>
 	            	</div>
 	            	

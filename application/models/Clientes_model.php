@@ -93,7 +93,23 @@ class Clientes_model extends CI_Model {
     }
 
 
+    //METODO PARA SER UTILIZADO EN EL SELECT DE CLIENTES EL CUAL LO HACE POR PAGINACION EN AJAX
+    function get_clientes_select($searchTerm="")
+    {
+        $this->db->select('*');
+        $this->db->where("nombre_cliente like '%".$searchTerm."%' ");
+        $this->db->order_by('id_cliente','DESC');
+        $fetched_records = $this->db->get('clientes');
+        $clientes = $fetched_records->result_array();
 
+        // Initialize Array with fetched data
+        $data = array();
+        foreach($clientes as $cliente)
+        {
+            $data[] = array("id"=>$cliente['id_cliente'], "text"=>$cliente['nombre_cliente']);
+        }
+        return $data;
+    }    
 
 
 

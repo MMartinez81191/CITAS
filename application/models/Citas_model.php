@@ -76,17 +76,18 @@ class Citas_model extends CI_Model {
     //OBTIENE SI LA CITA ES MEMBRESIA O NO
     public function get_tipo_cita($id_cliente)
     {
-        $this->db->select('membresia');
-        $this->db->from('clientes');
-        $this->db->where('activo',1);
+        $this->db->limit(1);
+        $this->db->select('numero_cita');
+        $this->db->from('membresias');
         $this->db->where('id_cliente',$id_cliente);
-        $this->db->order_by('id_cliente','DESC');
+        $this->db->order_by('id_membresia','DESC');
 
         $query = $this->db->get();
-
+        echo $this->db->last_query();
         if($query->num_rows() > 0)
         {
-            if($query->row('membresia') == "0")
+            $numero_membresia = $query->row('numero_cita');
+            if($numero_membresia == 5)
             {
                 return FALSE;
             }
@@ -227,6 +228,8 @@ class Citas_model extends CI_Model {
     }
 
     //AREA DE MEMBRESIAS
+
+    //OBTIENE LA INFORMACION DE LA MEMBRESIA DEPENDIENDO DEL NUMERO DE CLIENTE
     public function get_info_membresia($id_cliente)
     {
         

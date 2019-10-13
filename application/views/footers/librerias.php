@@ -185,13 +185,12 @@
 	<script type="text/javascript">
 
         $(function () {
-
         	$('input[type="checkbox"].minimal, input[type="radio"].minimal').iCheck({
 		      	checkboxClass: 'icheckbox_flat-green',
 				radioClass   : 'iradio_flat-green'
 		    })
         	//Initialize Select2 Elements
-    		$('.select2').select2()
+    		$('.select2').select2();
 
             $('[data-toggle="tooltip"]').tooltip();
 		    

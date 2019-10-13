@@ -1,41 +1,6 @@
 var citas = {
 
-    add_cita: function(){
-        $('#agregar_citas').on('submit', function(form){
-            form.preventDefault();
-            var data = {
-                id_cliente : $('#select_cliente').val(), 
-                txt_fecha : $('#txt_fecha_citas').val(),
-                txt_hora : $('#txt_hora').val(),
-                id_tipo_cita : $('#select_tipo_cita').val(),
-            }
-            var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
-            console.log(response);
-            if(response == false)
-            {
-                swal({
-                    title: 'CORRECTO',
-                    text: 'LA CITA SE AGREGO CORRECTAMENTE',
-                    type: 'success',
-                closeOnConfirm: false
-                },function(){
-                    window.location.reload();
-                });
-            }
-            else if(response == true)
-            {
-                swal({
-                    title: 'ATENCION!!',
-                    text: 'LA HORA Y FECHA DE LA CITA YA ESTA OCUPADA',
-                    type: 'warning',
-                    closeOnConfirm: false
-                },function(){
-                    window.location.reload();
-                });
-            }
-        });
-    },
-
+    //RELLENA LA HORA Y LA FECHA EN EL MODAL CUANDO SE VA A CREAR UNA CITA
     datos_add_cita: function(){
         $(document).on('click','button.btn_add_cita_modal', function () {
             var data = {
@@ -48,7 +13,8 @@ var citas = {
         });
     },
 
-    add_cita_modal: function(){
+    //AGREGA UNA NUEVA CITA A LA AGENDA DE CITAS
+    add_cita: function(){
         $('#agregar_citas_modal').on('submit', function(form){
             form.preventDefault();
             var data = {
@@ -59,8 +25,7 @@ var citas = {
             }
             var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
             console.log(response);
-            if(response == false)
-            {
+            if(response == 1){
                 swal({
                     title: 'CORRECTO',
                     text: 'LA CITA SE AGREGO CORRECTAMENTE',
@@ -70,8 +35,7 @@ var citas = {
                     window.location.reload();
                 });
             }
-            else if(response == true)
-            {
+            else if(response == 2){
                 swal({
                     title: 'ATENCION!!',
                     text: 'LA HORA Y FECHA DE LA CITA YA ESTA OCUPADA',
@@ -80,10 +44,21 @@ var citas = {
                 },function(){
                     window.location.reload();
                 });
+            }else if(response == 3){
+                swal({
+                    title: 'ERROR!!',
+                    text: 'OCURRIO UN ERROR AL GUARDAR LA CITA',
+                    type: 'error',
+                    closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
             }
         });
     },
 
+    
+    
     eliminar_cita: function(){
         $(document).on('click', 'button.eliminar_cita', function () {
             
@@ -143,43 +118,40 @@ var citas = {
         $(document).on('click','button.cobrar_cita', function () {
             var data = {
                 id_cita: $(this).data('id'),
-                edit : $(this).data('edit'),
             };    
             var response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
-            var numero_turno = response.DATA_TURNO;
-            var edit = $(this).data('edit');
 
-            $('#id_cita_pagar').val(response.DATA_CITA.id_cita);
-            $('#edit').val(edit);
-            $('#fecha_cita').val(response.DATA_CITA.fecha);
-            $('#txt_turno_cita').val(numero_turno);
-            $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
-            $('#txt_tipo_cita').val(response.DATA_CITA.id_tipo_cita);
-            $('#txt_id_cliente').val(response.DATA_CITA.id_cliente);
-
-            var id_tipo_cita = response.DATA_CITA.id_tipo_cita;
-            //var id_cliente = response.DATA_CITA.id_cliente;
-            var membresia = response.DATA_CITA.membresia;
-
-            //Manda los datos para mostrar el costo y hacer el update
-            $.post("Citas/get_co/"+id_tipo_cita + "/"+membresia, function(data)
+            if(response != "n/a")
             {
-               $("#sel_costo_cita").html(data);
-            });
+                var numero_turno = response.DATA_TURNO;
 
-            //resta la consulta actual y obtiene el nuevo numero de membresias
-            if (id_tipo_cita == 2)  //cuando es membresia
-            {
-                if (membresia == 0)  //cuando compra la membresia
-                {
-                    membresia = 4;
-                }
-                else                //cuando ya tiene la membresia
-                {
-                    membresia -= 1;
-                }
-                $('#txt_membresia').val(membresia);
+                $('#id_cita_pagar').val(response.DATA_CITA.id_cita);
+                $('#fecha_cita').val(response.DATA_CITA.fecha);
+                $('#txt_turno_cita').val(numero_turno);
+                $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
+                $('#txt_tipo_cita').val(response.DATA_CITA.id_tipo_cita);
+                $('#txt_id_cliente').val(response.DATA_CITA.id_cliente);
+
+                var id_tipo_cita = response.DATA_CITA.id_tipo_cita;
+                //var id_cliente = response.DATA_CITA.id_cliente;
+                var membresia = response.DATA_CITA.membresia;
+
+                //console.log(response);
+                $("#sel_costo_cita").html(response.DATA_COSTOS);
+
             }
+            else
+            {
+                swal({
+                    title: 'ERROR!!',
+                    text: 'OCURRIO UN ERROR AL COBRAR LA CITA',
+                    type: 'error',
+                    closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
+            }
+            
 
         });
     },
@@ -190,58 +162,31 @@ var citas = {
             document.getElementById("btn_pago_cita").disabled = true;
             
             var id_cita = $('#id_cita_pagar').val();
-            //var ruta = "http://pinguinosystems.com/CITAS/citas/imprimir_ticket/" + id_cita;
-            var ruta = base_url + "citas/imprimir_ticket/" + id_cita;
-
             var data = 
             {
-                id_cita: $('#id_cita_pagar').val(),
-                edit : $('#edit').val(), 
+                id_cita: $('#id_cita_pagar').val(), 
                 costo_consulta : $('#sel_costo_cita').val(),
                 forma_pago : $("input[name='rd_forma_pago']:checked").val(),
-                peso_actual : $('#txt_peso_inicial_cita').val(),
-                id_tipo_cita : $('#txt_tipo_cita').val(),
             }
             var response = cargar_ajax.run_server_ajax('citas/pagar_cita', data);
-
             
-            //actualizar membresia
-            var id_cliente = $('#txt_id_cliente').val();
-            var data2 = 
+            if (response == false) 
             {
-                id_cliente : id_cliente,
-                membresia: $('#txt_membresia').val(),
-            }
-
-            cargar_ajax.run_server_ajax('citas/up_membresia', data2);
-            //fin actualizar membresia
-            
-            if (response == 'false') 
-            {
-                 title = "Error!";
-                 icon = "error";
-                 mensaje = "No se pudo realizar la actualicación";
+                swal({
+                    title: "ATENCION",
+                    text: "Ocurrio un error al realizar el cobro",
+                    type: "error",
+                    closeOnConfirm: false
+                }, function () {
+                    location.reload();
+                });
             } 
             else 
             {
-                 icon = "success";
-                 title = "Actualización de información";
-                 mensaje = "Cobro Realizado Correctamente";
-            }
-
-            //document.getElementById("btn_pago_cita").disabled = false;
-            window.open(ruta, 'Nombre Ventana');
-            location.reload();
-
-            /*swal({
-                 title: title,
-                 text: mensaje,
-                 type: icon,
-                 closeOnConfirm: false
-             }, function () {
+                var ruta = base_url + "citas/imprimir_ticket/" + id_cita;
                 window.open(ruta, 'Nombre Ventana');
                 location.reload();
-             });*/
+            }
         });
     },
 
@@ -290,14 +235,6 @@ var citas = {
         });
     },
 
-    get_tipo_cita: function(){
-        $("#select_cliente").on("change", function (form) {
-            $('#select_tipo_cita').html('');
-            var id_cliente = $('#select_cliente').val();
-            $("#select_tipo_cita").load(base_url + "citas/set_select_tipo_cita/"+id_cliente);
-        });
-    },
-
     get_tipo_cita_modal: function(){
         $("#select_cliente_modal").on("change", function (form) {
             $('#select_tipo_cita_modal').html('');
@@ -305,11 +242,59 @@ var citas = {
             $("#select_tipo_cita_modal").load(base_url + "citas/set_select_tipo_cita/"+id_cliente);
         });
     },
+
+    //LLENA DE INFORMACION EL SELECT DE CLIENTES EN LA CONSULTA DE CITAS
+    get_clientes_consulta_citas : function(){
+        $('#select_cliente_consulta_citas').select2({
+            placeholder: "Seleccione un paciente",
+            ajax: { 
+                url: base_url + 'citas/obtener_clientes',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+    },
+
+    //LLENA EL SELECT DE CLIENTES EN LA CREACION DE CITAS NUEVAS
+    get_clientes_modal_agregar_cita : function(){
+        $('#select_cliente_modal').select2({
+            placeholder: "Seleccione un paciente",
+            ajax: { 
+                url: base_url + 'citas/obtener_clientes',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+    }
+
 }
 jQuery(document).ready(function() { 
    citas.add_cita(this);
    citas.datos_add_cita(this);
-   citas.add_cita_modal(this);
    citas.add_cliente(this);
    citas.eliminar_cita(this);
    citas.datos_cobro_citas(this);
@@ -317,6 +302,7 @@ jQuery(document).ready(function() {
    citas.load_modal_peso(this);
    citas.add_peso(this);
    citas.consultar_citas(this);
-   citas.get_tipo_cita(this);
    citas.get_tipo_cita_modal(this);
+   citas.get_clientes_consulta_citas(this);
+   citas.get_clientes_modal_agregar_cita(this);
 });

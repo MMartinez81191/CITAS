@@ -9,6 +9,7 @@ class Citas extends CI_Controller {
 		$this->load->model('Citas_model');
 		$this->load->model('Clientes_model');
 		$this->load->model('Costos_model');
+		$this->load->library('form_validation');
 	} 
 
 	public function index()
@@ -23,7 +24,6 @@ class Citas extends CI_Controller {
 				$data = array(
 					'DATA_CITAS' => $this->Citas_model->get_citas($fechaInicio,$fechaFinal),
 					'DATA_FECHA' => $fechaInicio,
-					'DATA_CLIENTES' => $this->Clientes_model->get_clientes(),
 					'DATA_TIPO_CITAS' => $this->Citas_model->get_tipo_citas($this->Citas_model->get_tipo_cita_max_id_cliente()),
 					//'DATA_COSTOS' => $this->Costos_model->get_costos(),
 				);
@@ -162,7 +162,7 @@ class Citas extends CI_Controller {
 																if($row->id_tipo_cita != 2 AND $id_nivel < 5)
 																{
 																	?>
-																	<!--<button data-id="<?= $row->id_cita; ?>" data-edit="true" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
+																	<!--<button data-id="<?= $row->id_cita; ?>"  class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
 																	<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
 																	<?php
 																}
@@ -208,7 +208,7 @@ class Citas extends CI_Controller {
 		}
 	}
 
-
+	//FUNCION PARA GUARDAR UNA CITA EN LA BASE DE DATOS
 	public function crear_cita()
 	{
 		if($this->seguridad() == TRUE)
@@ -216,27 +216,45 @@ class Citas extends CI_Controller {
 			if($this->input->is_ajax_request())
 			{
 				//$response = FALSE;
+				$id_cliente = trim($this->input->post('id_cliente'));
+				$id_tipo_cita = trim($this->input->post('id_tipo_cita'));
 				$fecha = trim($this->input->post('txt_fecha'));
 				$hora = trim($this->input->post('txt_hora'));
+
 				$confirmar_repetido = $this->Citas_model->comprobar_repetidos($fecha,date("H:i", strtotime($hora)));
 
-				if($confirmar_repetido == FALSE)
+				if($confirmar_repetido == FALSE AND 
+				   !empty($id_cliente) AND
+				   !empty($id_tipo_cita) AND
+			       !empty($fecha) AND
+			       !empty($hora))
 				{
 					$data = array(				
-						'id_cliente' => trim($this->input->post('id_cliente')),
-						'id_tipo_cita' => trim($this->input->post('id_tipo_cita')),
+						'id_cliente' => $id_cliente,
+						'id_tipo_cita' => $id_tipo_cita,
 						'fecha' => $fecha,
 						'hora' => date("H:i", strtotime($hora)),
 						'activo' => 1,
 					);
 					
 					$this->Citas_model->insert_citas($data);
-					$response = FALSE;
+					$response = '1';
 					
 				}
-				else if($confirmar_repetido == TRUE)
+				else 
 				{
-					$response = TRUE;
+					if($confirmar_repetido == TRUE)
+					{
+						$response = '2';
+					}
+					else if($confirmar_repetido == FALSE OR 
+					   empty($id_cliente) OR
+					   empty($id_tipo_cita) OR
+				       empty($fecha) OR
+				       empty($hora))
+					{
+						$response = '3';
+					}
 				}
 				echo json_encode($response);
 			}else{
@@ -269,6 +287,7 @@ class Citas extends CI_Controller {
 		}
 	}
 
+	//LLENA EL MODAL CON LOS DATOS QUE SE USARAN PARA PAGAR LA CITA
 	public function datos_pagar_cita()
 	{
 		if($this->seguridad() == TRUE)
@@ -276,15 +295,47 @@ class Citas extends CI_Controller {
 			if($this->input->is_ajax_request())
 			{
 				
-				$id_cita = $this->input->post('id_cita');
-				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
-				
-				$data = array(
-					'DATA_CITA' => $DATA_CITA,
-					'DATA_TURNO' =>  $this->Citas_model->get_turno($DATA_CITA->fecha),
-					//'DATA_COSTOS' => $this->Costos_model->get_costos(),
-				);
-				echo json_encode($data);
+				$id_cita = trim($this->input->post('id_cita'));
+				if(!empty($id_cita))
+				{
+					//obtiene la informacion de la cita
+					$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
+
+					//obtiene el tipo de la cita y el id del cliente
+					$id_tipo_cita = $DATA_CITA->id_tipo_cita;
+					$id_cliente = $DATA_CITA->id_cliente;
+
+					//obtiene la informacion de los costos
+					$DATA_MEMBRESIA = $this->Citas_model->get_info_membresia($id_cliente);
+					$numero_membresia = 0;
+
+					if($DATA_MEMBRESIA != FALSE){
+						$numero_membresia = $DATA_MEMBRESIA->numero_membresia;
+					}
+
+					$DATA_COSTOS = $this->Costos_model->get_costos_por_tipo_cita($id_tipo_cita,$numero_membresia);
+
+					$DATA_COSTOS_HTML = "";
+					if($DATA_COSTOS != FALSE){
+						foreach ($DATA_COSTOS->result() as $row) {
+							$DATA_COSTOS_HTML = $DATA_COSTOS_HTML.'<option value="'.$row->costo.'">'.$row->costo.'</option>';
+						}
+					}
+					
+					//obtiene la informacion de los turnos
+					$DATA_TURNO = $this->Citas_model->get_turno($DATA_CITA->fecha);
+
+					//envio de datos a la vista
+					$data = array(
+						'DATA_CITA' => $DATA_CITA,
+						'DATA_TURNO' => $DATA_TURNO,
+						'DATA_COSTOS' => $DATA_COSTOS_HTML,
+					);
+					echo json_encode($data);
+				}else
+				{
+					echo json_encode("n/a");
+				}
 			}
 			else
 			{
@@ -401,50 +452,67 @@ class Citas extends CI_Controller {
 				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
 				$numero_consulta = $this->Citas_model->get_numero_consulta();
 				$numero_turno = $this->Citas_model->get_turno($DATA_CITA->fecha);
-				$id_tipo_cita = trim($this->input->post('id_tipo_cita'));
-				$id_cliente = $DATA_CITA->id_cliente;
 				$costo_consulta = trim($this->input->post('costo_consulta'));
-
-				//PARCHE TEMPORAL
-				if($id_tipo_cita == "5")
-				{
-					$costo_consulta = "200";
-				}
-				else if(
-						($id_tipo_cita == "1" AND $costo_consulta != "100.00") AND
-					    ($id_tipo_cita == "1" AND $costo_consulta != "0.00") 
-					   )
-				{
-					$costo_consulta = "100.00";
-				}
-				else if(
-						($id_tipo_cita == "3" AND $costo_consulta != "100.00") AND
-					    ($id_tipo_cita == "3" AND $costo_consulta != "0.00") 
-					   )
-				{
-					$costo_consulta = "100.00";
-				}
+				$forma_pago = trim($this->input->post('forma_pago'));
+				$id_tipo_cita = $DATA_CITA->id_tipo_cita;
 				
-
-				$data = array(				
-					'costo_consulta' => $costo_consulta,
-					'numero_consulta' => $numero_consulta,
-					'numero_turno' => $numero_turno,
-					'forma_pago' => trim($this->input->post('forma_pago')),
-					'peso_actual' => trim($this->input->post('peso_actual')),
-					'cobrado' => 1,
-					
-				);
-				$this->Citas_model->pagar_cita($data,$id_cita);
-				var_dump($id_tipo_cita);
-				//SECCION MEMBRESIAS
-				if($id_tipo_cita == 2)
+				if(!empty($id_tipo_cita) AND
+				   !empty($DATA_CITA) AND
+				   !empty($numero_consulta) AND 
+				   !empty($numero_turno) AND
+				   !empty($costo_consulta) AND
+				   !empty($forma_pago) AND
+				   !empty($id_tipo_cita))
 				{
-					$DATA_MEMBRESIA = $this->Citas_model->get_info_membresia($id_cliente);
-					if($DATA_MEMBRESIA != FALSE)
+
+					//seccion registro de cita
+					$data = array(				
+						'costo_consulta' => $costo_consulta,
+						'numero_consulta' => $numero_consulta,
+						'numero_turno' => $numero_turno,
+						'forma_pago' => $forma_pago,
+						'cobrado' => 1,
+						
+					);
+
+					$this->Citas_model->pagar_cita($data,$id_cita);
+					
+					//SECCION MEMBRESIAS
+					if($id_tipo_cita == 2)
 					{
-						$numero_cita = $DATA_MEMBRESIA->numero_cita;
-						if($numero_cita >= 5)
+						$DATA_MEMBRESIA = $this->Citas_model->get_info_membresia($id_cliente);
+						if($DATA_MEMBRESIA != FALSE)
+						{
+							$numero_cita = $DATA_MEMBRESIA->numero_cita;
+							if($numero_cita >= 5)
+							{
+								$DATA_MEMBRESIA = $this->Citas_model->get_max_membresia();
+								$numero_membresia = $DATA_MEMBRESIA->numero_membresia + 1;
+								$numero_cita = 1;
+
+								$data = array(
+									'numero_membresia' => $numero_membresia,
+									'id_cita' => $id_cita,
+									'id_cliente' => $id_cliente,
+									'numero_cita' => $numero_cita,
+								);
+								$this->Citas_model->insert_membresia($data);
+							}
+							else
+							{
+								$numero_membresia = $DATA_MEMBRESIA->numero_membresia;
+								$numero_cita = $numero_cita + 1;
+
+								$data = array(
+									'numero_membresia' => $numero_membresia,
+									'id_cita' => $id_cita,
+									'id_cliente' => $id_cliente,
+									'numero_cita' => $numero_cita,
+								);
+								$this->Citas_model->insert_membresia($data);
+							}
+						}
+						else
 						{
 							$DATA_MEMBRESIA = $this->Citas_model->get_max_membresia();
 							$numero_membresia = $DATA_MEMBRESIA->numero_membresia + 1;
@@ -458,40 +526,17 @@ class Citas extends CI_Controller {
 							);
 							$this->Citas_model->insert_membresia($data);
 						}
-						else
-						{
-							$numero_membresia = $DATA_MEMBRESIA->numero_membresia;
-							$numero_cita = $numero_cita + 1;
-
-							$data = array(
-								'numero_membresia' => $numero_membresia,
-								'id_cita' => $id_cita,
-								'id_cliente' => $id_cliente,
-								'numero_cita' => $numero_cita,
-							);
-							$this->Citas_model->insert_membresia($data);
-						}
 					}
-					else
-					{
-						$DATA_MEMBRESIA = $this->Citas_model->get_max_membresia();
-						$numero_membresia = $DATA_MEMBRESIA->numero_membresia + 1;
-						$numero_cita = 1;
-
-						$data = array(
-							'numero_membresia' => $numero_membresia,
-							'id_cita' => $id_cita,
-							'id_cliente' => $id_cliente,
-							'numero_cita' => $numero_cita,
-						);
-						$this->Citas_model->insert_membresia($data);
-					}
+					$response = TRUE;
+					echo json_encode($response);
 				}
-
-
-				
-				
-			}else
+				else
+				{
+					$response = FALSE;
+					echo json_encode($response);
+				}
+			}
+			else
 			{
 	            show_404();
 	        }
@@ -724,7 +769,17 @@ class Citas extends CI_Controller {
 		}
 	}
 	
+	//OBTIENE LA LISTA DE CLIENTES QUE SE USARAN EN EL SELECT 2	
+	public function obtener_clientes(){
 
+      // Search term
+      $searchTerm = $this->input->post('searchTerm');
+
+      // Get users
+      $response = $this->Clientes_model->get_clientes_select($searchTerm);
+
+      echo json_encode($response);
+   }
 	//PESOS DE CLEINTES
 	public function add_peso()
 	{
