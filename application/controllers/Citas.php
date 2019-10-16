@@ -72,7 +72,8 @@ class Citas extends CI_Controller {
 	{
 		if($this->seguridad() == TRUE)
 		{
-			$this->load->view('footers/librerias');
+
+			$this->load->view('footers/cargar_librerias_tablas');
 			$fechaInicio = $this->uri->segment(3);
 			$fechaFinal = $this->uri->segment(4);
 
@@ -456,11 +457,12 @@ class Citas extends CI_Controller {
 				$forma_pago = trim($this->input->post('forma_pago'));
 				$id_tipo_cita = $DATA_CITA->id_tipo_cita;
 				
+				
 				if(!empty($id_tipo_cita) AND
 				   !empty($DATA_CITA) AND
 				   !empty($numero_consulta) AND 
 				   !empty($numero_turno) AND
-				   !empty($costo_consulta) AND
+				   $costo_consulta != '' AND
 				   !empty($forma_pago) AND
 				   !empty($id_tipo_cita))
 				{
