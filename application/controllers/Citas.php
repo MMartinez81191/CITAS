@@ -456,7 +456,7 @@ class Citas extends CI_Controller {
 				$costo_consulta = trim($this->input->post('costo_consulta'));
 				$forma_pago = trim($this->input->post('forma_pago'));
 				$id_tipo_cita = $DATA_CITA->id_tipo_cita;
-				
+				$id_cliente = $DATA_CITA->id_cliente;
 				
 				if(!empty($id_tipo_cita) AND
 				   !empty($DATA_CITA) AND
@@ -464,7 +464,8 @@ class Citas extends CI_Controller {
 				   !empty($numero_turno) AND
 				   $costo_consulta != '' AND
 				   !empty($forma_pago) AND
-				   !empty($id_tipo_cita))
+				   !empty($id_tipo_cita) AND 
+				   !empty($id_cliente))
 				{
 
 					//seccion registro de cita
