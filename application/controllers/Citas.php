@@ -76,6 +76,7 @@ class Citas extends CI_Controller {
 			$this->load->view('footers/cargar_librerias_tablas');
 			$fechaInicio = $this->uri->segment(3);
 			$fechaFinal = $this->uri->segment(4);
+			$fechaActual = date("Y-m-d");
 
 			$DATA_CITAS = $this->Citas_model->get_citas($fechaInicio,$fechaFinal);
 			$DATA_FECHA = $fechaInicio;
@@ -149,15 +150,29 @@ class Citas extends CI_Controller {
 														<?php
 														if($row->costo_consulta == '-1'){
 														?>
+															<?php
+															if($fechaInicio == $fechaActual)
+															{
+															?>
 															<button data-id="<?= $row->id_cita; ?>" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
-
+															<?php
+															}
+															?>
 															<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
 														<?php
 														}
 														else
 														{
 														?>
-															<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
+															<?php
+																if($fechaInicio == $fechaActual)
+																{
+																	?>
+																	<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
+																	<?php
+																}
+															
+															?>
 															<button  data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
 															<?php
 																if($row->id_tipo_cita != 2 AND $id_nivel < 5)
