@@ -563,6 +563,7 @@ class Citas extends CI_Controller {
 		}
 	}
 
+	//METODO QUE PERMITE IMPRIMIR TICKET
 	public function imprimir_ticket()
 	{
 		if($this->seguridad() == TRUE)
@@ -682,7 +683,7 @@ class Citas extends CI_Controller {
 
         	//$pdf->ln();
 	        
-	        $pdf->SetFont('Times','',8);
+	        $pdf->SetFont('Times','',9);
 	        $pdf->SetFillColor(230,230,230);
 	        
 	        $pdf->SetFont('Times','',8);
@@ -690,17 +691,14 @@ class Citas extends CI_Controller {
 
 	        $pdf->SetFont('Times','B',8);
 	        $pdf->Cell(4,5,'',0,0);
-	        $pdf->Cell(72,5,utf8_decode('Hermosillo Sonora a').'                                              '.date("d-m-Y", strtotime($DATA_CITA->fecha)),1,1,'L',1);
+	        $pdf->Cell(72,5,date("d-m-Y", strtotime($DATA_CITA->fecha)).'                                                                   '.'$'.number_format($DATA_CITA->costo_consulta,2,'.',','),1,1,'L',1);
 	        $pdf->SetFont('Times','',8);
 
 			$pdf->Cell(4,5,'',0,0);
     		
-
-    		$pdf->MultiCell(72,5,utf8_decode('Nombre:'.$DATA_CITA->nombre_cliente.' '),1,'L');
+			$pdf->SetFont('Times','',11);
+    		$pdf->MultiCell(72,5,utf8_decode('Nombre: '.$DATA_CITA->nombre_cliente.' '),1,'L');
 			
-    		$pdf->Cell(4,4,'',0,0);
-    		$pdf->Cell(28,4,'Costo Consulta:',1,0,'L',1);
-    		$pdf->Cell(44,4,'$'.number_format($DATA_CITA->costo_consulta,2,'.', ','),1,1,'L');
 
     		if($DATA_CITA->id_tipo_cita == 2)
     		{
@@ -797,7 +795,7 @@ class Citas extends CI_Controller {
       $response = $this->Clientes_model->get_clientes_select($searchTerm);
 
       echo json_encode($response);
-   }
+    }
 	//PESOS DE CLEINTES
 	public function add_peso()
 	{
