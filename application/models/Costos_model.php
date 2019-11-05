@@ -55,12 +55,12 @@ class Costos_model extends CI_Model {
         $this->db->delete('costos');
     }
 
-    public function get_costos_por_tipo_cita($id_tipo_cita,$numero_membresia)
+    public function get_costos_por_tipo_cita($id_tipo_cita,$numero_cita)
     {
-        if($numero_membresia == 0 AND $id_tipo_cita == 2)
+        if(($numero_cita == 0 OR $numero_cita == 5) AND $id_tipo_cita == 2)
         {
             $this->db->select_max('costos.costo');
-        }else if($numero_membresia > 0 AND $id_tipo_cita == 2)
+        }else if($numero_cita > 0 AND $numero_cita < 5 AND $id_tipo_cita == 2)
         {
             $this->db->select_min('costos.costo');
         }else if($id_tipo_cita != 2)

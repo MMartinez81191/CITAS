@@ -323,13 +323,13 @@ class Citas extends CI_Controller {
 
 					//obtiene la informacion de los costos
 					$DATA_MEMBRESIA = $this->Citas_model->get_info_membresia($id_cliente);
-					$numero_membresia = 0;
-
+					
+					$numero_cita = 0;
 					if($DATA_MEMBRESIA != FALSE){
-						$numero_membresia = $DATA_MEMBRESIA->numero_membresia;
+						$numero_cita = $DATA_MEMBRESIA->numero_cita;
 					}
 
-					$DATA_COSTOS = $this->Costos_model->get_costos_por_tipo_cita($id_tipo_cita,$numero_membresia);
+					$DATA_COSTOS = $this->Costos_model->get_costos_por_tipo_cita($id_tipo_cita,$numero_cita);
 
 					$DATA_COSTOS_HTML = "";
 					if($DATA_COSTOS != FALSE){

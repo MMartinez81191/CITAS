@@ -227,7 +227,9 @@ class Citas_model extends CI_Model {
         }
     }
 
+    //=========================================================================================
     //AREA DE MEMBRESIAS
+    //=========================================================================================
 
     //OBTIENE LA INFORMACION DE LA MEMBRESIA DEPENDIENDO DEL NUMERO DE CLIENTE
     public function get_info_membresia($id_cliente)
@@ -239,7 +241,6 @@ class Citas_model extends CI_Model {
         $this->db->limit(1);
 
         $query = $this->db->get();
-        //echo $this->db->last_query();
 
         if($query->num_rows() > 0)
         {
