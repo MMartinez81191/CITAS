@@ -130,15 +130,13 @@
 																			{
 																			?>
 																				<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
-
-																				<!--<buton class="btn btn-primary cargar_modal_peso" data-id="<?= $row->id_cita;?>" data-toggle="modal" data-target="#modal_agregar_peso" ><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top"  title="Historial"  ></i><span></span></button>-->
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
 																				<?php
 																					if($row->id_tipo_cita != 2 AND $id_nivel < 5)
 																					{
 																						?>
-																						<!--<button data-id="<?= $row->id_cita; ?>"class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
-																						<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
+																						<button data-id="<?= $row->id_cita; ?>" data-hora="<?=$hora1?>" data-fecha="<?=$DATA_FECHA?>" class="btn btn-warning btn_update_cita_modal"  data-toggle="modal" data-target="#modal_modificar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
+																						<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Eliminar Cita" ></span></button>
 																						<?php
 																					}
 																				?>
@@ -353,7 +351,7 @@
         </div>
     </div>
 </div>
-<!-- FIN DEL MODAL PARA EDITAR LOS CLIENTES -->
+<!-- FIN DEL MODAL PARA COBRAR LAS CITAS -->
 
 <!-- MODAL PARA AGREGAR PESO -->
 <div class="modal fade" id="modal_agregar_peso" tabindex="-1" role="dialog" aria-hidden="true" >
@@ -459,5 +457,77 @@
 </div>
 <!-- FIN DEL MODAL PARA AGREGAR CITAS -->
 
+<!-- MODAL PARA MODDIFICAR CITAS -->
+<div class="modal fade" id="modal_modificar_cita"  role="dialog" aria-hidden="true" >
+    <div class="modal-dialog modal-md" role="document">
+        <div class="modal-content" >
+            <div class="modal-header">
+            	<center><h3 class="modal-title">Modificar citas</h3></center>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            </div>
+            <div class="modal-body">
+	            <form name="modificar_citas_modal" id="modificar_citas_modal">
+	            	
+	            	<div class="form-group">
+		                <label>Fecha de cita:</label>
+		                <div class="input-group">
+		                	<span class="input-group-addon">
+						        <i class="fa fa-calendar"></i>
+						    </span>
+		                	<input type="text" class="form-control" id="txt_modificar_fecha_citas_modal" name="txt_modificar_fecha_citas_modal" required="true" readonly="true">
+		                </div>
+		            </div>
 
+	            	<div class="form-group">
+		                <label>Hora de Cita:</label>
+		                <div class="input-group">
+		                	<span class="input-group-addon">
+						        <i class="fa fa-clock-o"></i>
+						    </span>
+		                	<input type="text" class="form-control" id="txt_modificar_hora_citas_modal" name="txt_modificar_hora_citas_modal" required="true" readonly="true">
+		                </div>
+		            </div>
+
+	            	<div class="form-group">
+	            		<label>Nombre Paciente:</label>
+	                	<select id="select_modificar_cliente_modal" name="select_modificar_cliente_modal" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" required="true"> 
+	                	</select>
+	            	</div>
+	            	
+	            	<div class="form-group">
+	                	<label>Tipo de cita:</label>
+	                	<select id="select_tipo_cita_modal" name="select_tipo_cita_modal" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+			                  <?php
+                                if($DATA_TIPO_CITAS != FALSE)
+	                            {		                                
+	                                foreach ($DATA_TIPO_CITAS->result() as $row)
+	                                {
+	                                    echo '<option value="'.$row->id_tipo_cita.'">';
+	                                        echo $row->tipo_cita;
+	                                    echo '</option>';                                
+	                                }
+	                            
+	                            }                                      
+                            ?>
+	                	</select>
+	              	</div>
+
+	              	<div class="form-group">
+	                	<label >Costo de la consulta:</label>
+			 			<select class="form-control" id=sel_costo_cita name="sel_costo_cita" style="width: 100%">
+			 				
+			 			</select>
+	              	</div>
+	 				<hr>
+				 	<div class="row modal-footer" style="margin-top: 10px;">
+	                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+	                    <button type="submit" class="btn btn-primary" class="btn btn-primary">Guardar</button>
+
+	                </div>
+				</form> 
+            </div>
+        </div>
+    </div>
+</div>
+<!-- FIN DEL MODAL PARA AGREGAR CITAS -->
 

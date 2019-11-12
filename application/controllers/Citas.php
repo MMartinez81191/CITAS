@@ -837,6 +837,28 @@ class Citas extends CI_Controller {
 		}
 	}
 
+	//==============================================================================
+	//MODIFICAR CLIENTES
+	//==============================================================================
+	public function get_info_cita()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			if($this->input->is_ajax_request())
+			{
+				
+			}
+			else
+			{
+	            show_404();
+	        }
+        }
+        else
+        {
+			redirect(base_url());
+		}
+	}
+
 	//SEGURIDAD PARA EVITAR QUE SE ACCESE A PARTES DEL SISTEMA SIN NIVEL
 	public function seguridad()
 	{
