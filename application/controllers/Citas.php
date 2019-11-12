@@ -840,13 +840,17 @@ class Citas extends CI_Controller {
 	//==============================================================================
 	//MODIFICAR CLIENTES
 	//==============================================================================
-	public function get_info_cita()
+	public function datos_modificar_cita()
 	{
 		if($this->seguridad() == TRUE)
 		{
 			if($this->input->is_ajax_request())
 			{
-				
+				$id_cita = trim($this->input->post('id_cita'));
+				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
+				$id_cliente = $DATA_CITA->id_cliente;
+
+				var_dump($DATA_CITA);
 			}
 			else
 			{

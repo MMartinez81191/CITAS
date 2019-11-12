@@ -299,15 +299,16 @@ var citas = {
     datos_update_cita: function(){
         $(document).on('click','button.btn_update_cita_modal', function () {
             var data = {
-                id : $(this).data('id'),
-                
+                id_cita : $(this).data('id'),
+                fecha : $(this).data('fecha'),
+                hora : $(this).data('hora')
             };  
 
-            var response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
+            var response = cargar_ajax.run_server_ajax('citas/datos_modificar_cita', data);
 
             console.log(response);
-            //$('#txt_modificar_fecha_citas_modal').val(data.fecha);
-            //$('#txt_modificar_hora_citas_modal').val(data.hora);
+            $('#txt_modificar_fecha_citas_modal').val(data.fecha);
+            $('#txt_modificar_hora_citas_modal').val(data.hora);
 
         });
     },
