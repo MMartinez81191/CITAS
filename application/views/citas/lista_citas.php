@@ -490,13 +490,12 @@
 
 	            	<div class="form-group">
 	            		<label>Nombre Paciente:</label>
-	                	<select id="select_modificar_cliente_modal" name="select_modificar_cliente_modal" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" required="true"> 
-	                	</select>
+	                	<input type="text" class="form-control" id="txt_modificar_nombre_cliente" name="txt_modificar_nombre_cliente" readonly="true">
 	            	</div>
 	            	
 	            	<div class="form-group">
 	                	<label>Tipo de cita:</label>
-	                	<select id="select_tipo_cita_modal" name="select_tipo_cita_modal" class="form-control select2 select2-hidden-accessible" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+	                	<select id="select_tipo_cita_modal" name="select_tipo_cita_modal" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" >
 			                  <?php
                                 if($DATA_TIPO_CITAS != FALSE)
 	                            {		                                

@@ -850,7 +850,8 @@ class Citas extends CI_Controller {
 				$DATA_CITA = $this->Citas_model->get_citas_by_id($id_cita);
 				$id_cliente = $DATA_CITA->id_cliente;
 
-				var_dump($DATA_CITA);
+				echo json_encode($DATA_CITA);
+				//var_dump($DATA_CITA);
 			}
 			else
 			{

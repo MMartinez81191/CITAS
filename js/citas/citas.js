@@ -307,35 +307,15 @@ var citas = {
             var response = cargar_ajax.run_server_ajax('citas/datos_modificar_cita', data);
 
             console.log(response);
+
             $('#txt_modificar_fecha_citas_modal').val(data.fecha);
             $('#txt_modificar_hora_citas_modal').val(data.hora);
+            $('#txt_modificar_nombre_cliente').val(response.nombre_cliente);
 
         });
     },
 
-    //RELLENA CON LA LISTA DE CLEINTES REGISTADOS
-    get_clientes_modificar_citas : function(){
-        $('#select_modificar_cliente_modal').select2({
-            placeholder: "Seleccione un paciente",
-            ajax: { 
-                url: base_url + 'citas/obtener_clientes',
-                type: "post",
-                dataType: 'json',
-                delay: 250,
-                data: function (params) {
-                    return {
-                        searchTerm: params.term // search term
-                    };
-                },
-                processResults: function (response) {
-                    return {
-                        results: response
-                    };
-                },
-                cache: true
-            }
-        });
-    },
+
 
 
 }
@@ -354,5 +334,4 @@ jQuery(document).ready(function() {
    citas.get_clientes_modal_agregar_cita(this);
 
    citas.datos_update_cita(this);
-   citas.get_clientes_modificar_citas(this);
 });
