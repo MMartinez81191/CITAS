@@ -864,7 +864,65 @@ class Citas extends CI_Controller {
 		}
 	}
 
+	//OBTIENE LOS TIPOS DE CITAS REGISTRADOS EN LA BASE DE DATOS
+	public function get_tipo_citas()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_tipo_cita = $this->uri->segment(3);
+			$DATA_CITA = $this->Citas_model->get_tipo_citas($this->Citas_model->get_tipo_cita_max_id_cliente());
+			
+			if($DATA_CITA != FALSE)
+			{
+				$option = "";
+				foreach ($DATA_CITA->result() as $row) 
+				{
+					$option = $option.'<option value="'.$row->id_tipo_cita.'"';
+					if($row->id_tipo_cita == $id_tipo_cita)
+					{
+						$option = $option. ' selected';						
+					}
+					$option = $option. '>'.$row->tipo_cita.'</option>';
+				}
+
+			}
+			echo json_encode($option);
+			
+		}
+        else
+        {
+			redirect(base_url());
+		}
+	}
+
+	//FUNCION QUE PEMITE OBTENER EL COSTO DE LAS CONSULTAS EN BASE A EL TIPO DE CITA
+	public function get_costos_citas()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_tipo_cita = $this->uri->segment(3);
+			$numero_cita = $this->uri->segment(4);
+			$DATA_COSTOS = $this->Costos_model->get_costos_por_tipo_cita($id_tipo_cita,$numero_cita);
+
+			$DATA_COSTOS_HTML = "";
+			if($DATA_COSTOS != FALSE){
+				foreach ($DATA_COSTOS->result() as $row) {
+					$DATA_COSTOS_HTML = $DATA_COSTOS_HTML.'<option value="'.$row->costo.'">'.$row->costo.'</option>';
+				}
+			}
+
+			echo json_encode($DATA_COSTOS_HTML);
+
+		}
+        else
+        {
+			redirect(base_url());
+		}	
+	}
+	
+	//============================================================================
 	//SEGURIDAD PARA EVITAR QUE SE ACCESE A PARTES DEL SISTEMA SIN NIVEL
+	//============================================================================
 	public function seguridad()
 	{
 		if(($this->session->userdata('logueado') == 1) and ($this->session->userdata('nivel') != 3))

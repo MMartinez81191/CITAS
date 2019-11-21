@@ -495,25 +495,14 @@
 	            	
 	            	<div class="form-group">
 	                	<label>Tipo de cita:</label>
-	                	<select id="select_tipo_cita_modal" name="select_tipo_cita_modal" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" >
-			                  <?php
-                                if($DATA_TIPO_CITAS != FALSE)
-	                            {		                                
-	                                foreach ($DATA_TIPO_CITAS->result() as $row)
-	                                {
-	                                    echo '<option value="'.$row->id_tipo_cita.'">';
-	                                        echo $row->tipo_cita;
-	                                    echo '</option>';                                
-	                                }
-	                            
-	                            }                                      
-                            ?>
+	                	<select id="select_modificar_tipo_cita_modal" name="select_modificar_tipo_cita_modal" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" >
+			                  
 	                	</select>
 	              	</div>
 
 	              	<div class="form-group">
 	                	<label >Costo de la consulta:</label>
-			 			<select class="form-control" id=sel_costo_cita name="sel_costo_cita" style="width: 100%">
+			 			<select class="form-control" id=sel_modificar_costo_cita name="sel_modificar_costo_cita" style="width: 100%">
 			 				
 			 			</select>
 	              	</div>
@@ -528,5 +517,5 @@
         </div>
     </div>
 </div>
-<!-- FIN DEL MODAL PARA AGREGAR CITAS -->
+<!-- FIN DEL MODAL PARA MODDIFICAR CITAS -->
 

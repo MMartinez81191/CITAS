@@ -300,21 +300,24 @@ var citas = {
         $(document).on('click','button.btn_update_cita_modal', function () {
             var data = {
                 id_cita : $(this).data('id'),
-                fecha : $(this).data('fecha'),
-                hora : $(this).data('hora')
             };  
+            var fecha = $(this).data('fecha');
+            var hora = $(this).data('hora');
 
-            var response = cargar_ajax.run_server_ajax('citas/datos_modificar_cita', data);
+            var responseDatosCita = cargar_ajax.run_server_ajax('citas/datos_modificar_cita', data);
+            var responseTipoCita = cargar_ajax.run_server_ajax('citas/get_tipo_citas/'+ responseDatosCita.id_tipo_cita);
+            var respondeCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ responseDatosCita.id_tipo_cita + '/' + responseDatosCita.numero_cita);
 
-            console.log(response);
-
-            $('#txt_modificar_fecha_citas_modal').val(data.fecha);
-            $('#txt_modificar_hora_citas_modal').val(data.hora);
-            $('#txt_modificar_nombre_cliente').val(response.nombre_cliente);
-
+            $("#select_modificar_tipo_cita_modal").html(responseTipoCita);
+            $('#txt_modificar_fecha_citas_modal').val(fecha);
+            $('#txt_modificar_hora_citas_modal').val(hora);
+            $('#txt_modificar_nombre_cliente').val(responseDatosCita.nombre_cliente);
+            $("#sel_modificar_costo_cita").html(respondeCostoConsulta);
         });
     },
 
+    //CAMBIA LOS COSTOS DISPONIBLES DE LA CONSULTA AL ACTUALIZAR EL TIPO DE CONSULTA
+    
 
 
 
