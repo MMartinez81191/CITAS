@@ -840,6 +840,8 @@ class Citas extends CI_Controller {
 	//==============================================================================
 	//MODIFICAR CLIENTES
 	//==============================================================================
+	
+	//FUNCION QUER PERMITE OBTENER LOS DATOS DE LA CITA QUE SE ESTA MODIFICANDO
 	public function datos_modificar_cita()
 	{
 		if($this->seguridad() == TRUE)

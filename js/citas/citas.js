@@ -306,18 +306,27 @@ var citas = {
 
             var responseDatosCita = cargar_ajax.run_server_ajax('citas/datos_modificar_cita', data);
             var responseTipoCita = cargar_ajax.run_server_ajax('citas/get_tipo_citas/'+ responseDatosCita.id_tipo_cita);
-            var respondeCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ responseDatosCita.id_tipo_cita + '/' + responseDatosCita.numero_cita);
+            var responseCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ responseDatosCita.id_tipo_cita + '/' + responseDatosCita.numero_cita);
 
             $("#select_modificar_tipo_cita_modal").html(responseTipoCita);
             $('#txt_modificar_fecha_citas_modal').val(fecha);
             $('#txt_modificar_hora_citas_modal').val(hora);
             $('#txt_modificar_nombre_cliente').val(responseDatosCita.nombre_cliente);
-            $("#sel_modificar_costo_cita").html(respondeCostoConsulta);
+            $("#sel_modificar_costo_cita").html(responseCostoConsulta);
         });
     },
 
     //CAMBIA LOS COSTOS DISPONIBLES DE LA CONSULTA AL ACTUALIZAR EL TIPO DE CONSULTA
-    
+    get_costos_citas: function(){
+        $("#select_modificar_tipo_cita_modal").on("change", function (form) {
+            $('#sel_modificar_costo_cita').html('');
+            var id_tipo_cita = $('#select_modificar_tipo_cita_modal').val();
+            var numero_cita = 0;
+            var responseCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ id_tipo_cita + '/' + numero_cita);
+            $("#sel_modificar_costo_cita").html(responseCostoConsulta);
+            
+        });
+    },    
 
 
 
@@ -337,4 +346,5 @@ jQuery(document).ready(function() {
    citas.get_clientes_modal_agregar_cita(this);
 
    citas.datos_update_cita(this);
+   citas.get_costos_citas(this);
 });
