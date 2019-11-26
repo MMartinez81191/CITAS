@@ -308,6 +308,8 @@ var citas = {
             var responseTipoCita = cargar_ajax.run_server_ajax('citas/get_tipo_citas/'+ responseDatosCita.id_tipo_cita);
             var responseCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ responseDatosCita.id_tipo_cita + '/' + responseDatosCita.numero_cita);
 
+            
+            $('#txt_modificar_id_cita').val(responseDatosCita.id_cita);
             $("#select_modificar_tipo_cita_modal").html(responseTipoCita);
             $('#txt_modificar_fecha_citas_modal').val(fecha);
             $('#txt_modificar_hora_citas_modal').val(hora);
@@ -326,8 +328,50 @@ var citas = {
             $("#sel_modificar_costo_cita").html(responseCostoConsulta);
             
         });
-    },    
+    },
 
+    //MODIFICA LAS CITAS AL ENVIAR EL FORMULARIO CORRESPONDIENTE    
+    update_cita: function(){
+        $('#modificar_citas_modal').on('submit', function(form){
+            form.preventDefault();
+            var data = {
+                id_cita : $('#txt_modificar_id_cita').val(),
+                id_tipo_cita : $('#select_modificar_tipo_cita_modal').val(), 
+                costo_cita : $('#sel_modificar_costo_cita').val(),
+            }
+            //var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
+            console.log(data);
+            /*if(response == 1){
+                swal({
+                    title: 'CORRECTO',
+                    text: 'LA CITA SE AGREGO CORRECTAMENTE',
+                    type: 'success',
+                closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
+            }
+            else if(response == 2){
+                swal({
+                    title: 'ATENCION!!',
+                    text: 'LA HORA Y FECHA DE LA CITA YA ESTA OCUPADA',
+                    type: 'warning',
+                    closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
+            }else if(response == 3){
+                swal({
+                    title: 'ERROR!!',
+                    text: 'OCURRIO UN ERROR AL GUARDAR LA CITA',
+                    type: 'error',
+                    closeOnConfirm: false
+                },function(){
+                    window.location.reload();
+                });
+            }*/
+        });
+    },
 
 
 }
@@ -347,4 +391,5 @@ jQuery(document).ready(function() {
 
    citas.datos_update_cita(this);
    citas.get_costos_citas(this);
+   citas.update_cita(this);
 });

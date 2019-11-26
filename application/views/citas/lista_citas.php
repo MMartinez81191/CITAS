@@ -467,7 +467,7 @@
             </div>
             <div class="modal-body">
 	            <form name="modificar_citas_modal" id="modificar_citas_modal">
-	            	
+	            	<input type="hidden" id="txt_modificar_id_cita" name="txt_modificar_id_cita">
 	            	<div class="form-group">
 		                <label>Fecha de cita:</label>
 		                <div class="input-group">
