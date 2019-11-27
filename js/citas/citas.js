@@ -337,10 +337,10 @@ var citas = {
             var data = {
                 id_cita : $('#txt_modificar_id_cita').val(),
                 id_tipo_cita : $('#select_modificar_tipo_cita_modal').val(), 
-                costo_cita : $('#sel_modificar_costo_cita').val(),
+                costo_consulta : $('#sel_modificar_costo_cita').val(),
             }
-            //var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
-            console.log(data);
+            var response = cargar_ajax.run_server_ajax('citas/modificar_cita', data);
+            //console.log(data);
             /*if(response == 1){
                 swal({
                     title: 'CORRECTO',

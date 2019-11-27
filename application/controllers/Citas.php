@@ -921,6 +921,24 @@ class Citas extends CI_Controller {
 			redirect(base_url());
 		}	
 	}
+
+	public function modificar_cita()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_cita = trim($this->input->post('id_cita'));
+			$data = array(
+				'id_tipo_cita' => trim($this->input->post('id_tipo_cita')),
+				'costo_consulta' => trim($this->input->post('costo_consulta')), 
+			);
+			
+			var_dump($data);
+		}
+        else
+        {
+			redirect(base_url());
+		}			
+	}
 	
 	//============================================================================
 	//SEGURIDAD PARA EVITAR QUE SE ACCESE A PARTES DEL SISTEMA SIN NIVEL
