@@ -838,7 +838,7 @@ class Citas extends CI_Controller {
 	}
 
 	//==============================================================================
-	//MODIFICAR CLIENTES
+	//MODIFICAR CITAS
 	//==============================================================================
 	
 	//FUNCION QUER PERMITE OBTENER LOS DATOS DE LA CITA QUE SE ESTA MODIFICANDO
@@ -932,7 +932,8 @@ class Citas extends CI_Controller {
 				'costo_consulta' => trim($this->input->post('costo_consulta')), 
 			);
 			
-			var_dump($data);
+			$updated_rows = $this->Citas_model->update_citas($id_cita,$data);
+			echo json_encode($updated_rows);
 		}
         else
         {

@@ -321,4 +321,18 @@ class Citas_model extends CI_Model {
     }
 
 
+    //=========================================================================================
+    //AREA DE MODIFICAR CITAS
+    //=========================================================================================
+
+    public function update_citas($id_cita,$data)
+    {
+        $this->db->where('id_cita',$id_cita);
+        $this->db->update('citas',$data);
+
+        $updated_rows = $this->db->affected_rows();
+
+        return $updated_rows;
+    }
+
 }

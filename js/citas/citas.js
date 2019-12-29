@@ -340,36 +340,28 @@ var citas = {
                 costo_consulta : $('#sel_modificar_costo_cita').val(),
             }
             var response = cargar_ajax.run_server_ajax('citas/modificar_cita', data);
-            //console.log(data);
-            /*if(response == 1){
+            console.log(response);
+            if(response == '0'){
                 swal({
-                    title: 'CORRECTO',
-                    text: 'LA CITA SE AGREGO CORRECTAMENTE',
-                    type: 'success',
+                    title: 'ATENCION',
+                    text: 'NO SE MODIFICO NINGUNA INFORMACION',
+                    type: 'warning',
                 closeOnConfirm: false
                 },function(){
                     window.location.reload();
                 });
             }
-            else if(response == 2){
+            else if(response == '1'){
                 swal({
                     title: 'ATENCION!!',
-                    text: 'LA HORA Y FECHA DE LA CITA YA ESTA OCUPADA',
-                    type: 'warning',
+                    text: 'CITA ACTUALIZADA CORRECTAMENTE',
+                    type: 'success',
                     closeOnConfirm: false
                 },function(){
                     window.location.reload();
                 });
-            }else if(response == 3){
-                swal({
-                    title: 'ERROR!!',
-                    text: 'OCURRIO UN ERROR AL GUARDAR LA CITA',
-                    type: 'error',
-                    closeOnConfirm: false
-                },function(){
-                    window.location.reload();
-                });
-            }*/
+            
+            }
         });
     },
 
