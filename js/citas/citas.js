@@ -305,16 +305,55 @@ var citas = {
             var hora = $(this).data('hora');
 
             var responseDatosCita = cargar_ajax.run_server_ajax('citas/datos_modificar_cita', data);
-            var responseTipoCita = cargar_ajax.run_server_ajax('citas/get_tipo_citas/'+ responseDatosCita.id_tipo_cita);
-            var responseCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ responseDatosCita.id_tipo_cita + '/' + responseDatosCita.numero_cita);
+            if(responseDatosCita.id_tipo_cita == 2)
+            {
+               
+                responseDatosCita.numero_cita = cargar_ajax.run_server_ajax('citas/get_cantidad_membresias/'+ responseDatosCita.id_cita);
 
-            
-            $('#txt_modificar_id_cita').val(responseDatosCita.id_cita);
-            $("#select_modificar_tipo_cita_modal").html(responseTipoCita);
-            $('#txt_modificar_fecha_citas_modal').val(fecha);
-            $('#txt_modificar_hora_citas_modal').val(hora);
-            $('#txt_modificar_nombre_cliente').val(responseDatosCita.nombre_cliente);
-            $("#sel_modificar_costo_cita").html(responseCostoConsulta);
+                if(responseDatosCita.numero_cita == 1)
+                {
+                    $('#modal_modificar_cita').modal('show');
+                    var responseTipoCita = cargar_ajax.run_server_ajax('citas/get_tipo_citas/'+ responseDatosCita.id_tipo_cita);
+                    var responseCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ responseDatosCita.id_tipo_cita + '/' + 0);
+
+                    $('#txt_modificar_id_cita').val(responseDatosCita.id_cita);
+                    $('#txt_modificar_id_cliente').val(responseDatosCita.id_cliente);
+                    $('#txt_modificar_numero_membresia').val(responseDatosCita.numero_cita);
+                    $("#select_modificar_tipo_cita_modal").html(responseTipoCita);
+                    $('#txt_modificar_fecha_citas_modal').val(fecha);
+                    $('#txt_modificar_hora_citas_modal').val(hora);
+                    $('#txt_modificar_nombre_cliente').val(responseDatosCita.nombre_cliente);
+                    $("#sel_modificar_costo_cita").html(responseCostoConsulta);
+                }
+                else
+                {
+                    $('#modal_modificar_cita').modal('hide');
+                    swal({
+                        title: 'ATENCION',
+                        text: 'NO ES POSIBLE MODIFICAR UNA MEMBRESIA CON CITAS REGISTRADAS',
+                        type: 'warning',
+                    closeOnConfirm: false
+                    },function(){
+                        window.location.reload();
+                    });
+                }
+
+            }
+            else
+            {
+                $('#modal_modificar_cita').modal('show');
+                var responseTipoCita = cargar_ajax.run_server_ajax('citas/get_tipo_citas/'+ responseDatosCita.id_tipo_cita);
+                var responseCostoConsulta = cargar_ajax.run_server_ajax('citas/get_costos_citas/'+ responseDatosCita.id_tipo_cita + '/' + responseDatosCita.numero_cita);
+
+                $('#txt_modificar_id_cita').val(responseDatosCita.id_cita);
+                $('#txt_modificar_id_cliente').val(responseDatosCita.id_cliente);
+                $('#txt_modificar_numero_membresia').val(0);
+                $("#select_modificar_tipo_cita_modal").html(responseTipoCita);
+                $('#txt_modificar_fecha_citas_modal').val(fecha);
+                $('#txt_modificar_hora_citas_modal').val(hora);
+                $('#txt_modificar_nombre_cliente').val(responseDatosCita.nombre_cliente);
+                $("#sel_modificar_costo_cita").html(responseCostoConsulta);
+            }
         });
     },
 
@@ -336,11 +375,13 @@ var citas = {
             form.preventDefault();
             var data = {
                 id_cita : $('#txt_modificar_id_cita').val(),
+                id_cliente :  $('#txt_modificar_id_cliente').val(),
                 id_tipo_cita : $('#select_modificar_tipo_cita_modal').val(), 
                 costo_consulta : $('#sel_modificar_costo_cita').val(),
+                numero_membresia : $('#txt_modificar_numero_membresia').val(),
             }
             var response = cargar_ajax.run_server_ajax('citas/modificar_cita', data);
-            console.log(response);
+            console.log(data);
             if(response == '0'){
                 swal({
                     title: 'ATENCION',

@@ -39,10 +39,7 @@ class Citas_model extends CI_Model {
         
         $this->db->where('id_cliente',$id_cliente);
         $this->db->update('clientes',$data2);
-        
-        //echo $this->db->last_query();
-
-        
+    
     }
 
     //OBTIENE SI EL MAXIMO CLIENTE ES UNA MEMBRESIA
@@ -80,6 +77,7 @@ class Citas_model extends CI_Model {
         $this->db->select('numero_cita');
         $this->db->from('membresias');
         $this->db->where('id_cliente',$id_cliente);
+        $this->db->where('activo',1);
         $this->db->order_by('id_membresia','DESC');
 
         $query = $this->db->get();
@@ -237,6 +235,7 @@ class Citas_model extends CI_Model {
         
         $this->db->from('membresias');
         $this->db->where('id_cliente',$id_cliente);
+        $this->db->where('activo',1);
         $this->db->order_by('numero_membresia,numero_cita','DESC');
         $this->db->limit(1);
 
@@ -256,12 +255,12 @@ class Citas_model extends CI_Model {
     {
         
         $this->db->from('membresias');
+        $this->db->where('activo',1);
         $this->db->where('id_cita',$id_cita);
         $this->db->order_by('numero_membresia,numero_cita','DESC');
         $this->db->limit(1);
 
         $query = $this->db->get();
-        //echo $this->db->last_query();
 
         if($query->num_rows() > 0)
         {
@@ -277,6 +276,7 @@ class Citas_model extends CI_Model {
     {
         $this->db->select_max('numero_membresia');
         $this->db->from('membresias');
+        $this->db->where('activo',1);
 
         $query = $this->db->get();
 
@@ -334,5 +334,73 @@ class Citas_model extends CI_Model {
 
         return $updated_rows;
     }
+
+    //RECUPERA EL NUMERO DE MEMBRESIA A PARTIR DEL ID DE CITA
+    public function get_numero_membresia($id_cita)
+    {
+        $this->db->from('membresias');
+        $this->db->where('id_cita',$id_cita);
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->row('numero_membresia');
+        }
+        else
+        {
+            return 0;
+        }
+
+    }
+
+    //OBTIENE EL NUMERO DE MEMBRESIAS QUE TIENE REGISTRADAS UN NUMERO DE MEMBRESIAS
+    public function get_total_membresias($numero_membresia)
+    {
+        $this->db->from('membresias');
+        $this->db->where('numero_membresia',$numero_membresia);
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->num_rows();
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    //OBTIENE EL ID DE MEMBRESIA QUE SE UTILIZARA PARA MODIFICAR LA INFORMACION DE UNA CITA
+    public function get_id_membresia_by_id_cita($id_cita)
+    {
+        $this->db->select('id_membresia');
+        $this->db->from('membresias');
+        $this->db->where('id_cita',$id_cita);
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+
+        if($query->num_rows() > 0)
+        {
+            return $query->row('id_membresia');
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    //ACTUALIZA LAS MEMBRESIAS QUE SE ELIMINARON
+    public function delete_updated_membresia($id_membresia,$data)
+    {
+        $this->db->where('id_membresia',$id_membresia);
+        $this->db->update('membresias',$data);
+    }
+
+    //PERMITE OBTENER EL MAXIMO DEL NUMERO DE MEMBRESIA QUE EXITE
 
 }

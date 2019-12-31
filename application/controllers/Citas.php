@@ -927,18 +927,61 @@ class Citas extends CI_Controller {
 		if($this->seguridad() == TRUE)
 		{
 			$id_cita = trim($this->input->post('id_cita'));
+			$numero_membresia = trim($this->input->post('numero_membresia'));
+			$id_tipo_cita = trim($this->input->post('id_tipo_cita'));
+			$id_cliente = trim($this->input->post('id_cliente'));
+			
 			$data = array(
-				'id_tipo_cita' => trim($this->input->post('id_tipo_cita')),
+				'id_tipo_cita' => $id_tipo_cita,
 				'costo_consulta' => trim($this->input->post('costo_consulta')), 
 			);
-			
+
+			//echo $numero_membresia;
+			//echo $id_tipo_cita;
 			$updated_rows = $this->Citas_model->update_citas($id_cita,$data);
+			if($numero_membresia != 0 AND $id_tipo_cita != 2)
+			{
+				$data = array(
+					'activo' => 0,
+				);
+				$id_membresia = $this->Citas_model->get_id_membresia_by_id_cita($id_cita);
+				
+				$this->Citas_model->delete_updated_membresia($id_membresia,$data);
+			}
+			else if($numero_membresia == 0 AND $id_tipo_cita == 2)
+			{
+				$numero_membresia = $this->Citas_model->get_max_membresia()->numero_membresia;
+				$data = array(
+					'numero_membresia' => $numero_membresia + 1,
+					'id_cita' => $id_cita,
+					'id_cliente' => $id_cliente,
+					'numero_cita' => 1
+				);
+
+				$this->Citas_model->insert_membresia($data);
+			}
 			echo json_encode($updated_rows);
 		}
         else
         {
 			redirect(base_url());
 		}			
+	}
+
+	//OBTIENE EL NUMERO DE CITAS REGISTRADAS POR NUMERO DE MEMBRESIA
+	public function get_cantidad_membresias()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_cita = $this->uri->segment(3);
+			$numero_membresia = $this->Citas_model->get_numero_membresia($id_cita);
+			$total_membresias_by_numero_membresia = $this->Citas_model->get_total_membresias($numero_membresia);
+			echo json_encode($total_membresias_by_numero_membresia);
+		}
+        else
+        {
+			redirect(base_url());
+		}
 	}
 	
 	//============================================================================

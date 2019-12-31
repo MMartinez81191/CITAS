@@ -95,7 +95,7 @@
 							    									<td><center><?=$i + 1?></center></td>
 																	<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
 																	<td><center><?= $row->numero_turno;?></center></td>
-																	<td><center><?= $row->nombre_cliente;?></center></td>
+																	<td><center><a href="<?=base_url()?>"><?= $row->nombre_cliente;?></a></center></td>
 																	<td><center><?= $row->tipo_cita ?></center></td>
 																	<td><center><?php 
 																					if($row->costo_consulta != -1)
@@ -131,11 +131,12 @@
 																			?>
 																				<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
+
+																				<button data-id="<?= $row->id_cita; ?>" data-hora="<?=$hora1?>" data-fecha="<?=$DATA_FECHA?>" class="btn btn-warning btn_update_cita_modal" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
 																				<?php
 																					if($row->id_tipo_cita != 2 AND $id_nivel < 5)
 																					{
 																						?>
-																						<button data-id="<?= $row->id_cita; ?>" data-hora="<?=$hora1?>" data-fecha="<?=$DATA_FECHA?>" class="btn btn-warning btn_update_cita_modal"  data-toggle="modal" data-target="#modal_modificar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
 																						<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Eliminar Cita" ></span></button>
 																						<?php
 																					}
@@ -468,6 +469,8 @@
             <div class="modal-body">
 	            <form name="modificar_citas_modal" id="modificar_citas_modal">
 	            	<input type="hidden" id="txt_modificar_id_cita" name="txt_modificar_id_cita">
+	            	<input type="hidden" id="txt_modificar_id_cliente" name="txt_modificar_id_cliente">
+	            	<input type="hidden" id="txt_modificar_numero_membresia" name="txt_modificar_numero_membresia">
 	            	<div class="form-group">
 		                <label>Fecha de cita:</label>
 		                <div class="input-group">
