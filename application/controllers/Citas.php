@@ -254,6 +254,11 @@ class Citas extends CI_Controller {
 					);
 					
 					$this->Citas_model->insert_citas($data);
+					$id_cita = $this->Citas_model->get_id_cita();
+					$data = array(
+						'id_cita' => $id_cita,
+					);
+					$this->Citas_model->insert_detalle_citas($data);
 					$response = '1';
 					
 				}
@@ -977,6 +982,50 @@ class Citas extends CI_Controller {
 			$numero_membresia = $this->Citas_model->get_numero_membresia($id_cita);
 			$total_membresias_by_numero_membresia = $this->Citas_model->get_total_membresias($numero_membresia);
 			echo json_encode($total_membresias_by_numero_membresia);
+		}
+        else
+        {
+			redirect(base_url());
+		}
+	}
+	
+	//============================================================================
+	//FUNCION QUE CARGA EL CONSTRUCTOR DE DETALLE CITA
+	//============================================================================
+	public function cargar_detalle_cita()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_cita = $this->uri->segment(3);
+
+			$newdata = array(
+				'id_cita' => $id_cita,
+			);
+			$this->session->set_userdata($newdata);
+
+			redirect(base_url().'detalle_cita/');
+		}
+        else
+        {
+			redirect(base_url());
+		}
+	}
+
+	//============================================================================
+	//FUNCION QUE CARGA EL CONSTRUCTOR DE HISTORIAL CITAS
+	//============================================================================
+	public function cargar_historial()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_cliente = $this->uri->segment(3);
+
+			$newdata = array(
+				'id_cliente' => $id_cliente,
+			);
+			$this->session->set_userdata($newdata);
+
+			redirect(base_url().'historial_citas/');
 		}
         else
         {

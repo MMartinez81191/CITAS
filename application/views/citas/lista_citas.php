@@ -95,7 +95,7 @@
 							    									<td><center><?=$i + 1?></center></td>
 																	<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
 																	<td><center><?= $row->numero_turno;?></center></td>
-																	<td><center><a href="<?=base_url()?>"><?= $row->nombre_cliente;?></a></center></td>
+																	<td><center><a href="<?=base_url()?>citas/cargar_detalle_cita/<?=$row->id_cita?>"><?= $row->nombre_cliente;?></a></center></td>
 																	<td><center><?= $row->tipo_cita ?></center></td>
 																	<td><center><?php 
 																					if($row->costo_consulta != -1)
@@ -121,6 +121,8 @@
 																			<?php
 																			if($row->costo_consulta == '-1'){
 																			?>
+																				<a type="button" href="<?=base_url()?>citas/cargar_historial/<?=$row->id_cliente?>" class="btn btn-primary"><i class="fa fa-user" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-money"></i><span data-toggle="tooltip" data-placement="top" title="Cobrar Consulta" ></span></button>
 
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita" title="Eliminar Cita" data-toggle="tooltip" data-placement="top">  <i class="fa fa-close"></i></button>
@@ -129,6 +131,8 @@
 																			else
 																			{
 																			?>
+																				<a type="button" href="<?=base_url()?>citas/cargar_historial/<?=$row->id_cliente?>" class="btn btn-primary"><i class="fa fa-user" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+																				
 																				<a type="button" href="<?=base_url()?>citas/imprimir_ticket/<?=$row->id_cita?>" class="btn btn-success" target="_blank" ><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Imprimir Ticket"  ></i><span></span></a>
 																				<button data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>
 
@@ -137,6 +141,8 @@
 																					if($row->id_tipo_cita != 2 AND $id_nivel < 5)
 																					{
 																						?>
+
+
 																						<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Eliminar Cita" ></span></button>
 																						<?php
 																					}

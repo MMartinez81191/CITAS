@@ -57,7 +57,9 @@ class Clientes extends CI_Controller {
 					<center>
 						<button data-id="'.$member->id_cliente.'" class="btn btn-primary editar_user"  data-toggle="modal" data-target="#modal_cliente_editar" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar Paciente" ></span></button>
 
-						<a type="button" href="'.base_url().'clientes/historial/'.$member->id_cliente.'" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
+						<!--<a type="button" href="'.base_url().'clientes/historial/'.$member->id_cliente.'" class="btn btn-primary"><i class="fa fa-file-text" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>-->
+						
+						<a type="button" href="'.base_url().'clientes/cargar_historial/'.$member->id_cliente.'" class="btn btn-default"><i class="fa fa-user" data-toggle="tooltip" data-placement="top" title="Historial Citas"  ></i><span></span></a>
 
 						<a type="button" href="'.base_url().'clientes/imprimir_expediente/'.$member->id_cliente.'" class="btn btn-primary" target="_blanck"><i class="fa fa-print" data-toggle="tooltip" data-placement="top" title="Expediente"  ></i><span></span></a>
 
@@ -121,6 +123,28 @@ class Clientes extends CI_Controller {
 			}
 		}
 		else{
+			redirect(base_url());
+		}
+	}
+
+	//============================================================================
+	//FUNCION QUE CARGA EL CONSTRUCTOR DE HISTORIAL CITAS
+	//============================================================================
+	public function cargar_historial()
+	{
+		if($this->seguridad() == TRUE)
+		{
+			$id_cliente = $this->uri->segment(3);
+
+			$newdata = array(
+				'id_cliente' => $id_cliente,
+			);
+			$this->session->set_userdata($newdata);
+
+			redirect(base_url().'historial_citas/');
+		}
+        else
+        {
 			redirect(base_url());
 		}
 	}

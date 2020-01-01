@@ -172,6 +172,28 @@ class Citas_model extends CI_Model {
         $this->db->insert('citas',$data);
     }
 
+    public function get_id_cita()
+    {
+        $this->db->select_max('id_cita');
+        $this->db->from('citas');
+        $this->db->where('activo',1);
+
+        $query = $this->db->get();
+        if($query->num_rows() > 0)
+        {
+            return $query->row()->id_cita;
+        }
+        else
+        {
+            return 0;
+        }
+    }
+
+    public function insert_detalle_citas($data)
+    {
+        $this->db->insert('detalle_cita',$data);
+    }
+
     public function delete_citas($id_cita,$data)
     {
         $this->db->where('id_cita', $id_cita);
