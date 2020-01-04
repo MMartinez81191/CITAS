@@ -14,9 +14,9 @@ var detalle_cita = {
                 indicaciones : $('#txt_idicaciones').val(),
                 notas_relevantes : $('#txt_notas_relevantes').val(),
             }
-            console.log(data);
+            //console.log(data);
             
-            var response = cargar_ajax.run_server_ajax('detalle_cita/actualizar_informacion', data);
+            var response = cargar_ajax.run_server_ajax('Detalle_Cita/actualizar_informacion', data);
             if(response == 'TRUE')
             {
                 swal({

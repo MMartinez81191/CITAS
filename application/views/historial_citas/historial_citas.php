@@ -45,7 +45,7 @@
 											echo '0.00';
 										}
 										?></center></td>
-										<td><center><a type="button" class="btn btn-default" href="<?=base_url()?>historial_citas/cargar_detalle_cita/<?=$row->id_cita?>"><i class="fa fa-eye"></i> Ver Detalle</a></center></td>
+										<td><center><a type="button" class="btn btn-default" href="<?=base_url()?>Historial_Citas/cargar_detalle_cita/<?=$row->id_cita?>"><i class="fa fa-eye"></i> Ver Detalle</a></center></td>
 									</tr>
 								<?php
 									}

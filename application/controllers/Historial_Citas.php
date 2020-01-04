@@ -9,7 +9,7 @@ class Historial_Citas extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('HistorialCitas_Model');
+		$this->load->model('HistorialCitas_model');
 	} 
 
 	//============================================================================
@@ -22,7 +22,7 @@ class Historial_Citas extends CI_Controller {
 			if($this->session->userdata('logueado') == TRUE)
 			{
 				$id_cliente = $this->session->userdata('id_cliente');
-				$DATA_CITAS = $this->HistorialCitas_Model->get_data_citas($id_cliente);
+				$DATA_CITAS = $this->HistorialCitas_model->get_data_citas($id_cliente);
 				$data = array(
 					'DATA_CITAS' => $DATA_CITAS,
 				);
@@ -58,7 +58,7 @@ class Historial_Citas extends CI_Controller {
             );
             $this->session->set_userdata($newdata);
 
-            redirect(base_url().'detalle_cita/');
+            redirect(base_url().'Detalle_Cita/');
         }
         else
         {

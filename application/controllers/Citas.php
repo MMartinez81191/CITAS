@@ -258,7 +258,7 @@ class Citas extends CI_Controller {
 					$data = array(
 						'id_cita' => $id_cita,
 					);
-					$this->Citas_model->insert_detalle_citas($data);
+					//$this->Citas_model->insert_detalle_citas($data);
 					$response = '1';
 					
 				}
@@ -1003,7 +1003,7 @@ class Citas extends CI_Controller {
 			);
 			$this->session->set_userdata($newdata);
 
-			redirect(base_url().'detalle_cita/');
+			redirect(base_url().'Detalle_Cita/');
 		}
         else
         {
@@ -1025,7 +1025,7 @@ class Citas extends CI_Controller {
 			);
 			$this->session->set_userdata($newdata);
 
-			redirect(base_url().'historial_citas/');
+			redirect(base_url().'Historial_Citas/');
 		}
         else
         {

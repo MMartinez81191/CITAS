@@ -9,7 +9,7 @@ class Detalle_Cita extends CI_Controller {
 	function __construct()
 	{
 		parent::__construct();
-		$this->load->model('DetalleCita_Model');
+		$this->load->model('DetalleCita_model');
 	} 
 
 	//============================================================================
@@ -23,9 +23,9 @@ class Detalle_Cita extends CI_Controller {
 			{
 				$id_cita = $this->session->userdata('id_cita');
 				
-				$DATA_CITA = $this->DetalleCita_Model->get_data_cita($id_cita);
+				$DATA_CITA = $this->DetalleCita_model->get_data_cita($id_cita);
 				$id_cliente = $DATA_CITA->id_cliente;
-				$DATA_CLIENTE = $this->DetalleCita_Model->get_data_cliente($id_cliente);
+				$DATA_CLIENTE = $this->DetalleCita_model->get_data_cliente($id_cliente);
 
 				$data = array(
 					'DATA_CITA' => $DATA_CITA,
@@ -62,7 +62,7 @@ class Detalle_Cita extends CI_Controller {
 					'enfermedades' => trim($this->input->post('enfermedades')),
 					'alimentos_no_consumidos' => trim($this->input->post('alimentos_no_consumidos')),
 				);
-				$cliente_actualiado = $this->DetalleCita_Model->update_cliente($id_cliente,$data_cliente);
+				$cliente_actualiado = $this->DetalleCita_model->update_cliente($id_cliente,$data_cliente);
 
 				
 				$id_cita = trim($this->input->post('id_cita'));
@@ -73,7 +73,7 @@ class Detalle_Cita extends CI_Controller {
 					'notas_relevantes' => trim($this->input->post('notas_relevantes')),
 				);
 
-				$cita_actualizada = $this->DetalleCita_Model->update_cita($id_cita,$data_cita);
+				$cita_actualizada = $this->DetalleCita_model->update_cita($id_cita,$data_cita);
 
 				$response = FALSE;
 				if($cliente_actualiado != 0 AND $cita_actualizada != 0)
@@ -106,9 +106,9 @@ class Detalle_Cita extends CI_Controller {
 			{
 				$id_cita = $this->session->userdata('id_cita');
 				
-				$DATA_CITA = $this->DetalleCita_Model->get_data_cita($id_cita);
+				$DATA_CITA = $this->DetalleCita_model->get_data_cita($id_cita);
 				$id_cliente = $DATA_CITA->id_cliente;
-				$DATA_CLIENTE = $this->DetalleCita_Model->get_data_cliente($id_cliente);
+				$DATA_CLIENTE = $this->DetalleCita_model->get_data_cliente($id_cliente);
 
 				$data = array(
 					'DATA_CITA' => $DATA_CITA,
