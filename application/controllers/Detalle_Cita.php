@@ -26,10 +26,12 @@ class Detalle_Cita extends CI_Controller {
 				$DATA_CITA = $this->DetalleCita_model->get_data_cita($id_cita);
 				$id_cliente = $DATA_CITA->id_cliente;
 				$DATA_CLIENTE = $this->DetalleCita_model->get_data_cliente($id_cliente);
+				$DATA_CITAS_PREVIAS = $this->DetalleCita_model->get_data_citas_previas($id_cita,$id_cliente);
 
 				$data = array(
 					'DATA_CITA' => $DATA_CITA,
 					'DATA_CLIENTE' => $DATA_CLIENTE,
+					'DATA_CITAS_PREVIAS' => $DATA_CITAS_PREVIAS,
 				);
 
 				$this->load->view('headers/librerias');

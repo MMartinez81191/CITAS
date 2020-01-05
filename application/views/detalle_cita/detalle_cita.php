@@ -126,9 +126,44 @@ else
 								</div>
 
 							</div>
-						</form>		
-					</div>
+						</form>
+						<div class="row">
+							<hr/>
+							<div class="col-xs-3"></div>
+							<div class="col-xs-6">
+								<center><h4>Historial Citas Previas</h4></center>
+								<div class="table-responsive">
+									<table id="example2" class="table table-bordered table-striped">
+										<thead>
+											<tr>
+												<th class="col-lg-4"><center>Fecha</center></th>
+												<th class="col-lg-4"><center>Peso</center></th>
+												<th class="col-lg-4"><center>Dieta</center></th>
+											</tr>
+										</thead>
+										<tbody>
+											<?php
+											if($DATA_CITAS_PREVIAS != FALSE)
+											{
+												foreach ($DATA_CITAS_PREVIAS->result() as $row) 
+												{
+													echo '<tr>';
+														echo '<td><center>'.date('d-m-Y', strtotime($row->fecha)).'</td></center>';
 
+														echo '<td><center>'.number_format($row->peso,2,'.', ',').'</td></center>';
+
+														echo '<td><center>'.$row->dieta.'</td></center>';
+													echo '</tr>';
+												}
+											}
+											?>
+										</tbody> 
+									</table>
+								</div>
+							</div>
+							<div class="col-xs-3"></div>
+						</div>		
+					</div>
 				</div>
 			</div>
 		</div>

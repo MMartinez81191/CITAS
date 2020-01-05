@@ -55,6 +55,28 @@ class DetalleCita_Model extends CI_Model {
 	}
 
     //============================================================================
+    //OBTIENE EL DETALLE DE LAS CITAS PREVIAS DEL PACIENTE
+    //============================================================================
+    public function get_data_citas_previas($id_cita,$id_cliente)
+    {
+        $this->db->select('fecha,peso,dieta');
+        $this->db->from('citas');
+        $this->db->where('id_cliente',$id_cliente);
+        $this->db->where('id_cita <',$id_cita);
+
+        $query = $this->db->get();
+        
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    //============================================================================
     //ACTUALIZA LA INFORMACION DE LA CITA CON EL ID ENVIADO COMO PARAMETRO
     //============================================================================
     public function update_cita($id_cita,$data_cita)
