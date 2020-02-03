@@ -84,6 +84,7 @@ class Corte_model extends CI_Model {
 
     public function get_citas_dia_membresia($dia)
     {
+       
         $this->db->select('citas.id_cita,citas.costo_consulta');
         $this->db->select('membresias.numero_membresia,membresias.numero_cita');
               
@@ -95,6 +96,7 @@ class Corte_model extends CI_Model {
 
 
         $this->db->where('citas.activo',1);
+        $this->db->where('membresias.activo',1);
         $this->db->where('cobrado',1);
         $this->db->where('fecha',$dia);
 
@@ -158,6 +160,7 @@ class Corte_model extends CI_Model {
 
         $this->db->where('citas.activo',1);
         $this->db->where('cobrado',1);
+        $this->db->where('membresias.activo',1);
         $this->db->where('month(fecha)',$mes);
         $this->db->where('year(fecha)',$anio);
 
@@ -218,6 +221,7 @@ class Corte_model extends CI_Model {
 
         $this->db->where('citas.activo',1);
         $this->db->where('cobrado',1);
+        $this->db->where('membresias.activo',1);
         $this->db->where('year(fecha)',$anio);
 
         $this->db->order_by('numero_membresia,numero_cita');
@@ -279,6 +283,7 @@ class Corte_model extends CI_Model {
         
         $this->db->where('citas.activo',1);
         $this->db->where('cobrado',0);
+        $this->db->where('membresias.activo',1);
         $this->db->where('month(fecha)',$mes);
         $this->db->where('year(fecha)',$anio);
 

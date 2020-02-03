@@ -39,7 +39,7 @@ else
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Fecha Nacimiento:</label>
+									<label>Edad:</label>
 									<input type="type" class="form-control" id="txt_edad" name="txt_edad" readonly="true" value="<?=$edad.' '.'años'?>">
 								</div>
 							</div>
@@ -88,6 +88,12 @@ else
 										<label>Alimentos No Consumidos (Opcional):</label>
 										<textarea id="txt_alimentos_no_consumidos" name="txt_alimentos_no_consumidos" placeholder="Escriba los alimentos no consumidos por el paciente" class="form-control" autocomplete="off"><?=$DATA_CLIENTE->alimentos_no_consumidos?></textarea>
 									</div>
+								</div>
+							</div>
+							<div class="row">
+								<div class="col-xs-6">
+									<label>Estatura:</label>
+									<input type="text" class="form-control" id="txt_estatura" name="txt_estatura" maxlength="5" placeholder="Capture la estatura en metros del paciente" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" value="<?=$DATA_CLIENTE->estatura?>" autocomplete="off">
 								</div>
 							</div>
 							<hr>

@@ -63,6 +63,7 @@ class Detalle_Cita extends CI_Controller {
 				$data_cliente = array(				
 					'enfermedades' => trim($this->input->post('enfermedades')),
 					'alimentos_no_consumidos' => trim($this->input->post('alimentos_no_consumidos')),
+					'estatura' => trim($this->input->post('estatura')),
 				);
 				$cliente_actualiado = $this->DetalleCita_model->update_cliente($id_cliente,$data_cliente);
 
