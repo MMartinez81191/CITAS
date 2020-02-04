@@ -166,14 +166,22 @@
 							    					if($hora1 != $hora2)
 													{
 							    					?>
-														<tr>
+														<tr id="add_<?=$i + 1?>" name="add_<?=$i + 1?>">
+															
 															<td><center><?=$i + 1?></center></td>
 							    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
 															<td><center>-</center></td>
-															<td><center>-</center></td>
-															<td><center>-</center></td>
-															<td><center>-</center></td>
-															<td><center><button class="btn btn-success btn_add_cita_modal" data-hora="<?=$hora1?>" data-fecha="<?=$DATA_FECHA?>" data-toggle="modal" data-target="#modal_agregar_citas"><i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cita"  ></i><span></span></button></center></td>
+															<td><center>
+																<!--<select style="width: 100%" class="form-control" id="select_cliente_agregar_citas" name="select_cliente_agregar_citas">
+																</select>-->
+															</center></td>
+															<td><center><select class="form-control" name=""></select></center></td>
+						
+															<td><center><input type="text" class="form-control" name=""></center></td>
+															<td><center><button class="btn btn-success btn_agregar_cita" data-id=""><i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cita"  ></i><span></span></button></center></td>
+															<!--<td><center><button class="btn btn-success btn_add_cita_modal" data-hora="<?=$hora1?>" data-fecha="<?=$DATA_FECHA?>" data-toggle="modal" data-target="#modal_agregar_citas"><i class="fa fa-plus" data-toggle="tooltip" data-placement="top" title="Agregar Cita"  ></i><span></span></button></center></td>-->
+															
+															
 							    						</tr>
 													<?php
 														

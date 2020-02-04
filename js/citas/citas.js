@@ -13,6 +13,23 @@ var citas = {
         });
     },
 
+    //ADD CITA  
+    add_cita_tabla: function()
+    {
+        $(document).on('click','button.btn_agregar_cita', function () {
+            var toDelete = '#tr_' + id_usuario;
+            alert('hola burron');
+            /*var data = {
+                fecha : $(this).data('fecha'),
+                hora : $(this).data('hora')
+            };  
+
+            $('#txt_fecha_citas_modal').val(data.fecha);
+            $('#txt_hora_citas_modal').val(data.hora);*/
+        });
+    },
+
+
     //AGREGA UNA NUEVA CITA A LA AGENDA DE CITAS
     add_cita: function(){
         $('#agregar_citas_modal').on('submit', function(form){
@@ -291,6 +308,31 @@ var citas = {
         });
     },
 
+    //LLENA EL SELECT DE CLEINTE EN LA CREACION DE CITAS NUEVAS DESDE LA TABLA
+    get_clientes_agregar_cita_tabla : function(){
+        $('#select_cliente_agregar_citas').select2({
+            placeholder: "Seleccione un paciente",
+            ajax: { 
+                url: base_url + 'citas/obtener_clientes',
+                type: "post",
+                dataType: 'json',
+                delay: 250,
+                data: function (params) {
+                    return {
+                        searchTerm: params.term // search term
+                    };
+                },
+                processResults: function (response) {
+                    return {
+                        results: response
+                    };
+                },
+                cache: true
+            }
+        });
+    },
+
+
     //============================================================
     //MODIFICAR CITAS
     //============================================================
@@ -410,6 +452,9 @@ var citas = {
 }
 jQuery(document).ready(function() { 
    citas.add_cita(this);
+
+   citas.add_cita_tabla(this);
+
    citas.datos_add_cita(this);
    citas.add_cliente(this);
    citas.eliminar_cita(this);
@@ -421,6 +466,7 @@ jQuery(document).ready(function() {
    citas.get_tipo_cita_modal(this);
    citas.get_clientes_consulta_citas(this);
    citas.get_clientes_modal_agregar_cita(this);
+   citas.get_clientes_agregar_cita_tabla(this);
 
    citas.datos_update_cita(this);
    citas.get_costos_citas(this);
