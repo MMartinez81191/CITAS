@@ -98,6 +98,7 @@ class Clientes_model extends CI_Model {
     {
         $this->db->select('*');
         $this->db->where("nombre_cliente like '%".$searchTerm."%' ");
+        $this->db->where('activo',1);
         $this->db->order_by('id_cliente','DESC');
         $fetched_records = $this->db->get('clientes');
         $clientes = $fetched_records->result_array();
