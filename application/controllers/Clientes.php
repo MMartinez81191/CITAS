@@ -141,7 +141,7 @@ class Clientes extends CI_Controller {
 			);
 			$this->session->set_userdata($newdata);
 
-			redirect(base_url().'historial_citas/');
+			redirect(base_url().'Historial_Citas/');
 		}
         else
         {
