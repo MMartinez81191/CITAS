@@ -1,0 +1,4 @@
+fecha
+peso
+dieta
+nota

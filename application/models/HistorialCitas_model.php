@@ -21,6 +21,8 @@ class HistorialCitas_Model extends CI_Model {
     	$this->db->select('tipos_citas.tipo_cita');
     	$this->db->from('citas');
     	$this->db->where('id_cliente',$id_cliente);
+        $this->db->where('costo_consulta !=','-1');
+        $this->db->where('citas.activo','1');
     	$this->db->join('tipos_citas','citas.id_tipo_cita = tipos_citas.id_tipo_cita');
         $this->db->order_by('fecha,hora','DESC');
 

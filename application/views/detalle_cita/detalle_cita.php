@@ -135,16 +135,17 @@ else
 						</form>
 						<div class="row">
 							<hr/>
-							<div class="col-xs-3"></div>
-							<div class="col-xs-6">
+							<div class="col-xs-1"></div>
+							<div class="col-xs-10">
 								<center><h4>Historial Citas Previas</h4></center>
 								<div class="table-responsive">
-									<table id="example2" class="table table-bordered table-striped">
+									<table id="example4" class="table table-bordered table-striped">
 										<thead>
 											<tr>
-												<th class="col-lg-4"><center>Fecha</center></th>
-												<th class="col-lg-4"><center>Peso</center></th>
-												<th class="col-lg-4"><center>Dieta</center></th>
+												<th class="col-lg-2"><center>Fecha</center></th>
+												<th class="col-lg-2"><center>Peso</center></th>
+												<th class="col-lg-2"><center>Dieta</center></th>
+												<th class="col-lg-6"><center>Notas Relevantes</center></th>
 											</tr>
 										</thead>
 										<tbody>
@@ -156,9 +157,10 @@ else
 													echo '<tr>';
 														echo '<td><center>'.date('d-m-Y', strtotime($row->fecha)).'</td></center>';
 
-														echo '<td><center>'.number_format($row->peso,2,'.', ',').'</td></center>';
+														echo '<td><center>'.number_format($row->peso,2,'.', ',').' Kg.</td></center>';
 
 														echo '<td><center>'.$row->dieta.'</td></center>';
+														echo '<td><center>'.$row->notas_relevantes.'</td></center>';
 													echo '</tr>';
 												}
 											}
@@ -167,7 +169,7 @@ else
 									</table>
 								</div>
 							</div>
-							<div class="col-xs-3"></div>
+							<div class="col-xs-1"></div>
 						</div>		
 					</div>
 				</div>

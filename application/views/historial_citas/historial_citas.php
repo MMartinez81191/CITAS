@@ -38,7 +38,7 @@
 										<td><center><?php 
 										if($row->costo_consulta != -1)
 										{
-											echo $row->costo_consulta;
+											echo number_format($row->costo_consulta,2,'.', ',');
 										}
 										else
 										{
