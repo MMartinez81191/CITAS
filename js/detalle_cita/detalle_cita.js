@@ -15,31 +15,10 @@ var detalle_cita = {
                 indicaciones : $('#txt_idicaciones').val(),
                 notas_relevantes : $('#txt_notas_relevantes').val(),
             }
-            //console.log(data);
             
             var response = cargar_ajax.run_server_ajax('Detalle_Cita/actualizar_informacion', data);
-            if(response == 'TRUE')
-            {
-                swal({
-                    title: 'CORRECTO',
-                    text: 'Informacion actualizada correctamente',
-                    type: 'success',
-                    closeOnConfirm: false
-                },function(){
-                    window.location.assign(base_url + 'citas');
-                });
-            }
-            else
-            {
-                swal({
-                    title: 'ATENCION',
-                    text: 'SOLO SE MODIFICARON ALGUNOS CAMPOS',
-                    type: 'warning',
-                    closeOnConfirm: false
-                },function(){
-                    window.location.assign(base_url + 'citas');
-                });
-            }
+            window.location.assign(base_url + 'citas');
+
         });
     },
 }
