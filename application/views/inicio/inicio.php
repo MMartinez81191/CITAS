@@ -17,6 +17,10 @@
 							</center>
 						</div>									
 						<div class="box-body" id="caja">
+							<a href="<?=base_url()?>/Main/test">test</a>
+							<script type="text/javascript">
+								print("<?=base_url()."doc.pdf"?>");
+							</script>
 						</div>
 					</div>
 				</div>

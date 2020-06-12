@@ -26,6 +26,11 @@ class Main extends CI_Controller {
 
 	}
 
+	public function test()
+	{
+		echo "hello world";
+	}
+
 	public function login()
 	{		
 
