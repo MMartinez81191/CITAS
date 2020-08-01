@@ -93,6 +93,7 @@ class Citas extends CI_Controller {
 						<tr>
 							<th><center>#</center></th>
 							<th><center>Hora Cita</center></th>
+							<th><center>Hora Cobro</center></th>
 							<th><center>Turno</center></th>
 							<th><center>Nombre Paciente</center></th>
 							<th><center>Tipo Cita</center></th>
@@ -123,6 +124,16 @@ class Citas extends CI_Controller {
 		    								<tr class="<?=$this->set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
 												<td><center><?=$i + 1?></center></td>
 												<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
+												<?php
+												if($row->hora_cobro != null)
+												{
+													echo '<td><center>'.date('h:i a', strtotime($row->hora_cobro)).'</center></td>';
+												}
+												else
+												{
+													echo '<td><center>-</center></td>';
+												}
+												?>
 												<td><center><?= $row->numero_turno;?></center></td>
 												<td><center><a href="<?=base_url()?>citas/cargar_detalle_cita/<?=$row->id_cita?>"><?= $row->nombre_cliente;?></a></center></td>
 												<td><center><?= $row->tipo_cita ?></center></td>
@@ -210,6 +221,7 @@ class Citas extends CI_Controller {
 									<tr>
 										<td><center><?=$i + 1?></center></td>
 		    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+										<td><center>-</center></td>
 										<td><center>-</center></td>
 										<td><center>-</center></td>
 										<td><center>-</center></td>
@@ -500,11 +512,12 @@ class Citas extends CI_Controller {
 						'costo_consulta' => $costo_consulta,
 						'numero_consulta' => $numero_consulta,
 						'numero_turno' => $numero_turno,
+						'hora_cobro' => date('H:i:s'),
 						'forma_pago' => $forma_pago,
 						'cobrado' => 1,
 						
 					);
-
+					
 					$this->Citas_model->pagar_cita($data,$id_cita);
 					
 					//SECCION MEMBRESIAS

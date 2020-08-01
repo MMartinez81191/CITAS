@@ -368,6 +368,9 @@ class Clientes extends CI_Controller {
 		}
 	}
 
+	//============================================================================
+	//FUNCION QUE PERMITE IMPRIMIR EL EXPEDIENTE DEL CLIENTE
+	//============================================================================
 	public function imprimir_expediente()
 	{
 		if($this->seguridad() == TRUE)
@@ -386,7 +389,17 @@ class Clientes extends CI_Controller {
 			$dias = explode("-",$fecha_nacimiento, 3);
 		    $dias = mktime(0,0,0,$dias[1],$dias[0],$dias[2]);
 		    $edad = (int)((time()-$dias)/31556926 );
-		    
+	    	
+	    	if($DATA_CLIENTE->fecha_nacimiento == null)
+	    	{
+	    		$edad = 'N/A';
+	    	}
+	    	else
+	    	{
+	    		$edad = $edad.' años';
+	    	}
+
+
 
 
 	        $Nombre_archivo = 'Historial de Pacientes.pdf';
@@ -398,7 +411,7 @@ class Clientes extends CI_Controller {
 	        //$pdf->Cell(90,6,'',0,0);
 	        $pdf->Cell(0,7,utf8_decode($DATA_CLIENTE->nombre_cliente),0,0,'C');
 	        $pdf->SetFont('Arial','B',10);
-	        $pdf->Cell(0,7,utf8_decode('Edad:'.$edad . ' años'),0,0,'R');
+	        $pdf->Cell(0,7,utf8_decode('Edad:'.$edad),0,0,'R');
 	        $pdf->SetFont('Arial','B',7);
 	        $pdf->ln();
 	        $pdf->SetFont('Arial','B',16);

@@ -63,6 +63,7 @@
 										<tr>
 											<th><center>#</center></th>
 											<th><center>Hora Cita</center></th>
+											<th><center>Hora Cobro</center></th>
 											<th><center>Turno</center></th>
 											<th><center>Nombre Paciente</center></th>
 											<th><center>Tipo Cita</center></th>
@@ -94,6 +95,16 @@
 							    								<tr class="<?=set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
 							    									<td><center><?=$i + 1?></center></td>
 																	<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
+																	<?php
+																	if($row->hora_cobro != null)
+																	{
+																		echo '<td><center>'.date('h:i a', strtotime($row->hora_cobro)).'</center></td>';
+																	}
+																	else
+																	{
+																		echo '<td><center>-</center></td>';
+																	}
+																	?>
 																	<td><center><?= $row->numero_turno;?></center></td>
 																	<td><center><a href="<?=base_url()?>citas/cargar_detalle_cita/<?=$row->id_cita?>"><?= $row->nombre_cliente;?></a></center></td>
 																	<td><center><?= $row->tipo_cita ?></center></td>
@@ -169,6 +180,7 @@
 														<tr>
 															<td><center><?=$i + 1?></center></td>
 							    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+															<td><center>-</center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>
 															<td><center>-</center></td>

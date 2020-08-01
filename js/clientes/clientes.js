@@ -135,10 +135,10 @@ var clientes = {
             }, function () {
                 cargar_ajax.run_server_ajax('clientes/eliminar_cliente', data);
                 swal('Eliminado!', 'Se elimino correctamente el cliente', 'success');
-                var toDelete = '#tr_' + id_cliente;
-                console.log(toDelete);
-                $(toDelete).remove();
-                
+                //var toDelete = '#tr_' + id_cliente;
+                //console.log(toDelete);
+                //$(toDelete).remove();
+                location.reload(); 
             });
         });
     },
