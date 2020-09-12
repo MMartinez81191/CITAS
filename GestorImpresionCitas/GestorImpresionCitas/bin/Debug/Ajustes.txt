@@ -1,0 +1,3 @@
+configuracionInicialTerminada = 0;
+rutaDescargas = ;
+nombreArchivoDefault = ;

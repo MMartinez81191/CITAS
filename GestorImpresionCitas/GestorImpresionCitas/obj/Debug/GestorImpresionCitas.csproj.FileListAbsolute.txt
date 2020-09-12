@@ -1,0 +1,6 @@
+C:\xampp\htdocs\CITAS\GestorImpresionCitas\GestorImpresionCitas\bin\Debug\GestorImpresionCitas.exe.config
+C:\xampp\htdocs\CITAS\GestorImpresionCitas\GestorImpresionCitas\bin\Debug\GestorImpresionCitas.exe
+C:\xampp\htdocs\CITAS\GestorImpresionCitas\GestorImpresionCitas\bin\Debug\GestorImpresionCitas.pdb
+C:\xampp\htdocs\CITAS\GestorImpresionCitas\GestorImpresionCitas\obj\Debug\GestorImpresionCitas.csprojResolveAssemblyReference.cache
+C:\xampp\htdocs\CITAS\GestorImpresionCitas\GestorImpresionCitas\obj\Debug\GestorImpresionCitas.exe
+C:\xampp\htdocs\CITAS\GestorImpresionCitas\GestorImpresionCitas\obj\Debug\GestorImpresionCitas.pdb

@@ -695,13 +695,13 @@ class Citas extends CI_Controller {
 	
 			
 
-	        $pdf->Ln();
+	        /*$pdf->Ln();
 	        
 	        $pdf->AddPage();
 
 	        //$pdf->setY(17);
 	        $pdf->SetFont('Times','B',12);
-	        /*$pdf->Cell(0,5,'Control de Peso',0,1,'C');*/
+	        /*$pdf->Cell(0,5,'Control de Peso',0,1,'C');*
 	        //$pdf->Image(base_url().'images/logo.jpg',35,0,15);
 	        $pdf->SetFont('Times','B',7);
 	        
@@ -738,9 +738,9 @@ class Citas extends CI_Controller {
 
     		/*$pdf->Cell(4,5,'',0,0);
 	        $pdf->SetFont('Times','B',12);
-	        $pdf->MultiCell(72,5,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU NUTRIOLOGO',1,'C');*/
+	        $pdf->MultiCell(72,5,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU NUTRIOLOGO',1,'C');*
 	        $pdf->SetFont('Times','',5);
-	        $pdf->Cell(0,5,'PX-'.$DATA_CITA->numero_turno,0,1,'R');
+	        $pdf->Cell(0,5,'PX-'.$DATA_CITA->numero_turno,0,1,'R');*/
 	        
 	        $pdf->AutoPrint();
 	        $pdf->Output();
