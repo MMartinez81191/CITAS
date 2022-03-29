@@ -1,4 +1,8 @@
 <?php
+//AUTOR : MCC MARTIN FRANCISCO MARTINEZ
+//VERSION 1.2022.1.10001
+//FECHA: 29/03/2022
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Corte extends CI_Controller {
@@ -131,6 +135,7 @@ class Corte extends CI_Controller {
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
+
 			<br>
 			<hr>
 			<center><h4>Detalle de Consultas</h4></center>
@@ -169,6 +174,7 @@ class Corte extends CI_Controller {
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
+			
 			<br>
 			<hr>
 			<center><h4>Detalle de Membresias</h4></center>

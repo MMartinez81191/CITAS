@@ -1,5 +1,7 @@
 <?php
-	//VERSION 1.2022.1.10001
+//AUTOR : MCC MARTIN FRANCISCO MARTINEZ
+//VERSION 1.2022.1.10002
+//FECHA: 29/03/2022
 
 	$nombre = $this->session->userdata('nombre').' '.$this->session->userdata('apellido_p').' '.$this->session->userdata('apellido_m');
 	$id_nivel = $this->session->userdata('nivel');
@@ -141,7 +143,7 @@
 																				<a type="button" href="<?=base_url()?>citas/cargar_historial/<?=$row->id_cliente?>" class="btn btn-primary"><i class="fa fa-user" data-toggle="tooltip" data-placement="top" title="Historial"  ></i><span></span></a>
 																				
 																				<?php
-																					if($row->id_tipo_cita != 2 AND $id_nivel < 5)
+																					if(/*$row->id_tipo_cita != 2 AND*/ $id_nivel < 5)
 																					{
 																						?>
 

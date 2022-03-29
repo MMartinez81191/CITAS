@@ -1,4 +1,6 @@
-//VERSION 1.2022.1.10001
+//AUTOR : MCC MARTIN FRANCISCO MARTINEZ
+//VERSION 1.2022.1.10002
+//FECHA: 29/03/2022
 
 var citas = {
 
@@ -26,7 +28,6 @@ var citas = {
                 id_tipo_cita : $('#select_tipo_cita_modal').val(),
             }
             var response = cargar_ajax.run_server_ajax('citas/crear_cita', data);
-            console.log(response);
             if(response == 1){
                 swal({
                     title: 'CORRECTO',
@@ -66,7 +67,9 @@ var citas = {
             
             id_cita = $(this).data('id');
             var data = {id_cita: id_cita};
-            console.log(data);
+            var response = cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
+
+            
             swal({
                 title: "¿Esta seguro de eliminar esta cita?",
                 type: "warning",
@@ -77,17 +80,27 @@ var citas = {
                 allowEscapeKey: false,
                 allowEnterKey: false
             }, function () {
-                swal({
-                    title: 'ELIMINADO',
-                    text: 'Se elimino correctamente la cita',
-                    type: 'success',
+                var response = cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
+                //console.log(response);
+                if(response == 1){
+                    swal({
+                        title: 'CORRECTO',
+                        text: 'LA CITA SE ELIMINO CORRECTAMENTE',
+                        type: 'success',
                     closeOnConfirm: false
-                },function(){
-                    cargar_ajax.run_server_ajax('citas/eliminar_cita', data);
-                    var toDelete = '#tr_' + id_cita;
-                    $(toDelete).remove();
-                    window.location.reload();
-                }); 
+                    },function(){
+                        window.location.reload();
+                    });
+                }else if(response == 2){
+                    swal({
+                        title: 'ERROR',
+                        text: 'NO SE PUEDE ELIMNAR LA MEMBRESIA YA QUE HAY MEMBRESIAS MAS RECIENTES QUE DEBEN SER ELIMINADAS PRIMERO',
+                        type: 'error',
+                    closeOnConfirm: false
+                    },function(){
+                        window.location.reload();
+                    });
+                }
             });
         });
     },

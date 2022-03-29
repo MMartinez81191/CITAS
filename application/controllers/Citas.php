@@ -1,5 +1,7 @@
 <?php
-//VERSION 1.2022.1.10001
+//AUTOR : MCC MARTIN FRANCISCO MARTINEZ
+//VERSION 1.2022.1.10002
+//FECHA: 29/03/2022
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -184,13 +186,14 @@ class Citas extends CI_Controller {
 
 															<!--<button  data-id="<?= $row->id_cita; ?>" class="btn btn-primary cargar_modal_peso" title="Actualizar Historial" data-toggle="tooltip" data-placement="top">  <i class="fa fa-file-text"></i></button>-->
 															<?php
-																if($row->id_tipo_cita != 2 AND $id_nivel < 5)
+																if(/*$row->id_tipo_cita != 2 AND*/ $id_nivel < 5)
 																{
 																	?>
 																	<!--<button data-id="<?= $row->id_cita; ?>"  class="btn btn-warning cobrar_cita"  data-toggle="modal" data-target="#modal_cobrar_cita" ><i class="fa fa-edit"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>-->
 																	<button data-id="<?= $row->id_cita; ?>" class="btn btn-danger eliminar_cita"><i class="fa fa-close"></i><span data-toggle="tooltip" data-placement="top" title="Modificar" ></span></button>
 																	<?php
 																}
+																
 															?>
 														<?php
 														}
@@ -302,11 +305,51 @@ class Citas extends CI_Controller {
 			if($this->input->is_ajax_request()){
 
 				$id_cita = $this->input->post('id_cita');
-				$data = array(
-					'activo' => 0, 
-				);
-				$this->Citas_model->delete_citas($id_cita,$data);
-				
+
+				$DATA_MEMBRESIA = $this->Citas_model->get_info_membresia_by_id_cita($id_cita);
+				if($DATA_MEMBRESIA != FALSE)
+				{
+					$DATA_MEMBRESIA_CLIENTE = $this->Citas_model->get_info_membresia($DATA_MEMBRESIA->id_cliente);
+					if($DATA_MEMBRESIA->numero_cita < $DATA_MEMBRESIA_CLIENTE->numero_cita)
+					{
+						$response = '2'; 
+
+					}
+					else
+					{
+						$data = array(
+							'activo' => 0, 
+						); 
+						$this->Citas_model->delete_updated_membresia($DATA_MEMBRESIA->id_membresia,$data);
+						$data = array(
+							'hora_cobro' => NULL,
+							'costo_consulta' => -1,
+							'contabilizado' => 0,
+							'cobrado' => 0,
+							'forma_pago' => NULL,
+							'numero_turno' => NULL,
+							'activo' => 0, 
+						);
+						$this->Citas_model->delete_citas($id_cita,$data);
+						$response = '1';
+
+					}
+				}
+				else
+				{
+					$data = array(
+						'hora_cobro' => NULL,
+						'costo_consulta' => -1,
+						'contabilizado' => 0,
+						'cobrado' => 0,
+						'forma_pago' => NULL,
+						'numero_turno' => NULL,
+						'activo' => 0, 
+					);
+					$this->Citas_model->delete_citas($id_cita,$data);
+					$response = '1';
+				}
+				echo json_encode($response);
 			}
 			else
 			{

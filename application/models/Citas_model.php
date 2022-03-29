@@ -1,5 +1,7 @@
 <?php
-//VERSION 1.2022.1.10001
+//AUTOR : MCC MARTIN FRANCISCO MARTINEZ
+//VERSION: 1.2022.1.10002
+//FECHA: 29/03/2022
 
 
 defined('BASEPATH') OR exit('No direct script access allowed');
@@ -428,6 +430,9 @@ class Citas_model extends CI_Model {
         $this->db->where('id_membresia',$id_membresia);
         $this->db->update('membresias',$data);
     }
+
+
+
 
     //PERMITE OBTENER EL MAXIMO DEL NUMERO DE MEMBRESIA QUE EXITE
 
