@@ -1,4 +1,6 @@
 <?php
+//VERSION 1.2022.1.10001
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Citas extends CI_Controller {
@@ -244,7 +246,7 @@ class Citas extends CI_Controller {
 				$fecha = trim($this->input->post('txt_fecha'));
 				$hora = trim($this->input->post('txt_hora'));
 
-				$confirmar_repetido = $this->Citas_model->comprobar_repetidos($fecha,date("H:i", strtotime($hora)));
+				$confirmar_repetido = $this->Citas_model->comprobar_repetidos($fecha,date("H:i", strtotime($hora)),$id_cliente);
 
 				if($confirmar_repetido == FALSE AND 
 				   !empty($id_cliente) AND
@@ -358,6 +360,7 @@ class Citas extends CI_Controller {
 						'DATA_CITA' => $DATA_CITA,
 						'DATA_TURNO' => $DATA_TURNO,
 						'DATA_COSTOS' => $DATA_COSTOS_HTML,
+						'DATA_MEMBRESIA' => $DATA_MEMBRESIA,
 					);
 					echo json_encode($data);
 				}else

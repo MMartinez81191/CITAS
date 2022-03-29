@@ -1,3 +1,5 @@
+//VERSION 1.2022.1.10001
+
 var citas = {
 
     //RELLENA LA HORA Y LA FECHA EN EL MODAL CUANDO SE VA A CREAR UNA CITA
@@ -38,7 +40,7 @@ var citas = {
             else if(response == 2){
                 swal({
                     title: 'ATENCION!!',
-                    text: 'LA HORA Y FECHA DE LA CITA YA ESTA OCUPADA',
+                    text: 'NO ES POSIBLE CREAR DOS CITAS PARA EL MISMO PACIENTE EN EL MISMO DIA',
                     type: 'warning',
                     closeOnConfirm: false
                 },function(){
@@ -116,10 +118,12 @@ var citas = {
 
     datos_cobro_citas: function(){
         $(document).on('click','button.cobrar_cita', function () {
+            div_numero_membresia = document.getElementById('div_numero_membresia');
             var data = {
                 id_cita: $(this).data('id'),
-            };    
-            var response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
+            };
+            var response = "n/a";    
+            response = cargar_ajax.run_server_ajax('citas/datos_pagar_cita', data);
 
             if(response != "n/a")
             {
@@ -131,6 +135,19 @@ var citas = {
                 $('#txt_nombre_cita').val(response.DATA_CITA.nombre_cliente);
                 $('#txt_tipo_cita').val(response.DATA_CITA.id_tipo_cita);
                 $('#txt_id_cliente').val(response.DATA_CITA.id_cliente);
+
+                if(response.DATA_MEMBRESIA.numero_membresia != null)
+                {
+                    $('#txt_membresia_cita').val(response.DATA_MEMBRESIA.numero_membresia);
+                    $('#div_numero_membresia').show();
+                }
+                else
+                {
+                    $('#txt_membresia_cita').val("");
+                    $('#div_numero_membresia').hide();    
+                }
+
+                
 
                 var id_tipo_cita = response.DATA_CITA.id_tipo_cita;
                 //var id_cliente = response.DATA_CITA.id_cliente;

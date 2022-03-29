@@ -1,4 +1,7 @@
 <?php
+//VERSION 1.2022.1.10001
+
+
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Citas_model extends CI_Model {
@@ -226,16 +229,18 @@ class Citas_model extends CI_Model {
         $this->db->update('citas',$data);
     }
 
-    public function comprobar_repetidos($fecha,$hora)
+    public function comprobar_repetidos($fecha,$hora,$id_cliente)
     {
         $this->db->limit(1);
         $this->db->from('citas');
         $this->db->where('fecha',$fecha);
         $this->db->where('hora',$hora);
         $this->db->where('activo',1);
+        $this->db->or_where('id_cliente',$id_cliente);
+        $this->db->where('fecha',$fecha);
+        $this->db->where('activo',1);
 
         $query = $this->db->get();
-
 
         if($query->num_rows() > 0)
         {
@@ -246,6 +251,7 @@ class Citas_model extends CI_Model {
             return FALSE;
         }
     }
+
 
     //=========================================================================================
     //AREA DE MEMBRESIAS

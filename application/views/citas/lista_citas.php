@@ -1,4 +1,6 @@
 <?php
+	//VERSION 1.2022.1.10001
+
 	$nombre = $this->session->userdata('nombre').' '.$this->session->userdata('apellido_p').' '.$this->session->userdata('apellido_m');
 	$id_nivel = $this->session->userdata('nivel');
 
@@ -316,6 +318,12 @@
 				 		<div class="form-group col-lg-12">	
 				 			<label >Numero de turno:</label>
 							<input type="text" class="form-control" required id="txt_turno_cita" name="txt_turno_cita" placeholder="" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();" required="true" readonly="true">
+				 		</div>
+				 	</div>
+				 	<div class="row" id="div_numero_membresia" style="display:none;">
+				 		<div class="form-group col-lg-12">	
+				 			<label >Numero de membresia:</label>
+							<input type="text" class="form-control" required id="txt_membresia_cita" name="txt_membresia_cita" placeholder="" maxlength="150" onKeyUp="this.value=this.value.toUpperCase();" required="true" readonly="true">
 				 		</div>
 				 	</div>
 				 	<div class="row">
