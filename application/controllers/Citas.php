@@ -1,7 +1,8 @@
 <?php
 //AUTOR : MCC MARTIN FRANCISCO MARTINEZ
-//VERSION 1.2022.1.10002
+//VERSION 1.2022.1.10003
 //FECHA: 29/03/2022
+//FECHA ACTUALIZACION : 06/06/2022
 
 defined('BASEPATH') OR exit('No direct script access allowed');
 
@@ -97,6 +98,7 @@ class Citas extends CI_Controller {
 						<tr>
 							<th><center>#</center></th>
 							<th><center>Hora Cita</center></th>
+							<th><center>Hora Cobro</center></th>
 							<th><center>Turno</center></th>
 							<th><center>Nombre Paciente</center></th>
 							<th><center>Tipo Cita</center></th>
@@ -127,6 +129,16 @@ class Citas extends CI_Controller {
 		    								<tr class="<?=$this->set_color($row->id_tipo_cita)?>" id="tr_<?= $row->id_cita; ?>" name="tr_<?= $row->id_cita; ?>" >
 												<td><center><?=$i + 1?></center></td>
 												<td><center><?= date('h:i a', strtotime($row->hora))?></center></td>
+												<?php
+												if($row->hora_cobro != null)
+												{
+													echo '<td><center>'.date('h:i a', strtotime($row->hora_cobro)).'</center></td>';
+												}
+												else
+												{
+													echo '<td><center>-</center></td>';
+												}
+												?>
 												<td><center><?= $row->numero_turno;?></center></td>
 												<td><center><a href="<?=base_url()?>citas/cargar_detalle_cita/<?=$row->id_cita?>"><?= $row->nombre_cliente;?></a></center></td>
 												<td><center><?= $row->tipo_cita ?></center></td>
@@ -215,6 +227,7 @@ class Citas extends CI_Controller {
 									<tr>
 										<td><center><?=$i + 1?></center></td>
 		    							<td><center><?=date('h:i a', strtotime($hora_inicial.' + '.$aumento.' minutes'));?></center></td>
+										<td><center>-</center></td>
 										<td><center>-</center></td>
 										<td><center>-</center></td>
 										<td><center>-</center></td>
@@ -546,9 +559,9 @@ class Citas extends CI_Controller {
 						'costo_consulta' => $costo_consulta,
 						'numero_consulta' => $numero_consulta,
 						'numero_turno' => $numero_turno,
+						'hora_cobro' => date('H:i:s'),
 						'forma_pago' => $forma_pago,
 						'cobrado' => 1,
-						
 					);
 
 					$this->Citas_model->pagar_cita($data,$id_cita);
@@ -638,10 +651,6 @@ class Citas extends CI_Controller {
 				$numero_cita = $DATA_MEMBRESIA->numero_cita;
 			}
 
-
-
-
-
 	        $fecha_actual=date("d/m/Y");
 	        $hora = date("h:m:s a");
 	        $this->load->library('fpdf_manager');
@@ -728,13 +737,13 @@ class Citas extends CI_Controller {
 	
 			
 
-	        $pdf->Ln();
+	        /*$pdf->Ln();
 	        
 	        $pdf->AddPage();
 
 	        //$pdf->setY(17);
 	        $pdf->SetFont('Times','B',12);
-	        /*$pdf->Cell(0,5,'Control de Peso',0,1,'C');*/
+	        /*$pdf->Cell(0,5,'Control de Peso',0,1,'C');*
 	        //$pdf->Image(base_url().'images/logo.jpg',35,0,15);
 	        $pdf->SetFont('Times','B',7);
 	        
@@ -771,9 +780,9 @@ class Citas extends CI_Controller {
 
     		/*$pdf->Cell(4,5,'',0,0);
 	        $pdf->SetFont('Times','B',12);
-	        $pdf->MultiCell(72,5,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU NUTRIOLOGO',1,'C');*/
+	        $pdf->MultiCell(72,5,'FAVOR DE ENTREGAR ESTE COMPROBANTE A SU NUTRIOLOGO',1,'C');*
 	        $pdf->SetFont('Times','',5);
-	        $pdf->Cell(0,5,'PX-'.$DATA_CITA->numero_turno,0,1,'R');
+	        $pdf->Cell(0,5,'PX-'.$DATA_CITA->numero_turno,0,1,'R');*/
 	        
 	        $pdf->AutoPrint();
 	        $pdf->Output();
@@ -781,6 +790,7 @@ class Citas extends CI_Controller {
 		}else{
 			redirect(base_url());
 		}
+		
 	}
 
 	public function consultar_proximas_citas()
