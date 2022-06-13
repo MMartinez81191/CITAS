@@ -57,8 +57,10 @@ class Corte extends CI_Controller {
 					$DATA_CARNET = $this->Corte_model->get_venta_carnets_dia($dia);
 					break;
 				case '2':
+					$dia = "";
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
+					$DATA_BALANCE = "";
 					$DATA_CITAS = $this->Corte_model->get_citas_mes($mes,$anio);
 					$DATA_MEMBRESIA = $this->Corte_model->get_citas_mes_membresia($mes,$anio);
 					break;
@@ -174,7 +176,7 @@ class Corte extends CI_Controller {
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
-			
+
 			<br>
 			<hr>
 			<center><h4>Detalle de Membresias</h4></center>

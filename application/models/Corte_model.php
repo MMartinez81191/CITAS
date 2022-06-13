@@ -371,6 +371,7 @@ class Corte_model extends CI_Model {
                         fecha = '".$dia."';
 
                     ";
+        echo $query;
         $query = $this->db->query($sql);
         
         if($query->num_rows() > 0)

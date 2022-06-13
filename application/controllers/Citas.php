@@ -585,7 +585,12 @@ class Citas extends CI_Controller {
 									'id_cliente' => $id_cliente,
 									'numero_cita' => $numero_cita,
 								);
-								$this->Citas_model->insert_membresia($data);
+
+								$informacion_membresia_duplicada = $this->Citas_model->get_info_membresia_by_id_cita($id_cita);
+								if($informacion_membresia_duplicada == FALSE)
+								{
+									$this->Citas_model->insert_membresia($data);
+								}
 							}
 							else
 							{
