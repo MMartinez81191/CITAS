@@ -131,6 +131,9 @@
             {
             ?>
             <li class="treeview" >
+                <li><a href="<?=base_url()?>Membresias"><i class="fa fa-user"></i><span>Relacion Membresias</span></a></li>
+            </li>
+            <li class="treeview" >
                 <li><a href="<?=base_url()?>corte"><i class="fa fa-money"></i><span>Corte de Caja</span></a></li>
             </li>
             <?php
