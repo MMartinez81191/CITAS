@@ -31,6 +31,10 @@
 		    case 'Detalle_Cita':
 			    echo '<script src="'.base_url().'js/detalle_cita/detalle_cita.js"></script>';
 		    break;
+
+		    case 'Membresias':
+			    echo '<script src="'.base_url().'js/membresias/membresias.js"></script>';
+		    break;
 		    
 	    }
 	    echo '<script src="'.base_url().'js/main/main.js"></script>';
