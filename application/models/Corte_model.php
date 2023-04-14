@@ -56,6 +56,7 @@ class Corte_model extends CI_Model {
     {
         $this->db->select('count(citas.id_tipo_cita) AS pacientes');
         $this->db->select('tipos_citas.tipo_cita');
+        $this->db->select('citas.forma_pago');
         $this->db->select('(sum(citas.costo_consulta) / count(citas.id_tipo_cita)) as costo');
         $this->db->select('sum(citas.costo_consulta) AS total');
         
@@ -68,6 +69,7 @@ class Corte_model extends CI_Model {
         $this->db->where('fecha',$dia);
 
         $this->db->group_by('tipos_citas.tipo_cita');
+        $this->db->group_by('citas.forma_pago');
         $this->db->group_by('citas.costo_consulta');
         
         $query = $this->db->get();
@@ -371,7 +373,6 @@ class Corte_model extends CI_Model {
                         fecha = '".$dia."';
 
                     ";
-        echo $query;
         $query = $this->db->query($sql);
         
         if($query->num_rows() > 0)

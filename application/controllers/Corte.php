@@ -57,10 +57,8 @@ class Corte extends CI_Controller {
 					$DATA_CARNET = $this->Corte_model->get_venta_carnets_dia($dia);
 					break;
 				case '2':
-					$dia = "";
 					$mes = $this->uri->segment(4);
 					$anio = $this->uri->segment(5);
-					$DATA_BALANCE = "";
 					$DATA_CITAS = $this->Corte_model->get_citas_mes($mes,$anio);
 					$DATA_MEMBRESIA = $this->Corte_model->get_citas_mes_membresia($mes,$anio);
 					break;
@@ -145,9 +143,10 @@ class Corte extends CI_Controller {
 			<table id="example1" class="table table-bordered table-striped">
 				<thead>
 					<tr>
-						<th><center>Pacientes</center></th>
-						<th><center>Tipo Consulta</center></th>
-						<th><center>Costo</center></th>
+						<th><center>Cantidad</center></th>
+						<th><center>Concepo</center></th>
+						<th><center>Forma Pago</center></th>
+						<th><center>Costo Unitario</center></th>
 						<th><center>Total</center></th>
 					</tr>
 				</thead>
@@ -162,6 +161,24 @@ class Corte extends CI_Controller {
 							<tr>
 								<td><center><?=$row->pacientes;?></center></td>
 								<td><center><?= $row->tipo_cita;?></center></td>
+								<td>
+									<center>
+										<?php 
+											switch($row->forma_pago)
+											{
+												case "1":
+													echo "Efectivo";
+													break;
+												case '2':
+													echo "Cheque";
+													break;
+												case '3':
+													echo "Transferencia";
+													break;	
+											}
+										?>
+									</center>
+								</td>
 								<td><center><?= '$'.number_format($row->costo,2,'.', ',')?></center></td>
 								<td><center><?= '$'.number_format($row->total,2,'.', ',')?></center></td>
 							</tr>
@@ -172,11 +189,11 @@ class Corte extends CI_Controller {
 					?>
 				</tbody> 
 					<tr>
-						<th colspan="3" style="text-align: right;">Total</th>
+						<th colspan="4" style="text-align: right;">Total</th>
 						<th><center><?='$'.number_format($total_corte,2,'.', ',')?></center></th>
 					</tr>
 			</table>
-
+			
 			<br>
 			<hr>
 			<center><h4>Detalle de Membresias</h4></center>
