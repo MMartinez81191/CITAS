@@ -60,7 +60,7 @@ class Clientes_model extends CI_Model {
     private function _get_datatables_query($postData){
          
         $this->db->from($this->table);
- 
+        $this->db->where('activo',1);
         $i = 0;
         // loop searchable columns 
         foreach($this->column_search as $item){
