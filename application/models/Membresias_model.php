@@ -63,8 +63,46 @@ class Membresias_model extends CI_Model {
     public function cancelar_membresia($id_membresia)
     {
         $this->db->set('numero_cita', 5);
+        $this->db->set('activo',1);
         $this->db->where('id_membresia',$id_membresia);
         $this->db->update('membresias');
+
+        if($this->db->affected_rows() > 0)
+        {
+            return true;
+        }
+        else
+        {
+            return false;            
+        }
+    }
+
+    //=========================================================
+    //OBTIENE EL ID DE CITA DEL MAXIMO ID CITA 
+    //=========================================================
+    public function get_id_cita($id_membresia)
+    {
+        $sql = "SELECT id_cita FROM membresias WHERE id_membresia = ".$id_membresia.";";
+
+        $query = $this->db->query($sql);
+        if($query->num_rows() > 0)
+        {
+            return $query;
+        }
+        else
+        {
+            return FALSE;
+        }
+    }
+
+    //=========================================================
+    //CANCELA LA CITA 
+    //=========================================================
+    public function cancelar_cita($id_cita)
+    {
+        $this->db->set('activo',0);
+        $this->db->where('id_cita',$id_cita);
+        $this->db->update('citas');
 
         if($this->db->affected_rows() > 0)
         {

@@ -50,7 +50,11 @@ class Membresias extends CI_Controller {
 					foreach($DATA_ID_MEMBRESIA->result() as $row)
 					{
 						$id_membresia = $row->id_membresia;	
-						$response = $this->Membresias_model->cancelar_membresia($id_membresia);					
+						$response = $this->Membresias_model->cancelar_membresia($id_membresia);
+						if($response == true)
+						{
+							$response = $this->cancelar_cita($id_membresia);
+						}					
 					}
 					echo json_encode($response);
 				}
@@ -65,6 +69,29 @@ class Membresias extends CI_Controller {
         }else
 		{
 			redirect(base_url());
+		}
+	}
+
+    //=========================================================
+    //CANCELA LA ULTIMA CITA DE LA MEMBRESIA A ELIMINAR SI 
+    //NO HA SIDO PAGADA
+    //=========================================================
+	public function cancelar_cita($id_membresia)
+	{
+		$DATA_ID_CITA = $this->Membresias_model->get_id_cita($id_membresia);
+		if($DATA_ID_CITA != FALSE)
+		{
+			foreach($DATA_ID_CITA->result() as $row)
+			{
+				$id_cita = $row->id_cita;	
+				$response = $this->Membresias_model->cancelar_cita($id_cita);
+									
+			}
+			return $response;
+		}
+		else
+		{
+			return false;
 		}
 	}
 
