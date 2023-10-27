@@ -39,40 +39,11 @@ else
 							</div>
 							<div class="col-lg-6">
 								<div class="form-group">
-									<label>Edad:</label>
-									<input type="type" class="form-control" id="txt_edad" name="txt_edad" readonly="true" value="<?=$edad.' '.'años'?>">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Fecha Cita:</label>
-									<input type="type" class="form-control" id="txt_fecha_cita" name="txt_fecha_cita" readonly="true" value="<?=date('d-m-Y', strtotime($DATA_CITA->fecha))?>">
-								</div>
-							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Hora Cita:</label>
-									<input type="type" class="form-control" id="txt_hora_cita" name="txt_hora_cita" readonly="true" value="<?=date('h:i a', strtotime($DATA_CITA->hora))?>">
-								</div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="col-lg-6">
-								<div class="form-group">
 									<label>Tipo de cita:</label>
 									<input type="type" class="form-control" id="txt_tipo_cita" name="txt_tipo_cita" readonly="true" value="<?=$DATA_CITA->tipo_cita?>" autocomplete="off">
 								</div>
 							</div>
-							<div class="col-lg-6">
-								<div class="form-group">
-									<label>Costo cita:</label>
-									<input type="type" class="form-control" id="txt_costo_consulta" name="txt_costo_consulta" readonly="true" value="<?=$costo_consulta?>" autocomplete="off">
-								</div>
-							</div>
 						</div>
-						<hr/>
 						<form name="actualizar_informacion" id="actualizar_informacion">
 							<input type="hidden" id="txt_id_cita" name="txt_id_cita" value="<?=$DATA_CITA->id_cita?>">
 							<input type="hidden" id="txt_id_cliente" name="txt_id_cliente" value="<?=$DATA_CLIENTE->id_cliente?>">
@@ -88,12 +59,6 @@ else
 										<label>Alimentos No Consumidos (Opcional):</label>
 										<textarea id="txt_alimentos_no_consumidos" name="txt_alimentos_no_consumidos" placeholder="Escriba los alimentos no consumidos por el paciente" class="form-control" autocomplete="off"><?=$DATA_CLIENTE->alimentos_no_consumidos?></textarea>
 									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col-xs-6">
-									<label>Estatura:</label>
-									<input type="text" class="form-control" id="txt_estatura" name="txt_estatura" maxlength="5" placeholder="Capture la estatura en metros del paciente" onKeypress="if (event.keyCode < 45 || event.keyCode > 57) event.returnValue = false;" value="<?=$DATA_CLIENTE->estatura?>" autocomplete="off">
 								</div>
 							</div>
 							<hr>
@@ -133,7 +98,43 @@ else
 
 							</div>
 						</form>
+						<hr/>
+						
 						<div class="row">
+							<center><h4>Historial Citas Previas</h4></center>
+							<?php
+							if($DATA_CITAS_PREVIAS != FALSE)
+							{
+								$numero_cita = 1;
+								$i = 1;
+								foreach ($DATA_CITAS_PREVIAS->result() as $row) 
+								{
+									if($i == 4)
+									{
+										echo '<div class="row">';
+									}
+									
+									echo '<div class="col-md-3">';
+									echo '<div class="list-group">
+											<a href="#" class="list-group-item active"><center>CONSULTA '.$numero_cita.'</center></a>
+											<a href="#" class="list-group-item">P.A:'.number_format($row->peso,2,'.', ',').' Kg</a>
+											<a href="#" class="list-group-item">G.A:'.$row->dieta.'</a>
+											<a href="#" class="list-group-item">NR:'.$row->notas_relevantes.'</a>
+											<a href="#" class="list-group-item">Fecha:'.date('d-m-Y', strtotime($row->fecha)).'</a>
+										</div>';	
+									echo '</div>';
+									if($i == 4){
+										echo '</div>';
+										$i = 1;
+									}
+									else
+									{
+										$i++;
+									}
+									$numero_cita++;
+								}
+							}
+							?>
 							<hr/>
 							<div class="col-xs-1"></div>
 							<div class="col-xs-10">
