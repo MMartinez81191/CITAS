@@ -65,9 +65,9 @@ class DetalleCita_Model extends CI_Model {
         $this->db->where('id_cita <',$id_cita);
         $this->db->where('costo_consulta != ','-1');
         $this->db->where('activo',1);
-        $this->db->order_by('id_cita','DESC');
-
+        $this->db->order_by('id_cita','ASC');
         $this->db->limit(32);
+
         $query = $this->db->get();
         
         if($query->num_rows() > 0)
